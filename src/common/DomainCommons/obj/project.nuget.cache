@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Apx7DzfVL8U=",
+  "success": true,
+  "projectFilePath": "D:\\Code\\AutoTest\\src\\common\\DomainCommons\\EventCommons.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.2\\microsoft.extensions.dependencyinjection.10.0.2.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.2\\microsoft.extensions.dependencyinjection.abstractions.10.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

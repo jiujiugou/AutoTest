@@ -1,0 +1,28 @@
+[
+  {
+    "ContainingType": "AutoTest.Webapi.Controller.PostmanTestController",
+    "Method": "RunCollection",
+    "RelativePath": "api/PostmanTest/run",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "collectionPath",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "environmentPath",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "iterations",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Code\\AutoTest\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B58FC025-F41D-448E-BF8F-1B4A8B16D1B9}|src\\AutoTest.Webapi\\AutoTest.Webapi.csproj|d:\\code\\autotest\\src\\autotest.webapi\\controllers\\postmantestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B58FC025-F41D-448E-BF8F-1B4A8B16D1B9}|src\\AutoTest.Webapi\\AutoTest.Webapi.csproj|solutionrelative:src\\autotest.webapi\\controllers\\postmantestcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B58FC025-F41D-448E-BF8F-1B4A8B16D1B9}|src\\AutoTest.Webapi\\AutoTest.Webapi.csproj|d:\\code\\autotest\\src\\autotest.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B58FC025-F41D-448E-BF8F-1B4A8B16D1B9}|src\\AutoTest.Webapi\\AutoTest.Webapi.csproj|solutionrelative:src\\autotest.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B58FC025-F41D-448E-BF8F-1B4A8B16D1B9}|src\\AutoTest.Webapi\\AutoTest.Webapi.csproj|d:\\code\\autotest\\src\\autotest.webapi\\apitestrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B58FC025-F41D-448E-BF8F-1B4A8B16D1B9}|src\\AutoTest.Webapi\\AutoTest.Webapi.csproj|solutionrelative:src\\autotest.webapi\\apitestrunner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "PostmanTestController.cs",
+              "DocumentMoniker": "D:\\Code\\AutoTest\\src\\AutoTest.Webapi\\Controllers\\PostmanTestController.cs",
+              "RelativeDocumentMoniker": "src\\AutoTest.Webapi\\Controllers\\PostmanTestController.cs",
+              "ToolTip": "D:\\Code\\AutoTest\\src\\AutoTest.Webapi\\Controllers\\PostmanTestController.cs",
+              "RelativeToolTip": "src\\AutoTest.Webapi\\Controllers\\PostmanTestController.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAADwvyEAAACFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T15:17:27.369Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Code\\AutoTest\\src\\AutoTest.Webapi\\Program.cs",
+              "RelativeDocumentMoniker": "src\\AutoTest.Webapi\\Program.cs",
+              "ToolTip": "D:\\Code\\AutoTest\\src\\AutoTest.Webapi\\Program.cs",
+              "RelativeToolTip": "src\\AutoTest.Webapi\\Program.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAABsAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T15:15:35.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApiTestRunner.cs",
+              "DocumentMoniker": "D:\\Code\\AutoTest\\src\\AutoTest.Webapi\\ApiTestRunner.cs",
+              "RelativeDocumentMoniker": "src\\AutoTest.Webapi\\ApiTestRunner.cs",
+              "ToolTip": "D:\\Code\\AutoTest\\src\\AutoTest.Webapi\\ApiTestRunner.cs",
+              "RelativeToolTip": "src\\AutoTest.Webapi\\ApiTestRunner.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAcwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-25T15:12:54.184Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
