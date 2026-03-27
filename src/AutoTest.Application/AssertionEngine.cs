@@ -9,12 +9,25 @@ public class AssertionEngine
         ExecutionResult result,
         IEnumerable<IAssertion> assertions)
     {
-        var tasks = assertions
-            .Where(a => a.CanHandle(result))
-            .Select(a => a.EvaluateAsync(result));
+        var tasks = assertions.Select(async a =>
+        {
+            try
+            {
+                return await a.EvaluateAsync(result);
+            }
+            catch (Exception ex)
+            {
+                return new AssertionResult(
+                    a.Id,
+                    "Error",
+                    false,
+                    null,
+                    null,
+                    ex.Message
+                );
+            }
+        });
 
-        var results = await Task.WhenAll(tasks);
-
-        return results.ToList();
+        return (await Task.WhenAll(tasks)).ToList();
     }
 }

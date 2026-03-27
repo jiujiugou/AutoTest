@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\AutoTest.Core\AutoTest.Core.csproj" />
-    <ProjectReference Include="..\AutoTest.Execution.Http\AutoTest.Execution.Http.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>

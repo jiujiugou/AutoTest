@@ -1,22 +1,24 @@
 {
   "version": 2,
-  "dgSpecHash": "MBRc1IIBabw=",
+  "dgSpecHash": "cgLTCmHJd5k=",
   "success": true,
   "projectFilePath": "D:\\Code\\AutoTest\\src\\AutoTest.Execution.Http\\AutoTest.Execution.Http.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\10.0.5\\microsoft.extensions.caching.abstractions.10.0.5.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.caching.memory\\10.0.5\\microsoft.extensions.caching.memory.10.0.5.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.configuration\\10.0.2\\microsoft.extensions.configuration.10.0.2.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\10.0.2\\microsoft.extensions.configuration.abstractions.10.0.2.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.configuration.binder\\10.0.2\\microsoft.extensions.configuration.binder.10.0.2.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.2\\microsoft.extensions.dependencyinjection.10.0.2.nupkg.sha512",
-    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.2\\microsoft.extensions.dependencyinjection.abstractions.10.0.2.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.5\\microsoft.extensions.dependencyinjection.abstractions.10.0.5.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.diagnostics\\10.0.2\\microsoft.extensions.diagnostics.10.0.2.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.diagnostics.abstractions\\10.0.2\\microsoft.extensions.diagnostics.abstractions.10.0.2.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.http\\10.0.2\\microsoft.extensions.http.10.0.2.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.logging\\10.0.2\\microsoft.extensions.logging.10.0.2.nupkg.sha512",
-    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.2\\microsoft.extensions.logging.abstractions.10.0.2.nupkg.sha512",
-    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.options\\10.0.2\\microsoft.extensions.options.10.0.2.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.5\\microsoft.extensions.logging.abstractions.10.0.5.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.options\\10.0.5\\microsoft.extensions.options.10.0.5.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.options.configurationextensions\\10.0.2\\microsoft.extensions.options.configurationextensions.10.0.2.nupkg.sha512",
-    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.primitives\\10.0.2\\microsoft.extensions.primitives.10.0.2.nupkg.sha512"
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.primitives\\10.0.5\\microsoft.extensions.primitives.10.0.5.nupkg.sha512"
   ],
   "logs": []
 }

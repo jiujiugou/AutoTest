@@ -1,9 +1,10 @@
 using AutoTest.Core;
 using AutoTest.Core.Assertion;
+using AutoTest.Core.Execution;
 
 namespace AutoTest.Execution.Http
 {
-    public class HttpExecutionResult : ExecutionResult
+    public class HttpExecutionResult : ExecutionResult, IHttpExecutionResult
     {
         /// <summary>
         /// HTTP 状态码，比如 200、404

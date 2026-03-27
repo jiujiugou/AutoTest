@@ -1,42 +1,40 @@
 using AutoTest.Core;
 using AutoTest.Core.Assertion;
-using AutoTest.Execution.Http;
+using AutoTest.Core.Execution;
 
 namespace AutoTest.Assertions.Http
 {
     public class HttpAssertion : IAssertion
     {
-        public Guid Id { get; init; } = Guid.NewGuid();
+        public Guid Id { get; init; }
 
         public HttpAssertionField Field { get; }
         public HttpAssertionOperator Operator { get; }
         public string Expected { get; }
 
-        public HttpAssertion(
-            HttpAssertionField field,
-            HttpAssertionOperator op,
-            string expected)
+        public HttpAssertion(Guid id, HttpAssertionField field, HttpAssertionOperator op, string expected)
         {
+            Id = id;
             Field = field;
             Operator = op;
             Expected = expected;
         }
 
-        public Task<AssertionResult> EvaluateAsync(ExecutionResult executionResult)
+        public async Task<AssertionResult> EvaluateAsync(ExecutionResult executionResult)
         {
-            if (executionResult is not HttpExecutionResult httpResult)
+            if (executionResult is not IHttpExecutionResult httpResult)
             {
-                return Task.FromResult(new AssertionResult(
+                return new AssertionResult(
                     Id,
                     Field.ToString(),
                     false,
                     null,
                     Expected,
                     "Execution result is not HttpExecutionResult"
-                ));
+                );
             }
 
-            string actualValue = Field switch
+            string? actualValue = Field switch
             {
                 HttpAssertionField.StatusCode => httpResult.StatusCode.ToString(),
                 HttpAssertionField.Body => httpResult.Body,
@@ -46,23 +44,20 @@ namespace AutoTest.Assertions.Http
             bool isSuccess = Operator switch
             {
                 HttpAssertionOperator.Equal => actualValue == Expected,
-                HttpAssertionOperator.Contains => actualValue.Contains(Expected),
+                HttpAssertionOperator.Contains => actualValue?.Contains(Expected) == true,
                 _ => throw new InvalidOperationException($"Unsupported HttpAssertionOperator: {Operator}")
             };
 
-            return Task.FromResult(new AssertionResult(
+            return new AssertionResult(
                 Id,
                 Field.ToString(),
                 isSuccess,
                 actualValue,
                 Expected,
-                isSuccess ? "Assertion passed" : "Assertion failed"
-            ));
-        }
-
-        public bool CanHandle(ExecutionResult executionResult)
-        {
-            return executionResult is HttpExecutionResult;
+                isSuccess
+                    ? "Assertion passed"
+                    : $"Assertion failed: actual={actualValue}, expected={Expected}"
+            );
         }
     }
 }

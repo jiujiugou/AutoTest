@@ -19,5 +19,6 @@
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\jiuji\.nuget\packages\microsoft.extensions.apidescription.server\6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
+    <PkgNet_IBM_Data_Db2 Condition=" '$(PkgNet_IBM_Data_Db2)' == '' ">C:\Users\jiuji\.nuget\packages\net.ibm.data.db2\9.0.0.300</PkgNet_IBM_Data_Db2>
   </PropertyGroup>
 </Project>
