@@ -699,6 +699,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "AutoTest.Assertions.Http": "1.0.0",
           "Microsoft.Extensions.Caching.Memory": "10.0.5"
         },
         "compile": {

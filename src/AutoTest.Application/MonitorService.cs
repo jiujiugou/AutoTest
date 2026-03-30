@@ -15,17 +15,16 @@ public class MonitorService : IMonitorService
 
     private readonly IOrchestrator _orchestrator;
     private readonly ITaskQueue _taskQueue;
-
     // 注入你所有 Builder
-    private readonly IEnumerable<IAssertionRuleBuilder> _assertionBuilders;
-    private readonly IEnumerable<ITargetBuilder> _targetBuilders;
+    private readonly IEnumerable<IAssertionRuleMap> _assertionBuilders;
+    private readonly IEnumerable<ITargetMap> _targetBuilders;
 
     public MonitorService(
         IMonitorRepository monitorRepository,
         ICacheService cacheService,
         IUnitOfWork unitOfWork,
-        IEnumerable<IAssertionRuleBuilder> assertionRuleBuilder,
-        IEnumerable<ITargetBuilder> targetBuilders)
+        IEnumerable<IAssertionRuleMap> assertionRuleBuilder,
+        IEnumerable<ITargetMap> targetBuilders)
     {
         _monitorRepository = monitorRepository;
         _cacheService = cacheService;
@@ -43,7 +42,7 @@ public class MonitorService : IMonitorService
             {
                 throw new InvalidOperationException($"No target builder found for type: {dto.TargetType}");
             }
-            var target = targetBuilder.Build(dto.TargetConfig);
+            var target = targetBuilder.Map(dto.TargetConfig);
 
             var assertions = dto.Assertions
                 .Select(aDto =>
@@ -52,7 +51,7 @@ public class MonitorService : IMonitorService
                     if (builder == null)
                         throw new InvalidOperationException($"Unknown assertion type: {aDto.Type}");
 
-                    return builder.Build(aDto.ConfigJson); // 返回 AssertionRule
+                    return builder.Map(aDto.ConfigJson); // 返回 AssertionRule
                 })
                 .ToList();
 
@@ -109,12 +108,6 @@ public class MonitorService : IMonitorService
 
     }
 
-    public Task TaskRunAsync(Guid id)
-    {
-
-    }
-
-
     public async Task UpdateAsync(Guid id, MonitorDto dto)
     {
         try
@@ -127,14 +120,14 @@ public class MonitorService : IMonitorService
             if (targetBuilder == null)
                 throw new InvalidOperationException($"No target builder for type: {dto.TargetType}");
 
-            existing.Update(dto.Name, targetBuilder.Build(dto.TargetConfig), dto.IsEnabled);
+            existing.Update(dto.Name, targetBuilder.Map(dto.TargetConfig), dto.IsEnabled);
             existing.ClearAssertions();
             foreach (var aDto in dto.Assertions)
             {
                 var builder = _assertionBuilders.SingleOrDefault(b => b.Type == aDto.Type);
                 if (builder == null)
                     throw new InvalidOperationException($"Unknown assertion type: {aDto.Type}");
-                var assertion = builder.Build(aDto.ConfigJson);
+                var assertion = builder.Map(aDto.ConfigJson);
                 existing.AddAssertion(assertion);
             }
 
@@ -151,4 +144,19 @@ public class MonitorService : IMonitorService
         }
     }
 
+    public Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync()
+    {
+        return _monitorRepository.GetPendingTasksAsync();
+    }
+
+    public async Task TaskRunAsync(Guid id)
+    {
+        await _taskQueue.EnqueueAsync(async ct =>
+        {
+            var monitor = await GetByIdAsync(id);
+            if (monitor == null) return;
+
+            await _orchestrator.TryExecuteAsync(monitor);
+        });
+    }
 }

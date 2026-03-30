@@ -4,11 +4,11 @@ using AutoTest.Core.Assertion;
 
 namespace AutoTest.Application.Builder.AssertionBuilder;
 
-public class AssertionRuleBuilder : IAssertionRuleBuilder
+public class AssertionRuleMap : IAssertionRuleMap
 {
     public string Type => throw new NotImplementedException();
 
-    public AssertionRule Build(string json)
+    public AssertionRule Map(string json)
     {
         // 将 json 反序列化成 DTO
         var dto = JsonSerializer.Deserialize<HttpAssertionDto>(json)!;

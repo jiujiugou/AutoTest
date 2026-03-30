@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoTest.Webapi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca527f1c5fee7f76c6fb2a127090866907303e06")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9fe119fd82af9bcd2b6808ebec16b15a68ea482")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoTest.Webapi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoTest.Webapi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

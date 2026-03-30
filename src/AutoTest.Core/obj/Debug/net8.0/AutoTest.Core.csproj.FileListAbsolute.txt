@@ -1,0 +1,12 @@
+D:\Code\AutoTest\src\AutoTest.Core\bin\Debug\net8.0\AutoTest.Core.deps.json
+d:\Code\AutoTest\src\AutoTest.Core\bin\Debug\net8.0\AutoTest.Core.dll
+d:\Code\AutoTest\src\AutoTest.Core\bin\Debug\net8.0\AutoTest.Core.pdb
+d:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\AutoTest.Core.GeneratedMSBuildEditorConfig.editorconfig
+d:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\AutoTest.Core.AssemblyInfoInputs.cache
+d:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\AutoTest.Core.AssemblyInfo.cs
+d:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\AutoTest.Core.csproj.CoreCompileInputs.cache
+d:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\AutoTest.Core.sourcelink.json
+d:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\AutoTest.Core.dll
+d:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\refint\AutoTest.Core.dll
+d:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\AutoTest.Core.pdb
+D:\Code\AutoTest\src\AutoTest.Core\obj\Debug\net8.0\ref\AutoTest.Core.dll

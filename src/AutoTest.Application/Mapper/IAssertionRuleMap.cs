@@ -2,8 +2,8 @@ using AutoTest.Core.Assertion;
 
 namespace AutoTest.Application.Builder;
 
-public interface IAssertionRuleBuilder
+public interface IAssertionRuleMap
 {
     string Type { get; }
-    AssertionRule Build(string json);
+    AssertionRule Map(string json);
 }

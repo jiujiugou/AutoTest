@@ -5,11 +5,11 @@ using AutoTest.Core.Assertion;
 
 namespace AutoTest.Application.Builder.AssertionBuilder;
 
-public class HttpAssertionBuilder : IAssertionBuilder
+public class HttpAssertionMap : IAssertionMap
 {
     public string Type => "HTTP";
 
-    public IAssertion Build(AssertionRule rule)
+    public IAssertion Map(AssertionRule rule)
     {
         var dto = JsonSerializer.Deserialize<HttpAssertionDto>(rule.ConfigJson)!;
 

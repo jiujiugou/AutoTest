@@ -1,0 +1,16 @@
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\bin\Debug\net10.0\AutoTest.Assertions.Http.deps.json
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\bin\Debug\net10.0\AutoTest.Assertions.Http.dll
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\bin\Debug\net10.0\AutoTest.Assertions.Http.pdb
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\bin\Debug\net10.0\AutoTest.Core.dll
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\bin\Debug\net10.0\AutoTest.Core.pdb
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.Assertions.Http.csproj.AssemblyReference.cache
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.Assertions.Http.GeneratedMSBuildEditorConfig.editorconfig
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.Assertions.Http.AssemblyInfoInputs.cache
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.Assertions.Http.AssemblyInfo.cs
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.Assertions.Http.csproj.CoreCompileInputs.cache
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.Assertions.Http.sourcelink.json
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.27E75349.Up2Date
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.Assertions.Http.dll
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\refint\AutoTest.Assertions.Http.dll
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\AutoTest.Assertions.Http.pdb
+d:\Code\AutoTest\src\AutoTest.Assertions.Http\obj\Debug\net10.0\ref\AutoTest.Assertions.Http.dll

@@ -13,5 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\AutoTest.Migrations\AutoTest.Migrations.csproj" />
     <ProjectReference Include="..\AutoTest.Application\AutoTest.Application.csproj" />
+    <ProjectReference Include="..\AutoTest.Infrastructure\AutoTest.Infrastructure.csproj" />
+    <ProjectReference Include="..\common\CacheCommons\CacheCommons.csproj" />
+    <ProjectReference Include="..\AutoTest.Execution.Http\AutoTest.Execution.Http.csproj" />
   </ItemGroup>
 </Project>

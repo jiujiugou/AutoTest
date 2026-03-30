@@ -5,9 +5,9 @@ namespace AutoTest.Application.ExecutionPipeline;
 
 public class AssertionStep : IPipelineStep
 {
-    private readonly IEnumerable<IAssertionBuilder> _builders;
+    private readonly IEnumerable<IAssertionMap> _builders;
 
-    public AssertionStep(IEnumerable<IAssertionBuilder> builders)
+    public AssertionStep(IEnumerable<IAssertionMap> builders)
     {
         _builders = builders;
     }
@@ -26,7 +26,7 @@ public class AssertionStep : IPipelineStep
                 var builder = _builders
                     .Single(b => b.Type == rule.Type);
 
-                return builder.Build(rule);
+                return builder.Map(rule);
             })
             .ToList();
 

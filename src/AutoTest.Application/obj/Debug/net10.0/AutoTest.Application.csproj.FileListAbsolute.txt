@@ -1,0 +1,6 @@
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.csproj.AssemblyReference.cache
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.GeneratedMSBuildEditorConfig.editorconfig
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.AssemblyInfoInputs.cache
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.AssemblyInfo.cs
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.csproj.CoreCompileInputs.cache
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.sourcelink.json

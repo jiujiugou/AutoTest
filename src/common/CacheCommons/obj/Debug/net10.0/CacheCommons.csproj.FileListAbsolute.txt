@@ -1,0 +1,13 @@
+d:\Code\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\CacheCommons.deps.json
+d:\Code\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\CacheCommons.dll
+d:\Code\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\CacheCommons.pdb
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.csproj.AssemblyReference.cache
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.GeneratedMSBuildEditorConfig.editorconfig
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.AssemblyInfoInputs.cache
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.AssemblyInfo.cs
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.csproj.CoreCompileInputs.cache
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.sourcelink.json
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.dll
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\refint\CacheCommons.dll
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.pdb
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\ref\CacheCommons.dll

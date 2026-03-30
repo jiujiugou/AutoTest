@@ -13,8 +13,8 @@ public static class ApplicationServiceCollectionExtensions
     {
         // 注册 MonitorService 和它的接口
         services.AddScoped<IMonitorService, MonitorService>();
-        services.AddScoped<ITargetBuilder, HttpTargetBuilder>();
-        services.AddScoped<IAssertionBuilder, HttpAssertionBuilder>();
+        services.AddScoped<ITargetMap, HttpTargetMap>();
+        services.AddScoped<IAssertionMap, HttpAssertionMap>();
         services.AddScoped<IOrchestrator, Orchestrator>();
         return services;
     }

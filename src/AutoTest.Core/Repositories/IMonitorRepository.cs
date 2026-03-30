@@ -10,4 +10,6 @@ public interface IMonitorRepository
     Task UpdateAsync(MonitorEntity monitor, IDbTransaction? tx = null);
 
     Task RemoveAsync(Guid id, IDbTransaction? tx = null);
+    Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync();
+
 }

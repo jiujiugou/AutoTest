@@ -163,5 +163,15 @@ public class MonitorRepository : IMonitorRepository
             new { Id = id },
             tx);
     }
+
+    public Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync()
+    {
+        var sql = @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig
+                    FROM Monitor
+                    WHERE Status = @PendingS AND IsEnabled = 1";
+
+        return _dbConnection.QueryAsync<MonitorEntity>(sql, new { PendingStatus = (int)MonitorStatus.Pending });
+    }
+
     #endregion
 }

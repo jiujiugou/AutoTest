@@ -5,11 +5,11 @@ using AutoTest.Core.Target.Http;
 
 namespace AutoTest.Application.Builder.TargetBuilder;
 
-public class HttpTargetBuilder : ITargetBuilder
+public class HttpTargetMap : ITargetMap
 {
     public string Type => "HTTP";  // 负责 HTTP 类型的 Target
 
-    public MonitorTarget Build(string json)
+    public MonitorTarget Map(string json)
     {
         // 将 json 反序列化成 DTO
         var dto = JsonSerializer.Deserialize<HttpTargetDto>(json)!;

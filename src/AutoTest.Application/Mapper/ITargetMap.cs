@@ -2,8 +2,8 @@ using AutoTest.Core;
 
 namespace AutoTest.Application;
 
-public interface ITargetBuilder
+public interface ITargetMap
 {
     string Type { get; }
-    MonitorTarget Build(string json);
+    MonitorTarget Map(string json);
 }
