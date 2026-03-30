@@ -9,12 +9,11 @@ namespace AutoTest.Execution.Http
     public class HttpExecutionEngine : IExecutionEngine
     {
         private readonly IHttpClientFactory _httpClientFactory;
-        private readonly IEnumerable<IAssertion> _assertions;
 
-        public HttpExecutionEngine(IHttpClientFactory httpClientFactory, IEnumerable<IAssertion> assertions)
+        public HttpExecutionEngine(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
-            _assertions = assertions;
+
         }
 
         public async Task<ExecutionResult> ExecuteAsync(HttpTarget target)
@@ -43,11 +42,6 @@ namespace AutoTest.Execution.Http
                     body,
                     response.IsSuccessStatusCode
                 );
-
-                // 执行断言
-                result.Assertions = _assertions != null
-                    ? (await Task.WhenAll(_assertions.Select(a => a.EvaluateAsync(result)))).ToList()
-                    : new List<AssertionResult>();
 
                 return result;
             }

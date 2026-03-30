@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoTest.Execution.Http")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e463be7969b28b6128cfe5993f4b67406ae878c1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ca527f1c5fee7f76c6fb2a127090866907303e06")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoTest.Execution.Http")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoTest.Execution.Http")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

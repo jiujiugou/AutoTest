@@ -5,5 +5,5 @@ namespace AutoTest.Application;
 public interface IAssertionBuilder
 {
     string Type { get; }
-    AssertionRule Build(string json);
+    IAssertion Build(AssertionRule rule);
 }

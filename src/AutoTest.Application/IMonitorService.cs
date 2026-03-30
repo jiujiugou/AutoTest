@@ -16,4 +16,6 @@ public interface IMonitorService
 
     // 根据 Id 获取单个监控（业务用）
     Task<MonitorEntity?> GetByIdAsync(Guid id);
+
+    Task TaskRunAsync(Guid id);
 }

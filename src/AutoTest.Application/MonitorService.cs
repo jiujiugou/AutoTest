@@ -1,7 +1,9 @@
+using AutoTest.Application.Builder;
 using AutoTest.Application.Dto;
 using AutoTest.Core;
 using AutoTest.Core.Abstraction;
 using AutoTest.Core.Assertion;
+using AutoTest.Core.Execution;
 using CacheCommons;
 namespace AutoTest.Application;
 
@@ -11,21 +13,24 @@ public class MonitorService : IMonitorService
     private readonly ICacheService _cacheService;
     private readonly IUnitOfWork _unitOfWork;
 
+    private readonly IOrchestrator _orchestrator;
+    private readonly ITaskQueue _taskQueue;
+
     // 注入你所有 Builder
-    private readonly IEnumerable<IAssertionBuilder> _assertionBuilders;
+    private readonly IEnumerable<IAssertionRuleBuilder> _assertionBuilders;
     private readonly IEnumerable<ITargetBuilder> _targetBuilders;
 
     public MonitorService(
         IMonitorRepository monitorRepository,
         ICacheService cacheService,
         IUnitOfWork unitOfWork,
-        IEnumerable<IAssertionBuilder> assertionBuilders,
+        IEnumerable<IAssertionRuleBuilder> assertionRuleBuilder,
         IEnumerable<ITargetBuilder> targetBuilders)
     {
         _monitorRepository = monitorRepository;
         _cacheService = cacheService;
         _unitOfWork = unitOfWork;
-        _assertionBuilders = assertionBuilders;
+        _assertionBuilders = assertionRuleBuilder;
         _targetBuilders = targetBuilders;
     }
 
@@ -103,6 +108,12 @@ public class MonitorService : IMonitorService
         return cached;
 
     }
+
+    public Task TaskRunAsync(Guid id)
+    {
+
+    }
+
 
     public async Task UpdateAsync(Guid id, MonitorDto dto)
     {

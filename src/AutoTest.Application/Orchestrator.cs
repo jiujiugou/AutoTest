@@ -1,66 +1,45 @@
 using System;
-using AutoTest.Application.Execution;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoTest.Core;
 using AutoTest.Core.Execution;
 using AutoTest.Core.Abstraction;
+using AutoTest.Application.ExecutionPipeline;
 
 public class Orchestrator : IOrchestrator
 {
-    private readonly ExecutionEngineResolver resolver;
-    private readonly IMonitorRepository repository;
+    private readonly IPipeline _pipeline;
 
-    public Orchestrator(
-        ExecutionEngineResolver resolver,
-        IMonitorRepository repository)
+    public Orchestrator(IPipeline pipeline)
     {
-        this.resolver = resolver;
-        this.repository = repository;
+        _pipeline = pipeline;
     }
 
-    public async Task<ExecutionResult> TryExecuteAsync(MonitorEntity monitor)
+    /// <summary>
+    /// 尝试执行单个任务
+    /// </summary>
+    public async Task<ExecutionResult?> TryExecuteAsync(MonitorEntity monitor)
     {
-        // 1️⃣ 判定是否执行
         if (!monitor.CanExecute())
             return null;
-        monitor.MarkRunning();
-        await repository.UpdateAsync(monitor);
+
+        // 创建任务上下文
+        var context = new PipelineContext(monitor);
 
         try
         {
-            var engine = resolver.Resolve(monitor.Target);
-            var result = await engine.ExecuteAsync(monitor.Target);
 
-            if (result.IsExecutionSuccess)
-            {
-                monitor.MarkSuccess();
-            }
-            else
-            {
-                monitor.MarkFailed();
-            }
-            await repository.UpdateAsync(monitor);
+            await _pipeline.ExecuteAsync(context);
 
-            return result;
+            // 返回最终执行结果
+            return context.Result ?? throw new InvalidOperationException("Pipeline did not produce a result");
         }
-        catch (Exception)
+        catch
         {
-            monitor.MarkFailed();
-            await repository.UpdateAsync(monitor);
+            // Orchestrator 不负责数据库或事件，异常直接抛出
             throw;
         }
     }
 
-    public async Task<IEnumerable<ExecutionResult>> TryExecuteAllAsync(IEnumerable<MonitorEntity> monitors)
-    {
-        var results = new List<ExecutionResult>();
-
-        foreach (var monitor in monitors)
-        {
-            var result = await TryExecuteAsync(monitor);
-            if (result != null)
-                results.Add(result);
-        }
-
-        return results;
-    }
 }

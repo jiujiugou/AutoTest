@@ -9,8 +9,4 @@ public interface IOrchestrator
     /// </summary>
     Task<ExecutionResult> TryExecuteAsync(MonitorEntity monitor);
 
-    /// <summary>
-    /// 批量执行任务（可选，默认可以用 foreach 调用 TryExecuteAsync）
-    /// </summary>
-    Task<IEnumerable<ExecutionResult>> TryExecuteAllAsync(IEnumerable<MonitorEntity> monitors);
 }
