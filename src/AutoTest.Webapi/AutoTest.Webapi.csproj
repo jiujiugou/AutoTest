@@ -7,6 +7,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.12" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.5" />
+    <PackageReference Include="Serilog" Version="4.3.1" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="10.0.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="System.Reflection" Version="4.3.0" />
   </ItemGroup>
@@ -16,5 +21,6 @@
     <ProjectReference Include="..\AutoTest.Infrastructure\AutoTest.Infrastructure.csproj" />
     <ProjectReference Include="..\common\CacheCommons\CacheCommons.csproj" />
     <ProjectReference Include="..\AutoTest.Execution.Http\AutoTest.Execution.Http.csproj" />
+    <ProjectReference Include="..\AutoTest.Assertions.Http\AutoTest.Assertions.Http.csproj" />
   </ItemGroup>
 </Project>

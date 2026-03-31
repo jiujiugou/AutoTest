@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v10.0": {
       "CacheCommons/1.0.0": {
         "dependencies": {
+          "AutoTest.Assertions.Http": "1.0.0",
           "Microsoft.Extensions.Caching.Memory": "10.0.5"
         },
         "runtime": {
@@ -35,6 +36,17 @@
         },
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.Caching.Memory.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.526.15411"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/10.0.5": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.DependencyInjection.dll": {
             "assemblyVersion": "10.0.0.0",
             "fileVersion": "10.0.526.15411"
           }
@@ -78,6 +90,26 @@
             "fileVersion": "10.0.526.15411"
           }
         }
+      },
+      "AutoTest.Assertions.Http/1.0.0": {
+        "dependencies": {
+          "AutoTest.Core": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection": "10.0.5"
+        },
+        "runtime": {
+          "AutoTest.Assertions.Http.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "AutoTest.Core/1.0.0": {
+        "runtime": {
+          "AutoTest.Core.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -100,6 +132,13 @@
       "sha512": "sha512-jUEXmkBUPdOS/MP9areK/sbKhdklq9+tEhvwfxGalZVnmyLUO5rrheNNutUBtvbZ7J8ECkG7/r2KXi/IFC06cA==",
       "path": "microsoft.extensions.caching.memory/10.0.5",
       "hashPath": "microsoft.extensions.caching.memory.10.0.5.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection/10.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-v1SVsowG6YE1YnHVGmLWz57YTRCQRx9pH5ebIESXfm5isI9gA3QaMyg/oMTzPpXYZwSAVDzYItGJKfmV+pqXkQ==",
+      "path": "microsoft.extensions.dependencyinjection/10.0.5",
+      "hashPath": "microsoft.extensions.dependencyinjection.10.0.5.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.5": {
       "type": "package",
@@ -128,6 +167,16 @@
       "sha512": "sha512-/HUHJ0tw/LQvD0DZrz50eQy/3z7PfX7WWEaXnjKTV9/TNdcgFlNTZGo49QhS7PTmhDqMyHRMqAXSBxLh0vso4g==",
       "path": "microsoft.extensions.primitives/10.0.5",
       "hashPath": "microsoft.extensions.primitives.10.0.5.nupkg.sha512"
+    },
+    "AutoTest.Assertions.Http/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AutoTest.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

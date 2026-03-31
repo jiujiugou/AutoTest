@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "euVhsGh2HW8=",
+  "dgSpecHash": "eF5IuHE7kn0=",
   "success": true,
-  "projectFilePath": "D:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
+  "projectFilePath": "d:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.5\\microsoft.extensions.dependencyinjection.10.0.5.nupkg.sha512",
-    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.5\\microsoft.extensions.dependencyinjection.abstractions.10.0.5.nupkg.sha512"
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.5\\microsoft.extensions.dependencyinjection.abstractions.10.0.5.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.logging\\10.0.5\\microsoft.extensions.logging.10.0.5.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\10.0.5\\microsoft.extensions.logging.abstractions.10.0.5.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.options\\10.0.5\\microsoft.extensions.options.10.0.5.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.primitives\\10.0.5\\microsoft.extensions.primitives.10.0.5.nupkg.sha512"
   ],
   "logs": []
 }

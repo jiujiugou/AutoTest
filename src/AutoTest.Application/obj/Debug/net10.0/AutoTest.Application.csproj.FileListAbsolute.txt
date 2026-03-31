@@ -4,3 +4,17 @@ d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application
 d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.AssemblyInfo.cs
 d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.csproj.CoreCompileInputs.cache
 d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.sourcelink.json
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Application.deps.json
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Application.dll
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Application.pdb
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Assertions.Http.dll
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Core.dll
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\CacheCommons.dll
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Core.pdb
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\CacheCommons.pdb
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Assertions.Http.pdb
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.D929B979.Up2Date
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.dll
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\refint\AutoTest.Application.dll
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.pdb
+d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\ref\AutoTest.Application.dll

@@ -17,7 +17,7 @@ public interface IMonitorService
     // 根据 Id 获取单个监控（业务用）
     Task<MonitorEntity?> GetByIdAsync(Guid id);
     //任务运行
-    Task TaskRunAsync(Guid id);
+    Task TaskRunAsync(Guid id, CancellationToken cancellationToken = default);
     // 获取所有待执行的监控任务（供后台服务调用）
     Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync();
 }

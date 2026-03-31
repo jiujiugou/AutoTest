@@ -5,15 +5,15 @@ namespace AutoTest.Application;
 
 public class AssertionEngine
 {
-    public async Task<List<AssertionResult>> EvaluateAsync(
-        ExecutionResult result,
-        IEnumerable<IAssertion> assertions)
+    public Task<List<AssertionResult>> EvaluateAsync(
+    ExecutionResult result,
+    IEnumerable<IAssertion> assertions)
     {
-        var tasks = assertions.Select(async a =>
+        var results = assertions.Select(a =>
         {
             try
             {
-                return await a.EvaluateAsync(result);
+                return a.EvaluateAsync(result).Result; // 阻塞获取 Task 结果
             }
             catch (Exception ex)
             {
@@ -28,6 +28,6 @@ public class AssertionEngine
             }
         });
 
-        return (await Task.WhenAll(tasks)).ToList();
+        return Task.FromResult(results.ToList());
     }
 }

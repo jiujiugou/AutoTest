@@ -14,7 +14,7 @@ public class MonitorController : ControllerBase
     {
         _monitorService = monitorService;
     }
-    // ✅ 根据ID查询
+    //根据ID查询
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(Guid id)
     {
@@ -25,7 +25,7 @@ public class MonitorController : ControllerBase
         return Ok(result);
     }
 
-    // ✅ 创建
+    //创建
     [HttpPost]
     public async Task<IActionResult> Add([FromBody] MonitorDto dto)
     {
@@ -33,18 +33,23 @@ public class MonitorController : ControllerBase
         return Ok(id);
     }
 
-    // ✅ 删除
+    //删除
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _monitorService.DeleteAsync(id);
         return NoContent();
     }
-    // ✅ 更新
+    //更新
     [HttpPut("{id}")]
     public async Task<IActionResult> Update(Guid id, [FromBody] MonitorDto dto)
     {
         await _monitorService.UpdateAsync(id, dto);
         return NoContent(); // 更新成功但不返回内容
+    }
+    public async Task<IActionResult> TaskRun(Guid id)
+    {
+        await _monitorService.TaskRunAsync(id);
+        return Ok();
     }
 }

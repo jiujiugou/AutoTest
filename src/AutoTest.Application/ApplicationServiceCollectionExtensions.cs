@@ -1,6 +1,8 @@
 using AutoTest.Application.Builder.AssertionBuilder;
 using AutoTest.Application.Builder.TargetBuilder;
 using AutoTest.Application.Execution;
+using AutoTest.Application.ExecutionPipeline;
+using AutoTest.Application.Step;
 using AutoTest.Core.Abstraction;
 using AutoTest.Core.Execution;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +18,10 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<ITargetMap, HttpTargetMap>();
         services.AddScoped<IAssertionMap, HttpAssertionMap>();
         services.AddScoped<IOrchestrator, Orchestrator>();
+        services.AddScoped<IPipeline, Pipeline>();
+        services.AddScoped<IPipelineStep, AssertionStep>();
+        services.AddScoped<IPipelineStep, ExecutionStep>();
+        services.AddScoped<AssertionEngine>();
         return services;
     }
 }

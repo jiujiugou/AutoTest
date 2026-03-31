@@ -1013,7 +1013,8 @@
           "AutoTest.Core": "1.0.0",
           "CacheCommons": "1.0.0",
           "Microsoft.Extensions.Hosting": "10.0.5",
-          "Microsoft.Extensions.Http": "10.0.2"
+          "Microsoft.Extensions.Http": "10.0.2",
+          "Microsoft.Extensions.Logging": "10.0.5"
         },
         "compile": {
           "bin/placeholder/AutoTest.Application.dll": {}
@@ -1027,7 +1028,8 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "AutoTest.Core": "1.0.0",
-          "Microsoft.Extensions.DependencyInjection": "10.0.5"
+          "Microsoft.Extensions.DependencyInjection": "10.0.5",
+          "Microsoft.Extensions.Logging": "10.0.5"
         },
         "compile": {
           "bin/placeholder/AutoTest.Assertions.Http.dll": {}
@@ -2544,7 +2546,8 @@
       "AutoTest.Core >= 1.0.0",
       "Dapper >= 2.1.72",
       "Microsoft.Data.SqlClient >= 7.0.0",
-      "Microsoft.Extensions.Hosting >= 10.0.5"
+      "Microsoft.Extensions.Hosting >= 10.0.5",
+      "Microsoft.Extensions.Logging >= 10.0.5"
     ]
   },
   "packageFolders": {
@@ -2582,8 +2585,8 @@
             "D:\\Code\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj": {
               "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj"
             },
-            "D:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
-              "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
+            "d:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
+              "projectPath": "d:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
             },
             "D:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
               "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
@@ -2601,7 +2604,7 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.100"
+      "SdkAnalysisLevel": "10.0.200"
     },
     "frameworks": {
       "net10.0": {
@@ -2616,6 +2619,10 @@
             "version": "[7.0.0, )"
           },
           "Microsoft.Extensions.Hosting": {
+            "target": "Package",
+            "version": "[10.0.5, )"
+          },
+          "Microsoft.Extensions.Logging": {
             "target": "Package",
             "version": "[10.0.5, )"
           }
@@ -2636,7 +2643,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.100/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

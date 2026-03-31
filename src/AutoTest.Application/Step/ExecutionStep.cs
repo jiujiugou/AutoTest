@@ -11,17 +11,17 @@ public class ExecutionStep : IPipelineStep
         _execution = execution;
     }
 
-    public async Task InvokeAsync(PipelineContext context, Func<Task> next)
+    public Task InvokeAsync(PipelineContext context, Func<Task> next)
     {
         try
         {
-            await _execution.ExecuteAsync(context.Monitor.Target);
+            _execution.ExecuteAsync(context.Monitor.Target);
         }
         catch (Exception ex)
         {
             //log
         }
-        await next();
+        return next();
     }
 
 

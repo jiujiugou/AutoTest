@@ -11,3 +11,8 @@ d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.dll
 d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\refint\CacheCommons.dll
 d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.pdb
 d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\ref\CacheCommons.dll
+d:\Code\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Assertions.Http.dll
+d:\Code\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Core.dll
+d:\Code\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Assertions.Http.pdb
+d:\Code\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Core.pdb
+d:\Code\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCom.B7C1800D.Up2Date

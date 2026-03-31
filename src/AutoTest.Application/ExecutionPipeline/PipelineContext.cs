@@ -28,12 +28,4 @@ public class PipelineContext
     {
         Monitor = monitor ?? throw new ArgumentNullException(nameof(monitor));
     }
-    // 帮助方法
-    public void MarkRunning() => Status = TaskStatus.Running;
-    public void MarkSuccess() => Status = TaskStatus.RanToCompletion;
-    public void MarkFailed(Exception? ex = null)
-    {
-        Status = TaskStatus.Faulted;
-        Exception = ex;
-    }
 }

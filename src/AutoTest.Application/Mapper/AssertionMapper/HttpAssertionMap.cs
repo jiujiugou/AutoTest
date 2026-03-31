@@ -7,8 +7,6 @@ namespace AutoTest.Application.Builder.AssertionBuilder;
 
 public class HttpAssertionMap : IAssertionMap
 {
-    public string Type => "HTTP";
-
     public IAssertion Map(AssertionRule rule)
     {
         var dto = JsonSerializer.Deserialize<HttpAssertionDto>(rule.ConfigJson)!;
