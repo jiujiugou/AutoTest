@@ -5,5 +5,5 @@ namespace AutoTest.Application.Builder;
 public interface IAssertionRuleMap
 {
     string Type { get; }
-    AssertionRule Map(string json);
+    AssertionRule Map(Guid id, string json);
 }

@@ -19,8 +19,8 @@ public class ExecutionEngineResolver
         var engine = _engines.FirstOrDefault(e => e.CanExecute(target));
         if (engine == null)
         {
-            _logger.LogError($"No execution engine found for target {target}");
-            throw new InvalidOperationException($"No execution engine found for target {target}");
+            _logger.LogError("No execution engine found for target type {TargetType}", target.Type);
+            throw new InvalidOperationException($"No execution engine found for target {target.Type}");
         }
         return engine;
     }

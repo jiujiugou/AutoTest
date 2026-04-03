@@ -1,70 +1,148 @@
 using AutoTest.Application;
 using AutoTest.Core.Execution;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Infrastructure;
 
 public class TaskWorker : BackgroundService
 {
+    private const int ConsumerCount = 5;
+    private static readonly TimeSpan ScheduleInterval = TimeSpan.FromMinutes(5);
+
     private readonly ITaskQueue _taskQueue;
-    private readonly IMonitorService _monitorService;
-    private readonly IOrchestrator _orchestrator;
-    private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(5); // 控制并发度，假设最多同时执行 5 个任务
-    public TaskWorker(ITaskQueue taskQueue, IMonitorService monitorService, IOrchestrator orchestrator)
+    private readonly IServiceScopeFactory _scopeFactory;
+    private readonly IMonitorExecutionCoordinator _executionCoordinator;
+    private readonly ILogger<TaskWorker> _logger;
+
+    public TaskWorker(
+        ITaskQueue taskQueue,
+        IServiceScopeFactory scopeFactory,
+        IMonitorExecutionCoordinator executionCoordinator,
+        ILogger<TaskWorker> logger)
     {
         _taskQueue = taskQueue;
-        _monitorService = monitorService;
-        _orchestrator = orchestrator;
+        _scopeFactory = scopeFactory;
+        _executionCoordinator = executionCoordinator;
+        _logger = logger;
     }
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var pendingTasks = await _monitorService.GetPendingTasksAsync();
-        foreach (var task in pendingTasks)
+        _logger.LogInformation("Scanning for pending monitors...");
+        await EnqueueSchedulableMonitorsAsync(stoppingToken);
+
+        using var timer = new PeriodicTimer(ScheduleInterval);
+        var periodic = RunPeriodicScheduleAsync(timer, stoppingToken);
+        var consumers = Enumerable
+            .Range(0, ConsumerCount)
+            .Select(_ => ConsumerLoopAsync(stoppingToken))
+            .ToArray();
+
+        await Task.WhenAll(consumers.Concat(new[] { periodic }));
+    }
+
+    private async Task RunPeriodicScheduleAsync(PeriodicTimer timer, CancellationToken stoppingToken)
+    {
+        try
         {
-            // 将每个待执行的监控任务加入队列
-            await _taskQueue.EnqueueAsync(async ct =>
+            while (await timer.WaitForNextTickAsync(stoppingToken))
             {
-                try
-                {
-                    await ExecuteMonitor(task.Id, ct);
-                }
-                catch (Exception ex)
-                {
-                    // 这里可以记录日志，或者更新监控状态为失败等
-                    Console.WriteLine($"Error executing task {task.Id}: {ex.Message}");
-                }
-            });
+                await EnqueueSchedulableMonitorsAsync(stoppingToken);
+            }
         }
+        catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+        {
+            // shutdown
+        }
+    }
+
+    private async Task ConsumerLoopAsync(CancellationToken stoppingToken)
+    {
         while (!stoppingToken.IsCancellationRequested)
         {
-            var workItem = await _taskQueue.DequeueAsync(stoppingToken);
-
-            _ = Task.Run(async () =>
+            try
             {
-                await _semaphore.WaitAsync(stoppingToken);
+                var workItem = await _taskQueue.DequeueAsync(stoppingToken);
                 try
                 {
                     await workItem(stoppingToken);
                 }
-                finally
+                catch (Exception ex)
                 {
-                    _semaphore.Release();
+                    _logger.LogError(ex, "Error executing queued work item");
                 }
-            });
+            }
+            catch (OperationCanceledException ex) when (stoppingToken.IsCancellationRequested)
+            {
+                _logger.LogError(ex, "Error executing work item from queue");
+                break;
+            }
         }
     }
-    private async Task ExecuteMonitor(Guid id, CancellationToken ct)
-    {
-        try
-        {
-            var monitor = await _monitorService.GetByIdAsync(id);
-            if (monitor == null) return;
 
-            await _orchestrator.TryExecuteAsync(monitor);
-        }
-        catch (Exception ex)
+    private async Task EnqueueSchedulableMonitorsAsync(CancellationToken cancellationToken)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+
+        using var scope = _scopeFactory.CreateScope();
+        var monitorService = scope.ServiceProvider.GetRequiredService<IMonitorService>();
+
+        var pendingTasks = await monitorService.GetPendingTasksAsync();
+        _logger.LogInformation($"Found {pendingTasks.Count()} pending monitors to enqueue");
+        foreach (var task in pendingTasks)
         {
-            Console.WriteLine($"Error executing task {id}: {ex.Message}");
+            cancellationToken.ThrowIfCancellationRequested();
+            var id = task.Id;
+
+            if (!_executionCoordinator.TryBegin(id))
+            {
+                _logger.LogInformation("Monitor {MonitorId} is already running, skipping", id);
+                continue;
+            }
+            _logger.LogInformation("Enqueuing monitor {MonitorId}", id);
+            try
+            {
+                await _taskQueue.EnqueueAsync(async ct =>
+                {
+                    try
+                    {
+                        _logger.LogInformation("Starting execution of monitor {MonitorId}", id);
+                        await ExecuteMonitorAsync(id, ct);
+                    }
+                    finally
+                    {
+                        _executionCoordinator.End(id);
+                        _logger.LogInformation("Finished execution of monitor {MonitorId}", id);
+                    }
+                });
+            }
+            catch
+            {
+                _executionCoordinator.End(id);
+                throw;
+            }
         }
+    }
+
+    private async Task ExecuteMonitorAsync(Guid id, CancellationToken ct)
+    {
+        _logger.LogInformation("Fetching monitor {MonitorId} from database", id);
+        ct.ThrowIfCancellationRequested();
+
+        using var scope = _scopeFactory.CreateScope();
+        var monitorService = scope.ServiceProvider.GetRequiredService<IMonitorService>();
+        var orchestrator = scope.ServiceProvider.GetRequiredService<IOrchestrator>();
+
+        var monitor = await monitorService.GetByIdAsync(id);
+        if (monitor == null)
+        {
+            _logger.LogWarning("Monitor {MonitorId} not found in database", id);
+            return;
+        }
+        _logger.LogInformation("Executing orchestrator for monitor {MonitorId}", id);
+        await orchestrator.TryExecuteAsync(monitor);
+        _logger.LogInformation("Executing orchestrator for monitor {MonitorId}", id);
     }
 }

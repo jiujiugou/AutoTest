@@ -2,9 +2,9 @@
   <ItemGroup>
     <ProjectReference Include="..\AutoTest.Core\AutoTest.Core.csproj" />
     <ProjectReference Include="..\AutoTest.Application\AutoTest.Application.csproj" />
-    <ProjectReference Include="..\common\AutoTest.Logging\AutoTest.Logging.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Flurl.Http" Version="4.0.2" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.5" />
   </ItemGroup>
   <PropertyGroup>

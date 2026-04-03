@@ -16,19 +16,16 @@ namespace AutoTest.Execution.Http
         /// </summary>
         public string Body { get; }
 
-        /// <summary>
-        /// 断言结果
-        /// </summary>
-        public List<AssertionResult> Assertions { get; set; } = new List<AssertionResult>();
-
+        public long ElapsedMilliseconds { get; set; }
         /// <summary>
         /// 构造成功结果
         /// </summary>
-        public HttpExecutionResult(int statusCode, string body, bool isExecutionSuccess)
+        public HttpExecutionResult(int statusCode, string body, bool isExecutionSuccess, long elapsedMilliseconds = 0)
             : base(isExecutionSuccess, "")
         {
             StatusCode = statusCode;
             Body = body;
+            ElapsedMilliseconds = elapsedMilliseconds;
         }
 
         /// <summary>

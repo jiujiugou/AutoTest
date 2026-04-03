@@ -1,28 +1,34 @@
+using AutoTest.Application.Execution;
 using AutoTest.Application.ExecutionPipeline;
 using AutoTest.Core.Execution;
+using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.Step;
 
 public class ExecutionStep : IPipelineStep
 {
-    private readonly IExecutionEngine _execution;
-    public ExecutionStep(IExecutionEngine execution)
+    private readonly ExecutionEngineResolver _engineResolver;
+    private readonly ILogger<ExecutionStep> _logger;
+
+    public ExecutionStep(ExecutionEngineResolver engineResolver, ILogger<ExecutionStep> logger)
     {
-        _execution = execution;
+        _engineResolver = engineResolver;
+        _logger = logger;
     }
 
-    public Task InvokeAsync(PipelineContext context, Func<Task> next)
+    public async Task InvokeAsync(PipelineContext context, Func<Task> next)
     {
         try
         {
-            _execution.ExecuteAsync(context.Monitor.Target);
+            var engine = _engineResolver.Resolve(context.Monitor.Target);
+            context.Result = await engine.ExecuteAsync(context.Monitor.Target);
         }
         catch (Exception ex)
         {
-            //log
+            _logger.LogError(ex, "ExecutionStep failed");
+            throw;
         }
-        return next();
+
+        await next();
     }
-
-
 }

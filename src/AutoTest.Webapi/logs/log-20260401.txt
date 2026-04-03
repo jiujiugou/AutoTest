@@ -1,0 +1,313 @@
+2026-04-01 18:03:37 [INF] Beginning Transaction
+2026-04-01 18:03:37 [INF] Rolling back transaction
+2026-04-01 18:03:38 [INF] Now listening on: http://localhost:5033
+2026-04-01 18:03:38 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-01 18:03:38 [INF] Hosting environment: Development
+2026-04-01 18:03:39 [INF] Content root path: d:\Code\AutoTest\src\AutoTest.Webapi
+2026-04-01 18:04:12 [INF] Request starting HTTP/1.1 GET http://localhost:5033/ - null null
+2026-04-01 18:04:13 [WRN] Failed to determine the https port for redirect.
+2026-04-01 18:04:13 [INF] Request finished HTTP/1.1 GET http://localhost:5033/ - 404 0 null 237.5528ms
+2026-04-01 18:04:13 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5033/, Response status code: 404
+2026-04-01 18:04:13 [INF] Request starting HTTP/1.1 GET http://localhost:5033/@vite/client - null null
+2026-04-01 18:04:13 [INF] CORS policy execution successful.
+2026-04-01 18:04:13 [INF] Request finished HTTP/1.1 GET http://localhost:5033/@vite/client - 404 0 null 21.66ms
+2026-04-01 18:04:13 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5033/@vite/client, Response status code: 404
+2026-04-01 18:54:46 [INF] Beginning Transaction
+2026-04-01 18:54:46 [INF] Rolling back transaction
+2026-04-01 18:54:47 [INF] 2026032204: InitExecutionRecordTable migrating
+2026-04-01 18:54:47 [INF] Beginning Transaction
+2026-04-01 18:54:47 [INF] CreateTable ExecutionRecord
+2026-04-01 18:54:47 [INF] CREATE TABLE "ExecutionRecord" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Status" INTEGER NOT NULL, "StartedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "FinishedAt" DATETIME, "IsExecutionSuccess" INTEGER NOT NULL, "ErrorMessage" TEXT, "ResultType" TEXT NOT NULL, "ResultJson" TEXT NOT NULL, CONSTRAINT "PK_ExecutionRecord" PRIMARY KEY ("Id"), CONSTRAINT "FK_ExecutionRecord_Monitor" FOREIGN KEY ("MonitorId") REFERENCES "Monitor" ("Id"));
+2026-04-01 18:54:47 [INF] => 0.0941204s
+2026-04-01 18:54:47 [INF] CreateForeignKey $$IGNORE$$_FK_ExecutionRecord_Monitor ExecutionRecord(MonitorId) Monitor(Id)
+2026-04-01 18:54:47 [INF] => 0.0007219s
+2026-04-01 18:54:47 [INF] CreateIndex ExecutionRecord (MonitorId, StartedAt)
+2026-04-01 18:54:47 [INF] CREATE INDEX "IX_ExecutionRecord_MonitorId_StartedAt" ON "ExecutionRecord" ("MonitorId" ASC, "StartedAt" DESC);
+2026-04-01 18:54:47 [INF] => 0.0072618s
+2026-04-01 18:54:47 [INF] AlterTable AssertionResult
+2026-04-01 18:54:47 [INF] => 0.0006309s
+2026-04-01 18:54:47 [INF] CreateColumn AssertionResult ExecutionId Guid
+2026-04-01 18:54:47 [INF] ALTER TABLE "AssertionResult" ADD COLUMN "ExecutionId" UNIQUEIDENTIFIER;
+2026-04-01 18:54:47 [INF] => 0.0063116s
+2026-04-01 18:54:47 [INF] CreateForeignKey FK_AssertionResult_ExecutionRecord AssertionResult(ExecutionId) ExecutionRecord(Id)
+2026-04-01 18:54:47 [ERR] Foreign keys are not supported in SQLite
+FluentMigrator.Exceptions.DatabaseOperationNotSupportedException: Foreign keys are not supported in SQLite
+   at FluentMigrator.Runner.Generators.CompatibilityModeExtension.HandleCompatibility(CompatibilityMode mode, String message)
+   at FluentMigrator.Runner.Generators.SQLite.SQLiteGenerator.Generate(CreateForeignKeyExpression expression)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(CreateForeignKeyExpression expression)
+   at FluentMigrator.Expressions.CreateForeignKeyExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__1()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.AnnounceTime(String message, Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-01 18:54:47 [INF] Rolling back transaction
+2026-04-01 18:57:47 [INF] Beginning Transaction
+2026-04-01 18:57:47 [INF] Rolling back transaction
+2026-04-01 18:57:48 [INF] 2026032204: InitExecutionRecordTable migrating
+2026-04-01 18:57:48 [INF] Beginning Transaction
+2026-04-01 18:57:48 [INF] CreateTable ExecutionRecord
+2026-04-01 18:57:48 [INF] CREATE TABLE "ExecutionRecord" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Status" INTEGER NOT NULL, "StartedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "FinishedAt" DATETIME, "IsExecutionSuccess" INTEGER NOT NULL, "ErrorMessage" TEXT, "ResultType" TEXT NOT NULL, "ResultJson" TEXT NOT NULL, CONSTRAINT "PK_ExecutionRecord" PRIMARY KEY ("Id"));
+2026-04-01 18:57:48 [INF] => 0.1145796s
+2026-04-01 18:57:48 [INF] CreateIndex ExecutionRecord (MonitorId, StartedAt)
+2026-04-01 18:57:48 [INF] CREATE INDEX "IX_ExecutionRecord_MonitorId_StartedAt" ON "ExecutionRecord" ("MonitorId" ASC, "StartedAt" DESC);
+2026-04-01 18:57:48 [INF] => 0.0065302s
+2026-04-01 18:57:48 [INF] AlterTable AssertionResult
+2026-04-01 18:57:48 [INF] => 0.0004489s
+2026-04-01 18:57:48 [INF] CreateColumn AssertionResult ExecutionId Guid
+2026-04-01 18:57:48 [INF] ALTER TABLE "AssertionResult" ADD COLUMN "ExecutionId" UNIQUEIDENTIFIER;
+2026-04-01 18:57:48 [INF] => 0.0062105s
+2026-04-01 18:57:48 [INF] CreateIndex AssertionResult (ExecutionId)
+2026-04-01 18:57:48 [INF] CREATE INDEX "IX_AssertionResult_ExecutionId" ON "AssertionResult" ("ExecutionId" ASC);
+2026-04-01 18:57:48 [INF] => 0.0030737s
+2026-04-01 18:57:48 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032204, CURRENT_TIMESTAMP, 'InitExecutionRecordTable');
+2026-04-01 18:57:48 [INF] Committing Transaction
+2026-04-01 18:57:48 [INF] 2026032204: InitExecutionRecordTable migrated
+2026-04-01 18:57:48 [INF] => 0.2309916s
+2026-04-01 18:57:49 [INF] Now listening on: http://localhost:5033
+2026-04-01 18:57:49 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-01 18:57:49 [INF] Hosting environment: Development
+2026-04-01 18:57:49 [INF] Content root path: d:\Code\AutoTest\src\AutoTest.Webapi
+2026-04-01 18:58:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/ - null null
+2026-04-01 18:58:06 [WRN] Failed to determine the https port for redirect.
+2026-04-01 18:58:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/ - 404 0 null 241.5931ms
+2026-04-01 18:58:07 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5033/, Response status code: 404
+2026-04-01 18:58:07 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger - null null
+2026-04-01 18:58:07 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger - 301 0 null 30.1143ms
+2026-04-01 18:58:07 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-01 18:58:07 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 489.1617ms
+2026-04-01 18:58:07 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui.css - null null
+2026-04-01 18:58:07 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui-bundle.js - null null
+2026-04-01 18:58:07 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui-standalone-preset.js - null null
+2026-04-01 18:58:08 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-04-01 18:58:08 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-04-01 18:58:08 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui.css - 200 152034 text/css 99.141ms
+2026-04-01 18:58:08 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui-standalone-preset.js - 200 230280 text/javascript 91.3538ms
+2026-04-01 18:58:08 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-04-01 18:58:08 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui-bundle.js - 200 1456926 text/javascript 121.4481ms
+2026-04-01 18:58:09 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-01 18:58:09 [INF] Request starting HTTP/1.1 GET http://localhost:5033/@vite/client - null null
+2026-04-01 18:58:09 [INF] CORS policy execution successful.
+2026-04-01 18:58:09 [INF] Request finished HTTP/1.1 GET http://localhost:5033/@vite/client - 404 0 null 21.7124ms
+2026-04-01 18:58:09 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5033/@vite/client, Response status code: 404
+2026-04-01 18:58:09 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 293.7317ms
+2026-04-01 18:58:49 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 395
+2026-04-01 18:58:49 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-01 18:58:49 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 18:58:49 [INF] AddAsync started for monitor: demo
+2026-04-01 18:58:49 [INF] Adding monitor "911fcd89-9a4e-4bea-894b-195e5f835767" with name demo
+2026-04-01 18:58:49 [INF] Added 1 assertions for monitor "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 18:58:49 [INF] Monitor "911fcd89-9a4e-4bea-894b-195e5f835767" added successfully
+2026-04-01 18:58:49 [INF] Executing OkObjectResult, writing value of type 'System.Guid'.
+2026-04-01 18:58:49 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi) in 285.8362ms
+2026-04-01 18:58:49 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-01 18:58:49 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor - 200 null application/json; charset=utf-8 418.9239ms
+2026-04-01 18:58:49 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/911fcd89-9a4e-4bea-894b-195e5f835767/run - application/x-www-form-urlencoded 0
+2026-04-01 18:58:49 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-01 18:58:49 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 18:58:49 [INF] TaskRunAsync enqueuing monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 18:58:49 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-01 18:58:49 [INF] GetByIdAsync called for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 18:58:49 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 88.3107ms
+2026-04-01 18:58:49 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-01 18:58:49 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/911fcd89-9a4e-4bea-894b-195e5f835767/run - 200 0 null 208.8342ms
+2026-04-01 18:58:49 [INF] Cache miss for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 18:58:49 [ERR] Error fetching monitor "911fcd89-9a4e-4bea-894b-195e5f835767"
+System.Data.DataException: Error parsing column 0 (Id=911FCD89-9A4E-4BEA-894B-195E5F835767 - String)
+ ---> System.InvalidCastException: Invalid cast from 'System.String' to 'System.Guid'.
+   at System.Convert.DefaultToType(IConvertible value, Type targetType, IFormatProvider provider)
+   at Deserialize67f06c27-b5af-458c-9589-6e82505c8ed7(DbDataReader)
+   --- End of inner exception stack trace ---
+   at Dapper.SqlMapper.ThrowDataException(Exception ex, Int32 index, IDataReader reader, Object value) in /_/Dapper/SqlMapper.cs:line 3966
+   at Deserialize67f06c27-b5af-458c-9589-6e82505c8ed7(DbDataReader)
+   at Dapper.SqlMapper.QueryRowAsync[T](IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 496
+   at AutoTest.Infrastructure.MonitorRepository.GetByIdAsync(Guid id, IDbTransaction tx) in d:\Code\AutoTest\src\AutoTest.Infrastructure\MonitorRepository .cs:line 38
+2026-04-01 18:58:51 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/911fcd89-9a4e-4bea-894b-195e5f835767/executions/latest - null null
+2026-04-01 18:58:51 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 18:58:51 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 18:58:51 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-04-01 18:58:51 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 75.1843ms
+2026-04-01 18:58:52 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 18:58:52 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/911fcd89-9a4e-4bea-894b-195e5f835767/executions/latest - 404 null application/problem+json; charset=utf-8 167.3417ms
+2026-04-01 18:59:20 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/911fcd89-9a4e-4bea-894b-195e5f835767/executions/latest - null null
+2026-04-01 18:59:20 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 18:59:20 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 18:59:20 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-04-01 18:59:20 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 5.2522ms
+2026-04-01 18:59:20 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 18:59:20 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/911fcd89-9a4e-4bea-894b-195e5f835767/executions/latest - 404 null application/problem+json; charset=utf-8 31.7544ms
+2026-04-01 19:03:10 [INF] Beginning Transaction
+2026-04-01 19:03:10 [INF] Rolling back transaction
+2026-04-01 19:03:12 [INF] Now listening on: http://localhost:5033
+2026-04-01 19:03:12 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-01 19:03:12 [INF] Hosting environment: Development
+2026-04-01 19:03:12 [INF] Content root path: d:\Code\AutoTest\src\AutoTest.Webapi
+2026-04-01 19:03:12 [INF] GetByIdAsync called for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 19:03:12 [INF] Cache miss for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 19:03:12 [INF] Assertion step started.
+2026-04-01 19:03:12 [INF] Assertion step finished.
+2026-04-01 19:03:12 [INF] Executing HTTP request: Get 
+2026-04-01 19:03:12 [ERR] HTTP request failed: An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.
+2026-04-01 19:03:12 [INF] Updating monitor "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 19:03:12 [INF] Updated 1 assertions for monitor "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 19:04:24 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/911fcd89-9a4e-4bea-894b-195e5f835767 - null null
+2026-04-01 19:04:24 [WRN] Failed to determine the https port for redirect.
+2026-04-01 19:04:24 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-01 19:04:24 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:04:24 [INF] GetByIdAsync called for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-01 19:04:24 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-01 19:04:24 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 122.0492ms
+2026-04-01 19:04:24 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-01 19:04:24 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/911fcd89-9a4e-4bea-894b-195e5f835767 - 200 null application/json; charset=utf-8 361.6689ms
+2026-04-01 19:05:44 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 396
+2026-04-01 19:05:44 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-01 19:05:44 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:05:44 [INF] AddAsync started for monitor: demo2
+2026-04-01 19:05:44 [INF] Adding monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6" with name demo2
+2026-04-01 19:05:44 [INF] Added 1 assertions for monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:05:44 [INF] Monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6" added successfully
+2026-04-01 19:05:44 [INF] Executing OkObjectResult, writing value of type 'System.Guid'.
+2026-04-01 19:05:44 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi) in 121.9795ms
+2026-04-01 19:05:44 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-01 19:05:44 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor - 200 null application/json; charset=utf-8 162.0511ms
+2026-04-01 19:05:44 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/56f99bec-8e63-4dee-864d-2d6e3ca9f9d6/run - application/x-www-form-urlencoded 0
+2026-04-01 19:05:44 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-01 19:05:44 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:05:44 [INF] TaskRunAsync enqueuing monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:05:44 [INF] GetByIdAsync called for monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:05:44 [INF] Cache miss for monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:05:44 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-01 19:05:44 [INF] Executing monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:05:44 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 32.4644ms
+2026-04-01 19:05:44 [INF] Assertion step started.
+2026-04-01 19:05:44 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-01 19:05:44 [INF] Assertion step finished.
+2026-04-01 19:05:44 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/56f99bec-8e63-4dee-864d-2d6e3ca9f9d6/run - 200 0 null 130.0317ms
+2026-04-01 19:05:44 [INF] Executing HTTP request: Get 
+2026-04-01 19:05:44 [ERR] HTTP request failed: An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.
+2026-04-01 19:05:47 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/56f99bec-8e63-4dee-864d-2d6e3ca9f9d6/executions/latest - null null
+2026-04-01 19:05:47 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 19:05:47 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:05:47 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-04-01 19:05:47 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 50.8263ms
+2026-04-01 19:05:47 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 19:05:47 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/56f99bec-8e63-4dee-864d-2d6e3ca9f9d6/executions/latest - 404 null application/problem+json; charset=utf-8 103.0691ms
+2026-04-01 19:11:05 [INF] Beginning Transaction
+2026-04-01 19:11:05 [INF] Rolling back transaction
+2026-04-01 19:11:07 [INF] Now listening on: http://localhost:5033
+2026-04-01 19:11:07 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-01 19:11:07 [INF] Hosting environment: Development
+2026-04-01 19:11:07 [INF] Content root path: d:\Code\AutoTest\src\AutoTest.Webapi
+2026-04-01 19:11:07 [INF] GetByIdAsync called for monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:11:07 [INF] Cache miss for monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:11:07 [INF] Executing HTTP request: Get 
+2026-04-01 19:11:07 [ERR] HTTP request failed: An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.
+2026-04-01 19:11:07 [INF] Assertion step started.
+2026-04-01 19:11:07 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-01 19:11:07 [INF] Assertion step finished.
+2026-04-01 19:11:07 [INF] Updating monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:11:07 [INF] Updated 1 assertions for monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-01 19:12:00 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 396
+2026-04-01 19:12:00 [WRN] Failed to determine the https port for redirect.
+2026-04-01 19:12:00 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-01 19:12:01 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:12:01 [INF] AddAsync started for monitor: demo3
+2026-04-01 19:12:01 [INF] Adding monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714" with name demo3
+2026-04-01 19:12:01 [INF] Added 1 assertions for monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:12:01 [INF] Monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714" added successfully
+2026-04-01 19:12:01 [INF] Executing OkObjectResult, writing value of type 'System.Guid'.
+2026-04-01 19:12:01 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi) in 348.2032ms
+2026-04-01 19:12:01 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-01 19:12:01 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor - 200 null application/json; charset=utf-8 849.8722ms
+2026-04-01 19:12:01 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/b439a7f3-e0b4-4860-b5bd-b68a8f545714/run - application/x-www-form-urlencoded 0
+2026-04-01 19:12:01 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-01 19:12:01 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:12:01 [INF] TaskRunAsync enqueuing monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:12:01 [INF] GetByIdAsync called for monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:12:01 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-01 19:12:01 [INF] Cache miss for monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:12:01 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 55.4068ms
+2026-04-01 19:12:01 [INF] Executing monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:12:01 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-01 19:12:01 [INF] Executing HTTP request: Get https://example.com
+2026-04-01 19:12:01 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/b439a7f3-e0b4-4860-b5bd-b68a8f545714/run - 200 0 null 145.4608ms
+2026-04-01 19:12:01 [INF] Start processing HTTP request Get https://example.com/
+2026-04-01 19:12:01 [INF] Sending HTTP request Get https://example.com/
+2026-04-01 19:12:03 [INF] Received HTTP response headers after 1534.6115ms - 200
+2026-04-01 19:12:03 [INF] End processing HTTP request after 1587.3299ms - 200
+2026-04-01 19:12:03 [INF] HTTP request finished: status=200, success=True
+2026-04-01 19:12:03 [INF] Assertion step started.
+2026-04-01 19:12:03 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-01 19:12:03 [INF] Assertion step finished.
+2026-04-01 19:12:05 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/b439a7f3-e0b4-4860-b5bd-b68a8f545714/executions/latest - null null
+2026-04-01 19:12:05 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 19:12:05 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:12:05 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-04-01 19:12:05 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 101.3338ms
+2026-04-01 19:12:05 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 19:12:05 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/b439a7f3-e0b4-4860-b5bd-b68a8f545714/executions/latest - 404 null application/problem+json; charset=utf-8 159.562ms
+2026-04-01 19:17:46 [INF] Beginning Transaction
+2026-04-01 19:17:46 [INF] Rolling back transaction
+2026-04-01 19:17:48 [INF] Now listening on: http://localhost:5033
+2026-04-01 19:17:48 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-01 19:17:48 [INF] Hosting environment: Development
+2026-04-01 19:17:48 [INF] Content root path: d:\Code\AutoTest\src\AutoTest.Webapi
+2026-04-01 19:17:48 [INF] GetByIdAsync called for monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:17:48 [INF] Cache miss for monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:17:48 [INF] Executing HTTP request: Get https://example.com
+2026-04-01 19:17:48 [INF] Start processing HTTP request Get https://example.com/
+2026-04-01 19:17:48 [INF] Sending HTTP request Get https://example.com/
+2026-04-01 19:17:50 [INF] Received HTTP response headers after 1407.0556ms - 200
+2026-04-01 19:17:50 [INF] End processing HTTP request after 1464.0197ms - 200
+2026-04-01 19:17:50 [INF] HTTP request finished: status=200, success=True
+2026-04-01 19:17:50 [INF] Assertion step started.
+2026-04-01 19:17:50 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-01 19:17:50 [INF] Assertion step finished.
+2026-04-01 19:17:50 [INF] Updating monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:17:50 [INF] Updated 1 assertions for monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-01 19:18:43 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/b439a7f3-e0b4-4860-b5bd-b68a8f545714/executions/latest - null null
+2026-04-01 19:18:44 [WRN] Failed to determine the https port for redirect.
+2026-04-01 19:18:44 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 19:18:44 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:18:44 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 296.5926ms
+2026-04-01 19:18:44 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 19:18:44 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: A parameterless default constructor or one matching signature (System.String AssertionId, System.String Target, System.Int64 IsSuccess, System.String Actual, System.String Expected, System.String Message) is required for AutoTest.Core.Assertion.AssertionResult materialization
+   at Dapper.SqlMapper.GenerateDeserializerFromMap(Type type, DbDataReader reader, Int32 startBound, Int32 length, Boolean returnNullIfFirstMissing, ILGenerator il) in /_/Dapper/SqlMapper.cs:line 3502
+   at Dapper.SqlMapper.GetTypeDeserializerImpl(Type type, DbDataReader reader, Int32 startBound, Int32 length, Boolean returnNullIfFirstMissing) in /_/Dapper/SqlMapper.cs:line 3333
+   at Dapper.SqlMapper.TypeDeserializerCache.GetReader(DbDataReader reader, Int32 startBound, Int32 length, Boolean returnNullIfFirstMissing) in /_/Dapper/SqlMapper.TypeDeserializerCache.cs:line 151
+   at Dapper.SqlMapper.TypeDeserializerCache.GetReader(Type type, DbDataReader reader, Int32 startBound, Int32 length, Boolean returnNullIfFirstMissing) in /_/Dapper/SqlMapper.TypeDeserializerCache.cs:line 50
+   at Dapper.SqlMapper.GetTypeDeserializer(Type type, DbDataReader reader, Int32 startBound, Int32 length, Boolean returnNullIfFirstMissing) in /_/Dapper/SqlMapper.cs:line 3287
+   at Dapper.SqlMapper.GetDeserializer(Type type, DbDataReader reader, Int32 startBound, Int32 length, Boolean returnNullIfFirstMissing) in /_/Dapper/SqlMapper.cs:line 1974
+   at Dapper.SqlMapper.QueryAsync[T](IDbConnection cnn, Type effectiveType, CommandDefinition command) in /_/Dapper/SqlMapper.Async.cs:line 442
+   at AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution(Guid id) in d:\Code\AutoTest\src\AutoTest.Webapi\Controllers\MonitorController.cs:line 58
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-01 19:18:45 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/b439a7f3-e0b4-4860-b5bd-b68a8f545714/executions/latest - 500 null text/plain; charset=utf-8 1645.1175ms
+2026-04-01 19:23:03 [INF] Beginning Transaction
+2026-04-01 19:23:03 [INF] Rolling back transaction
+2026-04-01 19:23:06 [INF] Now listening on: http://localhost:5033
+2026-04-01 19:23:06 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-01 19:23:06 [INF] Hosting environment: Development
+2026-04-01 19:23:06 [INF] Content root path: d:\Code\AutoTest\src\AutoTest.Webapi
+2026-04-01 19:23:33 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/b439a7f3-e0b4-4860-b5bd-b68a8f545714/executions/latest - null null
+2026-04-01 19:23:33 [WRN] Failed to determine the https port for redirect.
+2026-04-01 19:23:33 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 19:23:33 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-01 19:23:33 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-01 19:23:33 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 275.5152ms
+2026-04-01 19:23:33 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-01 19:23:33 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/b439a7f3-e0b4-4860-b5bd-b68a8f545714/executions/latest - 200 null application/json; charset=utf-8 526.8949ms

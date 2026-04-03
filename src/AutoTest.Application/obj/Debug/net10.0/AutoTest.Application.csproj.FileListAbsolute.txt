@@ -18,3 +18,7 @@ d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application
 d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\refint\AutoTest.Application.dll
 d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\AutoTest.Application.pdb
 d:\Code\AutoTest\src\AutoTest.Application\obj\Debug\net10.0\ref\AutoTest.Application.dll
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\EventCommons.dll
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\EventCommons.pdb
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Assertions.Tcp.dll
+d:\Code\AutoTest\src\AutoTest.Application\bin\Debug\net10.0\AutoTest.Assertions.Tcp.pdb

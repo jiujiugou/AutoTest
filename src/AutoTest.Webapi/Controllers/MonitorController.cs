@@ -14,6 +14,10 @@ public class MonitorController : ControllerBase
     {
         _monitorService = monitorService;
     }
+
+    [HttpGet]
+    public IActionResult Index() => Ok("Server running");
+
     //根据ID查询
     [HttpGet("{id}")]
     public async Task<IActionResult> Get(Guid id)
@@ -47,6 +51,32 @@ public class MonitorController : ControllerBase
         await _monitorService.UpdateAsync(id, dto);
         return NoContent(); // 更新成功但不返回内容
     }
+
+    [HttpGet("{id}/executions/latest")]
+    public async Task<IActionResult> GetLatestExecution(Guid id)
+    {
+        var record = await _monitorService.GetLatestExecutionAsync(id);
+        if (record == null)
+            return NotFound();
+
+        var assertions = await _monitorService.GetExecutionAssertionResultsAsync(record.Id);
+        return Ok(new { record, assertions });
+    }
+
+    [HttpGet("{id}/executions")]
+    public async Task<IActionResult> GetExecutions(Guid id, [FromQuery] int take = 20)
+    {
+        var records = await _monitorService.GetExecutionsAsync(id, take);
+        return Ok(records);
+    }
+
+    [HttpGet("executions/{executionId}/assertions")]
+    public async Task<IActionResult> GetExecutionAssertions(Guid executionId)
+    {
+        var assertions = await _monitorService.GetExecutionAssertionResultsAsync(executionId);
+        return Ok(assertions);
+    }
+    [HttpPost("{id}/run")]
     public async Task<IActionResult> TaskRun(Guid id)
     {
         await _monitorService.TaskRunAsync(id);

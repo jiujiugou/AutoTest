@@ -1,3 +1,4 @@
+using AutoTest.Assertions.Http.Operator;
 using AutoTest.Core;
 using AutoTest.Core.Assertion;
 using AutoTest.Core.Execution;
@@ -12,58 +13,62 @@ namespace AutoTest.Assertions.Http
         public HttpAssertionField Field { get; }
         public HttpAssertionOperator Operator { get; }
         public string Expected { get; }
-        private readonly ILogger<HttpAssertion> _logger;
-        public HttpAssertion(Guid id, HttpAssertionField field, HttpAssertionOperator op, string expected, ILogger<HttpAssertion> logger = null!)
+        private readonly ILogger<HttpAssertion>? _logger;
+        private readonly IEnumerable<IResolver> _resolvers;
+        private readonly IEnumerable<IOperator> _operators;
+        public HttpAssertion(Guid id, HttpAssertionField field, HttpAssertionOperator op, string expected, IEnumerable<IResolver> resolvers, IEnumerable<IOperator> operators, ILogger<HttpAssertion>? logger = null)
         {
             Id = id;
             Field = field;
             Operator = op;
             Expected = expected;
+            _resolvers = resolvers;
+            _operators = operators;
             _logger = logger;
         }
 
         public Task<AssertionResult> EvaluateAsync(ExecutionResult executionResult)
         {
             if (executionResult is not IHttpExecutionResult httpResult)
-            {
-                _logger.LogError("Execution result is not HttpExecutionResult");
-                return Task.FromResult(new AssertionResult(
-                    Id,
-                    Field.ToString(),
-                    false,
-                    null,
-                    Expected,
-                    "Execution result is not HttpExecutionResult"
-                ));
-            }
+                throw new ArgumentException("Execution result is not an HTTP execution result.");
 
-            string? actualValue = Field switch
-            {
-                HttpAssertionField.StatusCode => httpResult.StatusCode.ToString(),
-                HttpAssertionField.Body => httpResult.Body,
-                _ => throw new InvalidOperationException($"Unsupported HttpAssertionField: {Field}")
-            };
+            var resolver = _resolvers.FirstOrDefault(r => r.CanResolve(Field.ToString()));
+            if (resolver == null)
+                return Task.FromResult(Fail($"No resolver found for field {Field}"));
 
-            bool isSuccess = Operator switch
-            {
-                HttpAssertionOperator.Equal => actualValue == Expected,
-                HttpAssertionOperator.Contains => actualValue?.Contains(Expected) == true,
-                _ => throw new InvalidOperationException($"Unsupported HttpAssertionOperator: {Operator}")
-            };
+            var actual = resolver.Resolve(Field.ToString(), httpResult);
 
-            if (isSuccess)
-                _logger.LogInformation($"Assertion passed: {Field} {Operator} {Expected}");
-            else
-                _logger.LogWarning($"Assertion failed: actual={actualValue}, expected={Expected}");
+            var op = _operators.FirstOrDefault(o => o.CanHandle(Operator));
+            if (op == null)
+                return Task.FromResult(Fail($"No operator found for {Operator}"));
+
+            var success = op.Evaluate(actual, Expected);
 
             return Task.FromResult(new AssertionResult(
                 Id,
                 Field.ToString(),
-                isSuccess,
-                actualValue,
+                success,
+                actual?.ToString(),
                 Expected,
-                isSuccess ? "Assertion passed" : $"Assertion failed: actual={actualValue}, expected={Expected}"
+                success
+                    ? "OK"
+                    : $"Assertion failed: actual={actual}, expected={Expected}, operator={Operator}"
             ));
+        }
+        private AssertionResult Fail(string message, object? actual = null)
+        {
+            _logger?.LogWarning(
+                "Assertion failed: Field={Field}, Operator={Operator}, Expected={Expected}, Actual={Actual}, Message={Message}",
+                Field, Operator, Expected, actual, message);
+
+            return new AssertionResult(
+                Id,
+                Field.ToString(),
+                false,
+                actual?.ToString(),
+                Expected,
+                message
+            );
         }
     }
 }

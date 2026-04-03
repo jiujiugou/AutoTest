@@ -1,81 +1,127 @@
-using System.Net.Http.Json;
+using System.Diagnostics;
 using System.Text;
+using System.Text.Json;
 using AutoTest.Core;
-using AutoTest.Core.Assertion;
 using AutoTest.Core.Execution;
 using AutoTest.Core.Target.Http;
-using AutoTest.Logging;
+using AutoTest.Execution.Http;
+using Flurl;
+using Flurl.Http;
+using Microsoft.Extensions.Logging;
 
-namespace AutoTest.Execution.Http
+public class HttpExecutionEngine : IExecutionEngine
 {
-    public class HttpExecutionEngine : IExecutionEngine
-    {
-        private readonly IHttpClientFactory _httpClientFactory;
-        private readonly ILogger<HttpExecutionEngine> _logger;
-        public HttpExecutionEngine(IHttpClientFactory httpClientFactory, ILogger<HttpExecutionEngine> logger)
-        {
-            _httpClientFactory = httpClientFactory;
-            _logger = logger;
-        }
+    private readonly ILogger<HttpExecutionEngine> _logger;
 
-        public async Task<ExecutionResult> ExecuteAsync(HttpTarget target)
+    public HttpExecutionEngine(ILogger<HttpExecutionEngine> logger)
+    {
+        _logger = logger;
+    }
+
+    public async Task<ExecutionResult> ExecuteAsync(HttpTarget target)
+    {
+        var stopwatch = Stopwatch.StartNew();
+
+        try
         {
-            var client = _httpClientFactory.CreateClient("DefaultHttpClient");
-            // 构建请求（使用 UriBuilder + JsonContent 简化）
-            var url = BuildUrl(target);
-            _logger.LogInformation($"Executing HTTP request: {target.Method} {url}");
-            using var request = new HttpRequestMessage(new HttpMethod(target.Method.ToString()), url);
+            _logger.LogInformation($"Executing HTTP request: {target.Method} {target.Url}");
+
+            // 1️⃣ 构建请求
+            var request = target.Url
+                .SetQueryParams(target.Query ?? new Dictionary<string, string>())
+                .WithTimeout(TimeSpan.FromSeconds(target.Timeout))
+                .AllowAnyHttpStatus();
 
             if (target.Headers != null)
-                foreach (var h in target.Headers)
-                    request.Headers.Add(h.Key, h.Value);
-
-            if (!string.IsNullOrEmpty(target.Body))
-                request.Content = new StringContent(target.Body, Encoding.UTF8, "application/json");
-
-            try
             {
-                var response = await client.SendAsync(request);
-                var body = await response.Content.ReadAsStringAsync();
-                _logger.LogInformation($"HTTP request finished: status={(int)response.StatusCode}, success={response.IsSuccessStatusCode}");
-                _logger.LogDebug($"Response body: {body}");
-                var result = new HttpExecutionResult(
-                    (int)response.StatusCode,
-                    body,
-                    response.IsSuccessStatusCode
-                );
-
-                return result;
+                request = request.WithHeaders(target.Headers);
             }
-            catch (Exception ex)
+
+            // 2️⃣ 统一方法 + Body
+            var method = new HttpMethod(target.Method.ToString().ToUpper());
+            var content = BuildHttpContent(target.Body);
+
+            // 🔥 核心：统一入口
+            var response = await request.SendAsync(
+                method,
+                content,
+                HttpCompletionOption.ResponseContentRead
+            );
+
+            // 3️⃣ 读取结果
+            var body = await response.GetStringAsync();
+            var elapsedMs = stopwatch.ElapsedMilliseconds;
+
+            _logger.LogInformation($"HTTP finished: {response.StatusCode}, elapsed={elapsedMs}ms");
+
+            return new HttpExecutionResult(
+                (int)response.StatusCode,
+                body,
+                response.ResponseMessage.IsSuccessStatusCode
+            )
             {
-                _logger.LogError($"HTTP request failed: {ex.Message}", ex);
-                return new HttpExecutionResult(
-                    0,
-                    "",
-                    false,
-                    ex.Message
-                );
-            }
+                ElapsedMilliseconds = elapsedMs
+            };
         }
-
-        private string BuildUrl(HttpTarget target)
+        catch (FlurlHttpException fex)
         {
-            if (target.Query == null || target.Query.Count == 0)
-                return target.Url;
+            var status = fex.Call?.Response?.StatusCode ?? 0;
+            var content = await fex.GetResponseStringAsync();
+            var elapsedMs = stopwatch.ElapsedMilliseconds;
 
-            var query = string.Join("&", target.Query.Select(q => $"{q.Key}={Uri.EscapeDataString(q.Value)}"));
-            return $"{target.Url}?{query}";
+            _logger.LogError(fex, $"HTTP failed after {elapsedMs}ms");
+
+            return new HttpExecutionResult(
+                status,
+                content,
+                false,
+                fex.Message
+            )
+            {
+                ElapsedMilliseconds = elapsedMs
+            };
         }
-
-        public bool CanExecute(MonitorTarget target) => target is HttpTarget;
-
-        public Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
+        catch (Exception ex)
         {
-            if (target is not HttpTarget httpTarget)
-                throw new ArgumentException("Invalid target type", nameof(target));
-
-            return ExecuteAsync(httpTarget);
+            _logger.LogError(ex, "HTTP request failed");
+            return new HttpExecutionResult(0, "", false, ex.Message);
         }
+    }
+
+    public bool CanExecute(MonitorTarget target) => target is HttpTarget;
+
+    public Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
+    {
+        if (target is not HttpTarget httpTarget)
+            throw new ArgumentException("Invalid target type", nameof(target));
+
+        return ExecuteAsync(httpTarget);
+    }
+
+
+    private HttpContent? BuildHttpContent(HttpBody? body)
+    {
+        if (body == null) return null;
+
+        return body.Type switch
+        {
+            BodyType.Json => new StringContent(
+                JsonSerializer.Serialize(body.Value),
+                Encoding.UTF8,
+                "application/json"
+            ),
+
+            BodyType.FormUrlEncoded => new FormUrlEncodedContent(
+                (Dictionary<string, string>)body.Value!
+            ),
+
+            BodyType.Raw => new StringContent(
+                body.Value?.ToString() ?? "",
+                Encoding.UTF8,
+                body.ContentType ?? "text/plain"
+            ),
+
+            _ => throw new NotSupportedException($"Body type {body.Type} not supported")
+        };
     }
 }

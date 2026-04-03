@@ -1,0 +1,13 @@
+d:\Code\AutoTest\src\common\EventCommons\bin\Debug\net10.0\EventCommons.deps.json
+d:\Code\AutoTest\src\common\EventCommons\bin\Debug\net10.0\EventCommons.dll
+d:\Code\AutoTest\src\common\EventCommons\bin\Debug\net10.0\EventCommons.pdb
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\EventCommons.csproj.AssemblyReference.cache
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\EventCommons.GeneratedMSBuildEditorConfig.editorconfig
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\EventCommons.AssemblyInfoInputs.cache
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\EventCommons.AssemblyInfo.cs
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\EventCommons.csproj.CoreCompileInputs.cache
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\EventCommons.sourcelink.json
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\EventCommons.dll
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\refint\EventCommons.dll
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\EventCommons.pdb
+d:\Code\AutoTest\src\common\EventCommons\obj\Debug\net10.0\ref\EventCommons.dll

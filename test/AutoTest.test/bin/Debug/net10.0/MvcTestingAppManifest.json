@@ -1,0 +1,13 @@
+{
+  "AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Application",
+  "AutoTest.Assertions.Http, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http",
+  "AutoTest.Assertions.Tcp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Assertions.Tcp",
+  "AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Core",
+  "AutoTest.Execution.Http, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Execution.Http",
+  "AutoTest.Execution.Tcp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Execution.Tcp",
+  "AutoTest.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Infrastructure",
+  "AutoTest.Migrations, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Migrations",
+  "AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\AutoTest.Webapi",
+  "CacheCommons, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\common\\CacheCommons",
+  "EventCommons, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\Code\\AutoTest\\src\\common\\EventCommons"
+}

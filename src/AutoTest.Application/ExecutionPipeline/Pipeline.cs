@@ -1,4 +1,4 @@
-using AutoTest.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.ExecutionPipeline;
 
@@ -23,17 +23,16 @@ public class Pipeline : IPipeline
             {
                 try
                 {
-                    _logger.LogInformation($"Starting pipeline step: {step.GetType().Name}");
                     await step.InvokeAsync(context, next);
-                    _logger.LogInformation($"Finished pipeline step: {step.GetType().Name}");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError($"Error in pipeline step: {step.GetType().Name}, Exception: {ex.Message}", ex);
-                    throw; // 继续抛出异常，交给上层处理
+                    _logger.LogError(ex, "Error in pipeline step: {StepName}", step.GetType().Name);
+                    throw;
                 }
             };
-            await pipeline();
         }
+
+        await pipeline();
     }
 }

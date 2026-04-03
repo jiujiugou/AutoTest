@@ -2,6 +2,35 @@
   "version": 3,
   "targets": {
     "net10.0": {
+      "Flurl/4.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Flurl.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Flurl.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Flurl.Http/4.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Flurl": "4.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Flurl.Http.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Flurl.Http.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.Extensions.Caching.Abstractions/10.0.5": {
         "type": "package",
         "dependencies": {
@@ -676,8 +705,10 @@
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "AutoTest.Assertions.Http": "1.0.0",
+          "AutoTest.Assertions.Tcp": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "CacheCommons": "1.0.0",
+          "EventCommons": "1.0.0",
           "Microsoft.Extensions.Hosting": "10.0.5",
           "Microsoft.Extensions.Http": "10.0.2",
           "Microsoft.Extensions.Logging": "10.0.5"
@@ -704,9 +735,23 @@
           "bin/placeholder/AutoTest.Assertions.Http.dll": {}
         }
       },
+      "AutoTest.Assertions.Tcp/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "AutoTest.Core": "1.0.0",
+          "Microsoft.Extensions.Logging": "10.0.5"
+        },
+        "compile": {
+          "bin/placeholder/AutoTest.Assertions.Tcp.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AutoTest.Assertions.Tcp.dll": {}
+        }
+      },
       "AutoTest.Core/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
+        "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
           "bin/placeholder/AutoTest.Core.dll": {}
         },
@@ -727,10 +772,60 @@
         "runtime": {
           "bin/placeholder/CacheCommons.dll": {}
         }
+      },
+      "EventCommons/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "10.0.2"
+        },
+        "compile": {
+          "bin/placeholder/EventCommons.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/EventCommons.dll": {}
+        }
       }
     }
   },
   "libraries": {
+    "Flurl/4.0.0": {
+      "sha512": "rpts69yYgvJqg6PPgqShBQEZ4aNzWQqWpWppcT0oDWxDCIsBqiod4pj6LQZdhk+1OozLFagemldMRACdHF3CsA==",
+      "type": "package",
+      "path": "flurl/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "flurl.4.0.0.nupkg.sha512",
+        "flurl.nuspec",
+        "icon.png",
+        "lib/net461/Flurl.dll",
+        "lib/net461/Flurl.xml",
+        "lib/net472/Flurl.dll",
+        "lib/net472/Flurl.xml",
+        "lib/netstandard2.0/Flurl.dll",
+        "lib/netstandard2.0/Flurl.xml"
+      ]
+    },
+    "Flurl.Http/4.0.2": {
+      "sha512": "9vCqFFyceA11yplkFD8AbCFFTvG1Lrw3tpsgOpL5sLUc28p6zcvGszNleuT6nDymRvtt5eS+rqUX+bRztg1fhA==",
+      "type": "package",
+      "path": "flurl.http/4.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "flurl.http.4.0.2.nupkg.sha512",
+        "flurl.http.nuspec",
+        "icon.png",
+        "lib/net461/Flurl.Http.dll",
+        "lib/net461/Flurl.Http.xml",
+        "lib/net6.0/Flurl.Http.dll",
+        "lib/net6.0/Flurl.Http.xml",
+        "lib/netstandard2.0/Flurl.Http.dll",
+        "lib/netstandard2.0/Flurl.Http.xml"
+      ]
+    },
     "Microsoft.Extensions.Caching.Abstractions/10.0.5": {
       "sha512": "k/QDdQ94/0Shi0KfU+e12m73jfQo+3JpErTtgpZfsCIqkvdEEO0XIx6R+iTbN55rNPaNhOqNY4/sB+jZ8XxVPw==",
       "type": "package",
@@ -1731,6 +1826,11 @@
       "path": "../AutoTest.Assertions.Http/AutoTest.Assertions.Http.csproj",
       "msbuildProject": "../AutoTest.Assertions.Http/AutoTest.Assertions.Http.csproj"
     },
+    "AutoTest.Assertions.Tcp/1.0.0": {
+      "type": "project",
+      "path": "../AutoTest.Assertions.Tcp/AutoTest.Assertions.Tcp.csproj",
+      "msbuildProject": "../AutoTest.Assertions.Tcp/AutoTest.Assertions.Tcp.csproj"
+    },
     "AutoTest.Core/1.0.0": {
       "type": "project",
       "path": "../AutoTest.Core/AutoTest.Core.csproj",
@@ -1740,12 +1840,18 @@
       "type": "project",
       "path": "../common/CacheCommons/CacheCommons.csproj",
       "msbuildProject": "../common/CacheCommons/CacheCommons.csproj"
+    },
+    "EventCommons/1.0.0": {
+      "type": "project",
+      "path": "../common/EventCommons/EventCommons.csproj",
+      "msbuildProject": "../common/EventCommons/EventCommons.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "AutoTest.Application >= 1.0.0",
       "AutoTest.Core >= 1.0.0",
+      "Flurl.Http >= 4.0.2",
       "Microsoft.Extensions.Logging >= 10.0.5"
     ]
   },
@@ -1756,11 +1862,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Code\\AutoTest\\src\\AutoTest.Execution.Http\\AutoTest.Execution.Http.csproj",
+      "projectUniqueName": "d:\\Code\\AutoTest\\src\\AutoTest.Execution.Http\\AutoTest.Execution.Http.csproj",
       "projectName": "AutoTest.Execution.Http",
-      "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Execution.Http\\AutoTest.Execution.Http.csproj",
+      "projectPath": "d:\\Code\\AutoTest\\src\\AutoTest.Execution.Http\\AutoTest.Execution.Http.csproj",
       "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-      "outputPath": "D:\\Code\\AutoTest\\src\\AutoTest.Execution.Http\\obj\\",
+      "outputPath": "d:\\Code\\AutoTest\\src\\AutoTest.Execution.Http\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -1784,8 +1890,8 @@
             "D:\\Code\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj": {
               "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj"
             },
-            "D:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-              "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+            "d:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+              "projectPath": "d:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
             }
           }
         }
@@ -1806,6 +1912,10 @@
       "net10.0": {
         "targetAlias": "net10.0",
         "dependencies": {
+          "Flurl.Http": {
+            "target": "Package",
+            "version": "[4.0.2, )"
+          },
           "Microsoft.Extensions.Logging": {
             "target": "Package",
             "version": "[10.0.5, )"

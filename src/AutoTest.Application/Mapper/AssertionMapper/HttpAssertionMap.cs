@@ -9,7 +9,10 @@ public class HttpAssertionMap : IAssertionMap
 {
     public IAssertion Map(AssertionRule rule)
     {
-        var dto = JsonSerializer.Deserialize<HttpAssertionDto>(rule.ConfigJson)!;
+        var dto = JsonSerializer.Deserialize<HttpAssertionDto>(rule.ConfigJson, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
 
         return new HttpAssertion(
             dto.Id,

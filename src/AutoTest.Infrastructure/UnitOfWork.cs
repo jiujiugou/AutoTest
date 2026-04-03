@@ -5,57 +5,78 @@ namespace AutoTest.Infrastructure;
 
 public class UnitOfWork : IUnitOfWork, IDisposable
 {
-    readonly IDbConnection _dbConnection;
+    private readonly IDbConnection _dbConnection;
     private IDbTransaction? _transaction;
-    public IDbTransaction Transaction => _transaction ?? throw new InvalidOperationException("No active transaction");
+
+    public IDbTransaction Transaction =>
+        _transaction ?? throw new InvalidOperationException("No active transaction");
+
     public UnitOfWork(IDbConnection dbConnection)
     {
         _dbConnection = dbConnection;
+
         if (_dbConnection.State != ConnectionState.Open)
-        {
             _dbConnection.Open();
-        }
-        _transaction = _dbConnection.BeginTransaction();
     }
+
+    public Task BeginAsync()
+    {
+        if (_transaction != null)
+            return Task.CompletedTask;
+
+        _transaction = _dbConnection.BeginTransaction();
+        return Task.CompletedTask;
+    }
+
     public Task CommitAsync()
     {
         try
         {
-            Transaction.Commit();
-
+            _transaction?.Commit();
         }
         catch
         {
-            Transaction.Rollback();
+            _transaction?.Rollback();
             throw;
         }
         finally
         {
-            _transaction!.Dispose();
+            _transaction?.Dispose();
             _transaction = null;
         }
         return Task.CompletedTask;
     }
-
-    public void Dispose()
-    {
-        _transaction!.Dispose();
-        _dbConnection.Dispose();
-    }
-
 
     public Task RollbackAsync()
     {
         try
         {
-            _transaction!.Rollback();
+            _transaction?.Rollback();
         }
         finally
         {
-            _transaction!.Dispose();
+            _transaction?.Dispose();
             _transaction = null;
         }
         return Task.CompletedTask;
     }
-
+    public async Task ExecuteAsync(Func<IDbTransaction, Task> action)
+    {
+        await BeginAsync();
+        try
+        {
+            await action(Transaction);
+            await CommitAsync();
+        }
+        catch
+        {
+            await RollbackAsync();
+            throw;
+        }
+    }
+    public void Dispose()
+    {
+        _transaction?.Dispose();
+        _dbConnection.Dispose();
+    }
 }

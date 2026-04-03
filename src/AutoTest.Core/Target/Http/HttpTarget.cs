@@ -10,7 +10,7 @@ public class HttpTarget : MonitorTarget
 
     public string Url { get; private set; } = null!;
 
-    public string? Body { get; private set; }
+    public HttpBody? Body { get; private set; }
 
     public Dictionary<string, string>? Headers { get; private set; }
 
@@ -18,12 +18,12 @@ public class HttpTarget : MonitorTarget
     public List<AssertionResult>? Assertions { get; private set; }
     public int Timeout { get; private set; } = 30;
 
-    public override string Type => "http";
+    public override string Type => "HTTP";
 
     public HttpTarget(
         RequestMethod method,
         string url,
-        string? body = null,
+        HttpBody? body = null,
         Dictionary<string, string>? headers = null,
         Dictionary<string, string>? query = null,
         int timeout = 30

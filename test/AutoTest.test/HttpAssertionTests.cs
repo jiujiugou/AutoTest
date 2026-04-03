@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading.Tasks;
 using AutoTest.Assertions.Http;
 using AutoTest.Core;
@@ -91,6 +91,6 @@ namespace AutoTest.Tests.Assertions.Http
         }
 
         public int StatusCode { get; set; }
-        public string? Body { get; set; }
+        public string Body { get; set; } = "";
     }
 }

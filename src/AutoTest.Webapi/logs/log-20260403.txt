@@ -1,0 +1,33 @@
+2026-04-03 00:03:30 [INF] Found 0 pending monitors to enqueue
+2026-04-03 00:08:30 [INF] Found 0 pending monitors to enqueue
+2026-04-03 00:12:37 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-03 00:12:37 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 14.8613ms
+2026-04-03 00:12:38 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-03 00:12:38 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 35.0246ms
+2026-04-03 00:13:30 [INF] Found 0 pending monitors to enqueue
+2026-04-03 00:13:51 [INF] Application is shutting down...
+2026-04-03 00:13:51 [ERR] Error executing work item from queue
+System.OperationCanceledException: The operation was canceled.
+   at System.Threading.Channels.AsyncOperation`2.GetResult(Int16 token)
+   at AutoTest.Infrastructure.TaskQueue.DequeueAsync(CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskQueue.cs:line 22
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 67
+2026-04-03 00:13:51 [ERR] Error executing work item from queue
+System.OperationCanceledException: The operation was canceled.
+   at System.Threading.Channels.AsyncOperation`2.GetResult(Int16 token)
+   at AutoTest.Infrastructure.TaskQueue.DequeueAsync(CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskQueue.cs:line 22
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 67
+2026-04-03 00:13:51 [ERR] Error executing work item from queue
+System.OperationCanceledException: The operation was canceled.
+   at System.Threading.Channels.AsyncOperation`2.GetResult(Int16 token)
+   at AutoTest.Infrastructure.TaskQueue.DequeueAsync(CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskQueue.cs:line 22
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 67
+2026-04-03 00:13:51 [ERR] Error executing work item from queue
+System.OperationCanceledException: The operation was canceled.
+   at System.Threading.Channels.AsyncOperation`2.GetResult(Int16 token)
+   at AutoTest.Infrastructure.TaskQueue.DequeueAsync(CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskQueue.cs:line 22
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 67
+2026-04-03 00:13:51 [ERR] Error executing work item from queue
+System.OperationCanceledException: The operation was canceled.
+   at System.Threading.Channels.AsyncOperation`2.GetResult(Int16 token)
+   at AutoTest.Infrastructure.TaskQueue.DequeueAsync(CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskQueue.cs:line 22
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 67

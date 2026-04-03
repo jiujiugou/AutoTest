@@ -1,6 +1,6 @@
 using AutoTest.Application.Builder;
 using AutoTest.Application.ExecutionPipeline;
-using AutoTest.Logging;
+using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.Step;
 
@@ -26,6 +26,7 @@ public class AssertionStep : IPipelineStep
             try
             {
                 var results = await _assertionEngine.EvaluateAsync(context.Result, assertions);
+                context.Result.Assertions = results;
 
                 foreach (var r in results)
                 {
@@ -37,7 +38,8 @@ public class AssertionStep : IPipelineStep
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Assertion evaluation failed: {ex.Message}", ex);
+                _logger.LogError(ex, "Assertion evaluation failed");
+                throw;
             }
         }
 

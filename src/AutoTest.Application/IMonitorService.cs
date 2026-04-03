@@ -1,5 +1,7 @@
 using AutoTest.Application.Dto;
 using AutoTest.Core;
+using AutoTest.Core.Assertion;
+using AutoTest.Core.Execution;
 
 namespace AutoTest.Application;
 
@@ -20,4 +22,8 @@ public interface IMonitorService
     Task TaskRunAsync(Guid id, CancellationToken cancellationToken = default);
     // 获取所有待执行的监控任务（供后台服务调用）
     Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync();
+
+    Task<ExecutionRecord?> GetLatestExecutionAsync(Guid monitorId);
+    Task<IEnumerable<ExecutionRecord>> GetExecutionsAsync(Guid monitorId, int take = 20);
+    Task<IEnumerable<AssertionResult>> GetExecutionAssertionResultsAsync(Guid executionId);
 }

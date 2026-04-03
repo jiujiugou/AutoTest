@@ -4,7 +4,9 @@ namespace AutoTest.Application;
 
 public interface IUnitOfWork
 {
-    IDbTransaction Transaction { get; }
-    Task CommitAsync();
+    public Task ExecuteAsync(Func<IDbTransaction, Task> action);
+    public Task BeginAsync();
+    public IDbTransaction Transaction { get; }
+    public Task CommitAsync();
     Task RollbackAsync();
 }

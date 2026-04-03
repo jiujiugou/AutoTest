@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +18,11 @@ namespace AutoTest.Core
         public bool IsEnabled { get; private set; } = true;
         private readonly List<AssertionRule> _assertions = new();
         public IReadOnlyCollection<AssertionRule> Assertions => _assertions;
-        private MonitorEntity() { } // For ORM
+        private MonitorEntity()
+        {
+            Name = null!;
+            Target = null!;
+        } // For ORM
         public MonitorEntity(Guid id, string name, MonitorTarget target, MonitorStatus status, DateTime? lastRunTime, bool isEnabled = true)
         {
             Id = id;

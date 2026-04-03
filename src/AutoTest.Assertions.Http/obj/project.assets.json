@@ -115,7 +115,7 @@
       },
       "AutoTest.Core/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
+        "framework": ".NETCoreApp,Version=v10.0",
         "compile": {
           "bin/placeholder/AutoTest.Core.dll": {}
         },
@@ -386,11 +386,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
+      "projectUniqueName": "d:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
       "projectName": "AutoTest.Assertions.Http",
-      "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
+      "projectPath": "d:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
       "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-      "outputPath": "D:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\obj\\",
+      "outputPath": "d:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -411,8 +411,8 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "D:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-              "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+            "d:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+              "projectPath": "d:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
             }
           }
         }

@@ -1,0 +1,181 @@
+2026-04-02 21:03:42 [INF] Beginning Transaction
+2026-04-02 21:03:42 [INF] Rolling back transaction
+2026-04-02 21:03:42 [INF] Now listening on: http://localhost:5033
+2026-04-02 21:03:42 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-02 21:03:42 [INF] Hosting environment: Development
+2026-04-02 21:03:42 [INF] Content root path: D:\Code\AutoTest\src\AutoTest.Webapi
+2026-04-02 21:03:42 [INF] GetByIdAsync called for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-02 21:03:42 [INF] Cache miss for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-02 21:03:42 [INF] Executing HTTP request: Get 
+2026-04-02 21:03:42 [ERR] HTTP request failed
+System.InvalidOperationException: An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.
+   at System.Net.Http.HttpClient.PrepareRequestMessage(HttpRequestMessage request)
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at AutoTest.Execution.Http.HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\Code\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 38
+2026-04-02 21:03:42 [INF] Assertion step started.
+2026-04-02 21:03:42 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-02 21:03:42 [INF] Assertion step finished.
+2026-04-02 21:03:42 [INF] Updating monitor "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-02 21:03:42 [INF] Updated 1 assertions for monitor "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-02 21:03:42 [INF] GetByIdAsync called for monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-02 21:03:42 [INF] Cache miss for monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-02 21:03:42 [INF] Executing HTTP request: Get 
+2026-04-02 21:03:42 [ERR] HTTP request failed
+System.InvalidOperationException: An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.
+   at System.Net.Http.HttpClient.PrepareRequestMessage(HttpRequestMessage request)
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at AutoTest.Execution.Http.HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\Code\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 38
+2026-04-02 21:03:42 [INF] Assertion step started.
+2026-04-02 21:03:42 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-02 21:03:42 [INF] Assertion step finished.
+2026-04-02 21:03:42 [INF] Updating monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-02 21:03:42 [ERR] Failed to update monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\Code\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 159
+2026-04-02 21:03:42 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\Code\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\Code\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 133
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 105
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 69
+2026-04-02 21:03:43 [INF] GetByIdAsync called for monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-02 21:03:43 [INF] Cache miss for monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-02 21:03:43 [INF] Executing HTTP request: Get https://example.com
+2026-04-02 21:03:43 [INF] Start processing HTTP request Get https://example.com/
+2026-04-02 21:03:43 [INF] Sending HTTP request Get https://example.com/
+2026-04-02 21:03:43 [INF] Received HTTP response headers after 715.1916ms - 200
+2026-04-02 21:03:43 [INF] End processing HTTP request after 746.7946ms - 200
+2026-04-02 21:03:43 [INF] HTTP request finished: status=200, success=True
+2026-04-02 21:03:43 [INF] Assertion step started.
+2026-04-02 21:03:43 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-02 21:03:43 [INF] Assertion step finished.
+2026-04-02 21:03:43 [INF] Updating monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-02 21:03:43 [ERR] Failed to update monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\Code\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 159
+2026-04-02 21:03:43 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\Code\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\Code\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 133
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 105
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 69
+2026-04-02 21:06:51 [INF] Application is shutting down...
+2026-04-02 21:07:08 [INF] Beginning Transaction
+2026-04-02 21:07:08 [INF] Rolling back transaction
+2026-04-02 21:07:08 [INF] Now listening on: http://localhost:5033
+2026-04-02 21:07:08 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-02 21:07:08 [INF] Hosting environment: Development
+2026-04-02 21:07:08 [INF] Content root path: D:\Code\AutoTest\src\AutoTest.Webapi
+2026-04-02 21:07:08 [INF] GetByIdAsync called for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-02 21:07:08 [INF] Cache miss for monitor: "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-02 21:07:08 [INF] Executing HTTP request: Get 
+2026-04-02 21:07:08 [ERR] HTTP request failed
+System.InvalidOperationException: An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.
+   at System.Net.Http.HttpClient.PrepareRequestMessage(HttpRequestMessage request)
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at AutoTest.Execution.Http.HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\Code\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 38
+2026-04-02 21:07:08 [INF] Assertion step started.
+2026-04-02 21:07:08 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-02 21:07:08 [INF] Assertion step finished.
+2026-04-02 21:07:08 [INF] Updating monitor "911fcd89-9a4e-4bea-894b-195e5f835767"
+2026-04-02 21:07:08 [ERR] Failed to update monitor "911fcd89-9a4e-4bea-894b-195e5f835767"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\Code\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 159
+2026-04-02 21:07:08 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\Code\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\Code\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 133
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 105
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 69
+2026-04-02 21:07:08 [INF] GetByIdAsync called for monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-02 21:07:08 [INF] Cache miss for monitor: "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-02 21:07:08 [INF] Executing HTTP request: Get 
+2026-04-02 21:07:08 [ERR] HTTP request failed
+System.InvalidOperationException: An invalid request URI was provided. Either the request URI must be an absolute URI or BaseAddress must be set.
+   at System.Net.Http.HttpClient.PrepareRequestMessage(HttpRequestMessage request)
+   at System.Net.Http.HttpClient.SendAsync(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at AutoTest.Execution.Http.HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\Code\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 38
+2026-04-02 21:07:08 [INF] Assertion step started.
+2026-04-02 21:07:08 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-02 21:07:08 [INF] Assertion step finished.
+2026-04-02 21:07:08 [INF] Updating monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+2026-04-02 21:07:08 [ERR] Failed to update monitor "56f99bec-8e63-4dee-864d-2d6e3ca9f9d6"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\Code\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 159
+2026-04-02 21:07:08 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\Code\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\Code\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 133
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 105
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 69
+2026-04-02 21:07:08 [INF] GetByIdAsync called for monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-02 21:07:08 [INF] Cache miss for monitor: "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-02 21:07:08 [INF] Executing HTTP request: Get https://example.com
+2026-04-02 21:07:08 [INF] Start processing HTTP request Get https://example.com/
+2026-04-02 21:07:08 [INF] Sending HTTP request Get https://example.com/
+2026-04-02 21:07:09 [INF] Received HTTP response headers after 537.2086ms - 200
+2026-04-02 21:07:09 [INF] End processing HTTP request after 564.5973ms - 200
+2026-04-02 21:07:09 [INF] HTTP request finished: status=200, success=True
+2026-04-02 21:07:09 [INF] Assertion step started.
+2026-04-02 21:07:09 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-02 21:07:09 [INF] Assertion step finished.
+2026-04-02 21:07:09 [INF] Updating monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+2026-04-02 21:07:09 [ERR] Failed to update monitor "b439a7f3-e0b4-4860-b5bd-b68a8f545714"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\Code\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 159
+2026-04-02 21:07:09 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\Code\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\Code\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 133
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 105
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\Code\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 69

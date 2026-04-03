@@ -1,0 +1,16 @@
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\bin\Debug\net10.0\AutoTest.Execution.Tcp.deps.json
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\bin\Debug\net10.0\AutoTest.Execution.Tcp.dll
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\bin\Debug\net10.0\AutoTest.Execution.Tcp.pdb
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\bin\Debug\net10.0\AutoTest.Core.dll
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\bin\Debug\net10.0\AutoTest.Core.pdb
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.Execution.Tcp.csproj.AssemblyReference.cache
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.Execution.Tcp.GeneratedMSBuildEditorConfig.editorconfig
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.Execution.Tcp.AssemblyInfoInputs.cache
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.Execution.Tcp.AssemblyInfo.cs
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.Execution.Tcp.csproj.CoreCompileInputs.cache
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.Execution.Tcp.sourcelink.json
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.76C52746.Up2Date
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.Execution.Tcp.dll
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\refint\AutoTest.Execution.Tcp.dll
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\AutoTest.Execution.Tcp.pdb
+d:\Code\AutoTest\src\AutoTest.Execution.Tcp\obj\Debug\net10.0\ref\AutoTest.Execution.Tcp.dll
