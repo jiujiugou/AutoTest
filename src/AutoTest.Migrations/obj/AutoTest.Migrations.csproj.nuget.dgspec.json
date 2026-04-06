@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Code\\AutoTest\\src\\AutoTest.Migrations\\AutoTest.Migrations.csproj": {}
+    "D:\\AutoTest\\src\\AutoTest.Migrations\\AutoTest.Migrations.csproj": {}
   },
   "projects": {
-    "D:\\Code\\AutoTest\\src\\AutoTest.Migrations\\AutoTest.Migrations.csproj": {
+    "D:\\AutoTest\\src\\AutoTest.Migrations\\AutoTest.Migrations.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Code\\AutoTest\\src\\AutoTest.Migrations\\AutoTest.Migrations.csproj",
+        "projectUniqueName": "D:\\AutoTest\\src\\AutoTest.Migrations\\AutoTest.Migrations.csproj",
         "projectName": "AutoTest.Migrations",
-        "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Migrations\\AutoTest.Migrations.csproj",
+        "projectPath": "D:\\AutoTest\\src\\AutoTest.Migrations\\AutoTest.Migrations.csproj",
         "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-        "outputPath": "D:\\Code\\AutoTest\\src\\AutoTest.Migrations\\obj\\",
+        "outputPath": "D:\\AutoTest\\src\\AutoTest.Migrations\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -25,7 +25,7 @@
           "net10.0"
         ],
         "sources": {
-          "D:\\AuthoringTools\\Vsiual Studio2022\\Nuget": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <ProjectReference Include="..\AutoTest.Assertion.Db\AutoTest.Assertion.Db.csproj" />
     <ProjectReference Include="..\AutoTest.Core\AutoTest.Core.csproj" />
     <ProjectReference Include="..\common\EventCommons\EventCommons.csproj" />
     <ProjectReference Include="..\common\CacheCommons\CacheCommons.csproj" />

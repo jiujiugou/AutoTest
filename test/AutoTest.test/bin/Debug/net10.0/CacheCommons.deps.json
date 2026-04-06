@@ -104,8 +104,20 @@
           }
         }
       },
+      "AutoTest.Assertion/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
+        },
+        "runtime": {
+          "AutoTest.Assertion.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "AutoTest.Assertions.Http/1.0.0": {
         "dependencies": {
+          "AutoTest.Assertion": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "10.0.5",
           "Microsoft.Extensions.Logging": "10.0.5"
@@ -188,6 +200,11 @@
       "sha512": "sha512-/HUHJ0tw/LQvD0DZrz50eQy/3z7PfX7WWEaXnjKTV9/TNdcgFlNTZGo49QhS7PTmhDqMyHRMqAXSBxLh0vso4g==",
       "path": "microsoft.extensions.primitives/10.0.5",
       "hashPath": "microsoft.extensions.primitives.10.0.5.nupkg.sha512"
+    },
+    "AutoTest.Assertion/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "AutoTest.Assertions.Http/1.0.0": {
       "type": "project",

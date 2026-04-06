@@ -1,5 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
+    <ProjectReference Include="..\AutoTest.Assertion\AutoTest.Assertion.csproj" />
     <ProjectReference Include="..\AutoTest.Core\AutoTest.Core.csproj" />
   </ItemGroup>
   <ItemGroup>

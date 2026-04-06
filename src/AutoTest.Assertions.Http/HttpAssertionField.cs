@@ -5,5 +5,6 @@ public enum HttpAssertionField
     StatusCode,
     Body,
     Header,
-    ResponseTime
+    ResponseTime,
+    Elapsed
 }

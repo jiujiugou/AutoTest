@@ -9,5 +9,4 @@ public enum HttpAssertionOperator
     GreaterThan,
     GreaterThanOrEqual,
     Contains
-
 }

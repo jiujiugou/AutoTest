@@ -155,10 +155,24 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
+      "AutoTest.Assertion/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
+        },
+        "compile": {
+          "bin/placeholder/AutoTest.Assertion.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AutoTest.Assertion.dll": {}
+        }
+      },
       "AutoTest.Assertions.Http/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "AutoTest.Assertion": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "10.0.5",
           "Microsoft.Extensions.Logging": "10.0.5"
@@ -481,6 +495,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "AutoTest.Assertion/1.0.0": {
+      "type": "project",
+      "path": "../../AutoTest.Assertion/AutoTest.Assertion.csproj",
+      "msbuildProject": "../../AutoTest.Assertion/AutoTest.Assertion.csproj"
+    },
     "AutoTest.Assertions.Http/1.0.0": {
       "type": "project",
       "path": "../../AutoTest.Assertions.Http/AutoTest.Assertions.Http.csproj",
@@ -505,11 +524,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\Code\\AutoTest\\src\\common\\CacheCommons\\CacheCommons.csproj",
+      "projectUniqueName": "D:\\AutoTest\\src\\common\\CacheCommons\\CacheCommons.csproj",
       "projectName": "CacheCommons",
-      "projectPath": "d:\\Code\\AutoTest\\src\\common\\CacheCommons\\CacheCommons.csproj",
+      "projectPath": "D:\\AutoTest\\src\\common\\CacheCommons\\CacheCommons.csproj",
       "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-      "outputPath": "d:\\Code\\AutoTest\\src\\common\\CacheCommons\\obj\\",
+      "outputPath": "D:\\AutoTest\\src\\common\\CacheCommons\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -523,15 +542,15 @@
         "net10.0"
       ],
       "sources": {
-        "D:\\AuthoringTools\\Vsiual Studio2022\\Nuget": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "D:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
-              "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
+            "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
+              "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
             }
           }
         }

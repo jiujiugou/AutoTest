@@ -1,5 +1,4 @@
 using AutoTest.Application.Builder.AssertionBuilder;
-using AutoTest.Application.Builder.TargetBuilder;
 using AutoTest.Application.Builder;
 using AutoTest.Application.Execution;
 using AutoTest.Application.ExecutionPipeline;
@@ -20,6 +19,8 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<IMonitorService, MonitorService>();
         services.AddScoped<ITargetMap, TcpTargetMap>();
         services.AddScoped<IAssertionMap, TcpAssertionMap>();
+        services.AddScoped<IAssertionMap, DbAssertionMap>();
+        services.AddScoped<IAssertionMap, PythonAssertionMap>();
         services.AddScoped<ITargetMap, HttpTargetMap>();
         services.AddScoped<IAssertionMap, HttpAssertionMap>();
         services.AddScoped<IOrchestrator, Orchestrator>();

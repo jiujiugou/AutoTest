@@ -24,6 +24,7 @@
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Pkgxunit_analyzers Condition=" '$(Pkgxunit_analyzers)' == '' ">C:\Users\jiuji\.nuget\packages\xunit.analyzers\1.18.0</Pkgxunit_analyzers>
     <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\jiuji\.nuget\packages\microsoft.extensions.apidescription.server\6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
+    <PkgBoDi Condition=" '$(PkgBoDi)' == '' ">C:\Users\jiuji\.nuget\packages\bodi\1.5.0</PkgBoDi>
     <PkgNet_IBM_Data_Db2 Condition=" '$(PkgNet_IBM_Data_Db2)' == '' ">C:\Users\jiuji\.nuget\packages\net.ibm.data.db2\9.0.0.300</PkgNet_IBM_Data_Db2>
   </PropertyGroup>
 </Project>

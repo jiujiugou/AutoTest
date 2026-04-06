@@ -5,15 +5,17 @@ public interface IHttpExecutionResult
     /// <summary>
     /// HTTP 状态码，比如 200、404
     /// </summary>
-    int StatusCode { get; }
+    int StatusCode {
+        get; set;
+    }
 
     /// <summary>
     /// 响应内容
     /// </summary>
-    string Body { get; }
-
+    string? Body { get; set; }
+    IReadOnlyDictionary<string, string> Headers { get; set; }
     /// <summary>
     /// 响应时间
     /// </summary>
-    long ElapsedMilliseconds { get; }
+    long? ElapsedMilliseconds { get; set; }
 }

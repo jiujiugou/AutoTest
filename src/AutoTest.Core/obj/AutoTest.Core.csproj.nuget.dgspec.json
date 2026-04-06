@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {}
+    "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {}
   },
   "projects": {
-    "d:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+    "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
+        "projectUniqueName": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
         "projectName": "AutoTest.Core",
-        "projectPath": "d:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
+        "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
         "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-        "outputPath": "d:\\Code\\AutoTest\\src\\AutoTest.Core\\obj\\",
+        "outputPath": "d:\\AutoTest\\src\\AutoTest.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -25,7 +25,7 @@
           "net10.0"
         ],
         "sources": {
-          "D:\\AuthoringTools\\Vsiual Studio2022\\Nuget": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

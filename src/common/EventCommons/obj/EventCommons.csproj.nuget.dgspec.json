@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Code\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj": {}
+    "D:\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj": {}
   },
   "projects": {
-    "D:\\Code\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj": {
+    "D:\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Code\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj",
+        "projectUniqueName": "D:\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj",
         "projectName": "EventCommons",
-        "projectPath": "D:\\Code\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj",
+        "projectPath": "D:\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj",
         "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-        "outputPath": "D:\\Code\\AutoTest\\src\\common\\EventCommons\\obj\\",
+        "outputPath": "D:\\AutoTest\\src\\common\\EventCommons\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -25,7 +25,7 @@
           "net10.0"
         ],
         "sources": {
-          "D:\\AuthoringTools\\Vsiual Studio2022\\Nuget": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

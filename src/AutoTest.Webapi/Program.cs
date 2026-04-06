@@ -22,6 +22,7 @@ builder.Services.AddCacheService();
 builder.Services.AddHttpAssertion();
 builder.Services.AddHttpExecution();
 builder.Services.AddTcpExecution();
+builder.Services.add
 builder.Services.AddControllers();
 builder.Services.AddValidatorsFromAssemblyContaining<AssertionDtoBaseValidator>();
 builder.Services.AddEndpointsApiExplorer();

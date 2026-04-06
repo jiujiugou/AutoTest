@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "dVAW4n+O7Go=",
+  "dgSpecHash": "xc5Rws14Ocg=",
   "success": true,
-  "projectFilePath": "D:\\Code\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj",
+  "projectFilePath": "D:\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.2\\microsoft.extensions.dependencyinjection.10.0.2.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.2\\microsoft.extensions.dependencyinjection.abstractions.10.0.2.nupkg.sha512"

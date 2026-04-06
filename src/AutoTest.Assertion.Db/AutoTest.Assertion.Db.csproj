@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoTest.Assertion\AutoTest.Assertion.csproj" />
+    <ProjectReference Include="..\AutoTest.Core\AutoTest.Core.csproj" />
+    <ProjectReference Include="..\AutoTest.Execution.Db\AutoTest.Execution.Db.csproj" />
+  </ItemGroup>
+
+</Project>

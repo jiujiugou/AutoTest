@@ -8,6 +8,8 @@ using Dapper;
 using AutoTest.Core;
 using AutoTest.Core.Abstraction;
 using AutoTest.Core.Assertion;
+using AutoTest.Core.Target;
+using AutoTest.Core.Target.Db;
 using AutoTest.Core.Target.Http;
 using AutoTest.Application.Dto;
 using Microsoft.Extensions.Logging;
@@ -46,6 +48,10 @@ public class MonitorRepository : IMonitorRepository
             MonitorTarget target = dto.TargetType switch
             {
                 "HTTP" or "Http" => JsonSerializer.Deserialize<HttpTarget>(dto.TargetConfig)!,
+                
+                "TCP" or "Tcp" => JsonSerializer.Deserialize<TcpTarget>(dto.TargetConfig)!,
+
+                "Db" or "DB" => JsonSerializer.Deserialize<DbTarget>(dto.TargetConfig)!,
                 _ => throw new InvalidOperationException($"Unknown TargetType: {dto.TargetType}")
             };
 
@@ -230,6 +236,8 @@ public class MonitorRepository : IMonitorRepository
                 MonitorTarget target = dto.TargetType switch
                 {
                     "HTTP" or "Http" => JsonSerializer.Deserialize<HttpTarget>(dto.TargetConfig)!,
+                    "TCP" or "Tcp" => JsonSerializer.Deserialize<TcpTarget>(dto.TargetConfig)!,
+                    "Db" or "DB" => JsonSerializer.Deserialize<DbTarget>(dto.TargetConfig)!,
                     _ => throw new InvalidOperationException($"Unknown TargetType: {dto.TargetType}")
                 };
 

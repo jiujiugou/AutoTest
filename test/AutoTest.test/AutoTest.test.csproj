@@ -2,12 +2,16 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\AutoTest.Core\AutoTest.Core.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Application\AutoTest.Application.csproj" />
+    <ProjectReference Include="..\..\src\AutoTest.Assertion.Db\AutoTest.Assertion.Db.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Assertions.Http\AutoTest.Assertions.Http.csproj" />
+    <ProjectReference Include="..\..\src\AutoTest.Execution.Http\AutoTest.Execution.Http.csproj" />
+    <ProjectReference Include="..\..\src\AutoTest.Execution.Db\AutoTest.Execution.Db.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Webapi\AutoTest.Webapi.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="8.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="xunit" Version="2.9.3" />

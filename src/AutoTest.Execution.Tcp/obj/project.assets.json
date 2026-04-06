@@ -385,11 +385,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Code\\AutoTest\\src\\AutoTest.Execution.Tcp\\AutoTest.Execution.Tcp.csproj",
+      "projectUniqueName": "d:\\AutoTest\\src\\AutoTest.Execution.Tcp\\AutoTest.Execution.Tcp.csproj",
       "projectName": "AutoTest.Execution.Tcp",
-      "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Execution.Tcp\\AutoTest.Execution.Tcp.csproj",
+      "projectPath": "d:\\AutoTest\\src\\AutoTest.Execution.Tcp\\AutoTest.Execution.Tcp.csproj",
       "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-      "outputPath": "D:\\Code\\AutoTest\\src\\AutoTest.Execution.Tcp\\obj\\",
+      "outputPath": "d:\\AutoTest\\src\\AutoTest.Execution.Tcp\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -403,15 +403,15 @@
         "net10.0"
       ],
       "sources": {
-        "D:\\AuthoringTools\\Vsiual Studio2022\\Nuget": {},
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net10.0": {
           "targetAlias": "net10.0",
           "projectReferences": {
-            "D:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-              "projectPath": "D:\\Code\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+            "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+              "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
             }
           }
         }

@@ -17,6 +17,7 @@ public class AssertionStep : IPipelineStep
     }
     public async Task InvokeAsync(PipelineContext context, Func<Task> next)
     {
+
         var assertions = context.Monitor.Assertions.Select(_assertionMap.Map).ToList();
 
         _logger.LogInformation("Assertion step started.");
