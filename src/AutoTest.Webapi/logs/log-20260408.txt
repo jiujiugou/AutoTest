@@ -1,0 +1,1068 @@
+2026-04-08 12:05:01 [INF] Beginning Transaction
+2026-04-08 12:05:01 [INF] Rolling back transaction
+2026-04-08 12:07:00 [INF] Beginning Transaction
+2026-04-08 12:07:01 [INF] Rolling back transaction
+2026-04-08 12:17:36 [INF] Beginning Transaction
+2026-04-08 12:17:36 [INF] Rolling back transaction
+2026-04-08 12:17:37 [INF] Start installing Hangfire SQL objects...
+2026-04-08 12:17:37 [INF] Hangfire SQL objects installed.
+2026-04-08 12:17:37 [INF] Now listening on: http://localhost:5033
+2026-04-08 12:17:38 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-08 12:17:38 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-08 12:17:38 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 12:17:38 [INF] Hosting environment: Development
+2026-04-08 12:17:38 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-08 12:17:38 [INF] Server tomwang:3012:89500b70 successfully announced in 255.429 ms
+2026-04-08 12:17:38 [INF] Server tomwang:3012:89500b70 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-08 12:17:38 [INF] Server tomwang:3012:89500b70 all the dispatchers started
+2026-04-08 12:17:42 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-08 12:17:43 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 1083.6074ms
+2026-04-08 12:17:43 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 12:17:43 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-08 12:17:43 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 40.0971ms
+2026-04-08 12:17:44 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 359.4364ms
+2026-04-08 12:17:44 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-08 12:17:44 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 39.8651ms
+2026-04-08 12:19:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/ - null null
+2026-04-08 12:19:06 [WRN] Failed to determine the https port for redirect.
+2026-04-08 12:19:06 [INF] The file /index.html was not modified
+2026-04-08 12:19:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/index.html - 304 null text/html 115.9165ms
+2026-04-08 12:19:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 12:19:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/styles.css - null null
+2026-04-08 12:19:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/app.js - null null
+2026-04-08 12:19:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-08 12:19:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 30.054ms
+2026-04-08 12:19:06 [INF] The file /styles.css was not modified
+2026-04-08 12:19:06 [INF] The file /app.js was not modified
+2026-04-08 12:19:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/styles.css - 304 null text/css 53.0961ms
+2026-04-08 12:19:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/app.js - 304 null text/javascript 57.355ms
+2026-04-08 12:19:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 46.6428ms
+2026-04-08 12:19:07 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor - application/json null
+2026-04-08 12:19:07 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-08 12:19:07 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:07 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-08 12:19:07 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 51.2095ms
+2026-04-08 12:19:07 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-08 12:19:07 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor - 200 null text/plain; charset=utf-8 159.0732ms
+2026-04-08 12:19:07 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-08 12:19:07 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:19:07 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:07 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-08 12:19:07 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 64.2809ms
+2026-04-08 12:19:07 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:19:07 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 103.9183ms
+2026-04-08 12:19:13 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 480
+2026-04-08 12:19:13 [INF] CORS policy execution successful.
+2026-04-08 12:19:13 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-08 12:19:13 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:13 [INF] AddAsync started for monitor: 百度
+2026-04-08 12:19:13 [INF] Adding monitor "e48f07cd-3932-49fb-b151-d2eef28313ae" with name 百度
+2026-04-08 12:19:13 [INF] Added 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:13 [INF] Monitor "e48f07cd-3932-49fb-b151-d2eef28313ae" added successfully
+2026-04-08 12:19:13 [INF] Executing OkObjectResult, writing value of type 'System.Guid'.
+2026-04-08 12:19:13 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi) in 149.8981ms
+2026-04-08 12:19:13 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-08 12:19:13 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor - 200 null application/json; charset=utf-8 174.5439ms
+2026-04-08 12:19:13 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-08 12:19:13 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:19:13 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:13 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:19:13 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 32.2466ms
+2026-04-08 12:19:13 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:19:13 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 43.7518ms
+2026-04-08 12:19:16 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/run - application/x-www-form-urlencoded 0
+2026-04-08 12:19:16 [INF] CORS policy execution successful.
+2026-04-08 12:19:16 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:19:16 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:16 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-08 12:19:16 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 113.3431ms
+2026-04-08 12:19:16 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:19:16 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/run - 200 0 null 138.7045ms
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] HTTP 请求完成，状态码：200 耗时：672ms
+2026-04-08 12:19:24 [INF] HTTP 请求完成，状态码：200 耗时：673ms
+2026-04-08 12:19:24 [INF] HTTP 请求完成，状态码：200 耗时：672ms
+2026-04-08 12:19:24 [INF] HTTP 请求完成，状态码：200 耗时：673ms
+2026-04-08 12:19:24 [INF] HTTP 请求完成，状态码：200 耗时：672ms
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:24 [INF] Assertion step started.
+2026-04-08 12:19:24 [INF] Assertion step started.
+2026-04-08 12:19:24 [INF] Assertion step started.
+2026-04-08 12:19:24 [INF] Assertion step started.
+2026-04-08 12:19:24 [INF] Assertion step started.
+2026-04-08 12:19:24 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:24 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:24 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:24 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:24 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:24 [INF] Assertion step finished.
+2026-04-08 12:19:24 [INF] Assertion step finished.
+2026-04-08 12:19:24 [INF] Assertion step finished.
+2026-04-08 12:19:24 [INF] Assertion step finished.
+2026-04-08 12:19:24 [INF] Assertion step finished.
+2026-04-08 12:19:24 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:24 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：520ms
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：524ms
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：531ms
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：554ms
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：576ms
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：532ms
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：542ms
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：537ms
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：508ms
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] HTTP 请求完成，状态码：200 耗时：538ms
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Assertion step started.
+2026-04-08 12:19:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:19:25 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:25 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:25 [INF] Assertion step finished.
+2026-04-08 12:19:25 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] HTTP 请求完成，状态码：200 耗时：526ms
+2026-04-08 12:19:26 [INF] Assertion step started.
+2026-04-08 12:19:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:26 [INF] Assertion step finished.
+2026-04-08 12:19:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] HTTP 请求完成，状态码：200 耗时：540ms
+2026-04-08 12:19:26 [INF] HTTP 请求完成，状态码：200 耗时：528ms
+2026-04-08 12:19:26 [INF] Assertion step started.
+2026-04-08 12:19:26 [INF] Assertion step started.
+2026-04-08 12:19:26 [INF] HTTP 请求完成，状态码：200 耗时：554ms
+2026-04-08 12:19:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:26 [INF] Assertion step started.
+2026-04-08 12:19:26 [INF] Assertion step finished.
+2026-04-08 12:19:26 [INF] Assertion step finished.
+2026-04-08 12:19:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Assertion step finished.
+2026-04-08 12:19:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] HTTP 请求完成，状态码：200 耗时：556ms
+2026-04-08 12:19:26 [INF] Assertion step started.
+2026-04-08 12:19:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:19:26 [INF] Assertion step finished.
+2026-04-08 12:19:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:19:26 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions?take=20 - application/json null
+2026-04-08 12:19:26 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:19:26 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:26 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:19:26 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 31.963ms
+2026-04-08 12:19:26 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:19:26 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions?take=20 - 200 null application/json; charset=utf-8 60.7128ms
+2026-04-08 12:19:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/executions/af81c353-10b6-4e81-9611-4e449c0d7daf/assertions - application/json null
+2026-04-08 12:19:31 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutionAssertions (AutoTest.Webapi)'
+2026-04-08 12:19:31 [INF] Route matched with {action = "GetExecutionAssertions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutionAssertions(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:31 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Infrastructure.ExecutionRecordRepository+AssertionResultRow, AutoTest.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:19:31 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutionAssertions (AutoTest.Webapi) in 5.7558ms
+2026-04-08 12:19:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutionAssertions (AutoTest.Webapi)'
+2026-04-08 12:19:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/executions/af81c353-10b6-4e81-9611-4e449c0d7daf/assertions - 200 null application/json; charset=utf-8 23.7894ms
+2026-04-08 12:19:40 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - application/json null
+2026-04-08 12:19:40 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:19:40 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:40 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 12:19:40 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 8.062ms
+2026-04-08 12:19:40 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:19:40 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - 200 null application/json; charset=utf-8 29.6594ms
+2026-04-08 12:19:41 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - application/json null
+2026-04-08 12:19:41 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:19:41 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:41 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 12:19:41 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 1.9363ms
+2026-04-08 12:19:41 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:19:41 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - 200 null application/json; charset=utf-8 10.349ms
+2026-04-08 12:19:42 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions?take=20 - application/json null
+2026-04-08 12:19:42 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:19:42 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:42 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:19:42 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 5.1624ms
+2026-04-08 12:19:42 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:19:42 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions?take=20 - 200 null application/json; charset=utf-8 24.1292ms
+2026-04-08 12:19:43 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions?take=20 - application/json null
+2026-04-08 12:19:43 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:19:43 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:43 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:19:43 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 3.0911ms
+2026-04-08 12:19:43 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:19:43 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions?take=20 - 200 null application/json; charset=utf-8 23.1545ms
+2026-04-08 12:19:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 12:19:46 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 8.9909ms
+2026-04-08 12:19:47 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-08 12:19:47 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 49.9184ms
+2026-04-08 12:19:53 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-08 12:19:53 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 12:19:53 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor - application/json null
+2026-04-08 12:19:53 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 8.6239ms
+2026-04-08 12:19:53 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-08 12:19:53 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:53 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 34.9069ms
+2026-04-08 12:19:53 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-08 12:19:53 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 6.4279ms
+2026-04-08 12:19:53 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-08 12:19:53 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor - 200 null text/plain; charset=utf-8 38.7347ms
+2026-04-08 12:19:53 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-08 12:19:53 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:19:53 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:19:53 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:19:53 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 32.0832ms
+2026-04-08 12:19:53 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:19:53 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 45.5ms
+2026-04-08 12:20:01 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/run - application/x-www-form-urlencoded 0
+2026-04-08 12:20:01 [INF] CORS policy execution successful.
+2026-04-08 12:20:01 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:01 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:01 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-08 12:20:01 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 28.6335ms
+2026-04-08 12:20:01 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:01 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/run - 200 0 null 47.197ms
+2026-04-08 12:20:08 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - application/json null
+2026-04-08 12:20:08 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:08 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:08 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 12:20:08 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 3.9517ms
+2026-04-08 12:20:08 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:08 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - 200 null application/json; charset=utf-8 17.2378ms
+2026-04-08 12:20:09 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:09 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:09 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] HTTP 请求完成，状态码：200 耗时：550ms
+2026-04-08 12:20:10 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] Assertion step started.
+2026-04-08 12:20:10 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:10 [INF] Assertion step finished.
+2026-04-08 12:20:10 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] HTTP 请求完成，状态码：200 耗时：555ms
+2026-04-08 12:20:10 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] Assertion step started.
+2026-04-08 12:20:10 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:10 [INF] Assertion step finished.
+2026-04-08 12:20:10 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] HTTP 请求完成，状态码：200 耗时：513ms
+2026-04-08 12:20:10 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] Assertion step started.
+2026-04-08 12:20:10 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:10 [INF] Assertion step finished.
+2026-04-08 12:20:10 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] HTTP 请求完成，状态码：200 耗时：527ms
+2026-04-08 12:20:10 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:10 [INF] Assertion step started.
+2026-04-08 12:20:10 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:10 [INF] Assertion step finished.
+2026-04-08 12:20:10 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] HTTP 请求完成，状态码：200 耗时：519ms
+2026-04-08 12:20:10 [INF] Assertion step started.
+2026-04-08 12:20:10 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:10 [INF] Assertion step finished.
+2026-04-08 12:20:10 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:10 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:11 [INF] HTTP 请求完成，状态码：200 耗时：542ms
+2026-04-08 12:20:11 [INF] Assertion step started.
+2026-04-08 12:20:11 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:11 [INF] Assertion step finished.
+2026-04-08 12:20:11 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:11 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:11 [INF] HTTP 请求完成，状态码：200 耗时：530ms
+2026-04-08 12:20:11 [INF] Assertion step started.
+2026-04-08 12:20:11 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:11 [INF] Assertion step finished.
+2026-04-08 12:20:11 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:11 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:11 [INF] HTTP 请求完成，状态码：200 耗时：514ms
+2026-04-08 12:20:11 [INF] Assertion step started.
+2026-04-08 12:20:11 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:11 [INF] Assertion step finished.
+2026-04-08 12:20:11 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:11 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:11 [INF] HTTP 请求完成，状态码：200 耗时：526ms
+2026-04-08 12:20:11 [INF] Assertion step started.
+2026-04-08 12:20:11 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:11 [INF] Assertion step finished.
+2026-04-08 12:20:11 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:11 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:13 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae - application/json null
+2026-04-08 12:20:13 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-08 12:20:13 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:13 [INF] GetByIdAsync called for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:13 [INF] Cache miss for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:13 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-08 12:20:13 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 18.4293ms
+2026-04-08 12:20:13 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-08 12:20:13 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae - 200 null application/json; charset=utf-8 40.4404ms
+2026-04-08 12:20:16 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/run - application/x-www-form-urlencoded 0
+2026-04-08 12:20:16 [INF] CORS policy execution successful.
+2026-04-08 12:20:16 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:16 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:16 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-08 12:20:16 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 21.2591ms
+2026-04-08 12:20:16 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:16 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/run - 200 0 null 45.195ms
+2026-04-08 12:20:19 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions?take=20 - application/json null
+2026-04-08 12:20:19 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:19 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:19 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:20:19 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 4.0659ms
+2026-04-08 12:20:19 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:19 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions?take=20 - 200 null application/json; charset=utf-8 21.4013ms
+2026-04-08 12:20:20 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - application/json null
+2026-04-08 12:20:20 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:20 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:20 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 12:20:20 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 4.8469ms
+2026-04-08 12:20:20 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:20 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - 200 null application/json; charset=utf-8 21.0013ms
+2026-04-08 12:20:21 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - application/json null
+2026-04-08 12:20:21 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:21 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:21 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 12:20:21 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 2.5321ms
+2026-04-08 12:20:21 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:21 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - 200 null application/json; charset=utf-8 19.423ms
+2026-04-08 12:20:21 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - application/json null
+2026-04-08 12:20:21 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:21 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:21 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 12:20:21 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 4.0309ms
+2026-04-08 12:20:21 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:21 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - 200 null application/json; charset=utf-8 20.3501ms
+2026-04-08 12:20:22 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - application/json null
+2026-04-08 12:20:22 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:22 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:22 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 12:20:22 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 3.2945ms
+2026-04-08 12:20:22 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:22 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/executions/latest - 200 null application/json; charset=utf-8 19.6363ms
+2026-04-08 12:20:23 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/run - application/x-www-form-urlencoded 0
+2026-04-08 12:20:23 [INF] CORS policy execution successful.
+2026-04-08 12:20:23 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:23 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:23 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-08 12:20:23 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 22.04ms
+2026-04-08 12:20:23 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:23 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae/run - 200 0 null 39.2616ms
+2026-04-08 12:20:25 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:25 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:25 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:25 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:25 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:25 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:25 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：553ms
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：572ms
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：571ms
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：563ms
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：546ms
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：561ms
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：543ms
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：537ms
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] HTTP 请求完成，状态码：200 耗时：548ms
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:26 [INF] Assertion step started.
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Assertion step finished.
+2026-04-08 12:20:26 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:26 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：572ms
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：533ms
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：531ms
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：537ms
+2026-04-08 12:20:27 [INF] WorkflowJob started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] Executing monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：539ms
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：528ms
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：544ms
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：548ms
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：548ms
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] HTTP 请求完成，状态码：200 耗时：526ms
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:27 [INF] Assertion step started.
+2026-04-08 12:20:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:27 [INF] Assertion step finished.
+2026-04-08 12:20:27 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:27 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：532ms
+2026-04-08 12:20:28 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：548ms
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：556ms
+2026-04-08 12:20:28 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：564ms
+2026-04-08 12:20:28 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：526ms
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：525ms
+2026-04-08 12:20:28 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：542ms
+2026-04-08 12:20:28 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：555ms
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] HTTP 请求完成，状态码：200 耗时：554ms
+2026-04-08 12:20:28 [INF] Assertion step started.
+2026-04-08 12:20:28 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:28 [INF] Assertion step finished.
+2026-04-08 12:20:28 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:28 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:29 [INF] HTTP 请求完成，状态码：200 耗时：545ms
+2026-04-08 12:20:29 [INF] Assertion step started.
+2026-04-08 12:20:29 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:29 [INF] Assertion step finished.
+2026-04-08 12:20:29 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:29 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:29 [INF] HTTP 请求完成，状态码：200 耗时：540ms
+2026-04-08 12:20:29 [INF] Assertion step started.
+2026-04-08 12:20:29 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:29 [INF] Assertion step finished.
+2026-04-08 12:20:29 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:29 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:29 [INF] HTTP 请求完成，状态码：200 耗时：553ms
+2026-04-08 12:20:29 [INF] Assertion step started.
+2026-04-08 12:20:29 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:29 [INF] Assertion step finished.
+2026-04-08 12:20:29 [INF] Updating monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:29 [INF] Updated 1 assertions for monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:31 [INF] Request starting HTTP/1.1 DELETE http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae - application/json null
+2026-04-08 12:20:31 [INF] CORS policy execution successful.
+2026-04-08 12:20:31 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Delete (AutoTest.Webapi)'
+2026-04-08 12:20:31 [INF] Route matched with {action = "Delete", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:31 [INF] DeleteAsync started for monitor: "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:31 [INF] Removing monitor "e48f07cd-3932-49fb-b151-d2eef28313ae"
+2026-04-08 12:20:31 [INF] Monitor "e48f07cd-3932-49fb-b151-d2eef28313ae" removed
+2026-04-08 12:20:31 [INF] Monitor "e48f07cd-3932-49fb-b151-d2eef28313ae" deleted successfully
+2026-04-08 12:20:31 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2026-04-08 12:20:31 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Delete (AutoTest.Webapi) in 20.1766ms
+2026-04-08 12:20:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Delete (AutoTest.Webapi)'
+2026-04-08 12:20:31 [INF] Request finished HTTP/1.1 DELETE http://localhost:5033/api/monitor/e48f07cd-3932-49fb-b151-d2eef28313ae - 204 null null 46.1761ms
+2026-04-08 12:20:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-08 12:20:31 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:20:31 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:31 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-08 12:20:31 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 2.8417ms
+2026-04-08 12:20:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:20:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 15.2684ms
+2026-04-08 12:20:46 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 480
+2026-04-08 12:20:46 [INF] CORS policy execution successful.
+2026-04-08 12:20:46 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-08 12:20:46 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:46 [INF] AddAsync started for monitor: 百度
+2026-04-08 12:20:46 [INF] Adding monitor "40b94bed-19e8-454f-911a-3c8799185c3b" with name 百度
+2026-04-08 12:20:46 [INF] Added 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:46 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" added successfully
+2026-04-08 12:20:46 [INF] Executing OkObjectResult, writing value of type 'System.Guid'.
+2026-04-08 12:20:46 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi) in 26.6851ms
+2026-04-08 12:20:46 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-08 12:20:46 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor - 200 null application/json; charset=utf-8 50.3217ms
+2026-04-08 12:20:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-08 12:20:46 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:20:46 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:46 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:20:46 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 2.654ms
+2026-04-08 12:20:46 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 12:20:46 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 12.5033ms
+2026-04-08 12:20:48 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/run - application/x-www-form-urlencoded 0
+2026-04-08 12:20:48 [INF] CORS policy execution successful.
+2026-04-08 12:20:48 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:48 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:48 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-08 12:20:48 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 20.4996ms
+2026-04-08 12:20:48 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:48 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/run - 200 0 null 32.3192ms
+2026-04-08 12:20:52 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - application/json null
+2026-04-08 12:20:52 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:52 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:52 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:20:52 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 2.4164ms
+2026-04-08 12:20:52 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:52 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - 200 null application/json; charset=utf-8 20.6364ms
+2026-04-08 12:20:53 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - application/json null
+2026-04-08 12:20:53 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:53 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:53 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:20:53 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 2.3009ms
+2026-04-08 12:20:53 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:53 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - 200 null application/json; charset=utf-8 16.6345ms
+2026-04-08 12:20:54 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - application/json null
+2026-04-08 12:20:54 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:54 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:54 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:20:54 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 3.2649ms
+2026-04-08 12:20:54 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:54 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - 200 null application/json; charset=utf-8 26.5843ms
+2026-04-08 12:20:54 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - application/json null
+2026-04-08 12:20:54 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:54 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:54 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:20:54 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 2.224ms
+2026-04-08 12:20:54 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:54 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - 200 null application/json; charset=utf-8 15.3706ms
+2026-04-08 12:20:54 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - application/json null
+2026-04-08 12:20:54 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:54 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:54 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:20:54 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 2.9135ms
+2026-04-08 12:20:54 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:54 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - 200 null application/json; charset=utf-8 14.8291ms
+2026-04-08 12:20:56 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions/latest - application/json null
+2026-04-08 12:20:56 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:56 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:56 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-04-08 12:20:56 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 30.7885ms
+2026-04-08 12:20:56 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:20:56 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions/latest - 404 null application/problem+json; charset=utf-8 42.8485ms
+2026-04-08 12:20:57 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:57 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:57 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:57 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:57 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:57 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] HTTP 请求完成，状态码：200 耗时：545ms
+2026-04-08 12:20:57 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:57 [INF] Assertion step started.
+2026-04-08 12:20:57 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:57 [INF] Assertion step finished.
+2026-04-08 12:20:57 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] HTTP 请求完成，状态码：200 耗时：552ms
+2026-04-08 12:20:57 [INF] Assertion step started.
+2026-04-08 12:20:57 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:57 [INF] Assertion step finished.
+2026-04-08 12:20:57 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:57 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] HTTP 请求完成，状态码：200 耗时：546ms
+2026-04-08 12:20:58 [INF] Assertion step started.
+2026-04-08 12:20:58 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:58 [INF] Assertion step finished.
+2026-04-08 12:20:58 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] HTTP 请求完成，状态码：200 耗时：570ms
+2026-04-08 12:20:58 [INF] Assertion step started.
+2026-04-08 12:20:58 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:58 [INF] Assertion step finished.
+2026-04-08 12:20:58 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] HTTP 请求完成，状态码：200 耗时：570ms
+2026-04-08 12:20:58 [INF] Assertion step started.
+2026-04-08 12:20:58 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:58 [INF] Assertion step finished.
+2026-04-08 12:20:58 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] HTTP 请求完成，状态码：200 耗时：549ms
+2026-04-08 12:20:58 [INF] Assertion step started.
+2026-04-08 12:20:58 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:58 [INF] Assertion step finished.
+2026-04-08 12:20:58 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/run - application/x-www-form-urlencoded 0
+2026-04-08 12:20:58 [INF] CORS policy execution successful.
+2026-04-08 12:20:58 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:58 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:58 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-08 12:20:58 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 19.0142ms
+2026-04-08 12:20:58 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-08 12:20:58 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/run - 200 0 null 34.6442ms
+2026-04-08 12:20:58 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:58 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:58 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:58 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:58 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:59 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:59 [INF] WorkflowJob started for monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Executing monitor: "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] HTTP 请求完成，状态码：200 耗时：543ms
+2026-04-08 12:20:59 [INF] Assertion step started.
+2026-04-08 12:20:59 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-08 12:20:59 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:59 [INF] Assertion step finished.
+2026-04-08 12:20:59 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] HTTP 请求完成，状态码：200 耗时：532ms
+2026-04-08 12:20:59 [INF] Assertion step started.
+2026-04-08 12:20:59 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:59 [INF] HTTP 请求完成，状态码：200 耗时：546ms
+2026-04-08 12:20:59 [INF] Assertion step finished.
+2026-04-08 12:20:59 [INF] Assertion step started.
+2026-04-08 12:20:59 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:59 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Assertion step finished.
+2026-04-08 12:20:59 [INF] HTTP 请求完成，状态码：200 耗时：542ms
+2026-04-08 12:20:59 [INF] Assertion step started.
+2026-04-08 12:20:59 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:59 [INF] Assertion step finished.
+2026-04-08 12:20:59 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] HTTP 请求完成，状态码：200 耗时：549ms
+2026-04-08 12:20:59 [INF] Assertion step started.
+2026-04-08 12:20:59 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:59 [INF] Assertion step finished.
+2026-04-08 12:20:59 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] HTTP 请求完成，状态码：200 耗时：548ms
+2026-04-08 12:20:59 [INF] Assertion step started.
+2026-04-08 12:20:59 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-08 12:20:59 [INF] Assertion step finished.
+2026-04-08 12:20:59 [INF] Updating monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Updated 1 assertions for monitor "40b94bed-19e8-454f-911a-3c8799185c3b"
+2026-04-08 12:20:59 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - application/json null
+2026-04-08 12:20:59 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:59 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:20:59 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 12:20:59 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 3.4051ms
+2026-04-08 12:20:59 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-08 12:20:59 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions?take=20 - 200 null application/json; charset=utf-8 17.1667ms
+2026-04-08 12:21:09 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions/latest - application/json null
+2026-04-08 12:21:09 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:21:09 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 12:21:09 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-08 12:21:09 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 2.2979ms
+2026-04-08 12:21:09 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-08 12:21:09 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/40b94bed-19e8-454f-911a-3c8799185c3b/executions/latest - 200 null application/json; charset=utf-8 13.1106ms
+2026-04-08 16:23:50 [INF] Beginning Transaction
+2026-04-08 16:23:51 [INF] Rolling back transaction
+2026-04-08 16:23:51 [INF] Start installing Hangfire SQL objects...
+2026-04-08 16:23:51 [INF] Hangfire SQL objects installed.
+2026-04-08 16:23:51 [INF] Now listening on: http://localhost:5033
+2026-04-08 16:23:52 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-08 16:23:52 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-08 16:23:52 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 16:23:52 [INF] Hosting environment: Development
+2026-04-08 16:23:52 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-08 16:23:52 [INF] Server tomwang:17936:0f6105b3 successfully announced in 279.6815 ms
+2026-04-08 16:23:52 [INF] Server tomwang:17936:0f6105b3 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-08 16:23:53 [INF] 1 servers were removed due to timeout
+2026-04-08 16:23:53 [INF] Server tomwang:17936:0f6105b3 all the dispatchers started
+2026-04-08 16:23:53 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-08 16:23:54 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 834.8844ms
+2026-04-08 16:23:54 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-08 16:23:54 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 16:23:54 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 46.9158ms
+2026-04-08 16:23:54 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 132.2232ms
+2026-04-08 16:23:55 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-08 16:23:55 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 104.3457ms
+2026-04-08 16:24:00 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 16:24:00 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-08 16:24:00 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 10.2131ms
+2026-04-08 16:24:00 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor - application/json null
+2026-04-08 16:24:00 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 43.1113ms
+2026-04-08 16:24:00 [WRN] Failed to determine the https port for redirect.
+2026-04-08 16:24:00 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-08 16:24:00 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 16:24:00 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-08 16:24:00 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 64.6245ms
+2026-04-08 16:24:00 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-08 16:24:00 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor - 200 null text/plain; charset=utf-8 184.1698ms
+2026-04-08 16:24:00 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-08 16:24:00 [INF] Request starting HTTP/1.1 GET http://localhost:5033/favicon.ico - null null
+2026-04-08 16:24:00 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 16:24:00 [INF] Request finished HTTP/1.1 GET http://localhost:5033/favicon.ico - 404 0 null 60.8291ms
+2026-04-08 16:24:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5033/favicon.ico, Response status code: 404
+2026-04-08 16:24:00 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-08 16:24:00 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-08 16:24:00 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 184.4469ms
+2026-04-08 16:24:00 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-08 16:24:00 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 299.1334ms
+2026-04-08 16:24:37 [INF] Request starting HTTP/1.1 GET http://localhost:5033/.well-known/appspecific/com.chrome.devtools.json - null null
+2026-04-08 16:24:37 [INF] Request finished HTTP/1.1 GET http://localhost:5033/.well-known/appspecific/com.chrome.devtools.json - 404 0 null 24.4734ms
+2026-04-08 16:24:37 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5033/.well-known/appspecific/com.chrome.devtools.json, Response status code: 404
+2026-04-08 16:25:43 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-08 16:25:43 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 27.9463ms
+2026-04-08 16:25:43 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 16:25:43 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-08 16:25:43 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 37.2854ms
+2026-04-08 16:25:43 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 69.2661ms
+2026-04-08 16:25:44 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-08 16:25:44 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 9.0304ms
+2026-04-08 22:10:58 [INF] Beginning Transaction
+2026-04-08 22:10:58 [INF] Rolling back transaction
+2026-04-08 22:10:59 [INF] Start installing Hangfire SQL objects...
+2026-04-08 22:10:59 [INF] Hangfire SQL objects installed.
+2026-04-08 22:11:00 [INF] Initializing Hangfire scheduled jobs...
+2026-04-08 22:11:00 [INF] Hangfire scheduled jobs initialized.
+2026-04-08 22:11:01 [INF] Now listening on: http://localhost:5033
+2026-04-08 22:11:01 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-08 22:11:01 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-08 22:11:01 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-08 22:11:01 [INF] Hosting environment: Development
+2026-04-08 22:11:01 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-08 22:11:01 [INF] Server tomwang:30456:9be689d8 successfully announced in 64.87 ms
+2026-04-08 22:11:01 [INF] Server tomwang:30456:9be689d8 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-08 22:11:01 [INF] 1 servers were removed due to timeout
+2026-04-08 22:11:01 [INF] Server tomwang:30456:9be689d8 all the dispatchers started
+2026-04-08 22:11:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-08 22:11:08 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 1991.4819ms
+2026-04-08 22:11:08 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-08 22:11:08 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-08 22:11:08 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 254.7522ms
+2026-04-08 22:11:08 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 882.2033ms
+2026-04-08 22:11:09 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-08 22:11:09 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 157.0344ms

@@ -1,18 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
-using Dapper;
+using AutoTest.Application.Dto;
 using AutoTest.Core;
 using AutoTest.Core.Abstraction;
 using AutoTest.Core.Assertion;
 using AutoTest.Core.Target;
 using AutoTest.Core.Target.Db;
 using AutoTest.Core.Target.Http;
-using AutoTest.Application.Dto;
+using AutoTest.Core.Target.Python;
+using Dapper;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace AutoTest.Infrastructure;
 
@@ -231,13 +233,90 @@ public class MonitorRepository : IMonitorRepository
             var assertionLookup = assertionResults
                 .GroupBy(a => a.MonitorId)
                 .ToDictionary(g => g.Key, g => g.ToList());
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true // 属性名不区分大小写
+            };
+            options.Converters.Add(new JsonStringEnumConverter(namingPolicy: null, allowIntegerValues: true)); // 枚举值大小写不敏感
+
             var entities = result.Select(dto =>
+            {
+                try
+                {
+                    MonitorTarget target = dto.TargetType switch
+                    {
+
+                        "HTTP" or "Http" => JsonSerializer.Deserialize<HttpTarget>(dto.TargetConfig, options)!,
+                        "TCP" or "Tcp" => JsonSerializer.Deserialize<TcpTarget>(dto.TargetConfig)!,
+                        "Db" or "DB" => JsonSerializer.Deserialize<DbTarget>(dto.TargetConfig)!,
+                        _ => throw new InvalidOperationException($"Unknown TargetType: {dto.TargetType}")
+                    };
+
+                    var entity = new MonitorEntity(
+                        dto.Id,
+                        dto.Name,
+                        target,
+                        (MonitorStatus)dto.Status,
+                        dto.LastRunTime,
+                        dto.IsEnabled
+                    );
+                    if (assertionLookup.TryGetValue(dto.Id, out var assertions))
+                    {
+                        foreach (var a in assertions)
+                        {
+                            entity.AddAssertion(new AssertionRule(a.Id, a.Type, a.ConfigJson));
+                        }
+                    }
+                    return entity;
+                }
+                catch (JsonException ex)
+                {
+                    _logger.LogError(ex, "Failed to deserialize TargetConfig for monitor {TargetConfig}", dto.TargetConfig);
+                    throw new InvalidOperationException($"Invalid TargetConfig for monitor {dto.Id}", ex);
+                }
+    });
+
+            _logger.LogDebug("Fetched {Count} schedulable monitors", entities.Count());
+            return entities;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to fetch schedulable monitors");
+            throw;
+        }
+    }
+
+    public async Task<IEnumerable<MonitorEntity>> ListAsync(int take = 50)
+    {
+        try
+        {
+            var sql = @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig
+                        FROM Monitor
+                        ORDER BY CreatedAt DESC
+                        LIMIT @Take";
+
+            var result = (await _dbConnection.QueryAsync<MonitorDto>(sql, new { Take = take })).ToList();
+            if (result.Count == 0)
+                return Enumerable.Empty<MonitorEntity>();
+
+            var monitorIds = result.Select(r => r.Id).ToList();
+            var sqlAssertion = @"SELECT Id, MonitorId, Type, ConfigJson
+                                 FROM Assertion
+                                 WHERE MonitorId IN @MonitorIds";
+
+            var assertionResults = await _dbConnection.QueryAsync<AssertionDto>(sqlAssertion, new { MonitorIds = monitorIds });
+            var assertionLookup = assertionResults
+                .GroupBy(a => a.MonitorId)
+                .ToDictionary(g => g.Key, g => g.ToList());
+
+            return result.Select(dto =>
             {
                 MonitorTarget target = dto.TargetType switch
                 {
                     "HTTP" or "Http" => JsonSerializer.Deserialize<HttpTarget>(dto.TargetConfig)!,
                     "TCP" or "Tcp" => JsonSerializer.Deserialize<TcpTarget>(dto.TargetConfig)!,
                     "Db" or "DB" => JsonSerializer.Deserialize<DbTarget>(dto.TargetConfig)!,
+                    "PYTHON" or "Python" or "python" => JsonSerializer.Deserialize<PythonTarget>(dto.TargetConfig)!,
                     _ => throw new InvalidOperationException($"Unknown TargetType: {dto.TargetType}")
                 };
 
@@ -249,23 +328,19 @@ public class MonitorRepository : IMonitorRepository
                     dto.LastRunTime,
                     dto.IsEnabled
                 );
+
                 if (assertionLookup.TryGetValue(dto.Id, out var assertions))
                 {
                     foreach (var a in assertions)
-                    {
                         entity.AddAssertion(new AssertionRule(a.Id, a.Type, a.ConfigJson));
-                    }
                 }
 
                 return entity;
             });
-
-            _logger.LogDebug("Fetched {Count} schedulable monitors", entities.Count());
-            return entities;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to fetch schedulable monitors");
+            _logger.LogError(ex, "Failed to list monitors");
             throw;
         }
     }

@@ -1,22 +1,44 @@
 using AutoTest.Application;
 using AutoTest.Core.Abstraction;
 using Dapper;
-using System.Data;
+using Hangfire;
+using Hangfire.SQLite;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Data;
 
 namespace AutoTest.Infrastructure;
 
 public static class AddInfrastructureServiceCollectionExtensions
 {
-    public static IServiceCollection AddAutoTestInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddAutoTestInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         DapperTypeHandlers.EnsureInitialized();
+        var hangfireConnection = configuration.GetConnectionString("HangfireConnection")
+                                 ?? configuration["ConnectionStrings:HangfireConnection"]
+                                 ?? "Data Source=hangfire.db;";
+        hangfireConnection = hangfireConnection.Trim();
+        if (!hangfireConnection.EndsWith(";", StringComparison.Ordinal))
+            hangfireConnection += ";";
+
+        services.AddSingleton<IWorkflowScheduler, HangfireWorkflowScheduler>();
+        services.AddHangfire(config =>
+        {
+            config.UseSimpleAssemblyNameTypeSerializer()
+                  .UseRecommendedSerializerSettings()
+                  .UseSQLiteStorage(hangfireConnection);
+        });
+        services.AddHangfireServer();
+        services.AddTransient<WorkflowJob>();
+        services.AddHostedService<HangfireSchedulerInitializer>();
         services.AddScoped<IMonitorRepository, MonitorRepository>();
         services.AddScoped<IExecutionRecordRepository, ExecutionRecordRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddSingleton<IMonitorExecutionCoordinator, MonitorExecutionCoordinator>();
-        services.AddSingleton<ITaskQueue, TaskQueue>(); // 任务队列通常是单例的
-        services.AddHostedService<TaskWorker>();
+        services.AddSingleton<RedisLockService>(sp =>
+        {
+            var redisConnection = "localhost:6379";
+            return new RedisLockService(redisConnection);
+        });
         return services;
     }
 }

@@ -2,6 +2,7 @@ using AutoTest.Core;
 using AutoTest.Core.http;
 using AutoTest.Core.Target.Http;
 using AutoTest.Execution.Http;
+using Flurl.Http;
 using FluentAssertions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +32,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync("ok");
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var target = new HttpTarget(server.Url("/ok").ToString(), RequestMethod.Get, null!);
         target.RetryCount = 1;
 
@@ -40,6 +41,7 @@ public class HttpExecutionEngineTests
         result.StatusCode.Should().Be(200);
         result.Body.Should().Be("ok");
         result.Headers.Should().ContainKey("X-Test");
+        result.Headers["X-Test"].Should().Contain("abc");
         result.ElapsedMilliseconds.Should().NotBeNull();
         result.ElapsedMilliseconds!.Value.Should().BeGreaterThanOrEqualTo(0);
     }
@@ -55,7 +57,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync(body);
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var body = new HttpBody(BodyType.Json, "application/json", new { a = 1 });
         var target = new HttpTarget(server.Url("/echo").ToString(), RequestMethod.Post, body);
         target.RetryCount = 1;
@@ -76,7 +78,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync($"{ctx.Request.ContentType}|{body}");
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var body = new HttpBody(BodyType.FormUrlEncoded, "application/x-www-form-urlencoded", new Dictionary<string, string>
         {
             ["k"] = "v",
@@ -103,7 +105,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync($"{ctx.Request.ContentType}|{body}");
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var body = new HttpBody(BodyType.Raw, "text/plain", "hello");
         var target = new HttpTarget(server.Url("/raw").ToString(), RequestMethod.Post, body);
         target.RetryCount = 1;
@@ -123,7 +125,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync(ctx.Request.QueryString.Value ?? "");
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var target = new HttpTarget(server.Url("/q").ToString(), RequestMethod.Get, null!);
         target.Query!["a"] = "1";
         target.Query["b"] = "hello world";
@@ -144,7 +146,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync(auth);
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var target = new HttpTarget(server.Url("/auth").ToString(), RequestMethod.Get, null!);
         target.AuthType = AuthType.Bearer;
         target.AuthToken = "t1";
@@ -164,7 +166,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync(auth);
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var target = new HttpTarget(server.Url("/basic").ToString(), RequestMethod.Get, null!);
         target.AuthType = AuthType.Basic;
         target.AuthUsername = "u";
@@ -187,7 +189,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync(key);
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var target = new HttpTarget(server.Url("/apikey").ToString(), RequestMethod.Get, null!);
         target.AuthType = AuthType.ApiKeyHeader;
         target.AuthToken = "k1";
@@ -207,7 +209,7 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync("ok");
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var url = server.Url("/slow").ToString();
         var t1Target = new HttpTarget(url, RequestMethod.Get, null!);
         var t2Target = new HttpTarget(url, RequestMethod.Get, null!);
@@ -218,8 +220,8 @@ public class HttpExecutionEngineTests
         await Task.Delay(30);
         var second = (HttpExecutionResult)await engine.ExecuteAsync(t2Target);
 
-        second.StatusCode.Should().Be(4044);
-        second.IsExecutionSuccess.Should().BeFalse();
+        second.StatusCode.Should().Be(200);
+        second.IsExecutionSuccess.Should().BeTrue();
         await first;
     }
 
@@ -241,7 +243,7 @@ public class HttpExecutionEngineTests
             await Task.Delay(800);
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var target = new HttpTarget(url.ToString(), RequestMethod.Get, null!);
         target.EnableRetry = true;
         target.RetryCount = 2;
@@ -263,13 +265,13 @@ public class HttpExecutionEngineTests
             await ctx.Response.WriteAsync("late");
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var target = CreateTargetWithTimeout(server.Url("/timeout").ToString(), 1);
         target.RetryCount = 1;
 
         var result = (HttpExecutionResult)await engine.ExecuteAsync(target);
         result.IsExecutionSuccess.Should().BeFalse();
-        result.StatusCode.Should().Be(404);
+        result.StatusCode.Should().Be(0);
     }
 
     [Fact]
@@ -294,7 +296,7 @@ public class HttpExecutionEngineTests
             }
         });
 
-        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>());
+        var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var tasks = Enumerable.Range(0, 6).Select(i =>
         {
             var target = new HttpTarget(server.Url($"/p/{i}").ToString(), RequestMethod.Get, null!);
@@ -388,6 +390,34 @@ public class HttpExecutionEngineTests
         {
             await _app.StopAsync();
             await _app.DisposeAsync();
+        }
+    }
+
+    private sealed class TestHttpClient : IHttpClient
+    {
+        public Task<FlurlClient> GetOrCreateClient(HttpTarget target)
+        {
+            var client = new FlurlClient(new HttpClient());
+            switch (target.AuthType)
+            {
+                case AuthType.Bearer:
+                    if (!string.IsNullOrEmpty(target.AuthToken))
+                        client.WithOAuthBearerToken(target.AuthToken);
+                    break;
+                case AuthType.Basic:
+                    if (!string.IsNullOrEmpty(target.AuthUsername) && !string.IsNullOrEmpty(target.AuthPassword))
+                    {
+                        var auth = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{target.AuthUsername}:{target.AuthPassword}"));
+                        client.WithHeader("Authorization", $"Basic {auth}");
+                    }
+                    break;
+                case AuthType.ApiKeyHeader:
+                    if (!string.IsNullOrEmpty(target.AuthToken))
+                        client.WithHeader("X-Api-Key", target.AuthToken);
+                    break;
+            }
+
+            return Task.FromResult(client);
         }
     }
 }

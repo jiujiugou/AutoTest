@@ -4,14 +4,14 @@
     "D:\\AutoTest\\src\\AutoTest.Execution.Db\\AutoTest.Execution.Db.csproj": {}
   },
   "projects": {
-    "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+    "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
+        "projectUniqueName": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
         "projectName": "AutoTest.Core",
-        "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
+        "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
         "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-        "outputPath": "d:\\AutoTest\\src\\AutoTest.Core\\obj\\",
+        "outputPath": "D:\\AutoTest\\src\\AutoTest.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -30,6 +30,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -48,6 +49,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -369,10 +371,11 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
               }
             }
           }
@@ -391,6 +394,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Data.SqlClient": {
@@ -404,14 +408,6 @@
             "Npgsql": {
               "target": "Package",
               "version": "[10.0.2, )"
-            },
-            "SpecFlow": {
-              "target": "Package",
-              "version": "[3.9.74, )"
-            },
-            "SpecFlow.Tools.MsBuild.Generation": {
-              "target": "Package",
-              "version": "[3.9.74, )"
             }
           },
           "imports": [

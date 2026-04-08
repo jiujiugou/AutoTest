@@ -1,0 +1,1281 @@
+2026-04-07 15:07:29 [INF] Beginning Transaction
+2026-04-07 15:07:29 [INF] Rolling back transaction
+2026-04-07 15:07:30 [INF] Scanning for pending monitors...
+2026-04-07 15:07:30 [INF] Found 1 pending monitors to enqueue
+2026-04-07 15:07:30 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:07:30 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:07:30 [INF] Now listening on: https://localhost:7106
+2026-04-07 15:07:31 [INF] Now listening on: http://localhost:5033
+2026-04-07 15:07:31 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 15:07:31 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:07:31 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:07:31 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:07:31 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 15:07:32 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 15:07:32 [INF] Hosting environment: Development
+2026-04-07 15:07:32 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 15:07:32 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 15:07:33 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 15:07:33 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 15:07:33 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 622.0126ms
+2026-04-07 15:07:33 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 136.5255ms
+2026-04-07 15:07:33 [INF] HTTP 请求完成，状态码：200 耗时：2448ms
+2026-04-07 15:07:33 [INF] Assertion step started.
+2026-04-07 15:07:33 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 233.5877ms
+2026-04-07 15:07:33 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 15:07:33 [INF] Assertion step finished.
+2026-04-07 15:07:33 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:07:34 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 15:07:34 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 15:07:36 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:07:36 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 1835.3462ms
+2026-04-07 15:07:36 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 15:12:12 [INF] Beginning Transaction
+2026-04-07 15:12:13 [INF] Rolling back transaction
+2026-04-07 15:12:13 [INF] Scanning for pending monitors...
+2026-04-07 15:12:13 [INF] Found 1 pending monitors to enqueue
+2026-04-07 15:12:13 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:12:13 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:12:13 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 15:12:13 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:12:13 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:12:13 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:12:13 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 15:12:13 [INF] Now listening on: https://localhost:7106
+2026-04-07 15:12:13 [INF] Now listening on: http://localhost:5033
+2026-04-07 15:12:14 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 15:12:14 [INF] Hosting environment: Development
+2026-04-07 15:12:14 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 15:12:14 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 15:12:14 [INF] HTTP 请求完成，状态码：200 耗时：1085ms
+2026-04-07 15:12:14 [INF] Assertion step started.
+2026-04-07 15:12:14 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 15:12:14 [INF] Assertion step finished.
+2026-04-07 15:12:14 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:12:14 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 15:12:14 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 15:12:14 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 302.6963ms
+2026-04-07 15:12:15 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 15:12:15 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 176.3038ms
+2026-04-07 15:12:15 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 15:12:15 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 247.3486ms
+2026-04-07 15:12:16 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:12:16 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 15:12:16 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 604.9049ms
+2026-04-07 15:43:02 [INF] Beginning Transaction
+2026-04-07 15:43:03 [INF] Rolling back transaction
+2026-04-07 15:43:03 [INF] Scanning for pending monitors...
+2026-04-07 15:43:03 [INF] Found 1 pending monitors to enqueue
+2026-04-07 15:43:03 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:03 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:03 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 15:43:03 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:03 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:03 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:03 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 15:43:03 [INF] Now listening on: https://localhost:7106
+2026-04-07 15:43:03 [INF] Now listening on: http://localhost:5033
+2026-04-07 15:43:04 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 15:43:04 [INF] Hosting environment: Development
+2026-04-07 15:43:04 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 15:43:04 [INF] HTTP 请求完成，状态码：200 耗时：791ms
+2026-04-07 15:43:04 [INF] Assertion step started.
+2026-04-07 15:43:04 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 15:43:04 [INF] Assertion step finished.
+2026-04-07 15:43:04 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:04 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 15:43:05 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 15:43:06 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:06 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 15:43:06 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 2192.2423ms
+2026-04-07 15:43:07 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 15:43:07 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 15:43:07 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 24.6001ms
+2026-04-07 15:43:07 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 147.3699ms
+2026-04-07 15:43:07 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 15:43:08 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 67.1908ms
+2026-04-07 15:43:19 [INF] Beginning Transaction
+2026-04-07 15:43:19 [INF] Rolling back transaction
+2026-04-07 15:43:19 [INF] Scanning for pending monitors...
+2026-04-07 15:43:19 [INF] Found 1 pending monitors to enqueue
+2026-04-07 15:43:19 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:19 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:19 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 15:43:19 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:19 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:19 [INF] Now listening on: https://localhost:7106
+2026-04-07 15:43:19 [INF] Now listening on: http://localhost:5033
+2026-04-07 15:43:20 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:20 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 15:43:20 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 15:43:20 [INF] Hosting environment: Development
+2026-04-07 15:43:20 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 15:43:20 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 15:43:20 [INF] HTTP 请求完成，状态码：200 耗时：762ms
+2026-04-07 15:43:20 [INF] Assertion step started.
+2026-04-07 15:43:20 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 15:43:20 [INF] Assertion step finished.
+2026-04-07 15:43:20 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:21 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 15:43:22 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:43:22 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 15:43:22 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 15:43:22 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 15:43:22 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 1679.2441ms
+2026-04-07 15:43:22 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 35.1559ms
+2026-04-07 15:43:22 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 151.8179ms
+2026-04-07 15:43:23 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 15:43:23 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 90.5654ms
+2026-04-07 15:46:21 [INF] Beginning Transaction
+2026-04-07 15:46:21 [INF] Rolling back transaction
+2026-04-07 15:46:21 [INF] Scanning for pending monitors...
+2026-04-07 15:46:21 [INF] Found 1 pending monitors to enqueue
+2026-04-07 15:46:21 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:46:21 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:46:21 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 15:46:21 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:46:21 [INF] Now listening on: https://localhost:7106
+2026-04-07 15:46:21 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:46:21 [INF] Now listening on: http://localhost:5033
+2026-04-07 15:46:21 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:46:21 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 15:46:22 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 15:46:22 [INF] Hosting environment: Development
+2026-04-07 15:46:22 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 15:46:22 [INF] HTTP 请求完成，状态码：200 耗时：732ms
+2026-04-07 15:46:22 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 15:46:22 [INF] Assertion step started.
+2026-04-07 15:46:22 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 15:46:22 [INF] Assertion step finished.
+2026-04-07 15:46:22 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:46:22 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 15:46:23 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:46:24 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 15:46:24 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 15:46:24 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 15:46:24 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 1506.3713ms
+2026-04-07 15:46:24 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 82.7527ms
+2026-04-07 15:46:24 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 160.78ms
+2026-04-07 15:46:24 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 15:46:24 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 66.427ms
+2026-04-07 15:47:45 [INF] Beginning Transaction
+2026-04-07 15:47:45 [INF] Rolling back transaction
+2026-04-07 15:47:45 [INF] Scanning for pending monitors...
+2026-04-07 15:47:45 [INF] Found 1 pending monitors to enqueue
+2026-04-07 15:47:45 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:47:45 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:47:45 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 15:47:45 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:47:45 [INF] Now listening on: https://localhost:7106
+2026-04-07 15:47:45 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:47:45 [INF] Now listening on: http://localhost:5033
+2026-04-07 15:47:45 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 15:49:39 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 15:49:52 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 15:49:52 [INF] Hosting environment: Development
+2026-04-07 15:49:52 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 15:50:56 [INF] HTTP 请求完成，状态码：200 耗时：25836ms
+2026-04-07 16:37:59 [INF] Beginning Transaction
+2026-04-07 16:37:59 [INF] Rolling back transaction
+2026-04-07 16:37:59 [INF] Scanning for pending monitors...
+2026-04-07 16:37:59 [INF] Found 1 pending monitors to enqueue
+2026-04-07 16:37:59 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:37:59 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:37:59 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 16:37:59 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:37:59 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:37:59 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:37:59 [INF] Now listening on: https://localhost:7106
+2026-04-07 16:37:59 [INF] Now listening on: http://localhost:5033
+2026-04-07 16:37:59 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 16:38:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 16:38:00 [INF] Hosting environment: Development
+2026-04-07 16:38:00 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 16:38:00 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 16:38:00 [INF] HTTP 请求完成，状态码：200 耗时：756ms
+2026-04-07 16:38:00 [INF] Assertion step started.
+2026-04-07 16:38:00 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 16:38:00 [INF] Assertion step finished.
+2026-04-07 16:39:19 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:41:42 [INF] Beginning Transaction
+2026-04-07 16:41:42 [INF] Rolling back transaction
+2026-04-07 16:41:43 [INF] Scanning for pending monitors...
+2026-04-07 16:41:43 [INF] Found 1 pending monitors to enqueue
+2026-04-07 16:41:43 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:41:43 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:41:43 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 16:41:43 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:41:43 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:41:43 [INF] Now listening on: https://localhost:7106
+2026-04-07 16:41:43 [INF] Now listening on: http://localhost:5033
+2026-04-07 16:41:43 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:41:43 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 16:41:43 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 16:41:43 [INF] Hosting environment: Development
+2026-04-07 16:41:43 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 16:41:43 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 16:41:44 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 272.1756ms
+2026-04-07 16:41:44 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 16:41:44 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 16:41:44 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 17.4196ms
+2026-04-07 16:41:44 [INF] HTTP 请求完成，状态码：200 耗时：701ms
+2026-04-07 16:41:44 [INF] Assertion step started.
+2026-04-07 16:41:44 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 16:41:44 [INF] Assertion step finished.
+2026-04-07 16:41:44 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 55.0629ms
+2026-04-07 16:41:44 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:41:44 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 16:41:44 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 16:41:45 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:41:45 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 16:41:45 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 526.6819ms
+2026-04-07 16:49:36 [INF] Beginning Transaction
+2026-04-07 16:49:36 [INF] Rolling back transaction
+2026-04-07 16:49:36 [INF] Scanning for pending monitors...
+2026-04-07 16:49:37 [INF] Found 1 pending monitors to enqueue
+2026-04-07 16:49:37 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:49:37 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:49:37 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 16:49:37 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:49:37 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:49:37 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:49:37 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 16:49:37 [INF] Now listening on: https://localhost:7106
+2026-04-07 16:49:37 [INF] Now listening on: http://localhost:5033
+2026-04-07 16:49:37 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 16:49:37 [INF] Hosting environment: Development
+2026-04-07 16:49:37 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 16:49:37 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 16:49:37 [INF] HTTP 请求完成，状态码：200 耗时：830ms
+2026-04-07 16:49:37 [INF] Assertion step started.
+2026-04-07 16:49:37 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 16:49:37 [INF] Assertion step finished.
+2026-04-07 16:49:38 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:49:38 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 16:49:38 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 542.6798ms
+2026-04-07 16:49:38 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 16:49:38 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 16:49:39 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:49:39 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 16:49:39 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 1174.7803ms
+2026-04-07 16:49:39 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 1222.5358ms
+2026-04-07 16:49:39 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 16:49:39 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 50.7633ms
+2026-04-07 16:52:32 [INF] Beginning Transaction
+2026-04-07 16:52:32 [INF] Rolling back transaction
+2026-04-07 16:52:32 [INF] Scanning for pending monitors...
+2026-04-07 16:52:32 [INF] Found 1 pending monitors to enqueue
+2026-04-07 16:52:32 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:52:32 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:52:33 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 16:52:33 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:52:33 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:52:33 [INF] Now listening on: https://localhost:7106
+2026-04-07 16:52:33 [INF] Now listening on: http://localhost:5033
+2026-04-07 16:52:33 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:52:33 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 16:52:33 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 16:52:33 [INF] Hosting environment: Development
+2026-04-07 16:52:33 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 16:52:33 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 16:52:33 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 16:52:33 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 16:52:33 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 316.2885ms
+2026-04-07 16:52:33 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 22.6538ms
+2026-04-07 16:52:33 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 78.3431ms
+2026-04-07 16:52:33 [INF] HTTP 请求完成，状态码：200 耗时：871ms
+2026-04-07 16:52:33 [INF] Assertion step started.
+2026-04-07 16:52:33 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 16:52:34 [INF] Assertion step finished.
+2026-04-07 16:52:34 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:52:34 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 16:52:34 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 16:52:35 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 16:52:35 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 16:52:35 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 823.4889ms
+2026-04-07 17:10:41 [INF] Beginning Transaction
+2026-04-07 17:10:41 [INF] Rolling back transaction
+2026-04-07 17:10:41 [INF] Scanning for pending monitors...
+2026-04-07 17:10:41 [INF] Found 1 pending monitors to enqueue
+2026-04-07 17:10:41 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:10:41 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:10:41 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 17:10:41 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:10:41 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:10:41 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:10:41 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 17:10:41 [INF] Now listening on: https://localhost:7106
+2026-04-07 17:10:41 [INF] Now listening on: http://localhost:5033
+2026-04-07 17:10:42 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 17:10:42 [INF] Hosting environment: Development
+2026-04-07 17:10:42 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 17:10:42 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 17:10:42 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 323.5603ms
+2026-04-07 17:10:42 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 17:10:42 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 17:10:42 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 44.9513ms
+2026-04-07 17:10:42 [INF] HTTP 请求完成，状态码：200 耗时：945ms
+2026-04-07 17:10:42 [INF] Assertion step started.
+2026-04-07 17:10:42 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 17:10:42 [INF] Assertion step finished.
+2026-04-07 17:10:42 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 115.1907ms
+2026-04-07 17:10:42 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:10:43 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 17:10:43 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 17:10:44 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:10:44 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 17:10:44 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 645.9506ms
+2026-04-07 17:17:38 [INF] Beginning Transaction
+2026-04-07 17:17:38 [INF] Rolling back transaction
+2026-04-07 17:17:38 [INF] Scanning for pending monitors...
+2026-04-07 17:17:39 [INF] Found 1 pending monitors to enqueue
+2026-04-07 17:17:39 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:17:39 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:17:39 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 17:17:39 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:17:39 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:17:39 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:17:39 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 17:17:39 [INF] Now listening on: https://localhost:7106
+2026-04-07 17:17:39 [INF] Now listening on: http://localhost:5033
+2026-04-07 17:17:39 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 17:17:39 [INF] Hosting environment: Development
+2026-04-07 17:17:39 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 17:17:40 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 17:17:40 [INF] HTTP 请求完成，状态码：200 耗时：1107ms
+2026-04-07 17:17:40 [INF] Assertion step started.
+2026-04-07 17:17:40 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 17:17:40 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 17:17:40 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 341.0437ms
+2026-04-07 17:17:40 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 17:17:40 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 24.1171ms
+2026-04-07 17:17:40 [INF] Assertion step finished.
+2026-04-07 17:17:41 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:17:41 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 88.2081ms
+2026-04-07 17:17:41 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 17:17:41 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 17:17:42 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:17:42 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 17:17:42 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 678.0803ms
+2026-04-07 17:19:58 [INF] Beginning Transaction
+2026-04-07 17:19:58 [INF] Rolling back transaction
+2026-04-07 17:19:59 [INF] Scanning for pending monitors...
+2026-04-07 17:19:59 [INF] Found 1 pending monitors to enqueue
+2026-04-07 17:19:59 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:19:59 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:19:59 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 17:19:59 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:19:59 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:19:59 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:19:59 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 17:19:59 [INF] Now listening on: https://localhost:7106
+2026-04-07 17:19:59 [INF] Now listening on: http://localhost:5033
+2026-04-07 17:19:59 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 17:19:59 [INF] Hosting environment: Development
+2026-04-07 17:19:59 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 17:20:00 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 17:20:00 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 317.3688ms
+2026-04-07 17:20:00 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 17:20:00 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 17:20:00 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 36.0611ms
+2026-04-07 17:20:00 [INF] HTTP 请求完成，状态码：200 耗时：966ms
+2026-04-07 17:20:00 [INF] Assertion step started.
+2026-04-07 17:20:00 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 17:20:00 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 96.5061ms
+2026-04-07 17:20:00 [INF] Assertion step finished.
+2026-04-07 17:20:00 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:20:01 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 17:20:01 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 17:20:02 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:20:02 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 17:20:02 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 1782.1724ms
+2026-04-07 17:26:50 [INF] Beginning Transaction
+2026-04-07 17:26:50 [INF] Rolling back transaction
+2026-04-07 17:26:50 [INF] Scanning for pending monitors...
+2026-04-07 17:26:50 [INF] Found 1 pending monitors to enqueue
+2026-04-07 17:26:50 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:26:50 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:26:50 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 17:26:50 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:26:50 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:26:50 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:26:50 [INF] Now listening on: https://localhost:7106
+2026-04-07 17:26:50 [INF] Now listening on: http://localhost:5033
+2026-04-07 17:26:50 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 17:26:51 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 17:26:51 [INF] Hosting environment: Development
+2026-04-07 17:26:51 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 17:26:51 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 17:26:51 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 17:26:51 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 17:26:51 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 346.5532ms
+2026-04-07 17:26:51 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 44.6371ms
+2026-04-07 17:26:51 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 80.7019ms
+2026-04-07 17:26:51 [INF] HTTP 请求完成，状态码：200 耗时：809ms
+2026-04-07 17:26:51 [INF] Assertion step started.
+2026-04-07 17:26:51 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 17:26:51 [INF] Assertion step finished.
+2026-04-07 17:26:51 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:26:51 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 17:26:52 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 17:26:52 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:26:53 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 17:26:53 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 766.7839ms
+2026-04-07 17:31:51 [INF] Found 1 pending monitors to enqueue
+2026-04-07 17:31:51 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:31:51 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:31:51 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 17:31:51 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:31:51 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:31:51 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 17:31:51 [INF] HTTP 请求完成，状态码：200 耗时：377ms
+2026-04-07 17:31:51 [INF] Assertion step started.
+2026-04-07 17:31:51 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 17:31:51 [INF] Assertion step finished.
+2026-04-07 17:31:51 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:31:51 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 17:31:51 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:31:51 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 17:36:50 [INF] Found 1 pending monitors to enqueue
+2026-04-07 17:36:50 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:36:50 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:36:50 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 17:36:50 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:36:50 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:36:50 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:36:50 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 17:36:51 [INF] HTTP 请求完成，状态码：200 耗时：335ms
+2026-04-07 17:36:51 [INF] Assertion step started.
+2026-04-07 17:36:51 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 17:36:51 [INF] Assertion step finished.
+2026-04-07 17:36:51 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:36:51 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 17:36:51 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:36:51 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 17:41:51 [INF] Found 1 pending monitors to enqueue
+2026-04-07 17:41:51 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:41:51 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:41:51 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 17:41:51 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:41:51 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:41:51 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 17:41:51 [INF] HTTP 请求完成，状态码：200 耗时：364ms
+2026-04-07 17:41:51 [INF] Assertion step started.
+2026-04-07 17:41:51 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 17:41:51 [INF] Assertion step finished.
+2026-04-07 17:41:51 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:41:51 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 17:41:51 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:41:51 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 17:53:15 [INF] Beginning Transaction
+2026-04-07 17:53:15 [INF] Rolling back transaction
+2026-04-07 17:53:15 [INF] Scanning for pending monitors...
+2026-04-07 17:53:15 [INF] Found 1 pending monitors to enqueue
+2026-04-07 17:53:15 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:53:15 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:53:15 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-07 17:53:15 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:53:15 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:53:15 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:53:15 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 17:53:15 [INF] Now listening on: https://localhost:7106
+2026-04-07 17:53:15 [INF] Now listening on: http://localhost:5033
+2026-04-07 17:53:16 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 17:53:16 [INF] Hosting environment: Development
+2026-04-07 17:53:16 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 17:53:16 [INF] HTTP 请求完成，状态码：200 耗时：717ms
+2026-04-07 17:53:16 [INF] Assertion step started.
+2026-04-07 17:53:16 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 17:53:16 [INF] Assertion step finished.
+2026-04-07 17:53:16 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:53:17 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 17:53:17 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 17:53:17 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-07 17:53:18 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 17:53:18 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 17:53:18 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 17:53:18 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 1278.0964ms
+2026-04-07 17:53:18 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 96.3712ms
+2026-04-07 17:53:18 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 219.9029ms
+2026-04-07 17:53:19 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 17:53:19 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 22.6963ms
+2026-04-07 17:53:43 [INF] Beginning Transaction
+2026-04-07 17:53:43 [INF] Rolling back transaction
+2026-04-07 17:53:43 [INF] VersionMigration migrating
+2026-04-07 17:53:43 [INF] Beginning Transaction
+2026-04-07 17:53:43 [INF] CreateTable VersionInfo
+2026-04-07 17:53:43 [INF] CREATE TABLE "VersionInfo" ("Version" INTEGER NOT NULL);
+2026-04-07 17:53:43 [INF] => 0.0871015s
+2026-04-07 17:53:43 [INF] Committing Transaction
+2026-04-07 17:53:43 [INF] VersionMigration migrated
+2026-04-07 17:53:43 [INF] => 0.1005536s
+2026-04-07 17:53:43 [INF] VersionUniqueMigration migrating
+2026-04-07 17:53:43 [INF] Beginning Transaction
+2026-04-07 17:53:43 [INF] CreateIndex VersionInfo (Version)
+2026-04-07 17:53:43 [INF] CREATE UNIQUE INDEX "UC_Version" ON "VersionInfo" ("Version" ASC);
+2026-04-07 17:53:43 [INF] => 0.004479s
+2026-04-07 17:53:43 [INF] AlterTable VersionInfo
+2026-04-07 17:53:43 [INF] => 0.0004098s
+2026-04-07 17:53:43 [INF] CreateColumn VersionInfo AppliedOn DateTime
+2026-04-07 17:53:43 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "AppliedOn" DATETIME;
+2026-04-07 17:53:43 [INF] => 0.0024336s
+2026-04-07 17:53:43 [INF] Committing Transaction
+2026-04-07 17:53:43 [INF] VersionUniqueMigration migrated
+2026-04-07 17:53:43 [INF] => 0.0071963s
+2026-04-07 17:53:43 [INF] VersionDescriptionMigration migrating
+2026-04-07 17:53:43 [INF] Beginning Transaction
+2026-04-07 17:53:43 [INF] AlterTable VersionInfo
+2026-04-07 17:53:43 [INF] => 4.79E-05s
+2026-04-07 17:53:43 [INF] CreateColumn VersionInfo Description String
+2026-04-07 17:53:43 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "Description" TEXT;
+2026-04-07 17:53:43 [INF] => 0.0025974s
+2026-04-07 17:53:43 [INF] Committing Transaction
+2026-04-07 17:53:43 [INF] VersionDescriptionMigration migrated
+2026-04-07 17:53:43 [INF] => 0.008243s
+2026-04-07 17:53:43 [INF] 2026032201: InitMonitorTable migrating
+2026-04-07 17:53:43 [INF] Beginning Transaction
+2026-04-07 17:53:43 [INF] CreateTable Monitor
+2026-04-07 17:53:43 [INF] CREATE TABLE "Monitor" ("Id" UNIQUEIDENTIFIER NOT NULL, "Name" TEXT NOT NULL, "Status" INTEGER NOT NULL, "LastRunTime" DATETIME, "IsEnabled" INTEGER NOT NULL, "TargetType" TEXT NOT NULL, "TargetConfig" TEXT NOT NULL, "CreatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_Monitor" PRIMARY KEY ("Id"));
+2026-04-07 17:53:43 [INF] => 0.0060762s
+2026-04-07 17:53:43 [INF] CreateIndex Monitor (TargetType)
+2026-04-07 17:53:43 [INF] CREATE INDEX "IX_Monitor_TargetType" ON "Monitor" ("TargetType" ASC);
+2026-04-07 17:53:43 [INF] => 0.0015652s
+2026-04-07 17:53:43 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032201, CURRENT_TIMESTAMP, 'InitMonitorTable');
+2026-04-07 17:53:43 [INF] Committing Transaction
+2026-04-07 17:53:43 [INF] 2026032201: InitMonitorTable migrated
+2026-04-07 17:53:43 [INF] => 0.016763s
+2026-04-07 17:53:43 [INF] 2026032202: InitAssertionTable migrating
+2026-04-07 17:53:43 [INF] Beginning Transaction
+2026-04-07 17:53:43 [INF] RenameTable AssertionResult AssertionResult_Old
+2026-04-07 17:53:43 [INF] ALTER TABLE "AssertionResult" RENAME TO "AssertionResult_Old";
+2026-04-07 17:53:43 [ERR] SQLite Error 1: 'no such table: AssertionResult'.
+While Processing:
+"ALTER TABLE "AssertionResult" RENAME TO "AssertionResult_Old";"
+System.Exception: SQLite Error 1: 'no such table: AssertionResult'.
+While Processing:
+"ALTER TABLE "AssertionResult" RENAME TO "AssertionResult_Old";"
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'no such table: AssertionResult'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   --- End of inner exception stack trace ---
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.Process(String sql)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(RenameTableExpression expression)
+   at FluentMigrator.Expressions.RenameTableExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__1()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.AnnounceTime(String message, Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-07 17:53:43 [INF] Rolling back transaction
+2026-04-07 17:54:39 [INF] Beginning Transaction
+2026-04-07 17:54:39 [INF] Rolling back transaction
+2026-04-07 17:54:39 [INF] 2026032202: InitAssertionTable migrating
+2026-04-07 17:54:39 [INF] Beginning Transaction
+2026-04-07 17:54:39 [INF] CreateTable Assertion
+2026-04-07 17:54:39 [INF] CREATE TABLE "Assertion" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Type" TEXT NOT NULL, "ConfigJson" TEXT NOT NULL, CONSTRAINT "PK_Assertion" PRIMARY KEY ("Id"), CONSTRAINT "FK_Assertion_MonitorId_Monitor_Id" FOREIGN KEY ("MonitorId") REFERENCES "Monitor" ("Id"));
+2026-04-07 17:54:39 [INF] => 0.0393285s
+2026-04-07 17:54:39 [INF] CreateForeignKey $$IGNORE$$_FK_Assertion_MonitorId_Monitor_Id Assertion(MonitorId) Monitor(Id)
+2026-04-07 17:54:39 [INF] => 0.0004692s
+2026-04-07 17:54:39 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032202, CURRENT_TIMESTAMP, 'InitAssertionTable');
+2026-04-07 17:54:39 [INF] Committing Transaction
+2026-04-07 17:54:39 [INF] 2026032202: InitAssertionTable migrated
+2026-04-07 17:54:39 [INF] => 0.0110014s
+2026-04-07 17:54:39 [INF] 2026032203: InitAssertionResultTable migrating
+2026-04-07 17:54:39 [INF] Beginning Transaction
+2026-04-07 17:54:39 [INF] CreateTable AssertionResult
+2026-04-07 17:54:39 [INF] CREATE TABLE "AssertionResult" ("Id" UNIQUEIDENTIFIER NOT NULL, "AssertionId" UNIQUEIDENTIFIER NOT NULL, "Target" TEXT NOT NULL, "IsSuccess" INTEGER NOT NULL, "Actual" TEXT, "Expected" TEXT, "Message" TEXT, "Timestamp" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_AssertionResult" PRIMARY KEY ("Id"), CONSTRAINT "FK_AssertionResult_Assertion" FOREIGN KEY ("AssertionId") REFERENCES "Assertion" ("Id") ON DELETE CASCADE ON UPDATE CASCADE);
+2026-04-07 17:54:39 [INF] => 0.0023335s
+2026-04-07 17:54:39 [INF] CreateForeignKey $$IGNORE$$_FK_AssertionResult_Assertion AssertionResult(AssertionId) Assertion(Id)
+2026-04-07 17:54:39 [INF] => 4.61E-05s
+2026-04-07 17:54:39 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032203, CURRENT_TIMESTAMP, 'InitAssertionResultTable');
+2026-04-07 17:54:39 [INF] Committing Transaction
+2026-04-07 17:54:39 [INF] 2026032203: InitAssertionResultTable migrated
+2026-04-07 17:54:39 [INF] => 0.0057702s
+2026-04-07 17:54:39 [INF] 2026032204: InitExecutionRecordTable migrating
+2026-04-07 17:54:39 [INF] Beginning Transaction
+2026-04-07 17:54:39 [INF] CreateTable ExecutionRecord
+2026-04-07 17:54:39 [INF] CREATE TABLE "ExecutionRecord" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Status" INTEGER NOT NULL, "StartedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "FinishedAt" DATETIME, "IsExecutionSuccess" INTEGER NOT NULL, "ErrorMessage" TEXT, "ResultType" TEXT NOT NULL, "ResultJson" TEXT NOT NULL, CONSTRAINT "PK_ExecutionRecord" PRIMARY KEY ("Id"));
+2026-04-07 17:54:39 [INF] => 0.001893s
+2026-04-07 17:54:39 [INF] CreateIndex ExecutionRecord (MonitorId, StartedAt)
+2026-04-07 17:54:39 [INF] CREATE INDEX "IX_ExecutionRecord_MonitorId_StartedAt" ON "ExecutionRecord" ("MonitorId" ASC, "StartedAt" DESC);
+2026-04-07 17:54:39 [INF] => 0.0023116s
+2026-04-07 17:54:39 [INF] AlterTable AssertionResult
+2026-04-07 17:54:39 [INF] => 0.0004325s
+2026-04-07 17:54:39 [INF] CreateColumn AssertionResult ExecutionId Guid
+2026-04-07 17:54:39 [INF] ALTER TABLE "AssertionResult" ADD COLUMN "ExecutionId" UNIQUEIDENTIFIER;
+2026-04-07 17:54:39 [INF] => 0.0015942s
+2026-04-07 17:54:39 [INF] CreateIndex AssertionResult (ExecutionId)
+2026-04-07 17:54:39 [INF] CREATE INDEX "IX_AssertionResult_ExecutionId" ON "AssertionResult" ("ExecutionId" ASC);
+2026-04-07 17:54:39 [INF] => 0.0008826s
+2026-04-07 17:54:39 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032204, CURRENT_TIMESTAMP, 'InitExecutionRecordTable');
+2026-04-07 17:54:39 [INF] Committing Transaction
+2026-04-07 17:54:39 [INF] 2026032204: InitExecutionRecordTable migrated
+2026-04-07 17:54:39 [INF] => 0.0062257s
+2026-04-07 17:54:39 [INF] Scanning for pending monitors...
+2026-04-07 17:54:40 [INF] Found 0 pending monitors to enqueue
+2026-04-07 17:54:40 [INF] Now listening on: https://localhost:7106
+2026-04-07 17:54:40 [INF] Now listening on: http://localhost:5033
+2026-04-07 17:54:40 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 17:54:40 [INF] Hosting environment: Development
+2026-04-07 17:54:40 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 17:54:41 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 17:54:41 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 538.979ms
+2026-04-07 17:54:41 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 17:54:41 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 17:54:41 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 18.2922ms
+2026-04-07 17:54:41 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 64.5232ms
+2026-04-07 17:54:42 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 17:54:42 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 35.5852ms
+2026-04-07 17:58:42 [INF] Beginning Transaction
+2026-04-07 17:58:42 [INF] Rolling back transaction
+2026-04-07 17:58:42 [INF] Scanning for pending monitors...
+2026-04-07 17:58:43 [INF] Found 0 pending monitors to enqueue
+2026-04-07 17:58:43 [INF] Now listening on: https://localhost:7106
+2026-04-07 17:58:43 [INF] Now listening on: http://localhost:5033
+2026-04-07 17:58:43 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 17:58:43 [INF] Hosting environment: Development
+2026-04-07 17:58:43 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 17:58:43 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 17:58:44 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 17:58:44 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 17:58:44 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 466.3466ms
+2026-04-07 17:58:44 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 11.8798ms
+2026-04-07 17:58:44 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 67.4531ms
+2026-04-07 17:58:44 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 17:58:44 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 22.9159ms
+2026-04-07 18:12:43 [INF] Beginning Transaction
+2026-04-07 18:12:43 [INF] Rolling back transaction
+2026-04-07 18:17:16 [INF] Beginning Transaction
+2026-04-07 18:17:16 [INF] Rolling back transaction
+2026-04-07 18:17:16 [INF] Scanning for pending monitors...
+2026-04-07 18:17:16 [INF] Found 0 pending monitors to enqueue
+2026-04-07 18:17:16 [INF] Now listening on: https://localhost:7106
+2026-04-07 18:17:16 [INF] Now listening on: http://localhost:5033
+2026-04-07 18:17:16 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 18:17:16 [INF] Hosting environment: Development
+2026-04-07 18:17:16 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 18:17:17 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 18:17:18 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 504.3522ms
+2026-04-07 18:17:18 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 18:17:18 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 18:17:18 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 19.9945ms
+2026-04-07 18:17:18 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 81.6709ms
+2026-04-07 18:17:18 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 18:17:18 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 19.2528ms
+2026-04-07 18:39:47 [INF] Beginning Transaction
+2026-04-07 18:39:47 [INF] Rolling back transaction
+2026-04-07 18:39:48 [INF] Scanning for pending monitors...
+2026-04-07 18:39:48 [INF] Found 0 pending monitors to enqueue
+2026-04-07 18:39:48 [INF] Now listening on: https://localhost:7106
+2026-04-07 18:39:48 [INF] Now listening on: http://localhost:5033
+2026-04-07 18:39:48 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 18:39:48 [INF] Hosting environment: Development
+2026-04-07 18:39:48 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 18:39:49 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-07 18:39:49 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 565.2621ms
+2026-04-07 18:39:49 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 18:39:49 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-07 18:39:49 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 50.7397ms
+2026-04-07 18:39:49 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 115.557ms
+2026-04-07 18:39:50 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-07 18:39:50 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 30.2481ms
+2026-04-07 18:42:20 [INF] Beginning Transaction
+2026-04-07 18:42:20 [INF] Rolling back transaction
+2026-04-07 18:42:21 [INF] Scanning for pending monitors...
+2026-04-07 18:42:21 [INF] Found 0 pending monitors to enqueue
+2026-04-07 18:42:21 [INF] Now listening on: http://localhost:5033
+2026-04-07 18:42:21 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 18:42:21 [INF] Hosting environment: Development
+2026-04-07 18:42:21 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 18:42:21 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger - null null
+2026-04-07 18:42:22 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger - 301 null null 417.9999ms
+2026-04-07 18:42:22 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-07 18:42:22 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 92.1965ms
+2026-04-07 18:42:22 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui-standalone-preset.js - null null
+2026-04-07 18:42:22 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 18:42:22 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui-bundle.js - null null
+2026-04-07 18:42:22 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 18:42:22 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 38.014ms
+2026-04-07 18:42:22 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-04-07 18:42:22 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-04-07 18:42:22 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui-standalone-preset.js - 200 230280 text/javascript 99.7584ms
+2026-04-07 18:42:22 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/swagger-ui-bundle.js - 200 1456926 text/javascript 96.681ms
+2026-04-07 18:42:22 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 115.7484ms
+2026-04-07 18:42:22 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-07 18:42:22 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 18.1206ms
+2026-04-07 18:42:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/ - null null
+2026-04-07 18:42:31 [WRN] Failed to determine the https port for redirect.
+2026-04-07 18:42:31 [INF] Sending file. Request path: '/index.html'. Physical path: 'D:\AutoTest\src\AutoTest.Webapi\wwwroot\index.html'
+2026-04-07 18:42:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/index.html - 200 null text/html 55.851ms
+2026-04-07 18:42:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/styles.css - null null
+2026-04-07 18:42:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/app.js - null null
+2026-04-07 18:42:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 18:42:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 18:42:31 [INF] Sending file. Request path: '/styles.css'. Physical path: 'D:\AutoTest\src\AutoTest.Webapi\wwwroot\styles.css'
+2026-04-07 18:42:31 [INF] Sending file. Request path: '/app.js'. Physical path: 'D:\AutoTest\src\AutoTest.Webapi\wwwroot\app.js'
+2026-04-07 18:42:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 21.4211ms
+2026-04-07 18:42:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/styles.css - 200 4956 text/css 31.3661ms
+2026-04-07 18:42:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/app.js - 200 13375 text/javascript 36.9884ms
+2026-04-07 18:42:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor - application/json null
+2026-04-07 18:42:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 46.3691ms
+2026-04-07 18:42:31 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 18:42:31 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 18:42:31 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-07 18:42:31 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 13.8804ms
+2026-04-07 18:42:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 18:42:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor - 200 null text/plain; charset=utf-8 106.5095ms
+2026-04-07 18:42:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-07 18:42:31 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 18:42:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/favicon.ico - null null
+2026-04-07 18:42:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/favicon.ico - 404 0 null 6.1578ms
+2026-04-07 18:42:31 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5033/favicon.ico, Response status code: 404
+2026-04-07 18:42:31 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 18:42:31 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-07 18:42:31 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 82.299ms
+2026-04-07 18:42:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 18:42:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 140.1962ms
+2026-04-07 18:43:15 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 480
+2026-04-07 18:43:15 [INF] CORS policy execution successful.
+2026-04-07 18:43:15 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-07 18:43:15 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 18:43:16 [INF] AddAsync started for monitor: 百度
+2026-04-07 18:43:16 [ERR] AddAsync failed for monitor: 百度
+System.Text.Json.JsonException: The JSON value could not be converted to System.String[]. Path: $.Headers.User-Agent | LineNumber: 0 | BytePositionInLine: 90.
+   at System.Text.Json.ThrowHelper.ThrowJsonException_DeserializeUnableToConvertValue(Type propertyType)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, TCollection& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonDictionaryConverter`3.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, TDictionary& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Application.Builder.HttpTargetMap.Map(String json) in D:\AutoTest\src\AutoTest.Application\Mapper\TargetMapper\HttpTargetMap.cs:line 15
+   at MonitorService.AddAsync(MonitorDto dto) in D:\AutoTest\src\AutoTest.Application\MonitorService.cs:line 60
+2026-04-07 19:20:00 [INF] Beginning Transaction
+2026-04-07 19:20:00 [INF] Rolling back transaction
+2026-04-07 19:20:00 [INF] Scanning for pending monitors...
+2026-04-07 19:20:00 [INF] Found 0 pending monitors to enqueue
+2026-04-07 19:20:00 [INF] Now listening on: http://localhost:5033
+2026-04-07 19:20:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 19:20:00 [INF] Hosting environment: Development
+2026-04-07 19:20:00 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 19:20:02 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-07 19:20:02 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 565.8098ms
+2026-04-07 19:20:02 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 19:20:02 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 9.0119ms
+2026-04-07 19:20:02 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 19:20:02 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 63.0045ms
+2026-04-07 19:20:03 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-07 19:20:03 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 24.0064ms
+2026-04-07 19:20:09 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 19:20:09 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 19:20:09 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 6.1631ms
+2026-04-07 19:20:09 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor - application/json null
+2026-04-07 19:20:09 [WRN] Failed to determine the https port for redirect.
+2026-04-07 19:20:09 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 64.328ms
+2026-04-07 19:20:09 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 19:20:09 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:20:09 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-07 19:20:09 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 13.8448ms
+2026-04-07 19:20:09 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 19:20:09 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor - 200 null text/plain; charset=utf-8 98.8115ms
+2026-04-07 19:20:10 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-07 19:20:10 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:20:10 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:20:10 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-07 19:20:10 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 58.6414ms
+2026-04-07 19:20:10 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:20:10 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 99.5167ms
+2026-04-07 19:20:41 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 480
+2026-04-07 19:20:41 [INF] CORS policy execution successful.
+2026-04-07 19:20:41 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-07 19:20:41 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:20:41 [INF] AddAsync started for monitor: 百度
+2026-04-07 19:20:41 [ERR] AddAsync failed for monitor: 百度
+System.Text.Json.JsonException: The JSON value could not be converted to System.String[]. Path: $.Headers.User-Agent | LineNumber: 0 | BytePositionInLine: 90.
+   at System.Text.Json.ThrowHelper.ThrowJsonException_DeserializeUnableToConvertValue(Type propertyType)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, TCollection& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonDictionaryConverter`3.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, TDictionary& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Application.Builder.HttpTargetMap.Map(String json) in d:\AutoTest\src\AutoTest.Application\Mapper\TargetMapper\HttpTargetMap.cs:line 15
+   at MonitorService.AddAsync(MonitorDto dto) in d:\AutoTest\src\AutoTest.Application\MonitorService.cs:line 60
+2026-04-07 19:21:04 [INF] Beginning Transaction
+2026-04-07 19:21:04 [INF] Rolling back transaction
+2026-04-07 19:21:04 [INF] Scanning for pending monitors...
+2026-04-07 19:21:04 [INF] Found 0 pending monitors to enqueue
+2026-04-07 19:21:04 [INF] Now listening on: http://localhost:5033
+2026-04-07 19:21:05 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 19:21:05 [INF] Hosting environment: Development
+2026-04-07 19:21:05 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 19:21:05 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-07 19:21:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 19:21:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 19:21:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 693.8507ms
+2026-04-07 19:21:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 43.4234ms
+2026-04-07 19:21:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 92.9819ms
+2026-04-07 19:21:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-07 19:21:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 51.2188ms
+2026-04-07 19:21:12 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 19:21:12 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 19:21:12 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor - application/json null
+2026-04-07 19:21:12 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 14.4488ms
+2026-04-07 19:21:12 [WRN] Failed to determine the https port for redirect.
+2026-04-07 19:21:12 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 19:21:12 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 83.4623ms
+2026-04-07 19:21:12 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:21:12 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-07 19:21:12 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 12.0956ms
+2026-04-07 19:21:12 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 19:21:12 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor - 200 null text/plain; charset=utf-8 123.1218ms
+2026-04-07 19:21:12 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-07 19:21:12 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:21:12 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:21:12 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-07 19:21:12 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 63.6802ms
+2026-04-07 19:21:12 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:21:12 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 123.6868ms
+2026-04-07 19:21:25 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 480
+2026-04-07 19:21:25 [INF] CORS policy execution successful.
+2026-04-07 19:21:25 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-07 19:21:26 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:21:26 [INF] AddAsync started for monitor: 百度
+2026-04-07 19:44:32 [INF] Beginning Transaction
+2026-04-07 19:44:32 [INF] Rolling back transaction
+2026-04-07 19:44:32 [INF] Scanning for pending monitors...
+2026-04-07 19:44:32 [INF] Found 0 pending monitors to enqueue
+2026-04-07 19:44:33 [INF] Now listening on: http://localhost:5033
+2026-04-07 19:44:33 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 19:44:33 [INF] Hosting environment: Development
+2026-04-07 19:44:33 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 19:44:34 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-07 19:44:34 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 846.3348ms
+2026-04-07 19:44:34 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 19:44:34 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 19:44:34 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 28.5099ms
+2026-04-07 19:44:35 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 111.9888ms
+2026-04-07 19:44:35 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-07 19:44:35 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 98.4738ms
+2026-04-07 19:44:40 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 19:44:40 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 19:44:40 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor - application/json null
+2026-04-07 19:44:40 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 52.6001ms
+2026-04-07 19:44:40 [WRN] Failed to determine the https port for redirect.
+2026-04-07 19:44:40 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 19:44:40 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 165.2216ms
+2026-04-07 19:44:40 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:44:40 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-07 19:44:40 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 38.3481ms
+2026-04-07 19:44:40 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 19:44:40 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor - 200 null text/plain; charset=utf-8 278.3853ms
+2026-04-07 19:44:40 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-07 19:44:40 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:44:40 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:44:41 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-07 19:44:41 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 113.4963ms
+2026-04-07 19:44:41 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:44:41 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 197.7333ms
+2026-04-07 19:44:48 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 480
+2026-04-07 19:44:48 [INF] CORS policy execution successful.
+2026-04-07 19:44:48 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-07 19:44:48 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:44:48 [INF] AddAsync started for monitor: 百度
+2026-04-07 19:46:35 [INF] Beginning Transaction
+2026-04-07 19:46:35 [INF] Rolling back transaction
+2026-04-07 19:46:36 [INF] Scanning for pending monitors...
+2026-04-07 19:46:36 [INF] Found 0 pending monitors to enqueue
+2026-04-07 19:46:36 [INF] Now listening on: http://localhost:5033
+2026-04-07 19:46:36 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 19:46:36 [INF] Hosting environment: Development
+2026-04-07 19:46:36 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 19:46:37 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-07 19:46:38 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 19:46:38 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 776.4617ms
+2026-04-07 19:46:38 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 17.8091ms
+2026-04-07 19:46:38 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 19:46:38 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 76.853ms
+2026-04-07 19:46:38 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-07 19:46:38 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 23.3269ms
+2026-04-07 19:46:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-07 19:46:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-07 19:46:46 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 10.8117ms
+2026-04-07 19:46:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor - application/json null
+2026-04-07 19:46:46 [WRN] Failed to determine the https port for redirect.
+2026-04-07 19:46:46 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 94.2504ms
+2026-04-07 19:46:46 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 19:46:46 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:46:46 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-07 19:46:47 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 46.453ms
+2026-04-07 19:46:47 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-07 19:46:47 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor - 200 null text/plain; charset=utf-8 214.2419ms
+2026-04-07 19:46:47 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-07 19:46:47 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:46:47 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:46:47 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-07 19:46:47 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 120.1963ms
+2026-04-07 19:46:47 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:46:47 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 208.0304ms
+2026-04-07 19:47:04 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 480
+2026-04-07 19:47:04 [INF] CORS policy execution successful.
+2026-04-07 19:47:04 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-07 19:47:04 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:47:04 [INF] AddAsync started for monitor: 百度
+2026-04-07 19:47:04 [INF] Adding monitor "6c68643e-fe09-4fab-80d8-c3aa78094f23" with name 百度
+2026-04-07 19:47:04 [INF] Added 1 assertions for monitor "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:04 [INF] Monitor "6c68643e-fe09-4fab-80d8-c3aa78094f23" added successfully
+2026-04-07 19:47:04 [INF] Executing OkObjectResult, writing value of type 'System.Guid'.
+2026-04-07 19:47:04 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi) in 159.6461ms
+2026-04-07 19:47:04 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-07 19:47:04 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor - 200 null application/json; charset=utf-8 188.1454ms
+2026-04-07 19:47:04 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-07 19:47:04 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:47:04 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:47:05 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-07 19:47:05 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 46.7633ms
+2026-04-07 19:47:05 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:47:05 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 58.9046ms
+2026-04-07 19:47:13 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/6c68643e-fe09-4fab-80d8-c3aa78094f23/run - application/x-www-form-urlencoded 0
+2026-04-07 19:47:13 [INF] CORS policy execution successful.
+2026-04-07 19:47:13 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-07 19:47:13 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:47:13 [INF] TaskRunAsync enqueuing monitor: "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:13 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-07 19:47:13 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 21.7664ms
+2026-04-07 19:47:13 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-07 19:47:13 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/6c68643e-fe09-4fab-80d8-c3aa78094f23/run - 200 0 null 55.0573ms
+2026-04-07 19:47:13 [INF] Executing monitor: "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:13 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-07 19:47:13 [INF] HTTP 请求完成，状态码：200 耗时：439ms
+2026-04-07 19:47:13 [INF] Assertion step started.
+2026-04-07 19:47:13 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-07 19:47:13 [INF] Assertion step finished.
+2026-04-07 19:47:13 [INF] Updating monitor "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:13 [INF] Updated 1 assertions for monitor "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:13 [INF] Finished monitor task: "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/6c68643e-fe09-4fab-80d8-c3aa78094f23 - application/json null
+2026-04-07 19:47:31 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-07 19:47:31 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:47:31 [INF] GetByIdAsync called for monitor: "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:31 [INF] Cache miss for monitor: "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:31 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-07 19:47:31 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 28.6916ms
+2026-04-07 19:47:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-07 19:47:31 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/6c68643e-fe09-4fab-80d8-c3aa78094f23 - 200 null application/json; charset=utf-8 52.176ms
+2026-04-07 19:47:38 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/6c68643e-fe09-4fab-80d8-c3aa78094f23/executions/latest - application/json null
+2026-04-07 19:47:38 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-07 19:47:38 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:47:38 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-07 19:47:38 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 23.5884ms
+2026-04-07 19:47:38 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-07 19:47:38 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/6c68643e-fe09-4fab-80d8-c3aa78094f23/executions/latest - 200 null application/json; charset=utf-8 54.4867ms
+2026-04-07 19:47:58 [INF] Request starting HTTP/1.1 DELETE http://localhost:5033/api/monitor/6c68643e-fe09-4fab-80d8-c3aa78094f23 - application/json null
+2026-04-07 19:47:58 [INF] CORS policy execution successful.
+2026-04-07 19:47:58 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Delete (AutoTest.Webapi)'
+2026-04-07 19:47:58 [INF] Route matched with {action = "Delete", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Delete(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:47:59 [INF] DeleteAsync started for monitor: "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:59 [INF] Removing monitor "6c68643e-fe09-4fab-80d8-c3aa78094f23"
+2026-04-07 19:47:59 [INF] Monitor "6c68643e-fe09-4fab-80d8-c3aa78094f23" removed
+2026-04-07 19:47:59 [INF] Monitor "6c68643e-fe09-4fab-80d8-c3aa78094f23" deleted successfully
+2026-04-07 19:47:59 [INF] Executing StatusCodeResult, setting HTTP status code 204
+2026-04-07 19:47:59 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Delete (AutoTest.Webapi) in 29.6479ms
+2026-04-07 19:47:59 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Delete (AutoTest.Webapi)'
+2026-04-07 19:47:59 [INF] Request finished HTTP/1.1 DELETE http://localhost:5033/api/monitor/6c68643e-fe09-4fab-80d8-c3aa78094f23 - 204 null null 67.7395ms
+2026-04-07 19:47:59 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - application/json null
+2026-04-07 19:47:59 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:47:59 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-07 19:47:59 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-07 19:47:59 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 2.7808ms
+2026-04-07 19:47:59 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-07 19:47:59 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 14.7388ms
+2026-04-07 19:51:36 [INF] Found 0 pending monitors to enqueue

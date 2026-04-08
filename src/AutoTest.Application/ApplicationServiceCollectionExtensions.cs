@@ -29,6 +29,9 @@ public static class ApplicationServiceCollectionExtensions
         services.AddScoped<IPipelineStep, ExecutionStep>();
         services.AddScoped<IPipelineStep, AssertionStep>();
         services.AddScoped<IAssertionRuleMap, AssertionRuleMap>();
+        services.AddScoped<IAssertionRuleMap, TcpAssertionRuleMap>();
+        services.AddScoped<IAssertionRuleMap, DbAssertionRuleMap>();
+        services.AddScoped<IAssertionRuleMap, PythonAssertionRuleMap>();
         services.AddScoped<AssertionEngine>();
         return services;
     }

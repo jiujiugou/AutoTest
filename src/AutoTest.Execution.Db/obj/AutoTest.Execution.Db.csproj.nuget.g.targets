@@ -2,8 +2,6 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)microsoft.extensions.logging.abstractions\10.0.0\buildTransitive\net8.0\Microsoft.Extensions.Logging.Abstractions.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.logging.abstractions\10.0.0\buildTransitive\net8.0\Microsoft.Extensions.Logging.Abstractions.targets')" />
-    <Import Project="$(NuGetPackageRoot)specflow\3.9.74\build\SpecFlow.targets" Condition="Exists('$(NuGetPackageRoot)specflow\3.9.74\build\SpecFlow.targets')" />
-    <Import Project="$(NuGetPackageRoot)specflow.tools.msbuild.generation\3.9.74\build\SpecFlow.Tools.MsBuild.Generation.targets" Condition="Exists('$(NuGetPackageRoot)specflow.tools.msbuild.generation\3.9.74\build\SpecFlow.Tools.MsBuild.Generation.targets')" />
     <Import Project="$(NuGetPackageRoot)microsoft.extensions.options\9.0.13\buildTransitive\net8.0\Microsoft.Extensions.Options.targets" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.options\9.0.13\buildTransitive\net8.0\Microsoft.Extensions.Options.targets')" />
   </ImportGroup>
 </Project>

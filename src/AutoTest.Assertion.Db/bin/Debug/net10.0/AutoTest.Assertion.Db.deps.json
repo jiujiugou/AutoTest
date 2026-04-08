@@ -10,20 +10,10 @@
         "dependencies": {
           "AutoTest.Assertion": "1.0.0",
           "AutoTest.Core": "1.0.0",
-          "AutoTest.Execution.Db": "1.0.0",
-          "Microsoft.Extensions.DependencyInjection": "10.0.5",
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.5"
+          "AutoTest.Execution.Db": "1.0.0"
         },
         "runtime": {
           "AutoTest.Assertion.Db.dll": {}
-        }
-      },
-      "BoDi/1.5.0": {
-        "runtime": {
-          "lib/netstandard2.0/BoDi.dll": {
-            "assemblyVersion": "1.5.0.0",
-            "fileVersion": "1.5.0.0"
-          }
         }
       },
       "BouncyCastle.Cryptography/2.6.2": {
@@ -31,14 +21,6 @@
           "lib/net6.0/BouncyCastle.Cryptography.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.6.2.46322"
-          }
-        }
-      },
-      "Gherkin/19.0.3": {
-        "runtime": {
-          "lib/netstandard2.0/Gherkin.dll": {
-            "assemblyVersion": "19.0.3.0",
-            "fileVersion": "19.0.3.0"
           }
         }
       },
@@ -199,14 +181,6 @@
           }
         }
       },
-      "Microsoft.DotNet.PlatformAbstractions/1.0.3": {
-        "runtime": {
-          "lib/netstandard1.3/Microsoft.DotNet.PlatformAbstractions.dll": {
-            "assemblyVersion": "1.0.1.0",
-            "fileVersion": "1.0.1.0"
-          }
-        }
-      },
       "Microsoft.Extensions.Caching.Abstractions/9.0.13": {
         "dependencies": {
           "Microsoft.Extensions.Primitives": "9.0.13"
@@ -222,7 +196,7 @@
         "dependencies": {
           "Microsoft.Extensions.Caching.Abstractions": "9.0.13",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5",
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0",
           "Microsoft.Extensions.Options": "9.0.13",
           "Microsoft.Extensions.Primitives": "9.0.13"
         },
@@ -230,17 +204,6 @@
           "lib/net9.0/Microsoft.Extensions.Caching.Memory.dll": {
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.1326.6317"
-          }
-        }
-      },
-      "Microsoft.Extensions.DependencyInjection/10.0.5": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
-        },
-        "runtime": {
-          "lib/net10.0/Microsoft.Extensions.DependencyInjection.dll": {
-            "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.526.15411"
           }
         }
       },
@@ -252,26 +215,14 @@
           }
         }
       },
-      "Microsoft.Extensions.DependencyModel/1.0.3": {
-        "dependencies": {
-          "Microsoft.DotNet.PlatformAbstractions": "1.0.3",
-          "Newtonsoft.Json": "9.0.1"
-        },
-        "runtime": {
-          "lib/netstandard1.6/Microsoft.Extensions.DependencyModel.dll": {
-            "assemblyVersion": "1.0.1.0",
-            "fileVersion": "1.0.1.0"
-          }
-        }
-      },
-      "Microsoft.Extensions.Logging.Abstractions/10.0.5": {
+      "Microsoft.Extensions.Logging.Abstractions/10.0.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
         },
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.Logging.Abstractions.dll": {
             "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.526.15411"
+            "fileVersion": "10.0.25.52411"
           }
         }
       },
@@ -350,7 +301,7 @@
       },
       "Microsoft.IdentityModel.Tokens/8.16.0": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0",
           "Microsoft.IdentityModel.Logging": "8.16.0"
         },
         "runtime": {
@@ -411,45 +362,14 @@
           }
         }
       },
-      "Newtonsoft.Json/9.0.1": {
-        "runtime": {
-          "lib/netstandard1.0/Newtonsoft.Json.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.1.19813"
-          }
-        }
-      },
       "Npgsql/10.0.2": {
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.5"
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0"
         },
         "runtime": {
           "lib/net10.0/Npgsql.dll": {
             "assemblyVersion": "10.0.2.0",
             "fileVersion": "10.0.2.0"
-          }
-        }
-      },
-      "SpecFlow/3.9.74": {
-        "dependencies": {
-          "BoDi": "1.5.0",
-          "Gherkin": "19.0.3",
-          "Microsoft.Extensions.DependencyModel": "1.0.3",
-          "SpecFlow.Internal.Json": "1.0.8",
-          "System.Configuration.ConfigurationManager": "9.0.13"
-        },
-        "runtime": {
-          "lib/netstandard2.0/TechTalk.SpecFlow.dll": {
-            "assemblyVersion": "3.9.0.0",
-            "fileVersion": "3.9.74.14555"
-          }
-        }
-      },
-      "SpecFlow.Internal.Json/1.0.8": {
-        "runtime": {
-          "lib/netstandard2.0/SpecFlow.Internal.Json.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.8.28882"
           }
         }
       },
@@ -560,6 +480,7 @@
       },
       "AutoTest.Assertion/1.0.0": {
         "dependencies": {
+          "AutoTest.Core": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
         },
         "runtime": {
@@ -582,8 +503,7 @@
           "AutoTest.Core": "1.0.0",
           "Microsoft.Data.SqlClient": "7.0.0",
           "MySql.Data": "9.6.0",
-          "Npgsql": "10.0.2",
-          "SpecFlow": "3.9.74"
+          "Npgsql": "10.0.2"
         },
         "runtime": {
           "AutoTest.Execution.Db.dll": {
@@ -600,26 +520,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "BoDi/1.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-CzIPzdIAFSd2zuLxI+0K9s48Qv3HQDbWiApn9h96j284rHs2bSPrn/PMca3mi4q3xLSEqOp+GUJ6+mXDD9prKg==",
-      "path": "bodi/1.5.0",
-      "hashPath": "bodi.1.5.0.nupkg.sha512"
-    },
     "BouncyCastle.Cryptography/2.6.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-7oWOcvnntmMKNzDLsdxAYqApt+AjpRpP2CShjMfIa3umZ42UQMvH0tl1qAliYPNYO6vTdcGMqnRrCPmsfzTI1w==",
       "path": "bouncycastle.cryptography/2.6.2",
       "hashPath": "bouncycastle.cryptography.2.6.2.nupkg.sha512"
-    },
-    "Gherkin/19.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-kq9feqMojMj9aABrHb/ABEPaH2Y4dSclseSahAru6qxCeqVQNLLTgw/6vZMauzI1yBUL2fz03ub5yEd5btLfvg==",
-      "path": "gherkin/19.0.3",
-      "hashPath": "gherkin.19.0.3.nupkg.sha512"
     },
     "Google.Protobuf/3.32.0": {
       "type": "package",
@@ -684,13 +590,6 @@
       "path": "microsoft.data.sqlclient.sni.runtime/6.0.2",
       "hashPath": "microsoft.data.sqlclient.sni.runtime.6.0.2.nupkg.sha512"
     },
-    "Microsoft.DotNet.PlatformAbstractions/1.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-rF92Gp5L2asYrFNf0cKNBxzzGLh1krHuj6TRDk9wdjN2qdvJLaNYOn1s9oYkMlptYX436KiEFqxhLB+I5veXvQ==",
-      "path": "microsoft.dotnet.platformabstractions/1.0.3",
-      "hashPath": "microsoft.dotnet.platformabstractions.1.0.3.nupkg.sha512"
-    },
     "Microsoft.Extensions.Caching.Abstractions/9.0.13": {
       "type": "package",
       "serviceable": true,
@@ -705,13 +604,6 @@
       "path": "microsoft.extensions.caching.memory/9.0.13",
       "hashPath": "microsoft.extensions.caching.memory.9.0.13.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyInjection/10.0.5": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-v1SVsowG6YE1YnHVGmLWz57YTRCQRx9pH5ebIESXfm5isI9gA3QaMyg/oMTzPpXYZwSAVDzYItGJKfmV+pqXkQ==",
-      "path": "microsoft.extensions.dependencyinjection/10.0.5",
-      "hashPath": "microsoft.extensions.dependencyinjection.10.0.5.nupkg.sha512"
-    },
     "Microsoft.Extensions.DependencyInjection.Abstractions/10.0.5": {
       "type": "package",
       "serviceable": true,
@@ -719,19 +611,12 @@
       "path": "microsoft.extensions.dependencyinjection.abstractions/10.0.5",
       "hashPath": "microsoft.extensions.dependencyinjection.abstractions.10.0.5.nupkg.sha512"
     },
-    "Microsoft.Extensions.DependencyModel/1.0.3": {
+    "Microsoft.Extensions.Logging.Abstractions/10.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Z3o19EnheuegmvgpCzwoSlnCWxYA6qIUhvKJ7ifKHHvU7U+oYR/gliLiL3LVYOOeGMEEzkpJ5W67sOcXizGtlw==",
-      "path": "microsoft.extensions.dependencymodel/1.0.3",
-      "hashPath": "microsoft.extensions.dependencymodel.1.0.3.nupkg.sha512"
-    },
-    "Microsoft.Extensions.Logging.Abstractions/10.0.5": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-9HOdqlDtPptVcmKAjsQ/Nr5Rxfq6FMYLdhvZh1lVmeKR738qeYecQD7+ldooXf+u2KzzR1kafSphWngIM3C6ug==",
-      "path": "microsoft.extensions.logging.abstractions/10.0.5",
-      "hashPath": "microsoft.extensions.logging.abstractions.10.0.5.nupkg.sha512"
+      "sha512": "sha512-FU/IfjDfwaMuKr414SSQNTIti/69bHEMb+QKrskRb26oVqpx3lNFXMjs/RC9ZUuhBhcwDM2BwOgoMw+PZ+beqQ==",
+      "path": "microsoft.extensions.logging.abstractions/10.0.0",
+      "hashPath": "microsoft.extensions.logging.abstractions.10.0.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Options/9.0.13": {
       "type": "package",
@@ -803,33 +688,12 @@
       "path": "mysql.data/9.6.0",
       "hashPath": "mysql.data.9.6.0.nupkg.sha512"
     },
-    "Newtonsoft.Json/9.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-U82mHQSKaIk+lpSVCbWYKNavmNH1i5xrExDEquU1i6I5pV6UMOqRnJRSlKO3cMPfcpp0RgDY+8jUXHdQ4IfXvw==",
-      "path": "newtonsoft.json/9.0.1",
-      "hashPath": "newtonsoft.json.9.0.1.nupkg.sha512"
-    },
     "Npgsql/10.0.2": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-q5RfBI+wywJSFUNDE1L4ZbHEHCFTblo8Uf6A6oe4feOUFYiUQXyAf9GBh5qEZpvJaHiEbpBPkQumjEhXCJxdrg==",
       "path": "npgsql/10.0.2",
       "hashPath": "npgsql.10.0.2.nupkg.sha512"
-    },
-    "SpecFlow/3.9.74": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-n6kcg9ZeQWxqJFoT23SsFT89U1QQNwvcN9pAX5alB6ZPr6K0p5D5nGIJ1PZsSaFaRFutiwQ+DicmxBCPAZVYIA==",
-      "path": "specflow/3.9.74",
-      "hashPath": "specflow.3.9.74.nupkg.sha512"
-    },
-    "SpecFlow.Internal.Json/1.0.8": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-lVCC/Rie7N5rFoc7YxPS0nneLfsWSTIMMlkndwxhaD8MxBp3Bsv1HeiVjVwXCjWaQeoqZcvIy52fF5Xit00ZLw==",
-      "path": "specflow.internal.json/1.0.8",
-      "hashPath": "specflow.internal.json.1.0.8.nupkg.sha512"
     },
     "System.Configuration.ConfigurationManager/9.0.13": {
       "type": "package",

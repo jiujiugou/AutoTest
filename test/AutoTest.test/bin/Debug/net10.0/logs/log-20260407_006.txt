@@ -1,0 +1,125 @@
+2026-04-07 19:18:01 [INF] Beginning Transaction
+2026-04-07 19:18:01 [INF] Rolling back transaction
+2026-04-07 19:18:01 [INF] Scanning for pending monitors...
+2026-04-07 19:18:01 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 19:18:01 [INF] Hosting environment: Development
+2026-04-07 19:18:01 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-07 19:18:01 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 14
+2026-04-07 19:18:01 [WRN] Failed to determine the https port for redirect.
+2026-04-07 19:18:01 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-07 19:18:01 [INF] Found 3 pending monitors to enqueue
+2026-04-07 19:18:01 [INF] Enqueuing monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-07 19:18:01 [INF] Enqueuing monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-07 19:18:01 [INF] Enqueuing monitor "f0a82ef7-fe15-4d31-ad75-d4257661e65b"
+2026-04-07 19:18:01 [INF] Starting execution of monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-07 19:18:01 [INF] Fetching monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb" from database
+2026-04-07 19:18:01 [INF] GetByIdAsync called for monitor: "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-07 19:18:01 [INF] Cache miss for monitor: "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-07 19:18:01 [INF] Executing orchestrator for monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-07 19:18:01 [INF] Starting execution of monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-07 19:18:01 [INF] Fetching monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" from database
+2026-04-07 19:18:01 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-07 19:18:01 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-04-07 19:18:01 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 7.6841ms
+2026-04-07 19:18:01 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-07 19:18:01 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 400 null text/plain; charset=utf-8 24.3432ms
+2026-04-07 19:18:01 [INF] Application is shutting down...
+2026-04-07 19:18:01 [INF] GetByIdAsync called for monitor: "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-07 19:18:01 [INF] Cache miss for monitor: "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-07 19:18:01 [INF] Executing orchestrator for monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-07 19:18:01 [INF] 开始执行 HTTP 请求 [0]，地址：http://127.0.0.1:58278/ 方法：Get
+2026-04-07 19:18:01 [INF] 开始执行 HTTP 请求 [0]，地址：http://127.0.0.1:56869/ 方法：Get
+2026-04-07 19:18:03 [ERR] HTTP 请求失败 [0]，耗时 2002ms
+Flurl.Http.FlurlHttpException: Call failed. 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:58278): GET http://127.0.0.1:58278/
+ ---> System.Net.Http.HttpRequestException: 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:58278)
+ ---> System.Net.Sockets.SocketException (10061): 由于目标计算机积极拒绝，无法连接。
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.InjectNewHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Flurl.Http.FlurlClient.HandleExceptionAsync(FlurlCall call, Exception ex, CancellationToken token)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in d:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 76
+2026-04-07 19:18:03 [ERR] HTTP 请求失败 [0]，耗时 2006ms
+Flurl.Http.FlurlHttpException: Call failed. 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:56869): GET http://127.0.0.1:56869/
+ ---> System.Net.Http.HttpRequestException: 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:56869)
+ ---> System.Net.Sockets.SocketException (10061): 由于目标计算机积极拒绝，无法连接。
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.InjectNewHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Flurl.Http.FlurlClient.HandleExceptionAsync(FlurlCall call, Exception ex, CancellationToken token)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in d:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 76
+2026-04-07 19:18:03 [INF] Assertion step started.
+2026-04-07 19:18:03 [INF] Assertion step started.
+2026-04-07 19:18:03 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-07 19:18:03 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-07 19:18:03 [INF] Assertion step finished.
+2026-04-07 19:18:03 [INF] Assertion step finished.
+2026-04-07 19:18:03 [INF] Updating monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-07 19:18:03 [ERR] Failed to update monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in d:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 19:18:03 [INF] Finished execution of monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-07 19:18:03 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in d:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in d:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in d:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in d:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in d:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-07 19:18:03 [INF] Updating monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-07 19:18:03 [ERR] Failed to update monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in d:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 166
+2026-04-07 19:18:03 [INF] Finished execution of monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-07 19:18:03 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in d:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in d:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in d:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in d:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in d:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70

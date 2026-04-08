@@ -1,4 +1,5 @@
 using FluentMigrator;
+using System.Data;
 
 namespace AutoTest.Migrations;
 
@@ -14,7 +15,9 @@ public class InitAssertionResultTable : Migration
     {
         Create.Table("AssertionResult")
             .WithColumn("Id").AsGuid().PrimaryKey()
-            .WithColumn("AssertionId").AsGuid().NotNullable().ForeignKey("FK_AssertionResult_Assertion", "Assertion", "Id")
+            .WithColumn("AssertionId").AsGuid().NotNullable()
+            .ForeignKey("FK_AssertionResult_Assertion", "Assertion", "Id")
+            .OnDeleteOrUpdate(Rule.Cascade)
             .WithColumn("Target").AsString(100).NotNullable()
             .WithColumn("IsSuccess").AsBoolean().NotNullable()
             .WithColumn("Actual").AsString(int.MaxValue).Nullable()

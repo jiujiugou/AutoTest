@@ -1,0 +1,712 @@
+2026-04-06 18:38:31 [INF] Beginning Transaction
+2026-04-06 18:38:31 [INF] Rolling back transaction
+2026-04-06 18:38:31 [INF] Scanning for pending monitors...
+2026-04-06 18:38:31 [INF] Found 0 pending monitors to enqueue
+2026-04-06 18:38:32 [INF] Now listening on: https://localhost:7106
+2026-04-06 18:38:32 [INF] Now listening on: http://localhost:5033
+2026-04-06 18:38:33 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-06 18:38:33 [INF] Hosting environment: Development
+2026-04-06 18:38:33 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-06 18:38:35 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger - null null
+2026-04-06 18:38:36 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger - 301 null null 863.761ms
+2026-04-06 18:38:36 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-06 18:38:36 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 219.7686ms
+2026-04-06 18:38:36 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/swagger-ui.css - null null
+2026-04-06 18:38:36 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-06 18:38:36 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/swagger-ui-standalone-preset.js - null null
+2026-04-06 18:38:36 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-06 18:38:36 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/swagger-ui-bundle.js - null null
+2026-04-06 18:38:36 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 55.6344ms
+2026-04-06 18:38:36 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-04-06 18:38:36 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-04-06 18:38:36 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/swagger-ui.css - 200 152034 text/css 160.5927ms
+2026-04-06 18:38:36 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/swagger-ui-standalone-preset.js - 200 230280 text/javascript 159.369ms
+2026-04-06 18:38:36 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-04-06 18:38:36 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/swagger-ui-bundle.js - 200 1456926 text/javascript 209.1186ms
+2026-04-06 18:38:36 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 266.2036ms
+2026-04-06 18:38:37 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-06 18:38:37 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 44.1784ms
+2026-04-06 18:38:37 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/favicon-32x32.png - null null
+2026-04-06 18:38:37 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2026-04-06 18:38:37 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/favicon-32x32.png - 200 628 image/png 12.141ms
+2026-04-06 18:38:47 [INF] Request starting HTTP/1.1 GET http://localhost:5033/ - null null
+2026-04-06 18:38:47 [INF] Request finished HTTP/1.1 GET http://localhost:5033/ - 307 null null 47.6464ms
+2026-04-06 18:38:47 [INF] Request starting HTTP/2 GET https://localhost:7106/ - null null
+2026-04-06 18:38:47 [INF] Sending file. Request path: '/index.html'. Physical path: 'D:\AutoTest\src\AutoTest.Webapi\wwwroot\index.html'
+2026-04-06 18:38:47 [INF] Request finished HTTP/2 GET https://localhost:7106/index.html - 200 null text/html 77.3744ms
+2026-04-06 18:38:47 [INF] Request starting HTTP/2 GET https://localhost:7106/styles.css - null null
+2026-04-06 18:38:47 [INF] Request starting HTTP/2 GET https://localhost:7106/app.js - null null
+2026-04-06 18:38:47 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-06 18:38:47 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-06 18:38:47 [INF] Sending file. Request path: '/styles.css'. Physical path: 'D:\AutoTest\src\AutoTest.Webapi\wwwroot\styles.css'
+2026-04-06 18:38:47 [INF] Sending file. Request path: '/app.js'. Physical path: 'D:\AutoTest\src\AutoTest.Webapi\wwwroot\app.js'
+2026-04-06 18:38:47 [INF] Request finished HTTP/2 GET https://localhost:7106/styles.css - 200 4956 text/css 36.5025ms
+2026-04-06 18:38:47 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 24.8651ms
+2026-04-06 18:38:47 [INF] Request finished HTTP/2 GET https://localhost:7106/app.js - 200 13375 text/javascript 48.4936ms
+2026-04-06 18:38:47 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 54.1036ms
+2026-04-06 18:38:47 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor - application/json null
+2026-04-06 18:38:47 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-06 18:38:48 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:38:48 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-06 18:38:48 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 17.7545ms
+2026-04-06 18:38:48 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-06 18:38:48 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor - 200 null text/plain; charset=utf-8 340.1824ms
+2026-04-06 18:38:48 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - application/json null
+2026-04-06 18:38:48 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:38:48 [INF] Request starting HTTP/2 GET https://localhost:7106/favicon.ico - null null
+2026-04-06 18:38:48 [INF] Request finished HTTP/2 GET https://localhost:7106/favicon.ico - 404 0 null 8.3233ms
+2026-04-06 18:38:48 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET https://localhost:7106/favicon.ico, Response status code: 404
+2026-04-06 18:38:48 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:38:48 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-06 18:38:48 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 100.5872ms
+2026-04-06 18:38:48 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:38:48 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 176.822ms
+2026-04-06 18:39:41 [INF] Request starting HTTP/2 POST https://localhost:7106/api/monitor - application/json 480
+2026-04-06 18:39:41 [INF] CORS policy execution successful.
+2026-04-06 18:39:41 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-06 18:39:41 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:39:41 [INF] AddAsync started for monitor: 百度
+2026-04-06 18:39:41 [ERR] AddAsync failed for monitor: 百度
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.http.RequestMethod. Path: $.Method | LineNumber: 0 | BytePositionInLine: 15.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Application.Builder.HttpTargetMap.Map(String json) in D:\AutoTest\src\AutoTest.Application\Mapper\TargetMapper\HttpTargetMap.cs:line 15
+   at MonitorService.AddAsync(MonitorDto dto) in D:\AutoTest\src\AutoTest.Application\MonitorService.cs:line 60
+2026-04-06 18:41:27 [INF] Beginning Transaction
+2026-04-06 18:41:27 [INF] Rolling back transaction
+2026-04-06 18:41:27 [INF] Scanning for pending monitors...
+2026-04-06 18:41:27 [INF] Found 0 pending monitors to enqueue
+2026-04-06 18:41:27 [INF] Now listening on: https://localhost:7106
+2026-04-06 18:41:27 [INF] Now listening on: http://localhost:5033
+2026-04-06 18:41:28 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-06 18:41:28 [INF] Hosting environment: Development
+2026-04-06 18:41:28 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-06 18:41:28 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-06 18:41:29 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 540.8992ms
+2026-04-06 18:41:29 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-06 18:41:29 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-06 18:41:29 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 11.2986ms
+2026-04-06 18:41:29 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 63.205ms
+2026-04-06 18:41:29 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-06 18:41:29 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 22.8873ms
+2026-04-06 18:41:34 [INF] Request starting HTTP/1.1 GET http://localhost:5033/ - null null
+2026-04-06 18:41:35 [INF] Request finished HTTP/1.1 GET http://localhost:5033/ - 307 null null 33.4613ms
+2026-04-06 18:41:35 [INF] Request starting HTTP/2 GET https://localhost:7106/ - null null
+2026-04-06 18:41:35 [INF] The file /index.html was not modified
+2026-04-06 18:41:35 [INF] Request finished HTTP/2 GET https://localhost:7106/index.html - 304 null text/html 62.9374ms
+2026-04-06 18:41:35 [INF] Request starting HTTP/2 GET https://localhost:7106/styles.css - null null
+2026-04-06 18:41:35 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-06 18:41:35 [INF] Request starting HTTP/2 GET https://localhost:7106/app.js - null null
+2026-04-06 18:41:35 [INF] The file /styles.css was not modified
+2026-04-06 18:41:35 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-06 18:41:35 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 49.5975ms
+2026-04-06 18:41:35 [INF] Request finished HTTP/2 GET https://localhost:7106/styles.css - 304 null text/css 74.4432ms
+2026-04-06 18:41:35 [INF] The file /app.js was not modified
+2026-04-06 18:41:35 [INF] Request finished HTTP/2 GET https://localhost:7106/app.js - 304 null text/javascript 102.0977ms
+2026-04-06 18:41:35 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 100.5474ms
+2026-04-06 18:41:35 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor - application/json null
+2026-04-06 18:41:35 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-06 18:41:35 [INF] Route matched with {action = "Index", controller = "Monitor"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index() on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:41:35 [INF] Executing OkObjectResult, writing value of type 'System.String'.
+2026-04-06 18:41:35 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi) in 16.4105ms
+2026-04-06 18:41:35 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Index (AutoTest.Webapi)'
+2026-04-06 18:41:35 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor - 200 null text/plain; charset=utf-8 95.8046ms
+2026-04-06 18:41:35 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - application/json null
+2026-04-06 18:41:35 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:41:35 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:41:35 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-06 18:41:35 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 77.6735ms
+2026-04-06 18:41:35 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:41:35 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 118.968ms
+2026-04-06 18:41:49 [INF] Request starting HTTP/2 POST https://localhost:7106/api/monitor - application/json 480
+2026-04-06 18:41:49 [INF] CORS policy execution successful.
+2026-04-06 18:41:49 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-06 18:41:49 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:41:49 [INF] AddAsync started for monitor: 百度
+2026-04-06 18:41:49 [INF] Adding monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" with name 百度
+2026-04-06 18:41:49 [INF] Added 1 assertions for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:41:49 [INF] Monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" added successfully
+2026-04-06 18:41:49 [INF] Executing OkObjectResult, writing value of type 'System.Guid'.
+2026-04-06 18:41:49 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi) in 191.1871ms
+2026-04-06 18:41:49 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-06 18:41:49 [INF] Request finished HTTP/2 POST https://localhost:7106/api/monitor - 200 null application/json; charset=utf-8 219.4499ms
+2026-04-06 18:41:49 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - application/json null
+2026-04-06 18:41:49 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:41:49 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:41:49 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-06 18:41:49 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 42.8699ms
+2026-04-06 18:41:49 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:41:49 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 58.7009ms
+2026-04-06 18:41:54 [INF] Request starting HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - application/x-www-form-urlencoded 0
+2026-04-06 18:41:54 [INF] CORS policy execution successful.
+2026-04-06 18:41:54 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:41:54 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:41:54 [INF] TaskRunAsync enqueuing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:41:54 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-06 18:41:54 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 31.4072ms
+2026-04-06 18:41:54 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:41:54 [INF] Request finished HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - 200 0 null 62.04ms
+2026-04-06 18:41:54 [INF] Executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:41:54 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-06 18:41:55 [INF] HTTP 请求完成，状态码：200 耗时：887ms
+2026-04-06 18:41:55 [ERR] 执行 HTTP 请求时发生异常，耗时 960ms
+System.ArgumentException: An item with the same key has already been added. Key: Allow
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at System.Linq.Enumerable.SpanToDictionary[TSource,TKey,TElement](ReadOnlySpan`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 86
+2026-04-06 18:41:55 [INF] Assertion step started.
+2026-04-06 18:41:55 [ERR] Assertion failed: StatusCode, actual=404, expected=200
+2026-04-06 18:41:55 [INF] Assertion step finished.
+2026-04-06 18:41:55 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:41:55 [INF] Updated 1 assertions for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:41:55 [INF] Finished monitor task: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:42:00 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions/latest - application/json null
+2026-04-06 18:42:00 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-06 18:42:00 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:42:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-06 18:42:00 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 27.1102ms
+2026-04-06 18:42:00 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-06 18:42:00 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions/latest - 200 null application/json; charset=utf-8 48.563ms
+2026-04-06 18:43:43 [INF] Request starting HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - application/x-www-form-urlencoded 0
+2026-04-06 18:43:43 [INF] CORS policy execution successful.
+2026-04-06 18:43:43 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:43:43 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:43:43 [INF] TaskRunAsync enqueuing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:43 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-06 18:43:43 [INF] Executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:43 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 4.3959ms
+2026-04-06 18:43:43 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-06 18:43:43 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:43:43 [INF] Request finished HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - 200 0 null 40.8076ms
+2026-04-06 18:43:44 [INF] HTTP 请求完成，状态码：200 耗时：587ms
+2026-04-06 18:43:44 [ERR] 执行 HTTP 请求时发生异常，耗时 672ms
+System.ArgumentException: An item with the same key has already been added. Key: Allow
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at System.Linq.Enumerable.SpanToDictionary[TSource,TKey,TElement](ReadOnlySpan`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 86
+2026-04-06 18:43:44 [INF] Assertion step started.
+2026-04-06 18:43:44 [ERR] Assertion failed: StatusCode, actual=404, expected=200
+2026-04-06 18:43:44 [INF] Assertion step finished.
+2026-04-06 18:43:44 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:44 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 165
+2026-04-06 18:43:45 [ERR] Error executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at MonitorService.<>c__DisplayClass18_0.<<TaskRunAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Application\MonitorService.cs:line 191
+2026-04-06 18:43:45 [INF] Finished monitor task: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:46 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e - application/json null
+2026-04-06 18:43:46 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-06 18:43:46 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:43:46 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:46 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:46 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-06 18:43:46 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 20.0052ms
+2026-04-06 18:43:46 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-06 18:43:46 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e - 200 null application/json; charset=utf-8 47.467ms
+2026-04-06 18:43:48 [INF] Request starting HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - application/x-www-form-urlencoded 0
+2026-04-06 18:43:48 [INF] CORS policy execution successful.
+2026-04-06 18:43:48 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:43:48 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:43:48 [INF] TaskRunAsync enqueuing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:48 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-06 18:43:48 [INF] Executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:48 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 3.9062ms
+2026-04-06 18:43:48 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-06 18:43:48 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:43:48 [INF] Request finished HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - 200 0 null 28.8953ms
+2026-04-06 18:43:49 [INF] HTTP 请求完成，状态码：200 耗时：295ms
+2026-04-06 18:43:49 [ERR] 执行 HTTP 请求时发生异常，耗时 361ms
+System.ArgumentException: An item with the same key has already been added. Key: Allow
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at System.Linq.Enumerable.SpanToDictionary[TSource,TKey,TElement](ReadOnlySpan`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 86
+2026-04-06 18:43:49 [INF] Assertion step started.
+2026-04-06 18:43:49 [ERR] Assertion failed: StatusCode, actual=404, expected=200
+2026-04-06 18:43:49 [INF] Assertion step finished.
+2026-04-06 18:43:49 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:49 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 165
+2026-04-06 18:43:49 [ERR] Error executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at MonitorService.<>c__DisplayClass18_0.<<TaskRunAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Application\MonitorService.cs:line 191
+2026-04-06 18:43:49 [INF] Finished monitor task: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:49 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e - application/json null
+2026-04-06 18:43:49 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-06 18:43:49 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:43:49 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:43:49 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-06 18:43:49 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 5.5132ms
+2026-04-06 18:43:49 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-06 18:43:49 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e - 200 null application/json; charset=utf-8 35.0945ms
+2026-04-06 18:43:51 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions/latest - application/json null
+2026-04-06 18:43:51 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-06 18:43:51 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:43:51 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-06 18:43:51 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 3.8719ms
+2026-04-06 18:43:51 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-06 18:43:51 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions/latest - 200 null application/json; charset=utf-8 27.6161ms
+2026-04-06 18:43:53 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - application/json null
+2026-04-06 18:43:53 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:43:53 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:43:53 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-06 18:43:53 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 4.334ms
+2026-04-06 18:43:53 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:43:53 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 21.7426ms
+2026-04-06 18:43:54 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - application/json null
+2026-04-06 18:43:54 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:43:54 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:43:54 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType0`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-06 18:43:54 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 3.3098ms
+2026-04-06 18:43:54 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-06 18:43:54 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/list?take=50 - 200 null application/json; charset=utf-8 17.1098ms
+2026-04-06 18:44:10 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions?take=20 - application/json null
+2026-04-06 18:44:10 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-06 18:44:10 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:10 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-06 18:44:10 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 12.5484ms
+2026-04-06 18:44:10 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-06 18:44:10 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions?take=20 - 200 null application/json; charset=utf-8 42.5713ms
+2026-04-06 18:44:11 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions?take=20 - application/json null
+2026-04-06 18:44:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-06 18:44:11 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:11 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-06 18:44:11 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 3.9258ms
+2026-04-06 18:44:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-06 18:44:11 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions?take=20 - 200 null application/json; charset=utf-8 33.6745ms
+2026-04-06 18:44:15 [INF] Request starting HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - application/x-www-form-urlencoded 0
+2026-04-06 18:44:15 [INF] CORS policy execution successful.
+2026-04-06 18:44:15 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:44:15 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:15 [INF] TaskRunAsync enqueuing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:15 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-06 18:44:15 [INF] Executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:15 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 5.2602ms
+2026-04-06 18:44:15 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-06 18:44:15 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:44:15 [INF] Request finished HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - 200 0 null 31.7988ms
+2026-04-06 18:44:15 [INF] HTTP 请求完成，状态码：200 耗时：339ms
+2026-04-06 18:44:15 [ERR] 执行 HTTP 请求时发生异常，耗时 396ms
+System.ArgumentException: An item with the same key has already been added. Key: Allow
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at System.Linq.Enumerable.SpanToDictionary[TSource,TKey,TElement](ReadOnlySpan`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 86
+2026-04-06 18:44:15 [INF] Assertion step started.
+2026-04-06 18:44:15 [ERR] Assertion failed: StatusCode, actual=404, expected=200
+2026-04-06 18:44:15 [INF] Assertion step finished.
+2026-04-06 18:44:15 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:16 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 165
+2026-04-06 18:44:16 [ERR] Error executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at MonitorService.<>c__DisplayClass18_0.<<TaskRunAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Application\MonitorService.cs:line 191
+2026-04-06 18:44:16 [INF] Finished monitor task: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:18 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions?take=20 - application/json null
+2026-04-06 18:44:18 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-06 18:44:18 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:18 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-06 18:44:18 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 2.5971ms
+2026-04-06 18:44:18 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-06 18:44:18 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions?take=20 - 200 null application/json; charset=utf-8 20.9809ms
+2026-04-06 18:44:22 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e - application/json null
+2026-04-06 18:44:22 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-06 18:44:22 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:22 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:23 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-06 18:44:23 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 3.3996ms
+2026-04-06 18:44:23 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-06 18:44:23 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e - 200 null application/json; charset=utf-8 15.2148ms
+2026-04-06 18:44:26 [INF] Request starting HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - application/x-www-form-urlencoded 0
+2026-04-06 18:44:26 [INF] CORS policy execution successful.
+2026-04-06 18:44:26 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:44:26 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:26 [INF] TaskRunAsync enqueuing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:26 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-06 18:44:26 [INF] Executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:26 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 3.5744ms
+2026-04-06 18:44:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-06 18:44:26 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:44:26 [INF] Request finished HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - 200 0 null 28.5192ms
+2026-04-06 18:44:26 [INF] HTTP 请求完成，状态码：200 耗时：327ms
+2026-04-06 18:44:26 [ERR] 执行 HTTP 请求时发生异常，耗时 367ms
+System.ArgumentException: An item with the same key has already been added. Key: Allow
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at System.Linq.Enumerable.SpanToDictionary[TSource,TKey,TElement](ReadOnlySpan`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 86
+2026-04-06 18:44:26 [INF] Assertion step started.
+2026-04-06 18:44:26 [ERR] Assertion failed: StatusCode, actual=404, expected=200
+2026-04-06 18:44:26 [INF] Assertion step finished.
+2026-04-06 18:44:26 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:26 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 165
+2026-04-06 18:44:26 [ERR] Error executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at MonitorService.<>c__DisplayClass18_0.<<TaskRunAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Application\MonitorService.cs:line 191
+2026-04-06 18:44:26 [INF] Finished monitor task: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:29 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions/latest - application/json null
+2026-04-06 18:44:29 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-06 18:44:29 [INF] Route matched with {action = "GetLatestExecution", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetLatestExecution(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:29 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType1`2[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[System.Collections.Generic.IEnumerable`1[[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-06 18:44:29 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi) in 3.4912ms
+2026-04-06 18:44:29 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetLatestExecution (AutoTest.Webapi)'
+2026-04-06 18:44:29 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions/latest - 200 null application/json; charset=utf-8 22.9493ms
+2026-04-06 18:44:31 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions?take=20 - application/json null
+2026-04-06 18:44:31 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-06 18:44:31 [INF] Route matched with {action = "GetExecutions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutions(System.Guid, Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:31 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[AutoTest.Core.Execution.ExecutionRecord, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-06 18:44:31 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi) in 3.4752ms
+2026-04-06 18:44:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutions (AutoTest.Webapi)'
+2026-04-06 18:44:31 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/executions?take=20 - 200 null application/json; charset=utf-8 24.4507ms
+2026-04-06 18:44:34 [INF] Request starting HTTP/2 GET https://localhost:7106/api/monitor/executions/60cf7ec4-4b13-430d-aae0-584a73b92509/assertions - application/json null
+2026-04-06 18:44:34 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutionAssertions (AutoTest.Webapi)'
+2026-04-06 18:44:34 [INF] Route matched with {action = "GetExecutionAssertions", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetExecutionAssertions(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:34 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Infrastructure.ExecutionRecordRepository+AssertionResultRow, AutoTest.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[AutoTest.Core.Assertion.AssertionResult, AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-06 18:44:34 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.GetExecutionAssertions (AutoTest.Webapi) in 4.3504ms
+2026-04-06 18:44:34 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.GetExecutionAssertions (AutoTest.Webapi)'
+2026-04-06 18:44:34 [INF] Request finished HTTP/2 GET https://localhost:7106/api/monitor/executions/60cf7ec4-4b13-430d-aae0-584a73b92509/assertions - 200 null application/json; charset=utf-8 44.872ms
+2026-04-06 18:44:37 [INF] Request starting HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - application/x-www-form-urlencoded 0
+2026-04-06 18:44:37 [INF] CORS policy execution successful.
+2026-04-06 18:44:38 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:44:38 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-06 18:44:38 [INF] TaskRunAsync enqueuing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:38 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-06 18:44:38 [INF] Executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:38 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 4.1482ms
+2026-04-06 18:44:38 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-06 18:44:38 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-06 18:44:38 [INF] Request finished HTTP/2 POST https://localhost:7106/api/monitor/3fc4f293-d06f-4cb0-8cec-707ef613bf9e/run - 200 0 null 32.0305ms
+2026-04-06 18:44:38 [INF] HTTP 请求完成，状态码：200 耗时：751ms
+2026-04-06 18:44:38 [ERR] 执行 HTTP 请求时发生异常，耗时 793ms
+System.ArgumentException: An item with the same key has already been added. Key: Allow
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at System.Linq.Enumerable.SpanToDictionary[TSource,TKey,TElement](ReadOnlySpan`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 86
+2026-04-06 18:44:38 [INF] Assertion step started.
+2026-04-06 18:44:38 [ERR] Assertion failed: StatusCode, actual=404, expected=200
+2026-04-06 18:44:38 [INF] Assertion step finished.
+2026-04-06 18:44:38 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:38 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 165
+2026-04-06 18:44:39 [ERR] Error executing monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at MonitorService.<>c__DisplayClass18_0.<<TaskRunAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Application\MonitorService.cs:line 191
+2026-04-06 18:44:39 [INF] Finished monitor task: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:44:53 [INF] Request starting HTTP/2 POST https://localhost:7106/api/ai/chat - application/json 32
+2026-04-06 18:44:53 [INF] CORS policy execution successful.
+2026-04-06 18:44:53 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-06 18:44:53 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-06 18:44:53 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-04-06 18:44:53 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 94.8817ms
+2026-04-06 18:44:53 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-06 18:44:53 [INF] Request finished HTTP/2 POST https://localhost:7106/api/ai/chat - 500 null application/problem+json; charset=utf-8 123.2963ms
+2026-04-06 18:49:50 [INF] Beginning Transaction
+2026-04-06 18:49:50 [INF] Rolling back transaction
+2026-04-06 18:49:51 [INF] Scanning for pending monitors...
+2026-04-06 18:49:51 [INF] Found 1 pending monitors to enqueue
+2026-04-06 18:49:51 [INF] Enqueuing monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:49:51 [INF] Starting execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:49:51 [INF] Fetching monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e" from database
+2026-04-06 18:49:51 [INF] GetByIdAsync called for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:49:51 [INF] Cache miss for monitor: "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:49:51 [INF] Executing orchestrator for monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:49:51 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-06 18:49:51 [INF] Now listening on: https://localhost:7106
+2026-04-06 18:49:51 [INF] Now listening on: http://localhost:5033
+2026-04-06 18:49:51 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-06 18:49:51 [INF] Hosting environment: Development
+2026-04-06 18:49:51 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-06 18:49:53 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/index.html - null null
+2026-04-06 18:49:53 [INF] HTTP 请求完成，状态码：200 耗时：1382ms
+2026-04-06 18:49:53 [ERR] 执行 HTTP 请求时发生异常，耗时 1598ms
+System.ArgumentException: An item with the same key has already been added. Key: Allow
+   at System.Collections.Generic.Dictionary`2.TryInsert(TKey key, TValue value, InsertionBehavior behavior)
+   at System.Collections.Generic.Dictionary`2.Add(TKey key, TValue value)
+   at System.Linq.Enumerable.SpanToDictionary[TSource,TKey,TElement](ReadOnlySpan`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector, IEqualityComparer`1 comparer)
+   at System.Linq.Enumerable.ToDictionary[TSource,TKey,TElement](IEnumerable`1 source, Func`2 keySelector, Func`2 elementSelector)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in D:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 86
+2026-04-06 18:49:53 [INF] Assertion step started.
+2026-04-06 18:49:53 [ERR] Assertion failed: StatusCode, actual=404, expected=200
+2026-04-06 18:49:53 [INF] Assertion step finished.
+2026-04-06 18:49:53 [INF] Updating monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:49:53 [ERR] Failed to update monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 165
+2026-04-06 18:49:54 [INF] Finished execution of monitor "3fc4f293-d06f-4cb0-8cec-707ef613bf9e"
+2026-04-06 18:49:54 [ERR] Error executing queued work item
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in D:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in D:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 82
+   at AutoTest.Infrastructure.TaskWorker.ExecuteMonitorAsync(Guid id, CancellationToken ct) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 145
+   at AutoTest.Infrastructure.TaskWorker.<>c__DisplayClass10_0.<<EnqueueSchedulableMonitorsAsync>b__0>d.MoveNext() in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 112
+--- End of stack trace from previous location ---
+   at AutoTest.Infrastructure.TaskWorker.ConsumerLoopAsync(CancellationToken stoppingToken) in D:\AutoTest\src\AutoTest.Infrastructure\TaskWorker.cs:line 70
+2026-04-06 18:49:54 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/index.html - 200 null text/html;charset=utf-8 1921.6395ms
+2026-04-06 18:49:54 [INF] Request starting HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-06 18:49:54 [INF] Request starting HTTP/2 GET https://localhost:7106/_vs/browserLink - null null
+2026-04-06 18:49:54 [INF] Request finished HTTP/2 GET https://localhost:7106/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 31.7336ms
+2026-04-06 18:49:55 [INF] Request finished HTTP/2 GET https://localhost:7106/_vs/browserLink - 200 null text/javascript; charset=UTF-8 150.6774ms
+2026-04-06 18:49:55 [INF] Request starting HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - null null
+2026-04-06 18:49:56 [INF] Request finished HTTP/2 GET https://localhost:7106/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 358.0281ms
+2026-04-06 23:25:07 [INF] Beginning Transaction
+2026-04-06 23:25:07 [INF] Rolling back transaction
+2026-04-06 23:25:08 [INF] Scanning for pending monitors...
+2026-04-06 23:25:08 [ERR] Failed to fetch schedulable monitors
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 238
+   at System.Linq.Enumerable.ListSelectIterator`2.GetCount(Boolean onlyIfCheap)
+   at AutoTest.Infrastructure.MonitorRepository.GetPendingTasksAsync() in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 263
+2026-04-06 23:28:47 [INF] Beginning Transaction
+2026-04-06 23:28:47 [INF] Rolling back transaction
+2026-04-06 23:28:47 [INF] Scanning for pending monitors...
+2026-04-06 23:28:48 [ERR] Failed to fetch schedulable monitors
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 244
+   at System.Linq.Enumerable.ListSelectIterator`2.GetCount(Boolean onlyIfCheap)
+   at AutoTest.Infrastructure.MonitorRepository.GetPendingTasksAsync() in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 269
+2026-04-06 23:29:50 [INF] Beginning Transaction
+2026-04-06 23:29:50 [INF] Rolling back transaction
+2026-04-06 23:29:51 [INF] Scanning for pending monitors...
+2026-04-06 23:29:51 [ERR] Failed to fetch schedulable monitors
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 245
+   at System.Linq.Enumerable.ListSelectIterator`2.GetCount(Boolean onlyIfCheap)
+   at AutoTest.Infrastructure.MonitorRepository.GetPendingTasksAsync() in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 270
+2026-04-06 23:29:51 [INF] Now listening on: https://localhost:7106
+2026-04-06 23:33:26 [INF] Beginning Transaction
+2026-04-06 23:33:26 [INF] Rolling back transaction
+2026-04-06 23:33:26 [INF] Scanning for pending monitors...
+2026-04-06 23:33:27 [ERR] Failed to fetch schedulable monitors
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 245
+   at System.Linq.Enumerable.ListSelectIterator`2.GetCount(Boolean onlyIfCheap)
+   at AutoTest.Infrastructure.MonitorRepository.GetPendingTasksAsync() in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 270
+2026-04-06 23:35:49 [INF] Beginning Transaction
+2026-04-06 23:35:49 [INF] Rolling back transaction
+2026-04-06 23:35:49 [INF] Scanning for pending monitors...
+2026-04-06 23:35:49 [ERR] Failed to fetch schedulable monitors
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 245
+   at System.Linq.Enumerable.ListSelectIterator`2.GetCount(Boolean onlyIfCheap)
+   at AutoTest.Infrastructure.MonitorRepository.GetPendingTasksAsync() in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 270
+2026-04-06 23:35:50 [INF] Now listening on: https://localhost:7106
+2026-04-06 23:38:51 [INF] Beginning Transaction
+2026-04-06 23:38:51 [INF] Rolling back transaction
+2026-04-06 23:38:52 [INF] Scanning for pending monitors...
+2026-04-06 23:38:52 [ERR] Failed to fetch schedulable monitors
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 245
+   at System.Linq.Enumerable.ListSelectIterator`2.GetCount(Boolean onlyIfCheap)
+   at AutoTest.Infrastructure.MonitorRepository.GetPendingTasksAsync() in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 270
+2026-04-06 23:38:52 [INF] Now listening on: https://localhost:7106
+2026-04-06 23:44:06 [INF] Beginning Transaction
+2026-04-06 23:44:07 [INF] Rolling back transaction
+2026-04-06 23:44:07 [INF] Scanning for pending monitors...
+2026-04-06 23:44:07 [ERR] Failed to deserialize TargetConfig for monitor {"Method":"Get","Url":"https://example.com","Body":null,"Headers":{},"Query":{},"Assertions":null,"Timeout":30,"AuthType":null,"AuthToken":null,"AuthUsername":null,"AuthPassword":null,"UseCookies":true,"AllowAutoRedirect":true,"MaxRedirects":5,"IgnoreSslErrors":false,"ProxyUrl":null,"ProxyUser":null,"ProxyPass":null,"EnableRetry":false,"RetryCount":2,"RetryDelayMs":500,"EnableRateLimit":false,"Type":"HTTP"}
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 248
+2026-04-06 23:44:07 [ERR] Failed to fetch schedulable monitors
+System.InvalidOperationException: Invalid TargetConfig for monitor 3fc4f293-d06f-4cb0-8cec-707ef613bf9e
+ ---> System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 248
+   --- End of inner exception stack trace ---
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 274
+   at System.Linq.Enumerable.ListSelectIterator`2.GetCount(Boolean onlyIfCheap)
+   at AutoTest.Infrastructure.MonitorRepository.GetPendingTasksAsync() in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 278
+2026-04-06 23:44:43 [INF] Beginning Transaction
+2026-04-06 23:44:43 [INF] Rolling back transaction
+2026-04-06 23:44:43 [INF] Scanning for pending monitors...
+2026-04-06 23:44:44 [ERR] Failed to deserialize TargetConfig for monitor {"Method":"Get","Url":"https://example.com","Body":null,"Headers":{},"Query":{},"Assertions":null,"Timeout":30,"AuthType":null,"AuthToken":null,"AuthUsername":null,"AuthPassword":null,"UseCookies":true,"AllowAutoRedirect":true,"MaxRedirects":5,"IgnoreSslErrors":false,"ProxyUrl":null,"ProxyUser":null,"ProxyPass":null,"EnableRetry":false,"RetryCount":2,"RetryDelayMs":500,"EnableRateLimit":false,"Type":"HTTP"}
+System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 248
+2026-04-06 23:44:44 [ERR] Failed to fetch schedulable monitors
+System.InvalidOperationException: Invalid TargetConfig for monitor 3fc4f293-d06f-4cb0-8cec-707ef613bf9e
+ ---> System.Text.Json.JsonException: The JSON value could not be converted to AutoTest.Core.Target.Http.AuthType. Path: $.AuthType | LineNumber: 0 | BytePositionInLine: 126.
+   at System.Text.Json.ThrowHelper.ThrowJsonException(String message)
+   at System.Text.Json.Serialization.Converters.EnumConverter`1.Read(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.ReadJsonAndSetMember(Object obj, ReadStack& state, Utf8JsonReader& reader)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value)
+   at System.Text.Json.Serialization.JsonConverter`1.TryRead(Utf8JsonReader& reader, Type typeToConvert, JsonSerializerOptions options, ReadStack& state, T& value, Boolean& isPopulatedValue)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 248
+   --- End of inner exception stack trace ---
+   at AutoTest.Infrastructure.MonitorRepository.<>c__DisplayClass7_0.<GetPendingTasksAsync>b__4(MonitorDto dto) in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 274
+   at System.Linq.Enumerable.ListSelectIterator`2.GetCount(Boolean onlyIfCheap)
+   at AutoTest.Infrastructure.MonitorRepository.GetPendingTasksAsync() in D:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 278
+2026-04-06 23:44:44 [INF] Now listening on: https://localhost:7106

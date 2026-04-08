@@ -9,14 +9,33 @@ namespace AutoTest.Webapi.Controllers;
 public class MonitorController : ControllerBase
 {
     private readonly IMonitorService _monitorService;
+    private readonly IWorkflowScheduler _workflowScheduler;
 
-    public MonitorController(IMonitorService monitorService)
+    public MonitorController(IMonitorService monitorService, IWorkflowScheduler workflowScheduler)
     {
         _monitorService = monitorService;
+        _workflowScheduler=workflowScheduler;
     }
 
     [HttpGet]
     public IActionResult Index() => Ok("Server running");
+
+    [HttpGet("list")]
+    public async Task<IActionResult> List([FromQuery] int take = 50)
+    {
+        var items = await _monitorService.ListAsync(take);
+        var result = items.Select(m => new
+        {
+            m.Id,
+            m.Name,
+            TargetType = m.Target.Type,
+            Status = (int)m.Status,
+            m.LastRunTime,
+            m.IsEnabled,
+            AssertionCount = m.Assertions.Count
+        });
+        return Ok(result);
+    }
 
     //根据ID查询
     [HttpGet("{id}")]
@@ -79,7 +98,7 @@ public class MonitorController : ControllerBase
     [HttpPost("{id}/run")]
     public async Task<IActionResult> TaskRun(Guid id)
     {
-        await _monitorService.TaskRunAsync(id);
+        await _workflowScheduler.RunNowAsync(id);
         return Ok();
     }
 }

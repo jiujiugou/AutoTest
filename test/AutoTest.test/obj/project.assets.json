@@ -2,22 +2,6 @@
   "version": 3,
   "targets": {
     "net10.0": {
-      "BoDi/1.5.0": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/BoDi.dll": {
-            "related": ".pdb"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/BoDi.dll": {
-            "related": ".pdb"
-          }
-        },
-        "build": {
-          "build/_._": {}
-        }
-      },
       "BouncyCastle.Cryptography/2.6.2": {
         "type": "package",
         "compile": {
@@ -507,19 +491,6 @@
           }
         }
       },
-      "Gherkin/19.0.3": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Gherkin.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/Gherkin.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Google.Protobuf/3.32.0": {
         "type": "package",
         "compile": {
@@ -531,6 +502,120 @@
           "lib/net5.0/Google.Protobuf.dll": {
             "related": ".pdb;.xml"
           }
+        }
+      },
+      "Hangfire.AspNetCore/1.8.23": {
+        "type": "package",
+        "dependencies": {
+          "Hangfire.NetCore": "[1.8.23]"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Hangfire.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Hangfire.AspNetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
+      "Hangfire.Core/1.8.23": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Hangfire.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "resource": {
+          "lib/netstandard2.0/ca/Hangfire.Core.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/netstandard2.0/de/Hangfire.Core.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.0/es/Hangfire.Core.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.0/fa/Hangfire.Core.resources.dll": {
+            "locale": "fa"
+          },
+          "lib/netstandard2.0/fr/Hangfire.Core.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.0/nb/Hangfire.Core.resources.dll": {
+            "locale": "nb"
+          },
+          "lib/netstandard2.0/nl/Hangfire.Core.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/netstandard2.0/pt-BR/Hangfire.Core.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard2.0/pt-PT/Hangfire.Core.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/netstandard2.0/pt/Hangfire.Core.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/netstandard2.0/sv/Hangfire.Core.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/netstandard2.0/tr-TR/Hangfire.Core.resources.dll": {
+            "locale": "tr-TR"
+          },
+          "lib/netstandard2.0/zh-TW/Hangfire.Core.resources.dll": {
+            "locale": "zh-TW"
+          },
+          "lib/netstandard2.0/zh/Hangfire.Core.resources.dll": {
+            "locale": "zh"
+          }
+        }
+      },
+      "Hangfire.NetCore/1.8.23": {
+        "type": "package",
+        "dependencies": {
+          "Hangfire.Core": "[1.8.23]",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Hosting.Abstractions": "3.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "3.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Hangfire.NetCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/Hangfire.NetCore.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Hangfire.SQLite/1.4.2": {
+        "type": "package",
+        "dependencies": {
+          "Dapper": "1.50.2",
+          "Hangfire.Core": "1.6.16",
+          "Microsoft.Data.Sqlite.Core": "2.0.0",
+          "Newtonsoft.Json": "10.0.3",
+          "System.Configuration.ConfigurationManager": "4.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Hangfire.SQLite.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.SQLite.dll": {}
         }
       },
       "K4os.Compression.LZ4/1.3.8": {
@@ -812,6 +897,56 @@
         },
         "runtime": {
           "lib/net8.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.AI/10.4.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "10.4.1",
+          "Microsoft.Extensions.Caching.Abstractions": "10.0.4",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.4",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.4",
+          "System.Numerics.Tensors": "10.0.4"
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.AI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.AI.Abstractions/10.4.1": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.AI.OpenAI/10.4.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "10.4.1",
+          "OpenAI": "2.9.1"
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.AI.OpenAI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.OpenAI.dll": {
             "related": ".xml"
           }
         }
@@ -1965,6 +2100,35 @@
           }
         }
       },
+      "OpenAI/2.9.1": {
+        "type": "package",
+        "dependencies": {
+          "System.ClientModel": "1.9.0"
+        },
+        "compile": {
+          "lib/net10.0/OpenAI.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/OpenAI.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Pipelines.Sockets.Unofficial/2.2.8": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Serilog/4.3.1": {
         "type": "package",
         "compile": {
@@ -2028,50 +2192,6 @@
           "lib/net9.0/Serilog.Sinks.File.dll": {
             "related": ".xml"
           }
-        }
-      },
-      "SpecFlow/3.9.74": {
-        "type": "package",
-        "dependencies": {
-          "BoDi": "1.5.0",
-          "Gherkin": "19.0.3",
-          "Microsoft.Extensions.DependencyModel": "1.0.3",
-          "SpecFlow.Internal.Json": "1.0.8",
-          "System.Configuration.ConfigurationManager": "4.5.0"
-        },
-        "compile": {
-          "lib/netstandard2.0/TechTalk.SpecFlow.dll": {
-            "related": ".ExternalAnnotations.xml;.pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/TechTalk.SpecFlow.dll": {
-            "related": ".ExternalAnnotations.xml;.pdb;.xml"
-          }
-        },
-        "build": {
-          "build/_._": {}
-        }
-      },
-      "SpecFlow.Internal.Json/1.0.8": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/SpecFlow.Internal.Json.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/SpecFlow.Internal.Json.dll": {}
-        }
-      },
-      "SpecFlow.Tools.MsBuild.Generation/3.9.74": {
-        "type": "package",
-        "dependencies": {
-          "SpecFlow": "[3.9.74]"
-        },
-        "build": {
-          "build/_._": {}
-        },
-        "buildMultiTargeting": {
-          "buildMultiTargeting/_._": {}
         }
       },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.11": {
@@ -2214,6 +2334,24 @@
           "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
         }
       },
+      "StackExchange.Redis/2.12.14": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Pipelines.Sockets.Unofficial": "2.2.8",
+          "System.IO.Hashing": "10.0.2"
+        },
+        "compile": {
+          "lib/net10.0/StackExchange.Redis.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/StackExchange.Redis.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.6.2": {
         "type": "package",
         "dependencies": {
@@ -2276,6 +2414,25 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "System.ClientModel/1.9.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "10.0.2",
+          "Microsoft.Extensions.Hosting.Abstractions": "10.0.2",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.2",
+          "System.Memory.Data": "10.0.1"
+        },
+        "compile": {
+          "lib/net10.0/System.ClientModel.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/System.ClientModel.dll": {
+            "related": ".xml"
+          }
+        }
       },
       "System.ComponentModel.Annotations/5.0.0": {
         "type": "package",
@@ -2351,6 +2508,54 @@
           "lib/net10.0/System.IdentityModel.Tokens.Jwt.dll": {
             "related": ".xml"
           }
+        }
+      },
+      "System.IO.Hashing/10.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/System.IO.Hashing.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/System.IO.Hashing.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Memory.Data/10.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/System.Memory.Data.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/System.Memory.Data.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
+        }
+      },
+      "System.Numerics.Tensors/10.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net10.0/System.Numerics.Tensors.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net10.0/System.Numerics.Tensors.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.Security.Cryptography.Pkcs/9.0.13": {
@@ -2568,6 +2773,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "AutoTest.Core": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
         },
         "compile": {
@@ -2583,9 +2789,7 @@
         "dependencies": {
           "AutoTest.Assertion": "1.0.0",
           "AutoTest.Core": "1.0.0",
-          "AutoTest.Execution.Db": "1.0.0",
-          "Microsoft.Extensions.DependencyInjection": "10.0.5",
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.5"
+          "AutoTest.Execution.Db": "1.0.0"
         },
         "compile": {
           "bin/placeholder/AutoTest.Assertion.Db.dll": {}
@@ -2641,9 +2845,7 @@
           "AutoTest.Core": "1.0.0",
           "Microsoft.Data.SqlClient": "7.0.0",
           "MySql.Data": "9.6.0",
-          "Npgsql": "10.0.2",
-          "SpecFlow": "3.9.74",
-          "SpecFlow.Tools.MsBuild.Generation": "3.9.74"
+          "Npgsql": "10.0.2"
         },
         "compile": {
           "bin/placeholder/AutoTest.Execution.Db.dll": {}
@@ -2690,10 +2892,14 @@
           "AutoTest.Assertions.Http": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "Dapper": "2.1.72",
+          "Hangfire.AspNetCore": "1.8.23",
+          "Hangfire.SQLite": "1.4.2",
           "Microsoft.Data.SqlClient": "7.0.0",
           "Microsoft.Data.Sqlite": "10.0.5",
           "Microsoft.Extensions.Hosting": "10.0.5",
-          "Microsoft.Extensions.Logging": "10.0.5"
+          "Microsoft.Extensions.Logging": "10.0.5",
+          "Newtonsoft.Json": "13.0.3",
+          "StackExchange.Redis": "2.12.14"
         },
         "compile": {
           "bin/placeholder/AutoTest.Infrastructure.dll": {}
@@ -2733,6 +2939,9 @@
           "FluentValidation.AspNetCore": "11.3.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
           "Microsoft.AspNetCore.OpenApi": "8.0.12",
+          "Microsoft.Extensions.AI": "10.4.1",
+          "Microsoft.Extensions.AI.OpenAI": "10.4.1",
+          "OpenAI": "2.9.1",
           "Serilog": "4.3.1",
           "Serilog.Extensions.Logging": "10.0.0",
           "Serilog.Sinks.Console": "6.1.1",
@@ -2779,25 +2988,6 @@
     }
   },
   "libraries": {
-    "BoDi/1.5.0": {
-      "sha512": "CzIPzdIAFSd2zuLxI+0K9s48Qv3HQDbWiApn9h96j284rHs2bSPrn/PMca3mi4q3xLSEqOp+GUJ6+mXDD9prKg==",
-      "type": "package",
-      "path": "bodi/1.5.0",
-      "hasTools": true,
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "bodi.1.5.0.nupkg.sha512",
-        "bodi.nuspec",
-        "build/_._",
-        "content/_._",
-        "lib/net45/BoDi.dll",
-        "lib/net45/BoDi.pdb",
-        "lib/netstandard2.0/BoDi.dll",
-        "lib/netstandard2.0/BoDi.pdb",
-        "tools/_._"
-      ]
-    },
     "BouncyCastle.Cryptography/2.6.2": {
       "sha512": "7oWOcvnntmMKNzDLsdxAYqApt+AjpRpP2CShjMfIa3umZ42UQMvH0tl1qAliYPNYO6vTdcGMqnRrCPmsfzTI1w==",
       "type": "package",
@@ -3364,22 +3554,6 @@
         "lib/netstandard2.0/Flurl.Http.xml"
       ]
     },
-    "Gherkin/19.0.3": {
-      "sha512": "kq9feqMojMj9aABrHb/ABEPaH2Y4dSclseSahAru6qxCeqVQNLLTgw/6vZMauzI1yBUL2fz03ub5yEd5btLfvg==",
-      "type": "package",
-      "path": "gherkin/19.0.3",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "cucumber-mark-green-128.png",
-        "gherkin.19.0.3.nupkg.sha512",
-        "gherkin.nuspec",
-        "lib/net45/Gherkin.dll",
-        "lib/net45/Gherkin.xml",
-        "lib/netstandard2.0/Gherkin.dll",
-        "lib/netstandard2.0/Gherkin.xml"
-      ]
-    },
     "Google.Protobuf/3.32.0": {
       "sha512": "fsKxV5bhcvXmZi+cUo5+IxzRMBHwHeFO8G5utNa9f+Mu37kmfy8JcUVvWPt4cX7EuQWAjjHUjZqVl7nGSTRHRg==",
       "type": "package",
@@ -3401,6 +3575,158 @@
         "lib/netstandard2.0/Google.Protobuf.dll",
         "lib/netstandard2.0/Google.Protobuf.pdb",
         "lib/netstandard2.0/Google.Protobuf.xml"
+      ]
+    },
+    "Hangfire.AspNetCore/1.8.23": {
+      "sha512": "TXpOl7kX4xXq5bLEqqWCpt9zh3TaouDwtb3GDtzGHX5uSC2RaAqZzn2swevivx3Uki16slXIigiPtgr4TPKpsg==",
+      "type": "package",
+      "path": "hangfire.aspnetcore/1.8.23",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "COPYING",
+        "COPYING.LESSER",
+        "LICENSE.md",
+        "LICENSE_ROYALTYFREE",
+        "LICENSE_STANDARD",
+        "NOTICES",
+        "hangfire.aspnetcore.1.8.23.nupkg.sha512",
+        "hangfire.aspnetcore.nuspec",
+        "icon.png",
+        "lib/net451/Hangfire.AspNetCore.dll",
+        "lib/net451/Hangfire.AspNetCore.xml",
+        "lib/net461/Hangfire.AspNetCore.dll",
+        "lib/net461/Hangfire.AspNetCore.xml",
+        "lib/netcoreapp3.0/Hangfire.AspNetCore.dll",
+        "lib/netcoreapp3.0/Hangfire.AspNetCore.xml",
+        "lib/netstandard1.3/Hangfire.AspNetCore.dll",
+        "lib/netstandard1.3/Hangfire.AspNetCore.xml",
+        "lib/netstandard2.0/Hangfire.AspNetCore.dll",
+        "lib/netstandard2.0/Hangfire.AspNetCore.xml"
+      ]
+    },
+    "Hangfire.Core/1.8.23": {
+      "sha512": "YCOTtF3NNOQI83PlfjeNDDBkofJDfdET2CwhfQsiVBwmsU6lP19QW9NVTIH9epl+MnOsyFC2G1RnlPSGV8F1FQ==",
+      "type": "package",
+      "path": "hangfire.core/1.8.23",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "COPYING",
+        "COPYING.LESSER",
+        "LICENSE.md",
+        "LICENSE_ROYALTYFREE",
+        "LICENSE_STANDARD",
+        "NOTICES",
+        "README.md",
+        "hangfire.core.1.8.23.nupkg.sha512",
+        "hangfire.core.nuspec",
+        "icon.png",
+        "lib/net451/Hangfire.Core.dll",
+        "lib/net451/Hangfire.Core.xml",
+        "lib/net451/ca/Hangfire.Core.resources.dll",
+        "lib/net451/de/Hangfire.Core.resources.dll",
+        "lib/net451/es/Hangfire.Core.resources.dll",
+        "lib/net451/fa/Hangfire.Core.resources.dll",
+        "lib/net451/fr/Hangfire.Core.resources.dll",
+        "lib/net451/nb/Hangfire.Core.resources.dll",
+        "lib/net451/nl/Hangfire.Core.resources.dll",
+        "lib/net451/pt-BR/Hangfire.Core.resources.dll",
+        "lib/net451/pt-PT/Hangfire.Core.resources.dll",
+        "lib/net451/pt/Hangfire.Core.resources.dll",
+        "lib/net451/sv/Hangfire.Core.resources.dll",
+        "lib/net451/tr-TR/Hangfire.Core.resources.dll",
+        "lib/net451/zh-TW/Hangfire.Core.resources.dll",
+        "lib/net451/zh/Hangfire.Core.resources.dll",
+        "lib/net46/Hangfire.Core.dll",
+        "lib/net46/Hangfire.Core.xml",
+        "lib/net46/ca/Hangfire.Core.resources.dll",
+        "lib/net46/de/Hangfire.Core.resources.dll",
+        "lib/net46/es/Hangfire.Core.resources.dll",
+        "lib/net46/fa/Hangfire.Core.resources.dll",
+        "lib/net46/fr/Hangfire.Core.resources.dll",
+        "lib/net46/nb/Hangfire.Core.resources.dll",
+        "lib/net46/nl/Hangfire.Core.resources.dll",
+        "lib/net46/pt-BR/Hangfire.Core.resources.dll",
+        "lib/net46/pt-PT/Hangfire.Core.resources.dll",
+        "lib/net46/pt/Hangfire.Core.resources.dll",
+        "lib/net46/sv/Hangfire.Core.resources.dll",
+        "lib/net46/tr-TR/Hangfire.Core.resources.dll",
+        "lib/net46/zh-TW/Hangfire.Core.resources.dll",
+        "lib/net46/zh/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/Hangfire.Core.dll",
+        "lib/netstandard1.3/Hangfire.Core.xml",
+        "lib/netstandard1.3/ca/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/de/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/es/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/fa/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/fr/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/nb/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/nl/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/pt-BR/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/pt-PT/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/pt/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/sv/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/tr-TR/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/zh-TW/Hangfire.Core.resources.dll",
+        "lib/netstandard1.3/zh/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/Hangfire.Core.dll",
+        "lib/netstandard2.0/Hangfire.Core.xml",
+        "lib/netstandard2.0/ca/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/de/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/es/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/fa/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/fr/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/nb/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/nl/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/pt-BR/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/pt-PT/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/pt/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/sv/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/tr-TR/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/zh-TW/Hangfire.Core.resources.dll",
+        "lib/netstandard2.0/zh/Hangfire.Core.resources.dll"
+      ]
+    },
+    "Hangfire.NetCore/1.8.23": {
+      "sha512": "SmvUJF/u5MCP666R5Y1V+GntqBc4RCWJqn5ztMMN67d53Cx5cuaWR0YNLMrabjylwLarFYJ7EdR9RnGEZzp/dg==",
+      "type": "package",
+      "path": "hangfire.netcore/1.8.23",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "COPYING",
+        "COPYING.LESSER",
+        "LICENSE.md",
+        "LICENSE_ROYALTYFREE",
+        "LICENSE_STANDARD",
+        "NOTICES",
+        "hangfire.netcore.1.8.23.nupkg.sha512",
+        "hangfire.netcore.nuspec",
+        "icon.png",
+        "lib/net451/Hangfire.NetCore.dll",
+        "lib/net451/Hangfire.NetCore.xml",
+        "lib/net461/Hangfire.NetCore.dll",
+        "lib/net461/Hangfire.NetCore.xml",
+        "lib/netstandard1.3/Hangfire.NetCore.dll",
+        "lib/netstandard1.3/Hangfire.NetCore.xml",
+        "lib/netstandard2.0/Hangfire.NetCore.dll",
+        "lib/netstandard2.0/Hangfire.NetCore.xml",
+        "lib/netstandard2.1/Hangfire.NetCore.dll",
+        "lib/netstandard2.1/Hangfire.NetCore.xml"
+      ]
+    },
+    "Hangfire.SQLite/1.4.2": {
+      "sha512": "8ZONqFjC7la5dTB1I57WSBOlcx9ZVxXY/8C8+MLQwCiBHNQXfb3HjtyODP1NIQDjuNBOhyxOl4Z6KlXNLmpxMg==",
+      "type": "package",
+      "path": "hangfire.sqlite/1.4.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "hangfire.sqlite.1.4.2.nupkg.sha512",
+        "hangfire.sqlite.nuspec",
+        "lib/net45/Hangfire.SQLite.dll",
+        "lib/netstandard2.0/Hangfire.SQLite.dll"
       ]
     },
     "K4os.Compression.LZ4/1.3.8": {
@@ -3774,6 +4100,75 @@
         "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
         "microsoft.data.sqlite.core.10.0.5.nupkg.sha512",
         "microsoft.data.sqlite.core.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.AI/10.4.1": {
+      "sha512": "io38o6v3Tpbh++UqIcievOOTRwEyBpbNcudpZDjOo+DnAEQQvc3WqlChPipWLYH65cl9m8jiqH6ahHeasZzmOA==",
+      "type": "package",
+      "path": "microsoft.extensions.ai/10.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "README.md",
+        "lib/net10.0/Microsoft.Extensions.AI.dll",
+        "lib/net10.0/Microsoft.Extensions.AI.xml",
+        "lib/net462/Microsoft.Extensions.AI.dll",
+        "lib/net462/Microsoft.Extensions.AI.xml",
+        "lib/net8.0/Microsoft.Extensions.AI.dll",
+        "lib/net8.0/Microsoft.Extensions.AI.xml",
+        "lib/net9.0/Microsoft.Extensions.AI.dll",
+        "lib/net9.0/Microsoft.Extensions.AI.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.xml",
+        "microsoft.extensions.ai.10.4.1.nupkg.sha512",
+        "microsoft.extensions.ai.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.AI.Abstractions/10.4.1": {
+      "sha512": "ZxhU/wg9BOc3ohibhLl18toPLWm96ysQoE+3OhCgrZ0TUPZd7bsUmGteeatz08yweyuPIEhtyUzEZTF+3bMWEQ==",
+      "type": "package",
+      "path": "microsoft.extensions.ai.abstractions/10.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "README.md",
+        "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net10.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net462/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/net9.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/net9.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.Abstractions.xml",
+        "microsoft.extensions.ai.abstractions.10.4.1.nupkg.sha512",
+        "microsoft.extensions.ai.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.AI.OpenAI/10.4.1": {
+      "sha512": "C+xo+ds4PxSzTEywLcM0hbJJboEuLT5na/Q49rMNi3Y0hsoBuMXIZCvWXOyvNXunvngOwZYvkicEod/g8Gll6w==",
+      "type": "package",
+      "path": "microsoft.extensions.ai.openai/10.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "README.md",
+        "lib/net10.0/Microsoft.Extensions.AI.OpenAI.dll",
+        "lib/net10.0/Microsoft.Extensions.AI.OpenAI.xml",
+        "lib/net462/Microsoft.Extensions.AI.OpenAI.dll",
+        "lib/net462/Microsoft.Extensions.AI.OpenAI.xml",
+        "lib/net8.0/Microsoft.Extensions.AI.OpenAI.dll",
+        "lib/net8.0/Microsoft.Extensions.AI.OpenAI.xml",
+        "lib/net9.0/Microsoft.Extensions.AI.OpenAI.dll",
+        "lib/net9.0/Microsoft.Extensions.AI.OpenAI.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.OpenAI.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.AI.OpenAI.xml",
+        "microsoft.extensions.ai.openai.10.4.1.nupkg.sha512",
+        "microsoft.extensions.ai.openai.nuspec"
       ]
     },
     "Microsoft.Extensions.ApiDescription.Server/6.0.5": {
@@ -5618,6 +6013,49 @@
         "postgresql.png"
       ]
     },
+    "OpenAI/2.9.1": {
+      "sha512": "KPTFYEt1EhrPeIZXGBE+DlutFEpMo/RspqSdUJ3p6pMqsw3NeGJcIja/K0He1j9KyRq8ASfzBgp2biWbNUGnFA==",
+      "type": "package",
+      "path": "openai/2.9.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "OpenAI.png",
+        "README.md",
+        "lib/net10.0/OpenAI.dll",
+        "lib/net10.0/OpenAI.xml",
+        "lib/net8.0/OpenAI.dll",
+        "lib/net8.0/OpenAI.xml",
+        "lib/netstandard2.0/OpenAI.dll",
+        "lib/netstandard2.0/OpenAI.xml",
+        "openai.2.9.1.nupkg.sha512",
+        "openai.nuspec"
+      ]
+    },
+    "Pipelines.Sockets.Unofficial/2.2.8": {
+      "sha512": "zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
+      "type": "package",
+      "path": "pipelines.sockets.unofficial/2.2.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net461/Pipelines.Sockets.Unofficial.dll",
+        "lib/net461/Pipelines.Sockets.Unofficial.xml",
+        "lib/net472/Pipelines.Sockets.Unofficial.dll",
+        "lib/net472/Pipelines.Sockets.Unofficial.xml",
+        "lib/net5.0/Pipelines.Sockets.Unofficial.dll",
+        "lib/net5.0/Pipelines.Sockets.Unofficial.xml",
+        "lib/netcoreapp3.1/Pipelines.Sockets.Unofficial.dll",
+        "lib/netcoreapp3.1/Pipelines.Sockets.Unofficial.xml",
+        "lib/netstandard2.0/Pipelines.Sockets.Unofficial.dll",
+        "lib/netstandard2.0/Pipelines.Sockets.Unofficial.xml",
+        "lib/netstandard2.1/Pipelines.Sockets.Unofficial.dll",
+        "lib/netstandard2.1/Pipelines.Sockets.Unofficial.xml",
+        "pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
+        "pipelines.sockets.unofficial.nuspec"
+      ]
+    },
     "Serilog/4.3.1": {
       "sha512": "savYe7h5yRlkqBVOwP8cIRDOdqKiPmYCU4W87JH38sBmcKD5EBoXvQIw6bNEvZ/pTe1gsiye3VFCzBsoppGkXQ==",
       "type": "package",
@@ -5720,286 +6158,6 @@
         "serilog.sinks.file.nuspec"
       ]
     },
-    "SpecFlow/3.9.74": {
-      "sha512": "n6kcg9ZeQWxqJFoT23SsFT89U1QQNwvcN9pAX5alB6ZPr6K0p5D5nGIJ1PZsSaFaRFutiwQ+DicmxBCPAZVYIA==",
-      "type": "package",
-      "path": "specflow/3.9.74",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.txt",
-        "Licenses/BoDi-LICENSE-Apache2.txt",
-        "Licenses/Gherkin-LICENSE-MIT.txt",
-        "Licenses/Newtonsoft.Json-LICENSE-MIT.md",
-        "Licenses/System.ValueTuple-LICENSE-MIT.txt",
-        "build/SpecFlow.targets",
-        "images/specflow-icon.png",
-        "lib/net461/TechTalk.SpecFlow.ExternalAnnotations.xml",
-        "lib/net461/TechTalk.SpecFlow.dll",
-        "lib/net461/TechTalk.SpecFlow.pdb",
-        "lib/net461/TechTalk.SpecFlow.xml",
-        "lib/netstandard2.0/TechTalk.SpecFlow.ExternalAnnotations.xml",
-        "lib/netstandard2.0/TechTalk.SpecFlow.dll",
-        "lib/netstandard2.0/TechTalk.SpecFlow.pdb",
-        "lib/netstandard2.0/TechTalk.SpecFlow.xml",
-        "specflow.3.9.74.nupkg.sha512",
-        "specflow.nuspec"
-      ]
-    },
-    "SpecFlow.Internal.Json/1.0.8": {
-      "sha512": "lVCC/Rie7N5rFoc7YxPS0nneLfsWSTIMMlkndwxhaD8MxBp3Bsv1HeiVjVwXCjWaQeoqZcvIy52fF5Xit00ZLw==",
-      "type": "package",
-      "path": "specflow.internal.json/1.0.8",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE",
-        "lib/net45/SpecFlow.Internal.Json.dll",
-        "lib/netstandard2.0/SpecFlow.Internal.Json.dll",
-        "specflow.internal.json.1.0.8.nupkg.sha512",
-        "specflow.internal.json.nuspec"
-      ]
-    },
-    "SpecFlow.Tools.MsBuild.Generation/3.9.74": {
-      "sha512": "I/9OvmKOohJqIUNJ0xGYJCWfL6WKDaes8OoOAD/2yhGX+tzC5ofs9yqkP9Cu/xfnIx+11IR3pZs7YhBhGAcgWQ==",
-      "type": "package",
-      "path": "specflow.tools.msbuild.generation/3.9.74",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "LICENSE.txt",
-        "build/CPS/Buildsystem/CpsExtension.DesignTime.targets",
-        "build/CPS/Buildsystem/Rules/FeatureFileType.xaml",
-        "build/CPS/Buildsystem/Rules/ProjectItemsSchema.xaml",
-        "build/SpecFlow.Tools.MsBuild.Generation.props",
-        "build/SpecFlow.Tools.MsBuild.Generation.targets",
-        "build/SpecFlow.Tools.MsBuild.Generation.tasks",
-        "buildMultiTargeting/SpecFlow.Tools.MsBuild.Generation.props",
-        "images/specflow-icon.png",
-        "licenses/BoDi-LICENSE-Apache2.txt",
-        "licenses/Gherkin-LICENSE-MIT.txt",
-        "licenses/Newtonsoft.Json-LICENSE-MIT.md",
-        "licenses/System.ValueTuple-LICENSE-MIT.txt",
-        "specflow.tools.msbuild.generation.3.9.74.nupkg.sha512",
-        "specflow.tools.msbuild.generation.nuspec",
-        "tasks/net461/BoDi.dll",
-        "tasks/net461/Gherkin.dll",
-        "tasks/net461/Microsoft.Build.Framework.dll",
-        "tasks/net461/Microsoft.Build.Tasks.Core.dll",
-        "tasks/net461/Microsoft.Build.Utilities.Core.dll",
-        "tasks/net461/Microsoft.Build.dll",
-        "tasks/net461/Microsoft.VisualStudio.Composition.NetFxAttributes.dll",
-        "tasks/net461/Microsoft.VisualStudio.Composition.dll",
-        "tasks/net461/Microsoft.VisualStudio.ProjectSystem.Interop.dll",
-        "tasks/net461/Microsoft.VisualStudio.ProjectSystem.VS.dll",
-        "tasks/net461/Microsoft.VisualStudio.ProjectSystem.dll",
-        "tasks/net461/Microsoft.VisualStudio.Setup.Configuration.Interop.dll",
-        "tasks/net461/Microsoft.VisualStudio.Threading.dll",
-        "tasks/net461/Microsoft.VisualStudio.Validation.dll",
-        "tasks/net461/Microsoft.Win32.Primitives.dll",
-        "tasks/net461/SpecFlow.Internal.Json.dll",
-        "tasks/net461/SpecFlow.Tools.MsBuild.Generation.dll",
-        "tasks/net461/System.AppContext.dll",
-        "tasks/net461/System.CodeDom.dll",
-        "tasks/net461/System.Collections.Concurrent.dll",
-        "tasks/net461/System.Collections.Immutable.dll",
-        "tasks/net461/System.Collections.NonGeneric.dll",
-        "tasks/net461/System.Collections.Specialized.dll",
-        "tasks/net461/System.Collections.dll",
-        "tasks/net461/System.ComponentModel.EventBasedAsync.dll",
-        "tasks/net461/System.ComponentModel.Primitives.dll",
-        "tasks/net461/System.ComponentModel.TypeConverter.dll",
-        "tasks/net461/System.ComponentModel.dll",
-        "tasks/net461/System.Composition.AttributedModel.dll",
-        "tasks/net461/System.Composition.Convention.dll",
-        "tasks/net461/System.Composition.Hosting.dll",
-        "tasks/net461/System.Composition.Runtime.dll",
-        "tasks/net461/System.Composition.TypedParts.dll",
-        "tasks/net461/System.Console.dll",
-        "tasks/net461/System.Data.Common.dll",
-        "tasks/net461/System.Diagnostics.Contracts.dll",
-        "tasks/net461/System.Diagnostics.Debug.dll",
-        "tasks/net461/System.Diagnostics.FileVersionInfo.dll",
-        "tasks/net461/System.Diagnostics.Process.dll",
-        "tasks/net461/System.Diagnostics.StackTrace.dll",
-        "tasks/net461/System.Diagnostics.TextWriterTraceListener.dll",
-        "tasks/net461/System.Diagnostics.Tools.dll",
-        "tasks/net461/System.Diagnostics.TraceSource.dll",
-        "tasks/net461/System.Diagnostics.Tracing.dll",
-        "tasks/net461/System.Drawing.Primitives.dll",
-        "tasks/net461/System.Dynamic.Runtime.dll",
-        "tasks/net461/System.Globalization.Calendars.dll",
-        "tasks/net461/System.Globalization.Extensions.dll",
-        "tasks/net461/System.Globalization.dll",
-        "tasks/net461/System.IO.Compression.ZipFile.dll",
-        "tasks/net461/System.IO.Compression.dll",
-        "tasks/net461/System.IO.FileSystem.DriveInfo.dll",
-        "tasks/net461/System.IO.FileSystem.Primitives.dll",
-        "tasks/net461/System.IO.FileSystem.Watcher.dll",
-        "tasks/net461/System.IO.FileSystem.dll",
-        "tasks/net461/System.IO.IsolatedStorage.dll",
-        "tasks/net461/System.IO.MemoryMappedFiles.dll",
-        "tasks/net461/System.IO.Pipes.dll",
-        "tasks/net461/System.IO.UnmanagedMemoryStream.dll",
-        "tasks/net461/System.IO.dll",
-        "tasks/net461/System.Linq.Expressions.dll",
-        "tasks/net461/System.Linq.Parallel.dll",
-        "tasks/net461/System.Linq.Queryable.dll",
-        "tasks/net461/System.Linq.dll",
-        "tasks/net461/System.Net.Http.dll",
-        "tasks/net461/System.Net.NameResolution.dll",
-        "tasks/net461/System.Net.NetworkInformation.dll",
-        "tasks/net461/System.Net.Ping.dll",
-        "tasks/net461/System.Net.Primitives.dll",
-        "tasks/net461/System.Net.Requests.dll",
-        "tasks/net461/System.Net.Security.dll",
-        "tasks/net461/System.Net.Sockets.dll",
-        "tasks/net461/System.Net.WebHeaderCollection.dll",
-        "tasks/net461/System.Net.WebSockets.Client.dll",
-        "tasks/net461/System.Net.WebSockets.dll",
-        "tasks/net461/System.ObjectModel.dll",
-        "tasks/net461/System.Reflection.Extensions.dll",
-        "tasks/net461/System.Reflection.Metadata.dll",
-        "tasks/net461/System.Reflection.Primitives.dll",
-        "tasks/net461/System.Reflection.dll",
-        "tasks/net461/System.Resources.Reader.dll",
-        "tasks/net461/System.Resources.ResourceManager.dll",
-        "tasks/net461/System.Resources.Writer.dll",
-        "tasks/net461/System.Runtime.CompilerServices.VisualC.dll",
-        "tasks/net461/System.Runtime.Extensions.dll",
-        "tasks/net461/System.Runtime.Handles.dll",
-        "tasks/net461/System.Runtime.InteropServices.RuntimeInformation.dll",
-        "tasks/net461/System.Runtime.InteropServices.dll",
-        "tasks/net461/System.Runtime.Numerics.dll",
-        "tasks/net461/System.Runtime.Serialization.Formatters.dll",
-        "tasks/net461/System.Runtime.Serialization.Json.dll",
-        "tasks/net461/System.Runtime.Serialization.Primitives.dll",
-        "tasks/net461/System.Runtime.Serialization.Xml.dll",
-        "tasks/net461/System.Runtime.dll",
-        "tasks/net461/System.Security.Claims.dll",
-        "tasks/net461/System.Security.Cryptography.Algorithms.dll",
-        "tasks/net461/System.Security.Cryptography.Csp.dll",
-        "tasks/net461/System.Security.Cryptography.Encoding.dll",
-        "tasks/net461/System.Security.Cryptography.Primitives.dll",
-        "tasks/net461/System.Security.Cryptography.X509Certificates.dll",
-        "tasks/net461/System.Security.Principal.dll",
-        "tasks/net461/System.Security.SecureString.dll",
-        "tasks/net461/System.Text.Encoding.Extensions.dll",
-        "tasks/net461/System.Text.Encoding.dll",
-        "tasks/net461/System.Text.RegularExpressions.dll",
-        "tasks/net461/System.Threading.Overlapped.dll",
-        "tasks/net461/System.Threading.Tasks.Dataflow.dll",
-        "tasks/net461/System.Threading.Tasks.Parallel.dll",
-        "tasks/net461/System.Threading.Tasks.dll",
-        "tasks/net461/System.Threading.Thread.dll",
-        "tasks/net461/System.Threading.ThreadPool.dll",
-        "tasks/net461/System.Threading.Timer.dll",
-        "tasks/net461/System.Threading.dll",
-        "tasks/net461/System.ValueTuple.dll",
-        "tasks/net461/System.Xml.ReaderWriter.dll",
-        "tasks/net461/System.Xml.XDocument.dll",
-        "tasks/net461/System.Xml.XPath.XDocument.dll",
-        "tasks/net461/System.Xml.XPath.dll",
-        "tasks/net461/System.Xml.XmlDocument.dll",
-        "tasks/net461/System.Xml.XmlSerializer.dll",
-        "tasks/net461/TechTalk.SpecFlow.Generator.dll",
-        "tasks/net461/TechTalk.SpecFlow.Parser.dll",
-        "tasks/net461/TechTalk.SpecFlow.Utils.dll",
-        "tasks/net461/TechTalk.SpecFlow.dll",
-        "tasks/net461/netstandard.dll",
-        "tasks/net5.0/BoDi.dll",
-        "tasks/net5.0/Gherkin.dll",
-        "tasks/net5.0/Microsoft.Build.Framework.dll",
-        "tasks/net5.0/Microsoft.Build.Tasks.Core.dll",
-        "tasks/net5.0/Microsoft.Build.Utilities.Core.dll",
-        "tasks/net5.0/Microsoft.Build.dll",
-        "tasks/net5.0/Microsoft.DotNet.PlatformAbstractions.dll",
-        "tasks/net5.0/Microsoft.Extensions.DependencyModel.dll",
-        "tasks/net5.0/Microsoft.VisualStudio.Composition.NetFxAttributes.dll",
-        "tasks/net5.0/Microsoft.VisualStudio.Composition.dll",
-        "tasks/net5.0/Microsoft.VisualStudio.Threading.dll",
-        "tasks/net5.0/Microsoft.VisualStudio.Validation.dll",
-        "tasks/net5.0/Newtonsoft.Json.dll",
-        "tasks/net5.0/SpecFlow.Internal.Json.dll",
-        "tasks/net5.0/SpecFlow.Tools.MsBuild.Generation.deps.json",
-        "tasks/net5.0/SpecFlow.Tools.MsBuild.Generation.dll",
-        "tasks/net5.0/System.CodeDom.dll",
-        "tasks/net5.0/System.ComponentModel.Composition.dll",
-        "tasks/net5.0/System.Composition.AttributedModel.dll",
-        "tasks/net5.0/System.Composition.Convention.dll",
-        "tasks/net5.0/System.Composition.Hosting.dll",
-        "tasks/net5.0/System.Composition.Runtime.dll",
-        "tasks/net5.0/System.Composition.TypedParts.dll",
-        "tasks/net5.0/System.Configuration.ConfigurationManager.dll",
-        "tasks/net5.0/System.Security.Cryptography.ProtectedData.dll",
-        "tasks/net5.0/System.Security.Permissions.dll",
-        "tasks/net5.0/TechTalk.SpecFlow.Generator.dll",
-        "tasks/net5.0/TechTalk.SpecFlow.Parser.dll",
-        "tasks/net5.0/TechTalk.SpecFlow.Utils.dll",
-        "tasks/net5.0/TechTalk.SpecFlow.dll",
-        "tasks/net6.0/BoDi.dll",
-        "tasks/net6.0/Gherkin.dll",
-        "tasks/net6.0/Microsoft.Build.Framework.dll",
-        "tasks/net6.0/Microsoft.Build.Tasks.Core.dll",
-        "tasks/net6.0/Microsoft.Build.Utilities.Core.dll",
-        "tasks/net6.0/Microsoft.Build.dll",
-        "tasks/net6.0/Microsoft.DotNet.PlatformAbstractions.dll",
-        "tasks/net6.0/Microsoft.Extensions.DependencyModel.dll",
-        "tasks/net6.0/Microsoft.VisualStudio.Composition.NetFxAttributes.dll",
-        "tasks/net6.0/Microsoft.VisualStudio.Composition.dll",
-        "tasks/net6.0/Microsoft.VisualStudio.Threading.dll",
-        "tasks/net6.0/Microsoft.VisualStudio.Validation.dll",
-        "tasks/net6.0/Newtonsoft.Json.dll",
-        "tasks/net6.0/SpecFlow.Internal.Json.dll",
-        "tasks/net6.0/SpecFlow.Tools.MsBuild.Generation.deps.json",
-        "tasks/net6.0/SpecFlow.Tools.MsBuild.Generation.dll",
-        "tasks/net6.0/System.CodeDom.dll",
-        "tasks/net6.0/System.ComponentModel.Composition.dll",
-        "tasks/net6.0/System.Composition.AttributedModel.dll",
-        "tasks/net6.0/System.Composition.Convention.dll",
-        "tasks/net6.0/System.Composition.Hosting.dll",
-        "tasks/net6.0/System.Composition.Runtime.dll",
-        "tasks/net6.0/System.Composition.TypedParts.dll",
-        "tasks/net6.0/System.Configuration.ConfigurationManager.dll",
-        "tasks/net6.0/System.Security.Cryptography.ProtectedData.dll",
-        "tasks/net6.0/System.Security.Permissions.dll",
-        "tasks/net6.0/TechTalk.SpecFlow.Generator.dll",
-        "tasks/net6.0/TechTalk.SpecFlow.Parser.dll",
-        "tasks/net6.0/TechTalk.SpecFlow.Utils.dll",
-        "tasks/net6.0/TechTalk.SpecFlow.dll",
-        "tasks/netcoreapp2.1/BoDi.dll",
-        "tasks/netcoreapp2.1/Gherkin.dll",
-        "tasks/netcoreapp2.1/Microsoft.Build.Framework.dll",
-        "tasks/netcoreapp2.1/Microsoft.Build.Tasks.Core.dll",
-        "tasks/netcoreapp2.1/Microsoft.Build.Utilities.Core.dll",
-        "tasks/netcoreapp2.1/Microsoft.Build.dll",
-        "tasks/netcoreapp2.1/Microsoft.DotNet.PlatformAbstractions.dll",
-        "tasks/netcoreapp2.1/Microsoft.Extensions.DependencyModel.dll",
-        "tasks/netcoreapp2.1/Microsoft.VisualStudio.Composition.NetFxAttributes.dll",
-        "tasks/netcoreapp2.1/Microsoft.VisualStudio.Composition.dll",
-        "tasks/netcoreapp2.1/Microsoft.VisualStudio.Threading.dll",
-        "tasks/netcoreapp2.1/Microsoft.VisualStudio.Validation.dll",
-        "tasks/netcoreapp2.1/Newtonsoft.Json.dll",
-        "tasks/netcoreapp2.1/SpecFlow.Internal.Json.dll",
-        "tasks/netcoreapp2.1/SpecFlow.Tools.MsBuild.Generation.deps.json",
-        "tasks/netcoreapp2.1/SpecFlow.Tools.MsBuild.Generation.dll",
-        "tasks/netcoreapp2.1/System.CodeDom.dll",
-        "tasks/netcoreapp2.1/System.ComponentModel.Composition.dll",
-        "tasks/netcoreapp2.1/System.Composition.AttributedModel.dll",
-        "tasks/netcoreapp2.1/System.Composition.Convention.dll",
-        "tasks/netcoreapp2.1/System.Composition.Hosting.dll",
-        "tasks/netcoreapp2.1/System.Composition.Runtime.dll",
-        "tasks/netcoreapp2.1/System.Composition.TypedParts.dll",
-        "tasks/netcoreapp2.1/System.Configuration.ConfigurationManager.dll",
-        "tasks/netcoreapp2.1/System.Security.Cryptography.ProtectedData.dll",
-        "tasks/netcoreapp2.1/System.Security.Permissions.dll",
-        "tasks/netcoreapp2.1/System.Text.Encoding.CodePages.dll",
-        "tasks/netcoreapp2.1/TechTalk.SpecFlow.Generator.dll",
-        "tasks/netcoreapp2.1/TechTalk.SpecFlow.Parser.dll",
-        "tasks/netcoreapp2.1/TechTalk.SpecFlow.Utils.dll",
-        "tasks/netcoreapp2.1/TechTalk.SpecFlow.dll"
-      ]
-    },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.11": {
       "sha512": "DC4nA7yWnf4UZdgJDF+9Mus4/cb0Y3Sfgi3gDnAoKNAIBwzkskNAbNbyu+u4atT0ruVlZNJfwZmwiEwE5oz9LQ==",
       "type": "package",
@@ -6092,6 +6250,30 @@
         "lib/netstandard2.0/SQLitePCLRaw.provider.e_sqlite3.dll",
         "sqlitepclraw.provider.e_sqlite3.2.1.11.nupkg.sha512",
         "sqlitepclraw.provider.e_sqlite3.nuspec"
+      ]
+    },
+    "StackExchange.Redis/2.12.14": {
+      "sha512": "QiAQg40OP4Owem6/PjIbjEKq2+uIeQYeZ1TCMUnx/QvKugOPxOfC96wjlnBjWHi4Wq9pv9+fDlXGT06XkRZ6Ig==",
+      "type": "package",
+      "path": "stackexchange.redis/2.12.14",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net10.0/StackExchange.Redis.dll",
+        "lib/net10.0/StackExchange.Redis.xml",
+        "lib/net461/StackExchange.Redis.dll",
+        "lib/net461/StackExchange.Redis.xml",
+        "lib/net472/StackExchange.Redis.dll",
+        "lib/net472/StackExchange.Redis.xml",
+        "lib/net6.0/StackExchange.Redis.dll",
+        "lib/net6.0/StackExchange.Redis.xml",
+        "lib/net8.0/StackExchange.Redis.dll",
+        "lib/net8.0/StackExchange.Redis.xml",
+        "lib/netstandard2.0/StackExchange.Redis.dll",
+        "lib/netstandard2.0/StackExchange.Redis.xml",
+        "stackexchange.redis.2.12.14.nupkg.sha512",
+        "stackexchange.redis.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.6.2": {
@@ -6194,6 +6376,29 @@
         "package-readme.md",
         "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
+      ]
+    },
+    "System.ClientModel/1.9.0": {
+      "sha512": "1wdwKtMMMEFEYsxJmtrOd3G+7zVOVO3MlVZAsbKv9H0PnIx6J27fYAarMn0eQS0vKJPQL018DOb7YRK1O97p0A==",
+      "type": "package",
+      "path": "system.clientmodel/1.9.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "DotNetPackageIcon.png",
+        "README.md",
+        "analyzers/dotnet/cs/System.ClientModel.SourceGeneration.dll",
+        "lib/net10.0/System.ClientModel.dll",
+        "lib/net10.0/System.ClientModel.xml",
+        "lib/net8.0/System.ClientModel.dll",
+        "lib/net8.0/System.ClientModel.xml",
+        "lib/net9.0/System.ClientModel.dll",
+        "lib/net9.0/System.ClientModel.xml",
+        "lib/netstandard2.0/System.ClientModel.dll",
+        "lib/netstandard2.0/System.ClientModel.xml",
+        "system.clientmodel.1.9.0.nupkg.sha512",
+        "system.clientmodel.nuspec"
       ]
     },
     "System.ComponentModel.Annotations/5.0.0": {
@@ -6376,6 +6581,93 @@
         "lib/netstandard2.0/System.IdentityModel.Tokens.Jwt.xml",
         "system.identitymodel.tokens.jwt.8.16.0.nupkg.sha512",
         "system.identitymodel.tokens.jwt.nuspec"
+      ]
+    },
+    "System.IO.Hashing/10.0.2": {
+      "sha512": "AKJknIFi9O3+rGExxTry188JPvUoZAPcCtS2qdqyFhIzsxQ1Ap94BeGDG0VzVEHakhmRxmJtVih6TsHoghIt/g==",
+      "type": "package",
+      "path": "system.io.hashing/10.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.IO.Hashing.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.IO.Hashing.targets",
+        "lib/net10.0/System.IO.Hashing.dll",
+        "lib/net10.0/System.IO.Hashing.xml",
+        "lib/net462/System.IO.Hashing.dll",
+        "lib/net462/System.IO.Hashing.xml",
+        "lib/net8.0/System.IO.Hashing.dll",
+        "lib/net8.0/System.IO.Hashing.xml",
+        "lib/net9.0/System.IO.Hashing.dll",
+        "lib/net9.0/System.IO.Hashing.xml",
+        "lib/netstandard2.0/System.IO.Hashing.dll",
+        "lib/netstandard2.0/System.IO.Hashing.xml",
+        "system.io.hashing.10.0.2.nupkg.sha512",
+        "system.io.hashing.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Memory.Data/10.0.1": {
+      "sha512": "BZC4mhdL569AXV56ep9YO6ShjhxFXGP7SwVX0Bc/e0dJPWnS6aBEXZJXqh64RVx8HquqWHkJUINBydLRQ1yq0g==",
+      "type": "package",
+      "path": "system.memory.data/10.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Memory.Data.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Memory.Data.targets",
+        "lib/net10.0/System.Memory.Data.dll",
+        "lib/net10.0/System.Memory.Data.xml",
+        "lib/net462/System.Memory.Data.dll",
+        "lib/net462/System.Memory.Data.xml",
+        "lib/net8.0/System.Memory.Data.dll",
+        "lib/net8.0/System.Memory.Data.xml",
+        "lib/net9.0/System.Memory.Data.dll",
+        "lib/net9.0/System.Memory.Data.xml",
+        "lib/netstandard2.0/System.Memory.Data.dll",
+        "lib/netstandard2.0/System.Memory.Data.xml",
+        "system.memory.data.10.0.1.nupkg.sha512",
+        "system.memory.data.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Numerics.Tensors/10.0.4": {
+      "sha512": "EK8wJVxnVfeCzchnEqVjIfZDpVIcmjfjUs9x1nzI41X2naPGT57QjoHlQJma2vDQUxEtPQiGv/v90mwcflx6mQ==",
+      "type": "package",
+      "path": "system.numerics.tensors/10.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Numerics.Tensors.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net8.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Numerics.Tensors.targets",
+        "lib/net10.0/System.Numerics.Tensors.dll",
+        "lib/net10.0/System.Numerics.Tensors.xml",
+        "lib/net462/System.Numerics.Tensors.dll",
+        "lib/net462/System.Numerics.Tensors.xml",
+        "lib/net8.0/System.Numerics.Tensors.dll",
+        "lib/net8.0/System.Numerics.Tensors.xml",
+        "lib/net9.0/System.Numerics.Tensors.dll",
+        "lib/net9.0/System.Numerics.Tensors.xml",
+        "lib/netstandard2.0/System.Numerics.Tensors.dll",
+        "lib/netstandard2.0/System.Numerics.Tensors.xml",
+        "system.numerics.tensors.10.0.4.nupkg.sha512",
+        "system.numerics.tensors.nuspec",
+        "useSharedDesignerContext.txt"
       ]
     },
     "System.Security.Cryptography.Pkcs/9.0.13": {
@@ -6781,11 +7073,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\AutoTest\\test\\AutoTest.test\\AutoTest.test.csproj",
+      "projectUniqueName": "D:\\AutoTest\\test\\AutoTest.test\\AutoTest.test.csproj",
       "projectName": "AutoTest.test",
-      "projectPath": "d:\\AutoTest\\test\\AutoTest.test\\AutoTest.test.csproj",
+      "projectPath": "D:\\AutoTest\\test\\AutoTest.test\\AutoTest.test.csproj",
       "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-      "outputPath": "d:\\AutoTest\\test\\AutoTest.test\\obj\\",
+      "outputPath": "D:\\AutoTest\\test\\AutoTest.test\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -6804,19 +7096,20 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
             "D:\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj": {
               "projectPath": "D:\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj"
             },
-            "d:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj": {
-              "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj"
+            "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj": {
+              "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj"
             },
-            "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
-              "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
+            "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
+              "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
             },
-            "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-              "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+            "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+              "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
             },
             "D:\\AutoTest\\src\\AutoTest.Execution.Db\\AutoTest.Execution.Db.csproj": {
               "projectPath": "D:\\AutoTest\\src\\AutoTest.Execution.Db\\AutoTest.Execution.Db.csproj"
@@ -6844,6 +7137,7 @@
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "FluentAssertions": {

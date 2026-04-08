@@ -6,19 +6,24 @@ namespace AutoTest.Application.Step;
 
 public class AssertionStep : IPipelineStep
 {
-    private readonly IAssertionMap _assertionMap;
+    private readonly IReadOnlyDictionary<string, IAssertionMap> _assertionMaps;
     private readonly AssertionEngine _assertionEngine;
     private readonly ILogger<AssertionStep> _logger;
-    public AssertionStep(AssertionEngine assertionEngine, IAssertionMap assertionMap, ILogger<AssertionStep> logger)
+    public AssertionStep(AssertionEngine assertionEngine, IEnumerable<IAssertionMap> assertionMaps, ILogger<AssertionStep> logger)
     {
-        _assertionMap = assertionMap;
+        _assertionMaps = assertionMaps.ToDictionary(m => m.Type, StringComparer.OrdinalIgnoreCase);
         _assertionEngine = assertionEngine;
         _logger = logger;
     }
     public async Task InvokeAsync(PipelineContext context, Func<Task> next)
     {
 
-        var assertions = context.Monitor.Assertions.Select(_assertionMap.Map).ToList();
+        var assertions = context.Monitor.Assertions.Select(rule =>
+        {
+            if (!_assertionMaps.TryGetValue(rule.Type, out var mapper))
+                throw new InvalidOperationException($"No assertion mapper found for type: {rule.Type}");
+            return mapper.Map(rule);
+        }).ToList();
 
         _logger.LogInformation("Assertion step started.");
 

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/sWjRWnNGek=",
+  "dgSpecHash": "5gwSh4KCA1c=",
   "success": true,
-  "projectFilePath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
+  "projectFilePath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\10.0.5\\microsoft.extensions.dependencyinjection.10.0.5.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\10.0.5\\microsoft.extensions.dependencyinjection.abstractions.10.0.5.nupkg.sha512",

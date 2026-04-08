@@ -11,3 +11,6 @@ D:\AutoTest\src\AutoTest.Assertion\obj\Debug\net10.0\AutoTest.Assertion.dll
 D:\AutoTest\src\AutoTest.Assertion\obj\Debug\net10.0\refint\AutoTest.Assertion.dll
 D:\AutoTest\src\AutoTest.Assertion\obj\Debug\net10.0\AutoTest.Assertion.pdb
 D:\AutoTest\src\AutoTest.Assertion\obj\Debug\net10.0\ref\AutoTest.Assertion.dll
+d:\AutoTest\src\AutoTest.Assertion\bin\Debug\net10.0\AutoTest.Core.dll
+d:\AutoTest\src\AutoTest.Assertion\bin\Debug\net10.0\AutoTest.Core.pdb
+d:\AutoTest\src\AutoTest.Assertion\obj\Debug\net10.0\AutoTest.C1258AA9.Up2Date

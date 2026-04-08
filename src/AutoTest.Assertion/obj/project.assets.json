@@ -17,6 +17,16 @@
         "build": {
           "buildTransitive/net8.0/_._": {}
         }
+      },
+      "AutoTest.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "compile": {
+          "bin/placeholder/AutoTest.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AutoTest.Core.dll": {}
+        }
       }
     }
   },
@@ -51,10 +61,16 @@
         "microsoft.extensions.dependencyinjection.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "AutoTest.Core/1.0.0": {
+      "type": "project",
+      "path": "../AutoTest.Core/AutoTest.Core.csproj",
+      "msbuildProject": "../AutoTest.Core/AutoTest.Core.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
+      "AutoTest.Core >= 1.0.0",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 10.0.5"
     ]
   },
@@ -65,11 +81,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj",
+      "projectUniqueName": "D:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj",
       "projectName": "AutoTest.Assertion",
-      "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj",
+      "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj",
       "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-      "outputPath": "d:\\AutoTest\\src\\AutoTest.Assertion\\obj\\",
+      "outputPath": "D:\\AutoTest\\src\\AutoTest.Assertion\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -88,8 +104,13 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+              "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -106,6 +127,7 @@
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": {

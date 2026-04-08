@@ -8,6 +8,8 @@ namespace AutoTest.Application.Builder.AssertionBuilder;
 
 public class HttpAssertionMap : IAssertionMap
 {
+    public string Type => "HTTP";
+
     private readonly IEnumerable<IField> _resolvers;
     private readonly IOperator _operators;
     public  HttpAssertionMap(IEnumerable<IField> resolvers, IOperator operators)

@@ -1,4 +1,4 @@
-﻿using AutoTest.Application.Dto;
+using AutoTest.Application.Dto;
 using AutoTest.Core;
 using System;
 using System.Collections.Generic;
@@ -9,12 +9,18 @@ namespace AutoTest.Application.Mapper.TargetMapper
 {
     internal class PythonTargetMap : ITargetMap
     {
-        public string Type => "python";
+        public string Type => "PYTHON";
 
         public MonitorTarget Map(string json)
         {
-           var dto= JsonSerializer.Deserialize<PythonTargetDto>(json);
-            return new Core.Target.Python.PythonTarget
+           var dto = JsonSerializer.Deserialize<PythonTargetDto>(json, new JsonSerializerOptions
+           {
+               PropertyNameCaseInsensitive = true
+           });
+           if (dto == null)
+               throw new InvalidOperationException("Invalid Python target config JSON");
+
+           return new Core.Target.Python.PythonTarget
             {
                 ScriptPath = dto.ScriptPath,
                 Args = dto.Args,

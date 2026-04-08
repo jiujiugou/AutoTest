@@ -117,6 +117,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
+          "AutoTest.Core": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
         },
         "compile": {
@@ -405,11 +406,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
+      "projectUniqueName": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
       "projectName": "AutoTest.Assertions.Http",
-      "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
+      "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
       "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-      "outputPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\obj\\",
+      "outputPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -428,13 +429,14 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
             "D:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj": {
               "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj"
             },
-            "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-              "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+            "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+              "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
             }
           }
         }
@@ -453,6 +455,7 @@
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": {

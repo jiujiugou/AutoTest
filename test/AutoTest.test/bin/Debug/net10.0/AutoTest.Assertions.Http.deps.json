@@ -82,6 +82,7 @@
       },
       "AutoTest.Assertion/1.0.0": {
         "dependencies": {
+          "AutoTest.Core": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
         },
         "runtime": {

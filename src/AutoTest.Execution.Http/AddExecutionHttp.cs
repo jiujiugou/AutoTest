@@ -7,6 +7,7 @@ public static class AddExecutionHttp
 {
     public static IServiceCollection AddHttpExecution(this IServiceCollection services)
     {
+        services.AddScoped<IHttpClient, FlurlHttpClient>();
         services.AddScoped<IExecutionEngine, HttpExecutionEngine>();
         return services;
     }

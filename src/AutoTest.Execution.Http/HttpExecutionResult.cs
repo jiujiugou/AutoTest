@@ -16,14 +16,14 @@ namespace AutoTest.Execution.Http
         /// </summary>
         public string? Body { get; set;}
 
-        public IReadOnlyDictionary<string, string>? Headers { get; set;}
+        public IReadOnlyDictionary<string, string[]>? Headers { get; set;}
 
         public long? ElapsedMilliseconds { get; set; }
 
         /// <summary>
         /// 构造成功结果
         /// </summary>
-        public HttpExecutionResult(int statusCode, string? body, bool isExecutionSuccess, IReadOnlyDictionary<string, string> headers, long elapsedMilliseconds = 0)
+        public HttpExecutionResult(int statusCode, string? body, bool isExecutionSuccess, IReadOnlyDictionary<string, string[]> headers, long elapsedMilliseconds = 0)
             : base(isExecutionSuccess, "")
         {
             StatusCode = statusCode;

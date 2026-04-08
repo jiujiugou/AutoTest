@@ -13,7 +13,7 @@ public interface IHttpExecutionResult
     /// 响应内容
     /// </summary>
     string? Body { get; set; }
-    IReadOnlyDictionary<string, string> Headers { get; set; }
+    IReadOnlyDictionary<string, string[]> Headers { get; set; }
     /// <summary>
     /// 响应时间
     /// </summary>

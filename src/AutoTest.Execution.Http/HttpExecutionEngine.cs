@@ -9,34 +9,31 @@ using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Net;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.Json;
 
+/// <summary>
+/// HTTP 执行引擎，用于发送 HTTP 请求并返回结果，支持重试和并发控制。
+/// </summary>
 public class HttpExecutionEngine : IExecutionEngine
 {
     private readonly ILogger<HttpExecutionEngine> _logger;
-    // 轻量锁，避免同一 URL 的重复请求
-    private readonly ConcurrentDictionary<string, byte> _inFlightUrl = new();
+    private readonly IHttpClient _httpClient;
     // 全局并发限制信号量
     private static readonly SemaphoreSlim _globalSemaphore = new(5);
 
-    public bool TryBegin(HttpTarget target)
-    {
-        var key = $"{target.Method}:{target.Url}";
-        return _inFlightUrl.TryAdd(key, 0);
-    }
-
-    public void End(HttpTarget target)
-    {
-        var key = $"{target.Method}:{target.Url}";
-        _inFlightUrl.TryRemove(key, out _);
-    }
-    public HttpExecutionEngine(ILogger<HttpExecutionEngine> logger)
+    public HttpExecutionEngine(ILogger<HttpExecutionEngine> logger, IHttpClient httpClient)
     {
 
         _logger = logger;
-
+        _httpClient = httpClient;
     }
+    /// <summary>
+    /// 执行 HTTP 请求，适配 MonitorTarget 类型
+    /// </summary>
+    /// <param name="target">测试目标</param>
+    /// <returns>ExecutionResult 执行结果</returns>
     public Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
     {
         if (target is not HttpTarget httpTarget)
@@ -44,14 +41,13 @@ public class HttpExecutionEngine : IExecutionEngine
 
         return ExecuteAsync(httpTarget);
     }
+    /// <summary>
+    /// 执行 HTTP 请求，带重试和并发控制
+    /// </summary>
+    /// <param name="target">HTTP 测试目标</param>
+    /// <returns>HTTP 执行结果</returns>
     public async Task<ExecutionResult> ExecuteAsync(HttpTarget target)
-    {
-        if (!TryBegin(target))
-        {
-            _logger.LogWarning($"目标 {target.Url} 已在执行中，跳过本次请求");
-            return new HttpExecutionResult(4044, null, false, "请求失败");
-        }
-        
+    {   
         if (target.EnableRateLimit)
             await _globalSemaphore.WaitAsync(); // 等待全局信号量
         var stopwatch = Stopwatch.StartNew();
@@ -64,7 +60,7 @@ public class HttpExecutionEngine : IExecutionEngine
                 {
                     _logger.LogInformation($"开始执行 HTTP 请求 [{i}]，地址：{target.Url} 方法：{target.Method}");
 
-                    var client = await GetOrCreateClient(target);
+                    var client = await _httpClient.GetOrCreateClient(target);
 
                     var request = client.Request(target.Url)
                         .SetQueryParams(target.Query ?? new Dictionary<string, string>())
@@ -81,14 +77,18 @@ public class HttpExecutionEngine : IExecutionEngine
 
                     var body = await response.GetStringAsync();
                     var elapsedMs = stopwatch.ElapsedMilliseconds;
+                    // 1. 取响应头
+                    var headersDict = response.Headers.GroupBy(h => h.Name, h => h.Value)
+                        .ToDictionary(g => g.Key, g => g.ToArray());
 
+                    
                     _logger.LogInformation($"HTTP 请求完成，状态码：{response.StatusCode} 耗时：{elapsedMs}ms");
                     return new HttpExecutionResult(
                         (int)response.StatusCode,
                          body,
                         true,
-                        response.Headers.ToDictionary(h => h.Name, h => string.Join(",", h.Value)),
-                        elapsedMs
+                        headersDict,
+                    elapsedMs
                     );
                 }
                 catch (FlurlHttpException fex)
@@ -100,7 +100,7 @@ public class HttpExecutionEngine : IExecutionEngine
                     {
                         var status = fex.Call?.Response?.StatusCode ?? 0;
                         var content = await fex.GetResponseStringAsync();
-                        return new HttpExecutionResult(404, null, false, "请求失败");
+                        return new HttpExecutionResult(status, content, false, "请求失败");
                     }
                     else
                     {
@@ -121,13 +121,16 @@ public class HttpExecutionEngine : IExecutionEngine
         {
             if (target.EnableRateLimit)
                 _globalSemaphore.Release();
-            End(target);
+            
         }
         return new HttpExecutionResult(404, null, false, "请求失败");
     }
 
     public bool CanExecute(MonitorTarget target) => target is HttpTarget;
 
+    /// <summary>
+    /// 根据 HttpBody 类型构建 HttpContent
+    /// </summary>
     private HttpContent? BuildHttpContent(HttpBody? body)
     {
         if (body == null) return null;
@@ -155,64 +158,5 @@ public class HttpExecutionEngine : IExecutionEngine
             _ => throw new NotSupportedException($"Body type {body.Type} not supported")
         };
     }
-    private readonly ConcurrentDictionary<string, HttpClientHandler> _handlers = new();
-
-    private Task<FlurlClient> GetOrCreateClient(HttpTarget target)
-    {
-        // Key 用来区分不同配置 + 认证信息
-        var authPart = target.AuthType switch
-        {
-            AuthType.Bearer => target.AuthToken ?? "",
-            AuthType.Basic => $"{target.AuthUsername}:{target.AuthPassword}",
-            AuthType.ApiKeyHeader => target.AuthToken ?? "",
-            _ => ""
-        };
-
-        var handlerKey = $"{target.AllowAutoRedirect}:{target.IgnoreSslErrors}:{target.ProxyUrl ?? ""}";
-        var handler = _handlers.GetOrAdd(handlerKey, _ =>
-        {
-            var h = new HttpClientHandler
-            {
-                AllowAutoRedirect = target.AllowAutoRedirect,
-                MaxAutomaticRedirections = target.MaxRedirects,
-                UseCookies = target.UseCookies,
-                ServerCertificateCustomValidationCallback = target.IgnoreSslErrors
-                    ? HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                    : null
-            };
-
-            if (!string.IsNullOrEmpty(target.ProxyUrl))
-            {
-                h.Proxy = new WebProxy(target.ProxyUrl)
-                {
-                    Credentials = !string.IsNullOrEmpty(target.ProxyUser)
-                        ? new NetworkCredential(target.ProxyUser, target.ProxyPass)
-                        : null
-                };
-                h.UseProxy = true;
-            }
-
-            return h;
-        });
-        // 每次请求都创建新的 FlurlClient，安全写 header
-        var client = new FlurlClient(new HttpClient(handler));
-
-        switch (target.AuthType)
-        {
-            case AuthType.Bearer:
-                if (!string.IsNullOrEmpty(target.AuthToken))
-                    client.WithOAuthBearerToken(target.AuthToken);
-                break;
-            case AuthType.Basic:
-                var auth = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{target.AuthUsername}:{target.AuthPassword}"));
-                client.WithHeader("Authorization", $"Basic {auth}");
-                break;
-            case AuthType.ApiKeyHeader:
-                if (!string.IsNullOrEmpty(target.AuthToken))
-                    client.WithHeader("X-Api-Key", target.AuthToken);
-                break;
-        }
-
-        return Task.FromResult(client);
-    }
+    
 }

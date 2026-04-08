@@ -23,13 +23,13 @@ namespace AutoTest.Tests.Assertions.Http
                 200,
                 "ok",
                 true,
-                new Dictionary<string, string> { ["X-Test"] = "abc" },
+                new Dictionary<string, string[]> { ["X-Test"] = ["abc"] },
                 123);
 
             resolver.CanResolve(result).Should().BeTrue();
             resolver.Resolve(HttpAssertionField.StatusCode, result).Should().Be(200);
             resolver.Resolve(HttpAssertionField.Body, result).Should().Be("ok");
-            resolver.Resolve(HttpAssertionField.Header, result, "X-Test").Should().Be("abc");
+            resolver.Resolve(HttpAssertionField.Header, result, "X-Test").Should().BeEquivalentTo(new[] { "abc" });
             resolver.Resolve(HttpAssertionField.Elapsed, result).Should().Be(123);
         }
 
@@ -53,7 +53,7 @@ namespace AutoTest.Tests.Assertions.Http
                 resolvers,
                 op);
 
-            var execution = new HttpExecutionResult(200, "ok", true, new Dictionary<string, string>(), 1);
+            var execution = new HttpExecutionResult(200, "ok", true, new Dictionary<string, string[]>(), 1);
             var r = await assertion.EvaluateAsync(execution);
             r.IsSuccess.Should().BeTrue();
         }
@@ -75,7 +75,7 @@ namespace AutoTest.Tests.Assertions.Http
                 Enumerable.Empty<IField>(),
                 op);
 
-            var execution = new HttpExecutionResult(200, "ok", true, new Dictionary<string, string>(), 1);
+            var execution = new HttpExecutionResult(200, "ok", true, new Dictionary<string, string[]>(), 1);
             var r = await assertion.EvaluateAsync(execution);
             r.IsSuccess.Should().BeFalse();
             r.Message.Should().Contain("No resolver found");

@@ -1,4 +1,4 @@
-﻿using AutoTest.Application.Dto;
+using AutoTest.Application.Dto;
 using AutoTest.Assertion.Db;
 using AutoTest.Assertions;
 using AutoTest.Core.Assertion;
@@ -11,6 +11,8 @@ namespace AutoTest.Application.Mapper.AssertionMapper
 {
     internal class DbAssertionMap:IAssertionMap
     {
+        public string Type => "DB";
+
         private readonly IEnumerable<IField> _resolvers;
         private readonly IOperator _operator;
 

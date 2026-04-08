@@ -1,0 +1,4 @@
+2026-04-07 19:01:19 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-07 19:01:19 [INF] Hosting environment: Development
+2026-04-07 19:01:19 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-07 19:01:20 [INF] Application is shutting down...

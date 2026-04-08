@@ -15,13 +15,10 @@ public class MonitorService : IMonitorService
     private readonly ICacheService _cacheService;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IOrchestrator _orchestrator;
-    private readonly ITaskQueue _taskQueue;
     private readonly IExecutionRecordRepository _executionRecordRepository;
-    private readonly IServiceScopeFactory _scopeFactory;
     private readonly IEnumerable<IAssertionRuleMap> _assertionBuilders;
     private readonly IEnumerable<ITargetMap> _targetBuilders;
     private readonly ILogger<MonitorService> _logger;
-    private readonly IMonitorExecutionCoordinator _executionCoordinator;
 
     public MonitorService(
         IEnumerable<ITargetMap> targetBuilders,
@@ -30,10 +27,7 @@ public class MonitorService : IMonitorService
         ICacheService cacheService,
         IUnitOfWork unitOfWork,
         IOrchestrator orchestrator,
-        ITaskQueue taskQueue,
         IExecutionRecordRepository executionRecordRepository,
-        IServiceScopeFactory scopeFactory,
-        IMonitorExecutionCoordinator executionCoordinator,
         ILogger<MonitorService> logger)
     {
         _monitorRepository = monitorRepository;
@@ -42,10 +36,7 @@ public class MonitorService : IMonitorService
         _assertionBuilders = assertionRuleBuilder;
         _targetBuilders = targetBuilders;
         _orchestrator = orchestrator;
-        _taskQueue = taskQueue;
         _executionRecordRepository = executionRecordRepository;
-        _scopeFactory = scopeFactory;
-        _executionCoordinator = executionCoordinator;
         _logger = logger;
     }
 
@@ -54,7 +45,7 @@ public class MonitorService : IMonitorService
         _logger.LogInformation("AddAsync started for monitor: {Name}", dto.Name);
         try
         {
-            var targetBuilder = _targetBuilders.FirstOrDefault(b => b.Type == dto.TargetType)
+            var targetBuilder = _targetBuilders.FirstOrDefault(b => string.Equals(b.Type, dto.TargetType, StringComparison.OrdinalIgnoreCase))
                 ?? throw new InvalidOperationException($"No target builder found for type: {dto.TargetType}");
 
             var target = targetBuilder.Map(dto.TargetConfig);
@@ -62,13 +53,13 @@ public class MonitorService : IMonitorService
             var assertions = dto.Assertions
                 .Select(aDto =>
                 {
-                    var builder = _assertionBuilders.FirstOrDefault(b => b.Type == aDto.Type)
+                    var builder = _assertionBuilders.FirstOrDefault(b => string.Equals(b.Type, aDto.Type, StringComparison.OrdinalIgnoreCase))
                         ?? throw new InvalidOperationException($"Unknown assertion type: {aDto.Type}");
                     return builder.Map(aDto.Id, aDto.ConfigJson);
                 })
                 .ToList();
 
-            var monitorEntity = new MonitorEntity(Guid.NewGuid(), dto.Name, target, MonitorStatus.Pending, DateTime.UtcNow, true);
+            var monitorEntity = new MonitorEntity(Guid.NewGuid(), dto.Name, target, MonitorStatus.Pending, null, dto.IsEnabled);
             foreach (var assertion in assertions)
                 monitorEntity.AddAssertion(assertion);
             await _unitOfWork.ExecuteAsync(async tx =>
@@ -126,22 +117,23 @@ public class MonitorService : IMonitorService
         _logger.LogInformation("UpdateAsync started for monitor: {Id}", id);
         try
         {
-            var existing = await _monitorRepository.GetByIdAsync(id)
-                           ?? throw new InvalidOperationException("Monitor not found");
-
-            var targetBuilder = _targetBuilders.FirstOrDefault(b => b.Type == dto.TargetType)
-                                ?? throw new InvalidOperationException($"No target builder for type: {dto.TargetType}");
-
-            existing.Update(dto.Name, targetBuilder.Map(dto.TargetConfig), dto.IsEnabled);
-            existing.ClearAssertions();
-            foreach (var aDto in dto.Assertions)
-            {
-                var builder = _assertionBuilders.FirstOrDefault(b => b.Type == aDto.Type)
-                              ?? throw new InvalidOperationException($"Unknown assertion type: {aDto.Type}");
-                existing.AddAssertion(builder.Map(aDto.Id, aDto.ConfigJson));
-            }
             await _unitOfWork.ExecuteAsync(async tx =>
             {
+                var existing = await _monitorRepository.GetByIdAsync(id,tx)
+                           ?? throw new InvalidOperationException("Monitor not found");
+
+                var targetBuilder = _targetBuilders.FirstOrDefault(b => b.Type == dto.TargetType)
+                                    ?? throw new InvalidOperationException($"No target builder for type: {dto.TargetType}");
+
+                existing.Update(dto.Name, targetBuilder.Map(dto.TargetConfig), dto.IsEnabled);
+                existing.ClearAssertions();
+                foreach (var aDto in dto.Assertions)
+                {
+                    var builder = _assertionBuilders.FirstOrDefault(b => b.Type == aDto.Type)
+                                  ?? throw new InvalidOperationException($"Unknown assertion type: {aDto.Type}");
+                    existing.AddAssertion(builder.Map(aDto.Id, aDto.ConfigJson));
+                }
+            
                 await _monitorRepository.UpdateAsync(existing, tx);
             });
             _logger.LogInformation("Monitor {Id} updated successfully", id);
@@ -151,7 +143,6 @@ public class MonitorService : IMonitorService
         catch (Exception ex)
         {
             _logger.LogError(ex, "UpdateAsync failed for monitor: {Id}", id);
-            await _unitOfWork.RollbackAsync();
             throw;
         }
     }
@@ -159,51 +150,8 @@ public class MonitorService : IMonitorService
     public Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync() =>
         _monitorRepository.GetPendingTasksAsync();
 
-    public async Task TaskRunAsync(Guid id, CancellationToken cancellationToken = default)
-    {
-        _logger.LogInformation("TaskRunAsync enqueuing monitor: {Id}", id);
-        if (!_executionCoordinator.TryBegin(id))
-        {
-            _logger.LogDebug("Monitor {Id} already scheduled or running, skip duplicate enqueue", id);
-            return;
-        }
-
-        try
-        {
-            await _taskQueue.EnqueueAsync(async ct =>
-            {
-                try
-                {
-                    using var scope = _scopeFactory.CreateScope();
-                    var monitorRepository = scope.ServiceProvider.GetRequiredService<IMonitorRepository>();
-                    var orchestrator = scope.ServiceProvider.GetRequiredService<IOrchestrator>();
-
-                    var monitor = await monitorRepository.GetByIdAsync(id);
-                    if (monitor == null)
-                    {
-                        _logger.LogWarning("Monitor not found in TaskRunAsync: {Id}", id);
-                        return;
-                    }
-                    _logger.LogInformation("Executing monitor: {Id}", id);
-                    await orchestrator.TryExecuteAsync(monitor);
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Error executing monitor: {Id}", id);
-                }
-                finally
-                {
-                    _executionCoordinator.End(id);
-                    _logger.LogInformation("Finished monitor task: {Id}", id);
-                }
-            });
-        }
-        catch
-        {
-            _executionCoordinator.End(id);
-            throw;
-        }
-    }
+    public Task<IEnumerable<MonitorEntity>> ListAsync(int take = 50) =>
+        _monitorRepository.ListAsync(take);
 
     public Task<ExecutionRecord?> GetLatestExecutionAsync(Guid monitorId)
     {

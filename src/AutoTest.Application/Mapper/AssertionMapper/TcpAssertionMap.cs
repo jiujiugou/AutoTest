@@ -7,6 +7,8 @@ namespace AutoTest.Application.Mapper.AssertionMapper;
 
 public class TcpAssertionMap : IAssertionMap
 {
+    public string Type => "TCP";
+
     public IAssertion Map(AssertionRule rule)
     {
         var dto = JsonSerializer.Deserialize<TcpAssertionDto>(rule.ConfigJson, new JsonSerializerOptions

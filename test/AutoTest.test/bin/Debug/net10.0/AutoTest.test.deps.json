@@ -367,17 +367,6 @@
           "AutoTest.test.dll": {}
         }
       },
-      "BoDi/1.5.0": {
-        "runtime": {
-          "lib/netstandard2.0/BoDi.dll": {
-            "assemblyVersion": "1.5.0.0",
-            "fileVersion": "1.5.0.0"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.0/BoDi.dll": {}
-        }
-      },
       "BouncyCastle.Cryptography/2.6.2": {
         "runtime": {
           "lib/net6.0/BouncyCastle.Cryptography.dll": {
@@ -810,17 +799,6 @@
           "lib/net6.0/Flurl.Http.dll": {}
         }
       },
-      "Gherkin/19.0.3": {
-        "runtime": {
-          "lib/netstandard2.0/Gherkin.dll": {
-            "assemblyVersion": "19.0.3.0",
-            "fileVersion": "19.0.3.0"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.0/Gherkin.dll": {}
-        }
-      },
       "Google.Protobuf/3.32.0": {
         "runtime": {
           "lib/net5.0/Google.Protobuf.dll": {
@@ -830,6 +808,113 @@
         },
         "compile": {
           "lib/net5.0/Google.Protobuf.dll": {}
+        }
+      },
+      "Hangfire.AspNetCore/1.8.23": {
+        "dependencies": {
+          "Hangfire.NetCore": "1.8.23"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Hangfire.AspNetCore.dll": {
+            "assemblyVersion": "1.8.23.0",
+            "fileVersion": "1.8.23.0"
+          }
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Hangfire.AspNetCore.dll": {}
+        }
+      },
+      "Hangfire.Core/1.8.23": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.Core.dll": {
+            "assemblyVersion": "1.8.23.0",
+            "fileVersion": "1.8.23.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/ca/Hangfire.Core.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/netstandard2.0/de/Hangfire.Core.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.0/es/Hangfire.Core.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.0/fa/Hangfire.Core.resources.dll": {
+            "locale": "fa"
+          },
+          "lib/netstandard2.0/fr/Hangfire.Core.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.0/nb/Hangfire.Core.resources.dll": {
+            "locale": "nb"
+          },
+          "lib/netstandard2.0/nl/Hangfire.Core.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/netstandard2.0/pt-BR/Hangfire.Core.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard2.0/pt-PT/Hangfire.Core.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/netstandard2.0/pt/Hangfire.Core.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/netstandard2.0/sv/Hangfire.Core.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/netstandard2.0/tr-TR/Hangfire.Core.resources.dll": {
+            "locale": "tr-TR"
+          },
+          "lib/netstandard2.0/zh-TW/Hangfire.Core.resources.dll": {
+            "locale": "zh-TW"
+          },
+          "lib/netstandard2.0/zh/Hangfire.Core.resources.dll": {
+            "locale": "zh"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Hangfire.Core.dll": {}
+        }
+      },
+      "Hangfire.NetCore/1.8.23": {
+        "dependencies": {
+          "Hangfire.Core": "1.8.23",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Hosting.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.5"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Hangfire.NetCore.dll": {
+            "assemblyVersion": "1.8.23.0",
+            "fileVersion": "1.8.23.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.1/Hangfire.NetCore.dll": {}
+        }
+      },
+      "Hangfire.SQLite/1.4.2": {
+        "dependencies": {
+          "Dapper": "2.1.72",
+          "Hangfire.Core": "1.8.23",
+          "Microsoft.Data.Sqlite.Core": "10.0.5",
+          "Newtonsoft.Json": "13.0.3",
+          "System.Configuration.ConfigurationManager": "9.0.13"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.SQLite.dll": {
+            "assemblyVersion": "1.4.2.0",
+            "fileVersion": "1.4.2.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Hangfire.SQLite.dll": {}
         }
       },
       "K4os.Compression.LZ4/1.3.8": {
@@ -1073,6 +1158,50 @@
         },
         "compile": {
           "lib/net8.0/Microsoft.Data.Sqlite.dll": {}
+        }
+      },
+      "Microsoft.Extensions.AI/10.4.1": {
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "10.4.1",
+          "Microsoft.Extensions.Caching.Abstractions": "10.0.5",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.5",
+          "System.Numerics.Tensors": "10.0.4"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.dll": {
+            "assemblyVersion": "10.4.0.0",
+            "fileVersion": "10.400.126.16803"
+          }
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.AI.dll": {}
+        }
+      },
+      "Microsoft.Extensions.AI.Abstractions/10.4.1": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {
+            "assemblyVersion": "10.4.0.0",
+            "fileVersion": "10.400.126.16803"
+          }
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.AI.Abstractions.dll": {}
+        }
+      },
+      "Microsoft.Extensions.AI.OpenAI/10.4.1": {
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "10.4.1",
+          "OpenAI": "2.9.1"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.AI.OpenAI.dll": {
+            "assemblyVersion": "10.4.0.0",
+            "fileVersion": "10.400.126.16803"
+          }
+        },
+        "compile": {
+          "lib/net10.0/Microsoft.Extensions.AI.OpenAI.dll": {}
         }
       },
       "Microsoft.Extensions.DependencyModel/10.0.5": {
@@ -1551,6 +1680,20 @@
           "lib/net10.0/Npgsql.dll": {}
         }
       },
+      "OpenAI/2.9.1": {
+        "dependencies": {
+          "System.ClientModel": "1.9.0"
+        },
+        "runtime": {
+          "lib/net10.0/OpenAI.dll": {
+            "assemblyVersion": "2.9.1.0",
+            "fileVersion": "2.9.1.0"
+          }
+        },
+        "compile": {
+          "lib/net10.0/OpenAI.dll": {}
+        }
+      },
       "Serilog/4.3.1": {
         "runtime": {
           "lib/net10.0/Serilog.dll": {
@@ -1603,35 +1746,6 @@
         },
         "compile": {
           "lib/net9.0/Serilog.Sinks.File.dll": {}
-        }
-      },
-      "SpecFlow/3.9.74": {
-        "dependencies": {
-          "BoDi": "1.5.0",
-          "Gherkin": "19.0.3",
-          "Microsoft.Extensions.DependencyModel": "10.0.5",
-          "SpecFlow.Internal.Json": "1.0.8",
-          "System.Configuration.ConfigurationManager": "9.0.13"
-        },
-        "runtime": {
-          "lib/netstandard2.0/TechTalk.SpecFlow.dll": {
-            "assemblyVersion": "3.9.0.0",
-            "fileVersion": "3.9.74.14555"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.0/TechTalk.SpecFlow.dll": {}
-        }
-      },
-      "SpecFlow.Internal.Json/1.0.8": {
-        "runtime": {
-          "lib/netstandard2.0/SpecFlow.Internal.Json.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.8.28882"
-          }
-        },
-        "compile": {
-          "lib/netstandard2.0/SpecFlow.Internal.Json.dll": {}
         }
       },
       "SQLitePCLRaw.bundle_e_sqlite3/2.1.11": {
@@ -1840,6 +1954,23 @@
           "lib/net8.0/Swashbuckle.AspNetCore.SwaggerUI.dll": {}
         }
       },
+      "System.ClientModel/1.9.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Hosting.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.5",
+          "System.Memory.Data": "10.0.1"
+        },
+        "runtime": {
+          "lib/net10.0/System.ClientModel.dll": {
+            "assemblyVersion": "1.9.0.0",
+            "fileVersion": "1.900.26.7706"
+          }
+        },
+        "compile": {
+          "lib/net10.0/System.ClientModel.dll": {}
+        }
+      },
       "System.Configuration.ConfigurationManager/9.0.13": {
         "dependencies": {
           "System.Diagnostics.EventLog": "10.0.5",
@@ -1868,6 +1999,28 @@
         },
         "compile": {
           "lib/net10.0/System.IdentityModel.Tokens.Jwt.dll": {}
+        }
+      },
+      "System.Memory.Data/10.0.1": {
+        "runtime": {
+          "lib/net10.0/System.Memory.Data.dll": {
+            "assemblyVersion": "10.0.0.1",
+            "fileVersion": "10.0.125.57005"
+          }
+        },
+        "compile": {
+          "lib/net10.0/System.Memory.Data.dll": {}
+        }
+      },
+      "System.Numerics.Tensors/10.0.4": {
+        "runtime": {
+          "lib/net10.0/System.Numerics.Tensors.dll": {
+            "assemblyVersion": "10.0.0.4",
+            "fileVersion": "10.0.426.12010"
+          }
+        },
+        "compile": {
+          "lib/net10.0/System.Numerics.Tensors.dll": {}
         }
       },
       "System.Security.Cryptography.ProtectedData/9.0.13": {
@@ -2012,6 +2165,7 @@
       },
       "AutoTest.Assertion/1.0.0": {
         "dependencies": {
+          "AutoTest.Core": "1.0.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
         },
         "runtime": {
@@ -2028,9 +2182,7 @@
         "dependencies": {
           "AutoTest.Assertion": "1.0.0",
           "AutoTest.Core": "1.0.0",
-          "AutoTest.Execution.Db": "1.0.0",
-          "Microsoft.Extensions.DependencyInjection": "10.0.5",
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.5"
+          "AutoTest.Execution.Db": "1.0.0"
         },
         "runtime": {
           "AutoTest.Assertion.Db.dll": {
@@ -2090,9 +2242,7 @@
           "AutoTest.Core": "1.0.0",
           "Microsoft.Data.SqlClient": "7.0.0",
           "MySql.Data": "9.6.0",
-          "Npgsql": "10.0.2",
-          "SpecFlow": "3.9.74",
-          "SpecFlow.Tools.MsBuild.Generation": "3.9.74"
+          "Npgsql": "10.0.2"
         },
         "runtime": {
           "AutoTest.Execution.Db.dll": {
@@ -2142,10 +2292,13 @@
           "AutoTest.Assertions.Http": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "Dapper": "2.1.72",
+          "Hangfire.AspNetCore": "1.8.23",
+          "Hangfire.SQLite": "1.4.2",
           "Microsoft.Data.SqlClient": "7.0.0",
           "Microsoft.Data.Sqlite": "10.0.5",
           "Microsoft.Extensions.Hosting": "10.0.5",
-          "Microsoft.Extensions.Logging": "10.0.5"
+          "Microsoft.Extensions.Logging": "10.0.5",
+          "Newtonsoft.Json": "13.0.3"
         },
         "runtime": {
           "AutoTest.Infrastructure.dll": {
@@ -2187,6 +2340,9 @@
           "FluentValidation.AspNetCore": "11.3.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
           "Microsoft.AspNetCore.OpenApi": "8.0.12",
+          "Microsoft.Extensions.AI": "10.4.1",
+          "Microsoft.Extensions.AI.OpenAI": "10.4.1",
+          "OpenAI": "2.9.1",
           "Serilog": "4.3.1",
           "Serilog.Extensions.Logging": "10.0.0",
           "Serilog.Sinks.Console": "6.1.1",
@@ -4329,12 +4485,6 @@
       "Microsoft.Extensions.Primitives/10.0.5": {
         "compileOnly": true
       },
-      "SpecFlow.Tools.MsBuild.Generation/3.9.74": {
-        "dependencies": {
-          "SpecFlow": "3.9.74"
-        },
-        "compileOnly": true
-      },
       "System.ComponentModel.Annotations/5.0.0": {
         "compileOnly": true
       },
@@ -4363,13 +4513,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "BoDi/1.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-CzIPzdIAFSd2zuLxI+0K9s48Qv3HQDbWiApn9h96j284rHs2bSPrn/PMca3mi4q3xLSEqOp+GUJ6+mXDD9prKg==",
-      "path": "bodi/1.5.0",
-      "hashPath": "bodi.1.5.0.nupkg.sha512"
     },
     "BouncyCastle.Cryptography/2.6.2": {
       "type": "package",
@@ -4574,19 +4717,40 @@
       "path": "flurl.http/4.0.2",
       "hashPath": "flurl.http.4.0.2.nupkg.sha512"
     },
-    "Gherkin/19.0.3": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-kq9feqMojMj9aABrHb/ABEPaH2Y4dSclseSahAru6qxCeqVQNLLTgw/6vZMauzI1yBUL2fz03ub5yEd5btLfvg==",
-      "path": "gherkin/19.0.3",
-      "hashPath": "gherkin.19.0.3.nupkg.sha512"
-    },
     "Google.Protobuf/3.32.0": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-fsKxV5bhcvXmZi+cUo5+IxzRMBHwHeFO8G5utNa9f+Mu37kmfy8JcUVvWPt4cX7EuQWAjjHUjZqVl7nGSTRHRg==",
       "path": "google.protobuf/3.32.0",
       "hashPath": "google.protobuf.3.32.0.nupkg.sha512"
+    },
+    "Hangfire.AspNetCore/1.8.23": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TXpOl7kX4xXq5bLEqqWCpt9zh3TaouDwtb3GDtzGHX5uSC2RaAqZzn2swevivx3Uki16slXIigiPtgr4TPKpsg==",
+      "path": "hangfire.aspnetcore/1.8.23",
+      "hashPath": "hangfire.aspnetcore.1.8.23.nupkg.sha512"
+    },
+    "Hangfire.Core/1.8.23": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-YCOTtF3NNOQI83PlfjeNDDBkofJDfdET2CwhfQsiVBwmsU6lP19QW9NVTIH9epl+MnOsyFC2G1RnlPSGV8F1FQ==",
+      "path": "hangfire.core/1.8.23",
+      "hashPath": "hangfire.core.1.8.23.nupkg.sha512"
+    },
+    "Hangfire.NetCore/1.8.23": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SmvUJF/u5MCP666R5Y1V+GntqBc4RCWJqn5ztMMN67d53Cx5cuaWR0YNLMrabjylwLarFYJ7EdR9RnGEZzp/dg==",
+      "path": "hangfire.netcore/1.8.23",
+      "hashPath": "hangfire.netcore.1.8.23.nupkg.sha512"
+    },
+    "Hangfire.SQLite/1.4.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8ZONqFjC7la5dTB1I57WSBOlcx9ZVxXY/8C8+MLQwCiBHNQXfb3HjtyODP1NIQDjuNBOhyxOl4Z6KlXNLmpxMg==",
+      "path": "hangfire.sqlite/1.4.2",
+      "hashPath": "hangfire.sqlite.1.4.2.nupkg.sha512"
     },
     "K4os.Compression.LZ4/1.3.8": {
       "type": "package",
@@ -4685,6 +4849,27 @@
       "sha512": "sha512-jFYXnh7s0RShCw6Vkf+ReGCw+mVi7ISg1YaEzYCJcXnUifmbW+aqvCsRJuSRj2ZuQ+oqetpjxlZtbpMmk5FKqQ==",
       "path": "microsoft.data.sqlite.core/10.0.5",
       "hashPath": "microsoft.data.sqlite.core.10.0.5.nupkg.sha512"
+    },
+    "Microsoft.Extensions.AI/10.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-io38o6v3Tpbh++UqIcievOOTRwEyBpbNcudpZDjOo+DnAEQQvc3WqlChPipWLYH65cl9m8jiqH6ahHeasZzmOA==",
+      "path": "microsoft.extensions.ai/10.4.1",
+      "hashPath": "microsoft.extensions.ai.10.4.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.AI.Abstractions/10.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZxhU/wg9BOc3ohibhLl18toPLWm96ysQoE+3OhCgrZ0TUPZd7bsUmGteeatz08yweyuPIEhtyUzEZTF+3bMWEQ==",
+      "path": "microsoft.extensions.ai.abstractions/10.4.1",
+      "hashPath": "microsoft.extensions.ai.abstractions.10.4.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.AI.OpenAI/10.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-C+xo+ds4PxSzTEywLcM0hbJJboEuLT5na/Q49rMNi3Y0hsoBuMXIZCvWXOyvNXunvngOwZYvkicEod/g8Gll6w==",
+      "path": "microsoft.extensions.ai.openai/10.4.1",
+      "hashPath": "microsoft.extensions.ai.openai.10.4.1.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyModel/10.0.5": {
       "type": "package",
@@ -4805,6 +4990,13 @@
       "path": "npgsql/10.0.2",
       "hashPath": "npgsql.10.0.2.nupkg.sha512"
     },
+    "OpenAI/2.9.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KPTFYEt1EhrPeIZXGBE+DlutFEpMo/RspqSdUJ3p6pMqsw3NeGJcIja/K0He1j9KyRq8ASfzBgp2biWbNUGnFA==",
+      "path": "openai/2.9.1",
+      "hashPath": "openai.2.9.1.nupkg.sha512"
+    },
     "Serilog/4.3.1": {
       "type": "package",
       "serviceable": true,
@@ -4832,20 +5024,6 @@
       "sha512": "sha512-fKL7mXv7qaiNBUC71ssvn/dU0k9t0o45+qm2XgKAlSt19xF+ijjxyA3R6HmCgfKEKwfcfkwWjayuQtRueZFkYw==",
       "path": "serilog.sinks.file/7.0.0",
       "hashPath": "serilog.sinks.file.7.0.0.nupkg.sha512"
-    },
-    "SpecFlow/3.9.74": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-n6kcg9ZeQWxqJFoT23SsFT89U1QQNwvcN9pAX5alB6ZPr6K0p5D5nGIJ1PZsSaFaRFutiwQ+DicmxBCPAZVYIA==",
-      "path": "specflow/3.9.74",
-      "hashPath": "specflow.3.9.74.nupkg.sha512"
-    },
-    "SpecFlow.Internal.Json/1.0.8": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-lVCC/Rie7N5rFoc7YxPS0nneLfsWSTIMMlkndwxhaD8MxBp3Bsv1HeiVjVwXCjWaQeoqZcvIy52fF5Xit00ZLw==",
-      "path": "specflow.internal.json/1.0.8",
-      "hashPath": "specflow.internal.json.1.0.8.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_e_sqlite3/2.1.11": {
       "type": "package",
@@ -4903,6 +5081,13 @@
       "path": "swashbuckle.aspnetcore.swaggerui/6.6.2",
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.6.2.nupkg.sha512"
     },
+    "System.ClientModel/1.9.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1wdwKtMMMEFEYsxJmtrOd3G+7zVOVO3MlVZAsbKv9H0PnIx6J27fYAarMn0eQS0vKJPQL018DOb7YRK1O97p0A==",
+      "path": "system.clientmodel/1.9.0",
+      "hashPath": "system.clientmodel.1.9.0.nupkg.sha512"
+    },
     "System.Configuration.ConfigurationManager/9.0.13": {
       "type": "package",
       "serviceable": true,
@@ -4916,6 +5101,20 @@
       "sha512": "sha512-rrs2u7DRMXQG2yh0oVyF/vLwosfRv20Ld2iEpYcKwQWXHjfV+gFXNQsQ9p008kR9Ou4pxBs68Q6/9zC8Gi1wjg==",
       "path": "system.identitymodel.tokens.jwt/8.16.0",
       "hashPath": "system.identitymodel.tokens.jwt.8.16.0.nupkg.sha512"
+    },
+    "System.Memory.Data/10.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BZC4mhdL569AXV56ep9YO6ShjhxFXGP7SwVX0Bc/e0dJPWnS6aBEXZJXqh64RVx8HquqWHkJUINBydLRQ1yq0g==",
+      "path": "system.memory.data/10.0.1",
+      "hashPath": "system.memory.data.10.0.1.nupkg.sha512"
+    },
+    "System.Numerics.Tensors/10.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EK8wJVxnVfeCzchnEqVjIfZDpVIcmjfjUs9x1nzI41X2naPGT57QjoHlQJma2vDQUxEtPQiGv/v90mwcflx6mQ==",
+      "path": "system.numerics.tensors/10.0.4",
+      "hashPath": "system.numerics.tensors.10.0.4.nupkg.sha512"
     },
     "System.Security.Cryptography.ProtectedData/9.0.13": {
       "type": "package",
@@ -6808,13 +7007,6 @@
       "sha512": "sha512-/HUHJ0tw/LQvD0DZrz50eQy/3z7PfX7WWEaXnjKTV9/TNdcgFlNTZGo49QhS7PTmhDqMyHRMqAXSBxLh0vso4g==",
       "path": "microsoft.extensions.primitives/10.0.5",
       "hashPath": "microsoft.extensions.primitives.10.0.5.nupkg.sha512"
-    },
-    "SpecFlow.Tools.MsBuild.Generation/3.9.74": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-I/9OvmKOohJqIUNJ0xGYJCWfL6WKDaes8OoOAD/2yhGX+tzC5ofs9yqkP9Cu/xfnIx+11IR3pZs7YhBhGAcgWQ==",
-      "path": "specflow.tools.msbuild.generation/3.9.74",
-      "hashPath": "specflow.tools.msbuild.generation.3.9.74.nupkg.sha512"
     },
     "System.ComponentModel.Annotations/5.0.0": {
       "type": "package",

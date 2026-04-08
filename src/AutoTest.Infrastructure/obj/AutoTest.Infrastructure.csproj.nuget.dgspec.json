@@ -30,19 +30,20 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "d:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj"
               },
-              "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
               },
               "D:\\AutoTest\\src\\AutoTest.Assertions.Tcp\\AutoTest.Assertions.Tcp.csproj": {
                 "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Tcp\\AutoTest.Assertions.Tcp.csproj"
               },
-              "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
               },
               "D:\\AutoTest\\src\\common\\CacheCommons\\CacheCommons.csproj": {
                 "projectPath": "D:\\AutoTest\\src\\common\\CacheCommons\\CacheCommons.csproj"
@@ -67,6 +68,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Extensions.Hosting": {
@@ -376,14 +378,14 @@
         }
       }
     },
-    "d:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj": {
+    "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj",
+        "projectUniqueName": "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj",
         "projectName": "AutoTest.Assertion.Db",
-        "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj",
+        "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj",
         "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-        "outputPath": "d:\\AutoTest\\src\\AutoTest.Assertion.Db\\obj\\",
+        "outputPath": "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -402,13 +404,14 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "D:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj": {
                 "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj"
               },
-              "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
               },
               "D:\\AutoTest\\src\\AutoTest.Execution.Db\\AutoTest.Execution.Db.csproj": {
                 "projectPath": "D:\\AutoTest\\src\\AutoTest.Execution.Db\\AutoTest.Execution.Db.csproj"
@@ -430,17 +433,8 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
-          "dependencies": {
-            "Microsoft.Extensions.DependencyInjection": {
-              "target": "Package",
-              "version": "[10.0.5, )"
-            },
-            "Microsoft.Extensions.Logging.Abstractions": {
-              "target": "Package",
-              "version": "[10.0.5, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -735,14 +729,14 @@
         }
       }
     },
-    "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
+    "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
+        "projectUniqueName": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
         "projectName": "AutoTest.Assertions.Http",
-        "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
+        "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj",
         "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-        "outputPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\obj\\",
+        "outputPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -761,13 +755,14 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "D:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj": {
                 "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertion\\AutoTest.Assertion.csproj"
               },
-              "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
               }
             }
           }
@@ -786,6 +781,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Extensions.DependencyInjection": {
@@ -1117,10 +1113,11 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
               }
             }
           }
@@ -1139,6 +1136,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Extensions.Logging": {
@@ -1466,8 +1464,13 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -1484,6 +1487,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
@@ -1785,14 +1789,14 @@
         }
       }
     },
-    "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+    "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
+        "projectUniqueName": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
         "projectName": "AutoTest.Core",
-        "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
+        "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj",
         "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-        "outputPath": "d:\\AutoTest\\src\\AutoTest.Core\\obj\\",
+        "outputPath": "D:\\AutoTest\\src\\AutoTest.Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -1811,6 +1815,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -1829,6 +1834,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "imports": [
             "net461",
@@ -2150,10 +2156,11 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
               }
             }
           }
@@ -2172,6 +2179,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Data.SqlClient": {
@@ -2185,14 +2193,6 @@
             "Npgsql": {
               "target": "Package",
               "version": "[10.0.2, )"
-            },
-            "SpecFlow": {
-              "target": "Package",
-              "version": "[3.9.74, )"
-            },
-            "SpecFlow.Tools.MsBuild.Generation": {
-              "target": "Package",
-              "version": "[3.9.74, )"
             }
           },
           "imports": [
@@ -2515,16 +2515,17 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
               "D:\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj": {
                 "projectPath": "D:\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj"
               },
-              "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
               },
-              "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
               }
             }
           }
@@ -2543,11 +2544,20 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Dapper": {
               "target": "Package",
               "version": "[2.1.72, )"
+            },
+            "Hangfire.AspNetCore": {
+              "target": "Package",
+              "version": "[1.8.23, )"
+            },
+            "Hangfire.SQLite": {
+              "target": "Package",
+              "version": "[1.4.2, )"
             },
             "Microsoft.Data.SqlClient": {
               "target": "Package",
@@ -2564,6 +2574,14 @@
             "Microsoft.Extensions.Logging": {
               "target": "Package",
               "version": "[10.0.5, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "StackExchange.Redis": {
+              "target": "Package",
+              "version": "[2.12.14, )"
             }
           },
           "imports": [
@@ -2886,10 +2904,11 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
-                "projectPath": "d:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
+              "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
+                "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
               }
             }
           }
@@ -2908,6 +2927,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Extensions.Caching.Memory": {
@@ -3235,6 +3255,7 @@
         },
         "frameworks": {
           "net10.0": {
+            "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {}
           }
@@ -3253,6 +3274,7 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "dependencies": {
             "Microsoft.Extensions.DependencyInjection": {

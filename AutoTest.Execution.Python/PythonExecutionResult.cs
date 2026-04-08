@@ -1,4 +1,4 @@
-﻿using AutoTest.Core;
+using AutoTest.Core;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -40,7 +40,12 @@ namespace AutoTest.Execution.Python
 
         /// <summary>带参数构造</summary>
         public PythonExecutionResult(int exitCode, string stdout, string stderr, bool isExecutionSuccess, long elapsedMs, bool timedOut, string? Errormessage=null,  string? commandLinePreview = null)
-        : base(isExecutionSuccess, Errormessage)
+        : base(
+            !timedOut && isExecutionSuccess,
+            !timedOut && isExecutionSuccess
+                ? "Python 脚本执行成功"
+                : (timedOut ? "执行超时" : (Errormessage ?? $"执行失败, ExitCode={exitCode}"))
+        )
         {
             ExitCode = exitCode;
             StdOut = stdout;
@@ -48,8 +53,6 @@ namespace AutoTest.Execution.Python
             ElapsedMs = elapsedMs;
             TimedOut = timedOut;
             CommandLinePreview = commandLinePreview;
-            isExecutionSuccess = !timedOut && exitCode == 0;
-            Errormessage = isExecutionSuccess ? "Python 脚本执行成功" : (timedOut ? "执行超时" : $"执行失败, ExitCode={exitCode}");
         }
 
         /// <summary>截断字符串，防止过长输出</summary>

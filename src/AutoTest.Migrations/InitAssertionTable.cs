@@ -12,6 +12,7 @@ public class InitAssertionTable : Migration
 
     public override void Up()
     {
+
         Create.Table("Assertion")
             .WithColumn("Id").AsGuid().PrimaryKey()
             .WithColumn("MonitorId").AsGuid().NotNullable().ForeignKey("Monitor", "Id")
