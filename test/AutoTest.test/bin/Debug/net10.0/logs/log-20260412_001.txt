@@ -1,0 +1,230 @@
+2026-04-12 01:39:53 [INF] Beginning Transaction
+2026-04-12 01:39:53 [INF] Rolling back transaction
+2026-04-12 01:39:53 [INF] 2026041106: SeedRbacDefaults migrating
+2026-04-12 01:39:53 [INF] Beginning Transaction
+2026-04-12 01:39:53 [INF] INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('admin', '管理员', '平台管理员');
+2026-04-12 01:39:53 [ERR] SQLite Error 19: 'UNIQUE constraint failed: Roles.Name'.
+While Processing:
+"INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('admin', '管理员', '平台管理员');"
+System.Exception: SQLite Error 19: 'UNIQUE constraint failed: Roles.Name'.
+While Processing:
+"INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('admin', '管理员', '平台管理员');"
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Roles.Name'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   --- End of inner exception stack trace ---
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.Process(String sql)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(InsertDataExpression expression)
+   at FluentMigrator.Expressions.InsertDataExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__0()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-12 01:39:53 [INF] Rolling back transaction
+2026-04-12 01:43:22 [INF] Beginning Transaction
+2026-04-12 01:43:22 [INF] Rolling back transaction
+2026-04-12 01:43:22 [INF] 2026041106: SeedRbacDefaults migrating
+2026-04-12 01:43:22 [INF] Beginning Transaction
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
+VALUES ('admin', '管理员', '平台管理员');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
+VALUES ('admin', '管理员', '平台管理员');
+2026-04-12 01:43:22 [INF] => 0.0023526s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
+VALUES ('user', '用户', '普通用户');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
+VALUES ('user', '用户', '普通用户');
+2026-04-12 01:43:22 [INF] => 0.0002996s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('dashboard.view', '查看仪表盘');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('dashboard.view', '查看仪表盘');
+2026-04-12 01:43:22 [INF] => 0.0012391s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('logs.view', '查看日志');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('logs.view', '查看日志');
+2026-04-12 01:43:22 [INF] => 0.0002695s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.view', '查看监控');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.view', '查看监控');
+2026-04-12 01:43:22 [INF] => 0.0002216s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.run', '运行监控');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.run', '运行监控');
+2026-04-12 01:43:22 [INF] => 0.0002129s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.create', '创建监控');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.create', '创建监控');
+2026-04-12 01:43:22 [INF] => 0.0007256s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.update', '更新监控');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.update', '更新监控');
+2026-04-12 01:43:22 [INF] => 0.0003598s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.delete', '删除监控');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.delete', '删除监控');
+2026-04-12 01:43:22 [INF] => 0.0003364s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('tasks.view', '查看任务');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('tasks.view', '查看任务');
+2026-04-12 01:43:22 [INF] => 0.0002182s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('tasks.manage', '任务管理');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('tasks.manage', '任务管理');
+2026-04-12 01:43:22 [INF] => 0.000212s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('settings.view', '查看设置');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('settings.view', '查看设置');
+2026-04-12 01:43:22 [INF] => 0.0002004s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('settings.manage', '管理设置');
+2026-04-12 01:43:22 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('settings.manage', '管理设置');
+2026-04-12 01:43:22 [INF] => 0.000285s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement     INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+    SELECT r.Id, p.Id
+    FROM Roles r
+    JOIN Permissions p
+    WHERE r.Name = 'admin';
+2026-04-12 01:43:22 [INF]     INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+    SELECT r.Id, p.Id
+    FROM Roles r
+    JOIN Permissions p
+    WHERE r.Name = 'admin';
+2026-04-12 01:43:22 [INF] => 0.0010086s
+2026-04-12 01:43:22 [INF] ExecuteSqlStatement     INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+    SELECT r.Id, p.Id
+    FROM Roles r
+    JOIN Permissions p
+    WHERE r.Name = 'user'
+    AND p.Code IN (
+        'dashboard.view',
+        'logs.view',
+        'monitor.view',
+        'tasks.view'
+    );
+2026-04-12 01:43:22 [INF]     INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+    SELECT r.Id, p.Id
+    FROM Roles r
+    JOIN Permissions p
+    WHERE r.Name = 'user'
+    AND p.Code IN (
+        'dashboard.view',
+        'logs.view',
+        'monitor.view',
+        'tasks.view'
+    );
+2026-04-12 01:43:22 [INF] => 0.0006076s
+2026-04-12 01:43:22 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041106, CURRENT_TIMESTAMP, 'SeedRbacDefaults');
+2026-04-12 01:43:22 [INF] Committing Transaction
+2026-04-12 01:43:22 [INF] 2026041106: SeedRbacDefaults migrated
+2026-04-12 01:43:22 [INF] => 0.0087146s
+2026-04-12 01:43:22 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-12 01:43:22 [INF] Initializing Hangfire scheduled jobs...
+2026-04-12 01:43:23 [INF] Hangfire scheduled jobs initialized.
+2026-04-12 01:43:23 [INF] Outbox webhook dispatcher disabled
+2026-04-12 01:43:23 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-12 01:43:23 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-12 01:43:23 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-12 01:43:23 [INF] Hosting environment: Development
+2026-04-12 01:43:23 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-12 01:43:23 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 18
+2026-04-12 01:43:23 [WRN] Failed to determine the https port for redirect.
+2026-04-12 01:43:23 [INF] Server tomwang:17772:1513fbc4 successfully announced in 15.7462 ms
+2026-04-12 01:43:23 [INF] Server tomwang:17772:1513fbc4 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-12 01:43:23 [INF] Server tomwang:17772:1513fbc4 all the dispatchers started
+2026-04-12 01:43:23 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-12 01:43:23 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-12 01:43:23 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Webapi.Controllers.AiChatResponse'.
+2026-04-12 01:43:23 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 16.5301ms
+2026-04-12 01:43:23 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-12 01:43:23 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 200 null application/json; charset=utf-8 121.3177ms
+2026-04-12 01:43:23 [INF] Server tomwang:17772:1513fbc4 caught stopping signal...
+2026-04-12 01:43:23 [INF] Application is shutting down...
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [WRN] Worker stop requested while processing background job '9'. It will be re-queued.
+2026-04-12 01:43:23 [INF] Server tomwang:17772:1513fbc4 caught stopped signal...
+2026-04-12 01:43:23 [INF] WorkflowJob started for monitor: "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-12 01:43:23 [WRN] Monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" already running or executed, skipping.
+2026-04-12 01:43:23 [WRN] Monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" already running or executed, skipping.
+2026-04-12 01:43:23 [INF] Executing monitor: "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-12 01:43:23 [INF] 开始执行 HTTP 请求 [0]，地址：http://127.0.0.1:56869/ 方法：Get
+2026-04-12 01:43:25 [ERR] HTTP 请求失败 [0]，耗时 2008ms
+Flurl.Http.FlurlHttpException: Call failed. 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:56869): GET http://127.0.0.1:56869/
+ ---> System.Net.Http.HttpRequestException: 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:56869)
+ ---> System.Net.Sockets.SocketException (10061): 由于目标计算机积极拒绝，无法连接。
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.InjectNewHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Flurl.Http.FlurlClient.HandleExceptionAsync(FlurlCall call, Exception ex, CancellationToken token)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in d:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 76
+2026-04-12 01:43:26 [INF] Assertion step started.
+2026-04-12 01:43:26 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-12 01:43:26 [INF] Assertion step finished.
+2026-04-12 01:43:26 [INF] Updating monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-12 01:43:26 [ERR] Failed to update monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in d:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 167
+2026-04-12 01:43:26 [ERR] Error executing monitor: "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in d:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in d:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 113
+   at AutoTest.Infrastructure.WorkflowJob.RunAsync(Guid monitorId, String userId) in d:\AutoTest\src\AutoTest.Infrastructure\WorkflowJob.cs:line 74
+2026-04-12 01:43:26 [INF] WorkflowJob completed for monitor: "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e"
+2026-04-12 01:43:26 [INF] Server tomwang:17772:1513fbc4 All dispatchers stopped
+2026-04-12 01:43:26 [INF] Server tomwang:17772:1513fbc4 successfully reported itself as stopped in 170.98 ms
+2026-04-12 01:43:26 [INF] Server tomwang:17772:1513fbc4 has been stopped in total 3094.3903 ms

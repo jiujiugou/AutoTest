@@ -13,7 +13,7 @@
     <SourceRoot Include="C:\Users\jiuji\.nuget\packages\" />
     <SourceRoot Include="D:\AuthoringTools\Vsiual Studio2022\Shared\NuGetPackages\" />
   </ItemGroup>
-  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets\10.0.5\buildTransitive\net8.0\Microsoft.Extensions.Configuration.UserSecrets.props" Condition="Exists('$(NuGetPackageRoot)microsoft.extensions.configuration.usersecrets\10.0.5\buildTransitive\net8.0\Microsoft.Extensions.Configuration.UserSecrets.props')" />
-  </ImportGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgHangfire_SqlServer Condition=" '$(PkgHangfire_SqlServer)' == '' ">C:\Users\jiuji\.nuget\packages\hangfire.sqlserver\1.8.23</PkgHangfire_SqlServer>
+  </PropertyGroup>
 </Project>

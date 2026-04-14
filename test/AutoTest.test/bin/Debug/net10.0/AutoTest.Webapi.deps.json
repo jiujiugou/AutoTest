@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v10.0": {
       "AutoTest.Webapi/1.0.0": {
         "dependencies": {
+          "Auth": "1.0.0",
+          "AutoTest.AI": "1.0.0",
           "AutoTest.Application": "1.0.0",
           "AutoTest.Assertions.Http": "1.0.0",
           "AutoTest.Execution.Http": "1.0.0",
@@ -15,13 +17,14 @@
           "AutoTest.Infrastructure": "1.0.0",
           "AutoTest.Migrations": "1.0.0",
           "CacheCommons": "1.0.0",
+          "Dapper": "2.1.72",
           "FluentValidation": "12.1.1",
           "FluentValidation.AspNetCore": "11.3.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.5",
           "Microsoft.AspNetCore.OpenApi": "8.0.12",
-          "Microsoft.Extensions.AI": "10.4.1",
-          "Microsoft.Extensions.AI.OpenAI": "10.4.1",
-          "OpenAI": "2.9.1",
+          "Microsoft.Data.SqlClient": "7.0.0",
+          "Microsoft.Data.Sqlite": "10.0.5",
           "Serilog": "4.3.1",
           "Serilog.Extensions.Logging": "10.0.0",
           "Serilog.Sinks.Console": "6.1.1",
@@ -30,6 +33,31 @@
         },
         "runtime": {
           "AutoTest.Webapi.dll": {}
+        }
+      },
+      "Azure.AI.OpenAI/2.9.0-beta.1": {
+        "dependencies": {
+          "Azure.Core": "1.51.1",
+          "OpenAI": "2.9.1"
+        },
+        "runtime": {
+          "lib/net10.0/Azure.AI.OpenAI.dll": {
+            "assemblyVersion": "2.9.0.0",
+            "fileVersion": "2.900.26.16301"
+          }
+        }
+      },
+      "Azure.Core/1.51.1": {
+        "dependencies": {
+          "Microsoft.Bcl.AsyncInterfaces": "10.0.2",
+          "System.ClientModel": "1.9.0",
+          "System.Memory.Data": "10.0.1"
+        },
+        "runtime": {
+          "lib/net10.0/Azure.Core.dll": {
+            "assemblyVersion": "1.51.1.0",
+            "fileVersion": "1.5100.126.10405"
+          }
         }
       },
       "BouncyCastle.Cryptography/2.6.2": {
@@ -445,6 +473,17 @@
           }
         }
       },
+      "Hangfire.SqlServer/1.8.23": {
+        "dependencies": {
+          "Hangfire.Core": "1.8.23"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.SqlServer.dll": {
+            "assemblyVersion": "1.8.23.0",
+            "fileVersion": "1.8.23.0"
+          }
+        }
+      },
       "K4os.Compression.LZ4/1.3.8": {
         "runtime": {
           "lib/net6.0/K4os.Compression.LZ4.dll": {
@@ -473,6 +512,17 @@
           }
         }
       },
+      "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.5": {
+        "dependencies": {
+          "Microsoft.IdentityModel.Protocols.OpenIdConnect": "8.16.0"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll": {
+            "assemblyVersion": "10.0.5.0",
+            "fileVersion": "10.0.526.15411"
+          }
+        }
+      },
       "Microsoft.AspNetCore.OpenApi/8.0.12": {
         "dependencies": {
           "Microsoft.OpenApi": "1.6.14"
@@ -484,11 +534,27 @@
           }
         }
       },
+      "Microsoft.Bcl.AsyncInterfaces/10.0.2": {
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "assemblyVersion": "10.0.0.2",
+            "fileVersion": "10.0.225.61305"
+          }
+        }
+      },
       "Microsoft.Bcl.Cryptography/9.0.13": {
         "runtime": {
           "lib/net9.0/Microsoft.Bcl.Cryptography.dll": {
             "assemblyVersion": "9.0.0.13",
             "fileVersion": "9.0.1326.6317"
+          }
+        }
+      },
+      "Microsoft.Bcl.HashCode/1.1.1": {
+        "runtime": {
+          "lib/netcoreapp2.1/Microsoft.Bcl.HashCode.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "4.700.20.56604"
           }
         }
       },
@@ -641,7 +707,7 @@
           }
         }
       },
-      "Microsoft.Extensions.AI.OpenAI/10.4.1": {
+      "Microsoft.Extensions.AI.OpenAI/10.4.0": {
         "dependencies": {
           "Microsoft.Extensions.AI.Abstractions": "10.4.1",
           "OpenAI": "2.9.1"
@@ -649,7 +715,18 @@
         "runtime": {
           "lib/net10.0/Microsoft.Extensions.AI.OpenAI.dll": {
             "assemblyVersion": "10.4.0.0",
-            "fileVersion": "10.400.126.16803"
+            "fileVersion": "10.400.26.16002"
+          }
+        }
+      },
+      "Microsoft.Extensions.VectorData.Abstractions/10.1.0": {
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "10.4.1"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.VectorData.Abstractions.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.0.0"
           }
         }
       },
@@ -722,6 +799,69 @@
           "lib/netstandard2.0/Microsoft.OpenApi.dll": {
             "assemblyVersion": "1.6.14.0",
             "fileVersion": "1.6.14.0"
+          }
+        }
+      },
+      "Microsoft.SemanticKernel/1.74.0": {
+        "dependencies": {
+          "Microsoft.SemanticKernel.Connectors.AzureOpenAI": "1.74.0",
+          "Microsoft.SemanticKernel.Core": "1.74.0"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.SemanticKernel.dll": {
+            "assemblyVersion": "1.74.0.0",
+            "fileVersion": "1.74.0.0"
+          }
+        }
+      },
+      "Microsoft.SemanticKernel.Abstractions/1.74.0": {
+        "dependencies": {
+          "Microsoft.Bcl.HashCode": "1.1.1",
+          "Microsoft.Extensions.AI": "10.4.1",
+          "Microsoft.Extensions.VectorData.Abstractions": "10.1.0"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.SemanticKernel.Abstractions.dll": {
+            "assemblyVersion": "1.74.0.0",
+            "fileVersion": "1.74.0.0"
+          }
+        }
+      },
+      "Microsoft.SemanticKernel.Connectors.AzureOpenAI/1.74.0": {
+        "dependencies": {
+          "Azure.AI.OpenAI": "2.9.0-beta.1",
+          "Microsoft.SemanticKernel.Connectors.OpenAI": "1.74.0",
+          "Microsoft.SemanticKernel.Core": "1.74.0"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.SemanticKernel.Connectors.AzureOpenAI.dll": {
+            "assemblyVersion": "1.74.0.0",
+            "fileVersion": "1.74.0.0"
+          }
+        }
+      },
+      "Microsoft.SemanticKernel.Connectors.OpenAI/1.74.0": {
+        "dependencies": {
+          "Microsoft.Extensions.AI.OpenAI": "10.4.0",
+          "Microsoft.SemanticKernel.Core": "1.74.0",
+          "OpenAI": "2.9.1"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.SemanticKernel.Connectors.OpenAI.dll": {
+            "assemblyVersion": "1.74.0.0",
+            "fileVersion": "1.74.0.0"
+          }
+        }
+      },
+      "Microsoft.SemanticKernel.Core/1.74.0": {
+        "dependencies": {
+          "Microsoft.SemanticKernel.Abstractions": "1.74.0",
+          "System.Numerics.Tensors": "10.0.4"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.SemanticKernel.Core.dll": {
+            "assemblyVersion": "1.74.0.0",
+            "fileVersion": "1.74.0.0"
           }
         }
       },
@@ -808,6 +948,14 @@
           "lib/net10.0/OpenAI.dll": {
             "assemblyVersion": "2.9.1.0",
             "fileVersion": "2.9.1.0"
+          }
+        }
+      },
+      "Pipelines.Sockets.Unofficial/2.2.8": {
+        "runtime": {
+          "lib/net5.0/Pipelines.Sockets.Unofficial.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "2.2.8.1080"
           }
         }
       },
@@ -1002,6 +1150,18 @@
           }
         }
       },
+      "StackExchange.Redis/2.12.14": {
+        "dependencies": {
+          "Pipelines.Sockets.Unofficial": "2.2.8",
+          "System.IO.Hashing": "10.0.2"
+        },
+        "runtime": {
+          "lib/net10.0/StackExchange.Redis.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.12.14.58429"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.6.2": {
         "dependencies": {
           "Swashbuckle.AspNetCore.Swagger": "6.6.2",
@@ -1073,6 +1233,14 @@
           }
         }
       },
+      "System.IO.Hashing/10.0.2": {
+        "runtime": {
+          "lib/net10.0/System.IO.Hashing.dll": {
+            "assemblyVersion": "10.0.0.2",
+            "fileVersion": "10.0.225.61305"
+          }
+        }
+      },
       "System.Memory.Data/10.0.1": {
         "runtime": {
           "lib/net10.0/System.Memory.Data.dll": {
@@ -1129,6 +1297,33 @@
           "lib/net9.0/ZstdSharp.dll": {
             "assemblyVersion": "0.8.6.0",
             "fileVersion": "0.8.6.0"
+          }
+        }
+      },
+      "Auth/1.0.0": {
+        "dependencies": {
+          "AutoTest.Application": "1.0.0",
+          "Dapper": "2.1.72",
+          "FluentMigrator": "8.0.1",
+          "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.5"
+        },
+        "runtime": {
+          "Auth.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "AutoTest.AI/1.0.0": {
+        "dependencies": {
+          "AutoTest.Application": "1.0.0",
+          "Microsoft.Extensions.AI": "10.4.1",
+          "Microsoft.SemanticKernel": "1.74.0"
+        },
+        "runtime": {
+          "AutoTest.AI.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -1249,9 +1444,11 @@
           "Dapper": "2.1.72",
           "Hangfire.AspNetCore": "1.8.23",
           "Hangfire.SQLite": "1.4.2",
+          "Hangfire.SqlServer": "1.8.23",
           "Microsoft.Data.SqlClient": "7.0.0",
           "Microsoft.Data.Sqlite": "10.0.5",
-          "Newtonsoft.Json": "13.0.3"
+          "Newtonsoft.Json": "13.0.3",
+          "StackExchange.Redis": "2.12.14"
         },
         "runtime": {
           "AutoTest.Infrastructure.dll": {
@@ -1262,9 +1459,12 @@
       },
       "AutoTest.Migrations/1.0.0": {
         "dependencies": {
+          "Auth": "1.0.0",
           "FluentMigrator": "8.0.1",
           "FluentMigrator.Runner": "8.0.1",
           "FluentMigrator.Runner.SQLite": "8.0.1",
+          "FluentMigrator.Runner.SqlServer": "8.0.1",
+          "Microsoft.Data.SqlClient": "7.0.0",
           "Microsoft.Data.Sqlite": "10.0.5"
         },
         "runtime": {
@@ -1300,6 +1500,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Azure.AI.OpenAI/2.9.0-beta.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-CgIYDuCSOFx+yPuCdK7iz71OW2envfVeIE/YoNYK+mhr6bxgIJV6jfBF+mV9aHDQ6KVQjeSL6OZ7x90XrvsoRg==",
+      "path": "azure.ai.openai/2.9.0-beta.1",
+      "hashPath": "azure.ai.openai.2.9.0-beta.1.nupkg.sha512"
+    },
+    "Azure.Core/1.51.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-JRANrRvN5O5FFRh+pMUb8qqWU7jBQ39qXEbVr7Rkb1/s7rqc6RSzVHKGBz5Ro1gDy2WSGjG5YEOJKpPIBiCMcA==",
+      "path": "azure.core/1.51.1",
+      "hashPath": "azure.core.1.51.1.nupkg.sha512"
     },
     "BouncyCastle.Cryptography/2.6.2": {
       "type": "package",
@@ -1525,6 +1739,13 @@
       "path": "hangfire.sqlite/1.4.2",
       "hashPath": "hangfire.sqlite.1.4.2.nupkg.sha512"
     },
+    "Hangfire.SqlServer/1.8.23": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HiRUbwveK0+wop8iY98Z5DrtfjP+1QCly6IO+21Bnolb5kTO5eCrtKbGErHfhSN0BzKk9ehmTLk9uDHQdAtfcQ==",
+      "path": "hangfire.sqlserver/1.8.23",
+      "hashPath": "hangfire.sqlserver.1.8.23.nupkg.sha512"
+    },
     "K4os.Compression.LZ4/1.3.8": {
       "type": "package",
       "serviceable": true,
@@ -1546,6 +1767,13 @@
       "path": "k4os.hash.xxhash/1.0.8",
       "hashPath": "k4os.hash.xxhash.1.0.8.nupkg.sha512"
     },
+    "Microsoft.AspNetCore.Authentication.JwtBearer/10.0.5": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-fZzXogChrwQ/SfifQJgeW7AtR8hUv5+LH9oLWjm5OqfnVt3N8MwcMHHMdawvqqdjP79lIZgetnSpj77BLsSI1g==",
+      "path": "microsoft.aspnetcore.authentication.jwtbearer/10.0.5",
+      "hashPath": "microsoft.aspnetcore.authentication.jwtbearer.10.0.5.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.OpenApi/8.0.12": {
       "type": "package",
       "serviceable": true,
@@ -1553,12 +1781,26 @@
       "path": "microsoft.aspnetcore.openapi/8.0.12",
       "hashPath": "microsoft.aspnetcore.openapi.8.0.12.nupkg.sha512"
     },
+    "Microsoft.Bcl.AsyncInterfaces/10.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qE5JhRoeJbAipLqpUCZyNfNwnpAvUttXgIQDnTiJ15d8ji+/bPgoPkB3xLzK5cQTobN2D2ditUesUlDHb7p3Pg==",
+      "path": "microsoft.bcl.asyncinterfaces/10.0.2",
+      "hashPath": "microsoft.bcl.asyncinterfaces.10.0.2.nupkg.sha512"
+    },
     "Microsoft.Bcl.Cryptography/9.0.13": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-5T+bH3Lb1nEe8Hf/ixMxLmhlrx5wRi53wv7OhVwG2F1ZviW1ejFRS1NHur3uqPpJRGtkQwUchtY6zhVK2R+v+w==",
       "path": "microsoft.bcl.cryptography/9.0.13",
       "hashPath": "microsoft.bcl.cryptography.9.0.13.nupkg.sha512"
+    },
+    "Microsoft.Bcl.HashCode/1.1.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MalY0Y/uM/LjXtHfX/26l2VtN4LDNZ2OE3aumNOHDLsT4fNYy2hiHXI4CXCqKpNUNm7iJ2brrc4J89UdaL56FA==",
+      "path": "microsoft.bcl.hashcode/1.1.1",
+      "hashPath": "microsoft.bcl.hashcode.1.1.1.nupkg.sha512"
     },
     "Microsoft.Data.SqlClient/7.0.0": {
       "type": "package",
@@ -1616,12 +1858,19 @@
       "path": "microsoft.extensions.ai.abstractions/10.4.1",
       "hashPath": "microsoft.extensions.ai.abstractions.10.4.1.nupkg.sha512"
     },
-    "Microsoft.Extensions.AI.OpenAI/10.4.1": {
+    "Microsoft.Extensions.AI.OpenAI/10.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-C+xo+ds4PxSzTEywLcM0hbJJboEuLT5na/Q49rMNi3Y0hsoBuMXIZCvWXOyvNXunvngOwZYvkicEod/g8Gll6w==",
-      "path": "microsoft.extensions.ai.openai/10.4.1",
-      "hashPath": "microsoft.extensions.ai.openai.10.4.1.nupkg.sha512"
+      "sha512": "sha512-7R1fyxwF8KtQi8k2ih3Y6dHZiUfnnmZIgXY7hQ+dFlPkVZoefgKAzdnnrFZzYOjXPeJxh3gqAQ4psXnp59wwqw==",
+      "path": "microsoft.extensions.ai.openai/10.4.0",
+      "hashPath": "microsoft.extensions.ai.openai.10.4.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.VectorData.Abstractions/10.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-I2XfmqEOWOq0Esbo0eWQ6WE5MAJkGyIs057F8ncmPCLJFw9b1IB7Jj5WiFlH6C5YXCAG9Z91QMBD/SkcMLhE7w==",
+      "path": "microsoft.extensions.vectordata.abstractions/10.1.0",
+      "hashPath": "microsoft.extensions.vectordata.abstractions.10.1.0.nupkg.sha512"
     },
     "Microsoft.IdentityModel.Abstractions/8.16.0": {
       "type": "package",
@@ -1672,6 +1921,41 @@
       "path": "microsoft.openapi/1.6.14",
       "hashPath": "microsoft.openapi.1.6.14.nupkg.sha512"
     },
+    "Microsoft.SemanticKernel/1.74.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-V1N0mR8VHLEY11w2w8ls3Bk60fOjp6TaHOduBXMwfaR5ZF2bho6rCQdonU+6zwAKyD1JB+yT0wJ2xt1hcm60+w==",
+      "path": "microsoft.semantickernel/1.74.0",
+      "hashPath": "microsoft.semantickernel.1.74.0.nupkg.sha512"
+    },
+    "Microsoft.SemanticKernel.Abstractions/1.74.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-e9sPaCiyvi3FzQWbBTjyvLpq4LDaqekz4/xt+Zi30C9cOZRMw6srULEy/jOo9nDXJQ2bsai6JT5TLxuxGwuFWg==",
+      "path": "microsoft.semantickernel.abstractions/1.74.0",
+      "hashPath": "microsoft.semantickernel.abstractions.1.74.0.nupkg.sha512"
+    },
+    "Microsoft.SemanticKernel.Connectors.AzureOpenAI/1.74.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RZm+Bu4Y42ozRcAEJO9ruaBkyTPnLY/3v9hSWBhma6lj6O5Rva8EOLLZkaZM+Dn7d0dgBXOF4U+tedWtFXrjPg==",
+      "path": "microsoft.semantickernel.connectors.azureopenai/1.74.0",
+      "hashPath": "microsoft.semantickernel.connectors.azureopenai.1.74.0.nupkg.sha512"
+    },
+    "Microsoft.SemanticKernel.Connectors.OpenAI/1.74.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xojSsxe0MoJNIQLNGsYiH4jSMDeLnD/yniMEumSz1lt3ybnPHu3Xw1M/C+jfFcqdEXJe64j06b6DRwUs4IjqdQ==",
+      "path": "microsoft.semantickernel.connectors.openai/1.74.0",
+      "hashPath": "microsoft.semantickernel.connectors.openai.1.74.0.nupkg.sha512"
+    },
+    "Microsoft.SemanticKernel.Core/1.74.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SfV2U3jvIy06BCrOkx3Am6c2lurJued7YEGX36wvk8WeSzgwwnkycqSOQTkbV0GLAzYeBKTA7+5mpPypjc7cPw==",
+      "path": "microsoft.semantickernel.core/1.74.0",
+      "hashPath": "microsoft.semantickernel.core.1.74.0.nupkg.sha512"
+    },
     "Microsoft.SqlServer.Server/1.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1713,6 +1997,13 @@
       "sha512": "sha512-KPTFYEt1EhrPeIZXGBE+DlutFEpMo/RspqSdUJ3p6pMqsw3NeGJcIja/K0He1j9KyRq8ASfzBgp2biWbNUGnFA==",
       "path": "openai/2.9.1",
       "hashPath": "openai.2.9.1.nupkg.sha512"
+    },
+    "Pipelines.Sockets.Unofficial/2.2.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
+      "path": "pipelines.sockets.unofficial/2.2.8",
+      "hashPath": "pipelines.sockets.unofficial.2.2.8.nupkg.sha512"
     },
     "Serilog/4.3.1": {
       "type": "package",
@@ -1770,6 +2061,13 @@
       "path": "sqlitepclraw.provider.e_sqlite3/2.1.11",
       "hashPath": "sqlitepclraw.provider.e_sqlite3.2.1.11.nupkg.sha512"
     },
+    "StackExchange.Redis/2.12.14": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QiAQg40OP4Owem6/PjIbjEKq2+uIeQYeZ1TCMUnx/QvKugOPxOfC96wjlnBjWHi4Wq9pv9+fDlXGT06XkRZ6Ig==",
+      "path": "stackexchange.redis/2.12.14",
+      "hashPath": "stackexchange.redis.2.12.14.nupkg.sha512"
+    },
     "Swashbuckle.AspNetCore/6.6.2": {
       "type": "package",
       "serviceable": true,
@@ -1819,6 +2117,13 @@
       "path": "system.identitymodel.tokens.jwt/8.16.0",
       "hashPath": "system.identitymodel.tokens.jwt.8.16.0.nupkg.sha512"
     },
+    "System.IO.Hashing/10.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-AKJknIFi9O3+rGExxTry188JPvUoZAPcCtS2qdqyFhIzsxQ1Ap94BeGDG0VzVEHakhmRxmJtVih6TsHoghIt/g==",
+      "path": "system.io.hashing/10.0.2",
+      "hashPath": "system.io.hashing.10.0.2.nupkg.sha512"
+    },
     "System.Memory.Data/10.0.1": {
       "type": "package",
       "serviceable": true,
@@ -1860,6 +2165,16 @@
       "sha512": "sha512-iP4jVLQoQmUjMU88g1WObiNr6YKZGvh4aOXn3yOJsHqZsflwRsxZPcIBvNXgjXO3vQKSLctXGLTpcBPLnWPS8A==",
       "path": "zstdsharp.port/0.8.6",
       "hashPath": "zstdsharp.port.0.8.6.nupkg.sha512"
+    },
+    "Auth/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AutoTest.AI/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "AutoTest.Application/1.0.0": {
       "type": "project",

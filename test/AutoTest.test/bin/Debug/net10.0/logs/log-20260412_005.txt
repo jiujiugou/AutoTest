@@ -1,0 +1,299 @@
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] Rolling back transaction
+2026-04-12 16:58:58 [INF] VersionMigration migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable VersionInfo
+2026-04-12 16:58:58 [INF] CREATE TABLE "VersionInfo" ("Version" INTEGER NOT NULL);
+2026-04-12 16:58:58 [INF] => 0.000897s
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] VersionMigration migrated
+2026-04-12 16:58:58 [INF] => 0.0114118s
+2026-04-12 16:58:58 [INF] VersionUniqueMigration migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateIndex VersionInfo (Version)
+2026-04-12 16:58:58 [INF] CREATE UNIQUE INDEX "UC_Version" ON "VersionInfo" ("Version" ASC);
+2026-04-12 16:58:58 [INF] => 0.0021547s
+2026-04-12 16:58:58 [INF] AlterTable VersionInfo
+2026-04-12 16:58:58 [INF] => 4.1E-06s
+2026-04-12 16:58:58 [INF] CreateColumn VersionInfo AppliedOn DateTime
+2026-04-12 16:58:58 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "AppliedOn" DATETIME;
+2026-04-12 16:58:58 [INF] => 0.0014604s
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] VersionUniqueMigration migrated
+2026-04-12 16:58:58 [INF] => 0.0066201s
+2026-04-12 16:58:58 [INF] VersionDescriptionMigration migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] AlterTable VersionInfo
+2026-04-12 16:58:58 [INF] => 2.8E-06s
+2026-04-12 16:58:58 [INF] CreateColumn VersionInfo Description String
+2026-04-12 16:58:58 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "Description" TEXT;
+2026-04-12 16:58:58 [INF] => 0.0024445s
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] VersionDescriptionMigration migrated
+2026-04-12 16:58:58 [INF] => 0.0422143s
+2026-04-12 16:58:58 [INF] 2026032201: InitMonitorTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable Monitor
+2026-04-12 16:58:58 [INF] CREATE TABLE "Monitor" ("Id" UNIQUEIDENTIFIER NOT NULL, "Name" TEXT NOT NULL, "Status" INTEGER NOT NULL, "LastRunTime" DATETIME, "IsEnabled" INTEGER NOT NULL, "TargetType" TEXT NOT NULL, "TargetConfig" TEXT NOT NULL, "CreatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_Monitor" PRIMARY KEY ("Id"));
+2026-04-12 16:58:58 [INF] => 0.0037027s
+2026-04-12 16:58:58 [INF] CreateIndex Monitor (TargetType)
+2026-04-12 16:58:58 [INF] CREATE INDEX "IX_Monitor_TargetType" ON "Monitor" ("TargetType" ASC);
+2026-04-12 16:58:58 [INF] => 0.0007975s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032201, CURRENT_TIMESTAMP, 'InitMonitorTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026032201: InitMonitorTable migrated
+2026-04-12 16:58:58 [INF] => 0.0065207s
+2026-04-12 16:58:58 [INF] 2026032202: InitAssertionTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable Assertion
+2026-04-12 16:58:58 [INF] CREATE TABLE "Assertion" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Type" TEXT NOT NULL, "ConfigJson" TEXT NOT NULL, CONSTRAINT "PK_Assertion" PRIMARY KEY ("Id"), CONSTRAINT "FK_Assertion_MonitorId_Monitor_Id" FOREIGN KEY ("MonitorId") REFERENCES "Monitor" ("Id"));
+2026-04-12 16:58:58 [INF] => 0.0025603s
+2026-04-12 16:58:58 [INF] CreateForeignKey $$IGNORE$$_FK_Assertion_MonitorId_Monitor_Id Assertion(MonitorId) Monitor(Id)
+2026-04-12 16:58:58 [INF] => 2.73E-05s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032202, CURRENT_TIMESTAMP, 'InitAssertionTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026032202: InitAssertionTable migrated
+2026-04-12 16:58:58 [INF] => 0.0078586s
+2026-04-12 16:58:58 [INF] 2026032203: InitAssertionResultTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable AssertionResult
+2026-04-12 16:58:58 [INF] CREATE TABLE "AssertionResult" ("Id" UNIQUEIDENTIFIER NOT NULL, "AssertionId" UNIQUEIDENTIFIER NOT NULL, "Target" TEXT NOT NULL, "IsSuccess" INTEGER NOT NULL, "Actual" TEXT, "Expected" TEXT, "Message" TEXT, "Timestamp" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_AssertionResult" PRIMARY KEY ("Id"), CONSTRAINT "FK_AssertionResult_Assertion" FOREIGN KEY ("AssertionId") REFERENCES "Assertion" ("Id") ON DELETE CASCADE ON UPDATE CASCADE);
+2026-04-12 16:58:58 [INF] => 0.0028623s
+2026-04-12 16:58:58 [INF] CreateForeignKey $$IGNORE$$_FK_AssertionResult_Assertion AssertionResult(AssertionId) Assertion(Id)
+2026-04-12 16:58:58 [INF] => 2.37E-05s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032203, CURRENT_TIMESTAMP, 'InitAssertionResultTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026032203: InitAssertionResultTable migrated
+2026-04-12 16:58:58 [INF] => 0.0093108s
+2026-04-12 16:58:58 [INF] 2026032204: InitExecutionRecordTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable ExecutionRecord
+2026-04-12 16:58:58 [INF] CREATE TABLE "ExecutionRecord" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Status" INTEGER NOT NULL, "StartedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "FinishedAt" DATETIME, "IsExecutionSuccess" INTEGER NOT NULL, "ErrorMessage" TEXT, "ResultType" TEXT NOT NULL, "ResultJson" TEXT NOT NULL, CONSTRAINT "PK_ExecutionRecord" PRIMARY KEY ("Id"));
+2026-04-12 16:58:58 [INF] => 0.0077412s
+2026-04-12 16:58:58 [INF] CreateIndex ExecutionRecord (MonitorId, StartedAt)
+2026-04-12 16:58:58 [INF] CREATE INDEX "IX_ExecutionRecord_MonitorId_StartedAt" ON "ExecutionRecord" ("MonitorId" ASC, "StartedAt" DESC);
+2026-04-12 16:58:58 [INF] => 0.0006115s
+2026-04-12 16:58:58 [INF] AlterTable AssertionResult
+2026-04-12 16:58:58 [INF] => 5.2E-06s
+2026-04-12 16:58:58 [INF] CreateColumn AssertionResult ExecutionId Guid
+2026-04-12 16:58:58 [INF] ALTER TABLE "AssertionResult" ADD COLUMN "ExecutionId" UNIQUEIDENTIFIER;
+2026-04-12 16:58:58 [INF] => 0.0011479s
+2026-04-12 16:58:58 [INF] CreateIndex AssertionResult (ExecutionId)
+2026-04-12 16:58:58 [INF] CREATE INDEX "IX_AssertionResult_ExecutionId" ON "AssertionResult" ("ExecutionId" ASC);
+2026-04-12 16:58:58 [INF] => 0.0007473s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032204, CURRENT_TIMESTAMP, 'InitExecutionRecordTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026032204: InitExecutionRecordTable migrated
+2026-04-12 16:58:58 [INF] => 0.0074888s
+2026-04-12 16:58:58 [INF] 2026041001: CreateUsersTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable Users
+2026-04-12 16:58:58 [INF] CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);
+2026-04-12 16:58:58 [INF] => 0.0153231s
+2026-04-12 16:58:58 [INF] CreateIndex Users (Username)
+2026-04-12 16:58:58 [INF] CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username" ASC);
+2026-04-12 16:58:58 [INF] => 0.0005446s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041001, CURRENT_TIMESTAMP, 'CreateUsersTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026041001: CreateUsersTable migrated
+2026-04-12 16:58:58 [INF] => 0.0068146s
+2026-04-12 16:58:58 [INF] 2026041002: CreateRefreshTokensTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable RefreshTokens
+2026-04-12 16:58:58 [INF] CREATE TABLE "RefreshTokens" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" INTEGER NOT NULL, "Token" TEXT NOT NULL UNIQUE, "ExpireAt" DATETIME NOT NULL, "Revoked" INTEGER NOT NULL DEFAULT 0, "CreatedAt" DATETIME NOT NULL, "ReplacedByToken" TEXT, CONSTRAINT "FK_RefreshTokens_UserId_Users_Id" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id"));
+2026-04-12 16:58:58 [INF] => 0.0028782s
+2026-04-12 16:58:58 [INF] CreateForeignKey $$IGNORE$$_FK_RefreshTokens_UserId_Users_Id RefreshTokens(UserId) Users(Id)
+2026-04-12 16:58:58 [INF] => 2.31E-05s
+2026-04-12 16:58:58 [INF] CreateIndex RefreshTokens (Token)
+2026-04-12 16:58:58 [INF] CREATE UNIQUE INDEX "IX_RefreshTokens_Token" ON "RefreshTokens" ("Token" ASC);
+2026-04-12 16:58:58 [INF] => 0.0005563s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041002, CURRENT_TIMESTAMP, 'CreateRefreshTokensTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026041002: CreateRefreshTokensTable migrated
+2026-04-12 16:58:58 [INF] => 0.0060451s
+2026-04-12 16:58:58 [INF] 2026041004: CreateOutboxTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable OutboxMessage
+2026-04-12 16:58:58 [INF] CREATE TABLE "OutboxMessage" ("Id" TEXT NOT NULL, "Type" TEXT NOT NULL, "PayloadJson" TEXT NOT NULL, "OccurredAt" DATETIME NOT NULL, "Status" INTEGER NOT NULL, "Attempts" INTEGER NOT NULL DEFAULT 0, "NextAttemptAt" DATETIME, "LockedUntil" DATETIME, "LockedBy" TEXT, "LastError" TEXT, "SentAt" DATETIME, CONSTRAINT "PK_OutboxMessage" PRIMARY KEY ("Id"));
+2026-04-12 16:58:58 [INF] => 0.0031764s
+2026-04-12 16:58:58 [INF] CreateIndex OutboxMessage (Status, NextAttemptAt, OccurredAt)
+2026-04-12 16:58:58 [INF] CREATE INDEX "IX_OutboxMessage_Status_NextAttemptAt_OccurredAt" ON "OutboxMessage" ("Status" ASC, "NextAttemptAt" ASC, "OccurredAt" ASC);
+2026-04-12 16:58:58 [INF] => 0.0007017s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041004, CURRENT_TIMESTAMP, 'CreateOutboxTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026041004: CreateOutboxTable migrated
+2026-04-12 16:58:58 [INF] => 0.0070278s
+2026-04-12 16:58:58 [INF] 2026041102: CreateRbacPermissionsTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable Permissions
+2026-04-12 16:58:58 [INF] CREATE TABLE "Permissions" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Code" TEXT NOT NULL, "Name" TEXT NOT NULL, "Description" TEXT);
+2026-04-12 16:58:58 [INF] => 0.002342s
+2026-04-12 16:58:58 [INF] CreateIndex Permissions (Code)
+2026-04-12 16:58:58 [INF] CREATE UNIQUE INDEX "UX_Permissions_Code" ON "Permissions" ("Code" ASC);
+2026-04-12 16:58:58 [INF] => 0.0005936s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041102, CURRENT_TIMESTAMP, 'CreateRbacPermissionsTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026041102: CreateRbacPermissionsTable migrated
+2026-04-12 16:58:58 [INF] => 0.0074738s
+2026-04-12 16:58:58 [INF] 2026041103: CreateRbacUserRolesTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable UserRoles
+2026-04-12 16:58:58 [INF] CREATE TABLE "UserRoles" ("UserId" INTEGER NOT NULL, "RoleId" INTEGER NOT NULL, CONSTRAINT "FK_UserRoles_UserId_Users_Id" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id"), CONSTRAINT "FK_UserRoles_RoleId_Roles_Id" FOREIGN KEY ("RoleId") REFERENCES "Roles" ("Id"));
+2026-04-12 16:58:58 [INF] => 0.0028275s
+2026-04-12 16:58:58 [INF] CreateForeignKey $$IGNORE$$_FK_UserRoles_UserId_Users_Id UserRoles(UserId) Users(Id)
+2026-04-12 16:58:58 [INF] => 2.47E-05s
+2026-04-12 16:58:58 [INF] CreateForeignKey $$IGNORE$$_FK_UserRoles_RoleId_Roles_Id UserRoles(RoleId) Roles(Id)
+2026-04-12 16:58:58 [INF] => 1.12E-05s
+2026-04-12 16:58:58 [INF] CreateIndex UserRoles (UserId, RoleId)
+2026-04-12 16:58:58 [INF] CREATE UNIQUE INDEX "UX_UserRoles_UserId_RoleId" ON "UserRoles" ("UserId" ASC, "RoleId" ASC);
+2026-04-12 16:58:58 [INF] => 0.0006617s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041103, CURRENT_TIMESTAMP, 'CreateRbacUserRolesTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026041103: CreateRbacUserRolesTable migrated
+2026-04-12 16:58:58 [INF] => 0.0100498s
+2026-04-12 16:58:58 [INF] 2026041104: CreateRbacRolePermissionsTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable RolePermissions
+2026-04-12 16:58:58 [INF] CREATE TABLE "RolePermissions" ("RoleId" INTEGER NOT NULL, "PermissionId" INTEGER NOT NULL, CONSTRAINT "FK_RolePermissions_RoleId_Roles_Id" FOREIGN KEY ("RoleId") REFERENCES "Roles" ("Id"), CONSTRAINT "FK_RolePermissions_PermissionId_Permissions_Id" FOREIGN KEY ("PermissionId") REFERENCES "Permissions" ("Id"));
+2026-04-12 16:58:58 [INF] => 0.0042221s
+2026-04-12 16:58:58 [INF] CreateForeignKey $$IGNORE$$_FK_RolePermissions_RoleId_Roles_Id RolePermissions(RoleId) Roles(Id)
+2026-04-12 16:58:58 [INF] => 2.34E-05s
+2026-04-12 16:58:58 [INF] CreateForeignKey $$IGNORE$$_FK_RolePermissions_PermissionId_Permissions_Id RolePermissions(PermissionId) Permissions(Id)
+2026-04-12 16:58:58 [INF] => 1.42E-05s
+2026-04-12 16:58:58 [INF] CreateIndex RolePermissions (RoleId, PermissionId)
+2026-04-12 16:58:58 [INF] CREATE UNIQUE INDEX "UX_RolePermissions_RoleId_PermissionId" ON "RolePermissions" ("RoleId" ASC, "PermissionId" ASC);
+2026-04-12 16:58:58 [INF] => 0.0005384s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041104, CURRENT_TIMESTAMP, 'CreateRbacRolePermissionsTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026041104: CreateRbacRolePermissionsTable migrated
+2026-04-12 16:58:58 [INF] => 0.0066579s
+2026-04-12 16:58:58 [INF] 2026041105: CreateRbacRolesTable migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] CreateTable Roles
+2026-04-12 16:58:58 [INF] CREATE TABLE "Roles" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Name" TEXT NOT NULL, "DisplayName" TEXT NOT NULL, "Description" TEXT);
+2026-04-12 16:58:58 [INF] => 0.0027651s
+2026-04-12 16:58:58 [INF] CreateIndex Roles (Name)
+2026-04-12 16:58:58 [INF] CREATE UNIQUE INDEX "UX_Roles_Name" ON "Roles" ("Name" ASC);
+2026-04-12 16:58:58 [INF] => 0.0007509s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041105, CURRENT_TIMESTAMP, 'CreateRbacRolesTable');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026041105: CreateRbacRolesTable migrated
+2026-04-12 16:58:58 [INF] => 0.0080978s
+2026-04-12 16:58:58 [INF] 2026041106: SeedRbacDefaults migrating
+2026-04-12 16:58:58 [INF] Beginning Transaction
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
+VALUES ('admin', '管理员', '平台管理员');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
+VALUES ('admin', '管理员', '平台管理员');
+2026-04-12 16:58:58 [INF] => 0.0029601s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
+VALUES ('user', '用户', '普通用户');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
+VALUES ('user', '用户', '普通用户');
+2026-04-12 16:58:58 [INF] => 0.000307s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('dashboard.view', '查看仪表盘');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('dashboard.view', '查看仪表盘');
+2026-04-12 16:58:58 [INF] => 0.0007652s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('logs.view', '查看日志');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('logs.view', '查看日志');
+2026-04-12 16:58:58 [INF] => 0.0006685s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.view', '查看监控');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.view', '查看监控');
+2026-04-12 16:58:58 [INF] => 0.0005602s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.run', '运行监控');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.run', '运行监控');
+2026-04-12 16:58:58 [INF] => 0.0009746s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.create', '创建监控');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.create', '创建监控');
+2026-04-12 16:58:58 [INF] => 0.001437s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.update', '更新监控');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.update', '更新监控');
+2026-04-12 16:58:58 [INF] => 0.000357s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.delete', '删除监控');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('monitor.delete', '删除监控');
+2026-04-12 16:58:58 [INF] => 0.0001989s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('tasks.view', '查看任务');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('tasks.view', '查看任务');
+2026-04-12 16:58:58 [INF] => 0.0004624s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('tasks.manage', '任务管理');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('tasks.manage', '任务管理');
+2026-04-12 16:58:58 [INF] => 0.0002407s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('settings.view', '查看设置');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('settings.view', '查看设置');
+2026-04-12 16:58:58 [INF] => 0.0003925s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('settings.manage', '管理设置');
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO Permissions (Code, Name)
+VALUES ('settings.manage', '管理设置');
+2026-04-12 16:58:58 [INF] => 0.0002469s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+SELECT r.Id, p.Id
+FROM Roles r, Permissions p
+WHERE r.Name = 'admin';
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+SELECT r.Id, p.Id
+FROM Roles r, Permissions p
+WHERE r.Name = 'admin';
+2026-04-12 16:58:58 [INF] => 0.0005327s
+2026-04-12 16:58:58 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+SELECT r.Id, p.Id
+FROM Roles r
+JOIN Permissions p ON p.Code IN ('dashboard.view','logs.view','monitor.view','tasks.view')
+WHERE r.Name = 'user';
+2026-04-12 16:58:58 [INF] INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+SELECT r.Id, p.Id
+FROM Roles r
+JOIN Permissions p ON p.Code IN ('dashboard.view','logs.view','monitor.view','tasks.view')
+WHERE r.Name = 'user';
+2026-04-12 16:58:58 [INF] => 0.000688s
+2026-04-12 16:58:58 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041106, CURRENT_TIMESTAMP, 'SeedRbacDefaults');
+2026-04-12 16:58:58 [INF] Committing Transaction
+2026-04-12 16:58:58 [INF] 2026041106: SeedRbacDefaults migrated
+2026-04-12 16:58:58 [INF] => 0.0073353s
+2026-04-12 16:58:59 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-12 16:58:59 [INF] Outbox webhook dispatcher disabled
+2026-04-12 16:58:59 [INF] Starting Hangfire Server using job storage: 'SQLite Server: C:\Users\jiuji\AppData\Local\Temp\autotest-ai-e2a904a4d0324e5c8035dd1410ceaf0b\hangfire.db'
+2026-04-12 16:58:59 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:01
+2026-04-12 16:58:59 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-12 16:58:59 [INF] Hosting environment: Development
+2026-04-12 16:58:59 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-12 16:58:59 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 14
+2026-04-12 16:58:59 [WRN] Failed to determine the https port for redirect.
+2026-04-12 16:58:59 [INF] Server tomwang:14916:29825865 successfully announced in 19.0763 ms
+2026-04-12 16:58:59 [INF] Server tomwang:14916:29825865 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-12 16:58:59 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-12 16:58:59 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-12 16:58:59 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-04-12 16:58:59 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 17.3148ms
+2026-04-12 16:58:59 [INF] Server tomwang:14916:29825865 all the dispatchers started
+2026-04-12 16:58:59 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-12 16:58:59 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 400 null text/plain; charset=utf-8 66.4838ms
+2026-04-12 16:58:59 [INF] Server tomwang:14916:29825865 caught stopping signal...
+2026-04-12 16:58:59 [INF] Application is shutting down...
+2026-04-12 16:58:59 [INF] Server tomwang:14916:29825865 All dispatchers stopped
+2026-04-12 16:58:59 [INF] Server tomwang:14916:29825865 successfully reported itself as stopped in 8.567 ms
+2026-04-12 16:58:59 [INF] Server tomwang:14916:29825865 has been stopped in total 10.1658 ms

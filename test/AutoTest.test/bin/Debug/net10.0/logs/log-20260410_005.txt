@@ -1,0 +1,66 @@
+2026-04-10 17:07:08 [INF] Beginning Transaction
+2026-04-10 17:07:08 [INF] Rolling back transaction
+2026-04-10 17:07:08 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-10 17:07:08 [INF] Initializing Hangfire scheduled jobs...
+2026-04-10 17:07:08 [INF] Hangfire scheduled jobs initialized.
+2026-04-10 17:07:08 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-10 17:07:08 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-10 17:07:08 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-10 17:07:08 [INF] Hosting environment: Development
+2026-04-10 17:07:08 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-10 17:07:08 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 14
+2026-04-10 17:07:08 [INF] Server tomwang:8152:2163e69d successfully announced in 9.53 ms
+2026-04-10 17:07:08 [INF] Server tomwang:8152:2163e69d is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-10 17:07:08 [WRN] Failed to determine the https port for redirect.
+2026-04-10 17:07:08 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-10 17:07:08 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-10 17:07:08 [WRN] Monitor "328a18a3-af87-4f43-847d-49f7e0001c19" already running or executed, skipping.
+2026-04-10 17:07:08 [WRN] Monitor "328a18a3-af87-4f43-847d-49f7e0001c19" already running or executed, skipping.
+2026-04-10 17:07:08 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-04-10 17:07:08 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 40.2856ms
+2026-04-10 17:07:08 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-10 17:07:08 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 400 null text/plain; charset=utf-8 141.2734ms
+2026-04-10 17:07:08 [INF] Server tomwang:8152:2163e69d caught stopping signal...
+2026-04-10 17:07:08 [INF] Application is shutting down...
+2026-04-10 17:07:08 [INF] Server tomwang:8152:2163e69d all the dispatchers started
+2026-04-10 17:07:08 [WRN] Worker stop requested while processing background job '5'. It will be re-queued.
+2026-04-10 17:07:08 [WRN] Worker stop requested while processing background job '5'. It will be re-queued.
+2026-04-10 17:07:08 [WRN] Monitor "328a18a3-af87-4f43-847d-49f7e0001c19" already running or executed, skipping.
+2026-04-10 17:07:08 [WRN] Monitor "328a18a3-af87-4f43-847d-49f7e0001c19" already running or executed, skipping.
+2026-04-10 17:07:08 [INF] Server tomwang:8152:2163e69d All dispatchers stopped
+2026-04-10 17:07:08 [INF] Server tomwang:8152:2163e69d successfully reported itself as stopped in 7.6295 ms
+2026-04-10 17:07:08 [INF] Server tomwang:8152:2163e69d has been stopped in total 317.0481 ms
+2026-04-10 18:09:43 [INF] Beginning Transaction
+2026-04-10 18:09:43 [INF] Rolling back transaction
+2026-04-10 18:09:43 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-10 18:09:43 [INF] Initializing Hangfire scheduled jobs...
+2026-04-10 18:09:43 [INF] Hangfire scheduled jobs initialized.
+2026-04-10 18:09:43 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-10 18:09:43 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-10 18:09:43 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-10 18:09:43 [INF] Hosting environment: Development
+2026-04-10 18:09:43 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-10 18:09:43 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 18
+2026-04-10 18:09:43 [INF] Server tomwang:15012:0f05c696 successfully announced in 21.6877 ms
+2026-04-10 18:09:43 [INF] Server tomwang:15012:0f05c696 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-10 18:09:43 [WRN] Failed to determine the https port for redirect.
+2026-04-10 18:09:43 [INF] Server tomwang:15012:0f05c696 all the dispatchers started
+2026-04-10 18:09:44 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-10 18:09:44 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-10 18:09:44 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Webapi.Controllers.AiChatResponse'.
+2026-04-10 18:09:44 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 28.7683ms
+2026-04-10 18:09:44 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-10 18:09:44 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 200 null application/json; charset=utf-8 174.6946ms
+2026-04-10 18:09:44 [INF] Server tomwang:15012:0f05c696 caught stopping signal...
+2026-04-10 18:09:44 [INF] Application is shutting down...
+2026-04-10 18:09:44 [INF] Server tomwang:15012:0f05c696 All dispatchers stopped
+2026-04-10 18:09:44 [INF] Server tomwang:15012:0f05c696 successfully reported itself as stopped in 13.2899 ms
+2026-04-10 18:09:44 [INF] Server tomwang:15012:0f05c696 has been stopped in total 15.9513 ms

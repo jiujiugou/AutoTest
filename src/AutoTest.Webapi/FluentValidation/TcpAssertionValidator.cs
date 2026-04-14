@@ -1,5 +1,6 @@
 using System.Text.Json;
 using AutoTest.Application.Dto;
+using AutoTest.Assertions.Tcp;
 using FluentValidation;
 
 namespace AutoTest.Webapi.FluentValidation;
@@ -19,12 +20,18 @@ public class TcpAssertionValidator : AbstractValidator<AssertionDto>
     {
         try
         {
-            var dto = JsonSerializer.Deserialize<TcpAssertionDto>(json);
-            // 假设 TCP 断言至少有 Field、Operator 和 Value 三个字段
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+            var dto = JsonSerializer.Deserialize<TcpAssertionDto>(json, options);
+            // 假设 TCP 断言至少有 Field、Operator 和 Expected 三个字段
             return dto != null
-                   && !string.IsNullOrEmpty(dto.Field.ToString())
-                   && !string.IsNullOrEmpty(dto.Operator.ToString())
-                   && !string.IsNullOrEmpty(dto.Expected.ToString());
+                   && !string.IsNullOrWhiteSpace(dto.Field)
+                   && !string.IsNullOrWhiteSpace(dto.Operator)
+                   && !string.IsNullOrWhiteSpace(dto.Expected)
+                   && Enum.TryParse<TcpAssertionField>(dto.Field, true, out _)
+                   && Enum.TryParse<TcpAssertionOperator>(dto.Operator, true, out _);
         }
         catch
         {

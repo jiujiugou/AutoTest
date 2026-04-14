@@ -5,9 +5,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.72" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.8.23" />
     <PackageReference Include="Hangfire.SQLite" Version="1.4.2" />
+    <PackageReference Include="Hangfire.SqlServer" Version="1.8.23" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0" />
     <PackageReference Include="Microsoft.Data.Sqlite" Version="10.0.5" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.5" />
@@ -18,6 +22,6 @@
   <ItemGroup>
     <ProjectReference Include="..\AutoTest.Core\AutoTest.Core.csproj" />
     <ProjectReference Include="..\AutoTest.Application\AutoTest.Application.csproj" />
-    <ProjectReference Include="..\AutoTest.Assertions.Http\AutoTest.Assertions.Http.csproj" />
+    <ProjectReference Include="..\AutoTest.Assertions\AutoTest.Assertions.csproj" />
   </ItemGroup>
 </Project>

@@ -18,24 +18,39 @@ using System.Threading.Tasks;
 
 namespace AutoTest.Infrastructure;
 
+/// <summary>
+/// 监控任务仓储（Dapper）：负责监控任务及其断言规则的读写，并将数据库中的 TargetConfig JSON 反序列化为领域目标对象。
+/// </summary>
 public class MonitorRepository : IMonitorRepository
 {
     private readonly IDbConnection _dbConnection;
     private readonly ILogger<MonitorRepository> _logger;
 
+    /// <summary>
+    /// 初始化 <see cref="MonitorRepository"/>。
+    /// </summary>
+    /// <param name="dbConnection">数据库连接。</param>
+    /// <param name="logger">日志记录器。</param>
     public MonitorRepository(IDbConnection dbConnection, ILogger<MonitorRepository> logger)
     {
         _dbConnection = dbConnection;
         _logger = logger;
     }
 
+    /// <summary>
+    /// 按 ID 获取监控任务（包含断言规则）。
+    /// </summary>
+    /// <param name="id">监控任务 ID。</param>
+    /// <param name="tx">可选事务。</param>
+    /// <returns>监控任务实体；不存在则返回 null。</returns>
     public async Task<MonitorEntity?> GetByIdAsync(Guid id, IDbTransaction? tx = null)
     {
         try
         {
             _logger.LogDebug("Fetching monitor by Id {Id}", id);
 
-            var sqlMonitor = @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig
+            var sqlMonitor = @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig,
+                                      AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount
                                FROM Monitor
                                WHERE Id = @Id";
 
@@ -54,6 +69,7 @@ public class MonitorRepository : IMonitorRepository
                 "TCP" or "Tcp" => JsonSerializer.Deserialize<TcpTarget>(dto.TargetConfig)!,
 
                 "Db" or "DB" => JsonSerializer.Deserialize<DbTarget>(dto.TargetConfig)!,
+                "PYTHON" or "Python" or "python" => JsonSerializer.Deserialize<PythonTarget>(dto.TargetConfig)!,
                 _ => throw new InvalidOperationException($"Unknown TargetType: {dto.TargetType}")
             };
 
@@ -63,7 +79,11 @@ public class MonitorRepository : IMonitorRepository
                 target,
                 (MonitorStatus)dto.Status,
                 dto.LastRunTime,
-                dto.IsEnabled
+                dto.IsEnabled,
+                dto.AutoDailyEnabled,
+                dto.AutoDailyTime,
+                dto.MaxRuns,
+                dto.ExecutedCount
             );
 
             var sqlAssertion = @"SELECT Id, Type, ConfigJson
@@ -87,14 +107,19 @@ public class MonitorRepository : IMonitorRepository
         }
     }
 
+    /// <summary>
+    /// 新增监控任务（包含断言规则）。
+    /// </summary>
+    /// <param name="monitorEntity">监控任务实体。</param>
+    /// <param name="tx">可选事务。</param>
     public async Task AddAsync(MonitorEntity monitorEntity, IDbTransaction? tx = null)
     {
         try
         {
             _logger.LogInformation("Adding monitor {Id} with name {Name}", monitorEntity.Id, monitorEntity.Name);
 
-            var sql = @"INSERT INTO Monitor(Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig)
-                        VALUES(@Id, @Name, @Status, @LastRunTime, @IsEnabled, @TargetType, @TargetConfig)";
+            var sql = @"INSERT INTO Monitor(Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig, AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount)
+                        VALUES(@Id, @Name, @Status, @LastRunTime, @IsEnabled, @TargetType, @TargetConfig, @AutoDailyEnabled, @AutoDailyTime, @MaxRuns, @ExecutedCount)";
 
             await _dbConnection.ExecuteAsync(sql, new
             {
@@ -104,7 +129,11 @@ public class MonitorRepository : IMonitorRepository
                 monitorEntity.LastRunTime,
                 monitorEntity.IsEnabled,
                 TargetType = monitorEntity.Target.Type,
-                TargetConfig = monitorEntity.Target.ToJson()
+                TargetConfig = monitorEntity.Target.ToJson(),
+                monitorEntity.AutoDailyEnabled,
+                monitorEntity.AutoDailyTime,
+                monitorEntity.MaxRuns,
+                monitorEntity.ExecutedCount
             }, tx);
 
             if (monitorEntity.Assertions.Any())
@@ -132,6 +161,11 @@ public class MonitorRepository : IMonitorRepository
         }
     }
 
+    /// <summary>
+    /// 更新监控任务（包含断言规则；实现为先删后插）。
+    /// </summary>
+    /// <param name="monitorEntity">监控任务实体。</param>
+    /// <param name="tx">可选事务。</param>
     public async Task UpdateAsync(MonitorEntity monitorEntity, IDbTransaction? tx = null)
     {
         try
@@ -144,7 +178,11 @@ public class MonitorRepository : IMonitorRepository
                             LastRunTime = @LastRunTime,
                             IsEnabled = @IsEnabled,
                             TargetType = @TargetType,
-                            TargetConfig = @TargetConfig
+                            TargetConfig = @TargetConfig,
+                            AutoDailyEnabled = @AutoDailyEnabled,
+                            AutoDailyTime = @AutoDailyTime,
+                            MaxRuns = @MaxRuns,
+                            ExecutedCount = @ExecutedCount
                         WHERE Id = @Id";
 
             var affected = await _dbConnection.ExecuteAsync(sql, new
@@ -155,6 +193,10 @@ public class MonitorRepository : IMonitorRepository
                 monitorEntity.IsEnabled,
                 TargetType = monitorEntity.Target.Type,
                 TargetConfig = monitorEntity.Target.ToJson(),
+                monitorEntity.AutoDailyEnabled,
+                monitorEntity.AutoDailyTime,
+                monitorEntity.MaxRuns,
+                monitorEntity.ExecutedCount,
                 monitorEntity.Id
             }, tx);
 
@@ -192,6 +234,11 @@ public class MonitorRepository : IMonitorRepository
         }
     }
 
+    /// <summary>
+    /// 删除监控任务及其断言规则。
+    /// </summary>
+    /// <param name="id">监控任务 ID。</param>
+    /// <param name="tx">可选事务。</param>
     public async Task RemoveAsync(Guid id, IDbTransaction? tx = null)
     {
         try
@@ -210,13 +257,18 @@ public class MonitorRepository : IMonitorRepository
         }
     }
 
+    /// <summary>
+    /// 获取可被调度执行的监控任务列表（启用且不处于 Running 状态）。
+    /// </summary>
+    /// <returns>监控任务集合。</returns>
     public async Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync()
     {
         try
         {
             _logger.LogDebug("Fetching schedulable monitors");
 
-            var sql = @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig
+            var sql = @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig,
+                               AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount
                         FROM Monitor
                         WHERE IsEnabled = 1 AND Status != @Running";
 
@@ -249,6 +301,7 @@ public class MonitorRepository : IMonitorRepository
                         "HTTP" or "Http" => JsonSerializer.Deserialize<HttpTarget>(dto.TargetConfig, options)!,
                         "TCP" or "Tcp" => JsonSerializer.Deserialize<TcpTarget>(dto.TargetConfig)!,
                         "Db" or "DB" => JsonSerializer.Deserialize<DbTarget>(dto.TargetConfig)!,
+                        "PYTHON" or "Python" or "python" => JsonSerializer.Deserialize<PythonTarget>(dto.TargetConfig, options)!,
                         _ => throw new InvalidOperationException($"Unknown TargetType: {dto.TargetType}")
                     };
 
@@ -258,7 +311,11 @@ public class MonitorRepository : IMonitorRepository
                         target,
                         (MonitorStatus)dto.Status,
                         dto.LastRunTime,
-                        dto.IsEnabled
+                        dto.IsEnabled,
+                        dto.AutoDailyEnabled,
+                        dto.AutoDailyTime,
+                        dto.MaxRuns,
+                        dto.ExecutedCount
                     );
                     if (assertionLookup.TryGetValue(dto.Id, out var assertions))
                     {
@@ -286,14 +343,27 @@ public class MonitorRepository : IMonitorRepository
         }
     }
 
+    /// <summary>
+    /// 获取监控任务列表（包含断言规则，按创建时间倒序）。
+    /// </summary>
+    /// <param name="take">最多返回条数。</param>
+    /// <returns>监控任务集合。</returns>
     public async Task<IEnumerable<MonitorEntity>> ListAsync(int take = 50)
     {
         try
         {
-            var sql = @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig
-                        FROM Monitor
-                        ORDER BY CreatedAt DESC
-                        LIMIT @Take";
+            var isSqlServer = _dbConnection is Microsoft.Data.SqlClient.SqlConnection;
+            var sql = isSqlServer
+                ? @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig,
+                           AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount
+                    FROM Monitor
+                    ORDER BY CreatedAt DESC
+                    OFFSET 0 ROWS FETCH NEXT @Take ROWS ONLY"
+                : @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig,
+                           AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount
+                    FROM Monitor
+                    ORDER BY CreatedAt DESC
+                    LIMIT @Take";
 
             var result = (await _dbConnection.QueryAsync<MonitorDto>(sql, new { Take = take })).ToList();
             if (result.Count == 0)
@@ -326,7 +396,11 @@ public class MonitorRepository : IMonitorRepository
                     target,
                     (MonitorStatus)dto.Status,
                     dto.LastRunTime,
-                    dto.IsEnabled
+                    dto.IsEnabled,
+                    dto.AutoDailyEnabled,
+                    dto.AutoDailyTime,
+                    dto.MaxRuns,
+                    dto.ExecutedCount
                 );
 
                 if (assertionLookup.TryGetValue(dto.Id, out var assertions))

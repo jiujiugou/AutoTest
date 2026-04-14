@@ -1,0 +1,254 @@
+2026-04-11 16:45:41 [INF] Beginning Transaction
+2026-04-11 16:45:41 [INF] Rolling back transaction
+2026-04-11 16:45:41 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 16:45:41 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 16:45:41 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 16:45:41 [INF] Outbox webhook dispatcher disabled
+2026-04-11 16:45:41 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 16:45:41 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 16:45:41 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 16:45:41 [INF] Hosting environment: Development
+2026-04-11 16:45:41 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-11 16:45:41 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 14
+2026-04-11 16:45:41 [INF] Server tomwang:13564:6cabd4f2 successfully announced in 14.1774 ms
+2026-04-11 16:45:42 [INF] Server tomwang:13564:6cabd4f2 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 16:45:42 [WRN] Failed to determine the https port for redirect.
+2026-04-11 16:45:42 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 16:45:42 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-11 16:45:42 [INF] Server tomwang:13564:6cabd4f2 all the dispatchers started
+2026-04-11 16:45:42 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-04-11 16:45:42 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 40.969ms
+2026-04-11 16:45:42 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 16:45:42 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 400 null text/plain; charset=utf-8 117.3712ms
+2026-04-11 16:45:42 [INF] Server tomwang:13564:6cabd4f2 caught stopping signal...
+2026-04-11 16:45:42 [INF] Application is shutting down...
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:42 [INF] Server tomwang:13564:6cabd4f2 caught stopped signal...
+2026-04-11 16:45:42 [WRN] Worker stop requested while processing background job '6'. It will be re-queued.
+2026-04-11 16:45:43 [INF] Found 4 pending monitors
+2026-04-11 16:45:43 [INF] Found 4 pending monitors
+2026-04-11 16:45:43 [INF] Found 4 pending monitors
+2026-04-11 16:45:43 [INF] Monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb" already scheduled or running
+2026-04-11 16:45:43 [INF] Monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb" already scheduled or running
+2026-04-11 16:45:43 [INF] Monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" already scheduled or running
+2026-04-11 16:45:43 [INF] Monitor "f0a82ef7-fe15-4d31-ad75-d4257661e65b" already scheduled or running
+2026-04-11 16:45:43 [INF] Monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" already scheduled or running
+2026-04-11 16:45:43 [INF] Monitor "328a18a3-af87-4f43-847d-49f7e0001c19" already scheduled or running
+2026-04-11 16:45:43 [INF] Monitor "f0a82ef7-fe15-4d31-ad75-d4257661e65b" already scheduled or running
+2026-04-11 16:45:43 [INF] Monitor "328a18a3-af87-4f43-847d-49f7e0001c19" already scheduled or running
+2026-04-11 16:45:43 [INF] Server tomwang:13564:6cabd4f2 All dispatchers stopped
+2026-04-11 16:45:43 [INF] Server tomwang:13564:6cabd4f2 successfully reported itself as stopped in 10.7949 ms
+2026-04-11 16:45:43 [INF] Server tomwang:13564:6cabd4f2 has been stopped in total 1843.6088 ms
+2026-04-11 17:12:23 [INF] Beginning Transaction
+2026-04-11 17:12:23 [INF] Rolling back transaction
+2026-04-11 17:12:23 [INF] 2026041101: CreateRbacRolesTable migrating
+2026-04-11 17:12:23 [INF] Beginning Transaction
+2026-04-11 17:12:23 [INF] CreateTable Roles
+2026-04-11 17:12:23 [INF] CREATE TABLE "Roles" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Name" TEXT NOT NULL, "DisplayName" TEXT NOT NULL, "Description" TEXT);
+2026-04-11 17:12:23 [INF] => 0.0037459s
+2026-04-11 17:12:23 [INF] CreateIndex Roles (Name)
+2026-04-11 17:12:23 [INF] CREATE UNIQUE INDEX "UX_Roles_Name" ON "Roles" ("Name" ASC);
+2026-04-11 17:12:23 [INF] => 0.0010674s
+2026-04-11 17:12:23 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041101, CURRENT_TIMESTAMP, 'CreateRbacRolesTable');
+2026-04-11 17:12:23 [INF] Committing Transaction
+2026-04-11 17:12:23 [INF] 2026041101: CreateRbacRolesTable migrated
+2026-04-11 17:12:23 [INF] => 0.0138986s
+2026-04-11 17:12:23 [INF] 2026041102: CreateRbacPermissionsTable migrating
+2026-04-11 17:12:23 [INF] Beginning Transaction
+2026-04-11 17:12:23 [INF] CreateTable Permissions
+2026-04-11 17:12:23 [INF] CREATE TABLE "Permissions" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Code" TEXT NOT NULL, "Name" TEXT NOT NULL, "Description" TEXT);
+2026-04-11 17:12:23 [INF] => 0.0032193s
+2026-04-11 17:12:23 [INF] CreateIndex Permissions (Code)
+2026-04-11 17:12:23 [INF] CREATE UNIQUE INDEX "UX_Permissions_Code" ON "Permissions" ("Code" ASC);
+2026-04-11 17:12:23 [INF] => 0.0007464s
+2026-04-11 17:12:23 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041102, CURRENT_TIMESTAMP, 'CreateRbacPermissionsTable');
+2026-04-11 17:12:23 [INF] Committing Transaction
+2026-04-11 17:12:23 [INF] 2026041102: CreateRbacPermissionsTable migrated
+2026-04-11 17:12:23 [INF] => 0.0145605s
+2026-04-11 17:12:23 [INF] 2026041103: CreateRbacUserRolesTable migrating
+2026-04-11 17:12:23 [INF] Beginning Transaction
+2026-04-11 17:12:23 [INF] CreateTable UserRoles
+2026-04-11 17:12:23 [INF] CREATE TABLE "UserRoles" ("UserId" INTEGER NOT NULL, "RoleId" INTEGER NOT NULL, CONSTRAINT "FK_UserRoles_UserId_Users_Id" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id"), CONSTRAINT "FK_UserRoles_RoleId_Roles_Id" FOREIGN KEY ("RoleId") REFERENCES "Roles" ("Id"));
+2026-04-11 17:12:23 [INF] => 0.0059124s
+2026-04-11 17:12:23 [INF] CreateForeignKey $$IGNORE$$_FK_UserRoles_UserId_Users_Id UserRoles(UserId) Users(Id)
+2026-04-11 17:12:23 [INF] => 0.0001579s
+2026-04-11 17:12:23 [INF] CreateForeignKey $$IGNORE$$_FK_UserRoles_RoleId_Roles_Id UserRoles(RoleId) Roles(Id)
+2026-04-11 17:12:23 [INF] => 1.82E-05s
+2026-04-11 17:12:23 [INF] CreateIndex UserRoles (UserId, RoleId)
+2026-04-11 17:12:23 [INF] CREATE UNIQUE INDEX "UX_UserRoles_UserId_RoleId" ON "UserRoles" ("UserId" ASC, "RoleId" ASC);
+2026-04-11 17:12:23 [INF] => 0.0006868s
+2026-04-11 17:12:23 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041103, CURRENT_TIMESTAMP, 'CreateRbacUserRolesTable');
+2026-04-11 17:12:23 [INF] Committing Transaction
+2026-04-11 17:12:23 [INF] 2026041103: CreateRbacUserRolesTable migrated
+2026-04-11 17:12:23 [INF] => 0.0102001s
+2026-04-11 17:12:23 [INF] 2026041104: CreateRbacRolePermissionsTable migrating
+2026-04-11 17:12:23 [INF] Beginning Transaction
+2026-04-11 17:12:23 [INF] CreateTable RolePermissions
+2026-04-11 17:12:23 [INF] CREATE TABLE "RolePermissions" ("RoleId" INTEGER NOT NULL, "PermissionId" INTEGER NOT NULL, CONSTRAINT "FK_RolePermissions_RoleId_Roles_Id" FOREIGN KEY ("RoleId") REFERENCES "Roles" ("Id"), CONSTRAINT "FK_RolePermissions_PermissionId_Permissions_Id" FOREIGN KEY ("PermissionId") REFERENCES "Permissions" ("Id"));
+2026-04-11 17:12:23 [INF] => 0.0037316s
+2026-04-11 17:12:23 [INF] CreateForeignKey $$IGNORE$$_FK_RolePermissions_RoleId_Roles_Id RolePermissions(RoleId) Roles(Id)
+2026-04-11 17:12:23 [INF] => 2.44E-05s
+2026-04-11 17:12:23 [INF] CreateForeignKey $$IGNORE$$_FK_RolePermissions_PermissionId_Permissions_Id RolePermissions(PermissionId) Permissions(Id)
+2026-04-11 17:12:23 [INF] => 2.18E-05s
+2026-04-11 17:12:23 [INF] CreateIndex RolePermissions (RoleId, PermissionId)
+2026-04-11 17:12:23 [INF] CREATE UNIQUE INDEX "UX_RolePermissions_RoleId_PermissionId" ON "RolePermissions" ("RoleId" ASC, "PermissionId" ASC);
+2026-04-11 17:12:23 [INF] => 0.0006332s
+2026-04-11 17:12:23 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041104, CURRENT_TIMESTAMP, 'CreateRbacRolePermissionsTable');
+2026-04-11 17:12:23 [INF] Committing Transaction
+2026-04-11 17:12:23 [INF] 2026041104: CreateRbacRolePermissionsTable migrated
+2026-04-11 17:12:23 [INF] => 0.0082794s
+2026-04-11 17:12:23 [INF] 2026041105: SeedRbacDefaults migrating
+2026-04-11 17:12:23 [INF] Beginning Transaction
+2026-04-11 17:12:23 [INF] INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('admin', '管理员', '平台管理员');
+2026-04-11 17:12:23 [INF] INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('user', '用户', '普通用户');
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('dashboard.view', '查看仪表板', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('logs.view', '查看日志', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('monitor.view', '查看监控', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('monitor.run', '运行监控', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('monitor.add', '创建监控', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('monitor.update', '更新监控', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('monitor.delete', '删除监控', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('tasks.view', '查看任务', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('tasks.manage', '管理任务', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('settings.view', '查看设置', NULL);
+2026-04-11 17:12:23 [INF] INSERT INTO "Permissions" ("Code", "Name", "Description") VALUES ('settings.manage', '管理设置', NULL);
+2026-04-11 17:12:23 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+SELECT r.Id, p.Id
+FROM Roles r, Permissions p
+WHERE r.Name = 'admin';
+2026-04-11 17:12:23 [INF] INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+SELECT r.Id, p.Id
+FROM Roles r, Permissions p
+WHERE r.Name = 'admin';
+2026-04-11 17:12:23 [INF] => 0.0005002s
+2026-04-11 17:12:23 [INF] ExecuteSqlStatement INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+SELECT r.Id, p.Id
+FROM Roles r
+JOIN Permissions p ON p.Code IN ('dashboard.view','logs.view','monitor.view','monitor.run','tasks.view')
+WHERE r.Name = 'user';
+2026-04-11 17:12:23 [INF] INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+SELECT r.Id, p.Id
+FROM Roles r
+JOIN Permissions p ON p.Code IN ('dashboard.view','logs.view','monitor.view','monitor.run','tasks.view')
+WHERE r.Name = 'user';
+2026-04-11 17:12:23 [INF] => 0.0006062s
+2026-04-11 17:12:23 [INF] -> 13 Insert operations completed in 00:00:00.0076388 taking an average of 00:00:00.0005876
+2026-04-11 17:12:23 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041105, CURRENT_TIMESTAMP, 'SeedRbacDefaults');
+2026-04-11 17:12:23 [INF] Committing Transaction
+2026-04-11 17:12:23 [INF] 2026041105: SeedRbacDefaults migrated
+2026-04-11 17:12:23 [INF] => 0.0075781s
+2026-04-11 17:12:23 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 17:12:23 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 17:12:23 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 17:12:23 [INF] Outbox webhook dispatcher disabled
+2026-04-11 17:12:23 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 17:12:23 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 17:12:23 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 17:12:23 [INF] Hosting environment: Development
+2026-04-11 17:12:23 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-11 17:12:23 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 18
+2026-04-11 17:12:23 [INF] Server tomwang:21672:7d2c9a68 successfully announced in 25.7591 ms
+2026-04-11 17:12:23 [INF] Server tomwang:21672:7d2c9a68 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 17:12:23 [WRN] Failed to determine the https port for redirect.
+2026-04-11 17:12:23 [INF] Server tomwang:21672:7d2c9a68 all the dispatchers started
+2026-04-11 17:12:23 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 17:12:23 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-11 17:12:23 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Webapi.Controllers.AiChatResponse'.
+2026-04-11 17:12:23 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 27.0795ms
+2026-04-11 17:12:23 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 17:12:23 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 200 null application/json; charset=utf-8 195.7957ms
+2026-04-11 17:12:23 [INF] Server tomwang:21672:7d2c9a68 caught stopping signal...
+2026-04-11 17:12:23 [INF] Application is shutting down...
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:23 [WRN] Worker stop requested while processing background job '7'. It will be re-queued.
+2026-04-11 17:12:24 [INF] Server tomwang:21672:7d2c9a68 caught stopped signal...
+2026-04-11 17:12:24 [INF] WorkflowJob started for monitor: "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-11 17:12:24 [WRN] Monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb" already running or executed, skipping.
+2026-04-11 17:12:24 [INF] Executing monitor: "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-11 17:12:24 [INF] 开始执行 HTTP 请求 [0]，地址：http://127.0.0.1:58278/ 方法：Get
+2026-04-11 17:12:26 [ERR] HTTP 请求失败 [0]，耗时 2039ms
+Flurl.Http.FlurlHttpException: Call failed. 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:58278): GET http://127.0.0.1:58278/
+ ---> System.Net.Http.HttpRequestException: 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:58278)
+ ---> System.Net.Sockets.SocketException (10061): 由于目标计算机积极拒绝，无法连接。
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.InjectNewHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Flurl.Http.FlurlClient.HandleExceptionAsync(FlurlCall call, Exception ex, CancellationToken token)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in d:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 76
+2026-04-11 17:12:26 [INF] Assertion step started.
+2026-04-11 17:12:26 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-11 17:12:26 [INF] Assertion step finished.
+2026-04-11 17:12:26 [INF] Updating monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-11 17:12:26 [ERR] Failed to update monitor "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in d:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 167
+2026-04-11 17:12:26 [ERR] Error executing monitor: "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in d:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in d:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 113
+   at AutoTest.Infrastructure.WorkflowJob.RunAsync(Guid monitorId) in d:\AutoTest\src\AutoTest.Infrastructure\WorkflowJob.cs:line 59
+2026-04-11 17:12:26 [INF] WorkflowJob completed for monitor: "fbc58005-db2f-422b-9f1e-6abacbe7febb"
+2026-04-11 17:12:26 [INF] Server tomwang:21672:7d2c9a68 All dispatchers stopped
+2026-04-11 17:12:26 [INF] Server tomwang:21672:7d2c9a68 successfully reported itself as stopped in 8.6181 ms
+2026-04-11 17:12:26 [INF] Server tomwang:21672:7d2c9a68 has been stopped in total 2941.2279 ms

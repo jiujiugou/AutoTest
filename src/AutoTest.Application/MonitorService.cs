@@ -9,6 +9,13 @@ using CacheCommons;
 using Microsoft.Extensions.Logging; // 假设你的 ILogger 在这里
 using Microsoft.Extensions.DependencyInjection;
 
+/// <summary>
+/// 监控任务应用服务实现。
+/// </summary>
+/// <remarks>
+/// 负责将 DTO/配置映射为领域模型，并通过仓储与工作单元完成持久化。
+/// 执行相关的编排由 <see cref="IOrchestrator"/> 负责。
+/// </remarks>
 public class MonitorService : IMonitorService
 {
     private readonly IMonitorRepository _monitorRepository;
@@ -40,6 +47,7 @@ public class MonitorService : IMonitorService
         _logger = logger;
     }
 
+    /// <inheritdoc />
     public async Task<Guid> AddAsync(MonitorDto dto)
     {
         _logger.LogInformation("AddAsync started for monitor: {Name}", dto.Name);
@@ -59,7 +67,17 @@ public class MonitorService : IMonitorService
                 })
                 .ToList();
 
-            var monitorEntity = new MonitorEntity(Guid.NewGuid(), dto.Name, target, MonitorStatus.Pending, null, dto.IsEnabled);
+            var monitorEntity = new MonitorEntity(
+                Guid.NewGuid(),
+                dto.Name,
+                target,
+                MonitorStatus.Pending,
+                null,
+                dto.IsEnabled,
+                dto.AutoDailyEnabled,
+                dto.AutoDailyTime,
+                dto.MaxRuns,
+                dto.ExecutedCount);
             foreach (var assertion in assertions)
                 monitorEntity.AddAssertion(assertion);
             await _unitOfWork.ExecuteAsync(async tx =>
@@ -77,6 +95,7 @@ public class MonitorService : IMonitorService
         }
     }
 
+    /// <inheritdoc />
     public async Task DeleteAsync(Guid id)
     {
         _logger.LogInformation("DeleteAsync started for monitor: {Id}", id);
@@ -100,6 +119,7 @@ public class MonitorService : IMonitorService
         await _cacheService.RemoveAsync($"Monitor{id}");
     }
 
+    /// <inheritdoc />
     public async Task<MonitorEntity?> GetByIdAsync(Guid id)
     {
         _logger.LogInformation("GetByIdAsync called for monitor: {Id}", id);
@@ -112,6 +132,7 @@ public class MonitorService : IMonitorService
         return cached;
     }
 
+    /// <inheritdoc />
     public async Task UpdateAsync(Guid id, MonitorDto dto)
     {
         _logger.LogInformation("UpdateAsync started for monitor: {Id}", id);
@@ -126,6 +147,10 @@ public class MonitorService : IMonitorService
                                     ?? throw new InvalidOperationException($"No target builder for type: {dto.TargetType}");
 
                 existing.Update(dto.Name, targetBuilder.Map(dto.TargetConfig), dto.IsEnabled);
+                var autoDailyEnabled = dto.AutoDailyEnabled;
+                if (dto.MaxRuns != null && existing.ExecutedCount >= dto.MaxRuns.Value)
+                    autoDailyEnabled = false;
+                existing.UpdateSchedule(autoDailyEnabled, dto.AutoDailyTime, dto.MaxRuns);
                 existing.ClearAssertions();
                 foreach (var aDto in dto.Assertions)
                 {
@@ -147,24 +172,107 @@ public class MonitorService : IMonitorService
         }
     }
 
+    /// <inheritdoc />
     public Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync() =>
         _monitorRepository.GetPendingTasksAsync();
 
+    /// <inheritdoc />
     public Task<IEnumerable<MonitorEntity>> ListAsync(int take = 50) =>
         _monitorRepository.ListAsync(take);
 
+    /// <inheritdoc />
     public Task<ExecutionRecord?> GetLatestExecutionAsync(Guid monitorId)
     {
         return _executionRecordRepository.GetLatestByMonitorIdAsync(monitorId);
     }
 
+    /// <inheritdoc />
     public Task<IEnumerable<ExecutionRecord>> GetExecutionsAsync(Guid monitorId, int take = 20)
     {
         return _executionRecordRepository.GetByMonitorIdAsync(monitorId, take);
     }
 
+    /// <inheritdoc />
     public Task<IEnumerable<AssertionResult>> GetExecutionAssertionResultsAsync(Guid executionId)
     {
         return _executionRecordRepository.GetAssertionResultsAsync(executionId);
+    }
+
+    /// <inheritdoc />
+    public async Task SetEnabledAsync(Guid id, bool isEnabled)
+    {
+        await _unitOfWork.ExecuteAsync(async tx =>
+        {
+            var existing = await _monitorRepository.GetByIdAsync(id, tx)
+                           ?? throw new InvalidOperationException("Monitor not found");
+
+            existing.Update(existing.Name, existing.Target, isEnabled);
+            await _monitorRepository.UpdateAsync(existing, tx);
+        });
+
+        await _cacheService.RemoveAsync($"Monitor{id}");
+    }
+
+    /// <inheritdoc />
+    public async Task SetScheduleAsync(Guid id, bool autoDailyEnabled, string? autoDailyTime, int? maxRuns)
+    {
+        await _unitOfWork.ExecuteAsync(async tx =>
+        {
+            var existing = await _monitorRepository.GetByIdAsync(id, tx)
+                           ?? throw new InvalidOperationException("Monitor not found");
+
+            if (maxRuns != null && existing.ExecutedCount >= maxRuns.Value)
+                autoDailyEnabled = false;
+            existing.UpdateSchedule(autoDailyEnabled, autoDailyTime, maxRuns);
+            await _monitorRepository.UpdateAsync(existing, tx);
+        });
+
+        await _cacheService.RemoveAsync($"Monitor{id}");
+    }
+
+    /// <inheritdoc />
+    public async Task<(bool AutoDailyEnabled, string? AutoDailyTime, int? MaxRuns, int ExecutedCount)> GetScheduleAsync(Guid id)
+    {
+        var m = await GetByIdAsync(id);
+        if (m == null) 
+            throw new InvalidOperationException("Monitor not found");
+        return (m.AutoDailyEnabled, m.AutoDailyTime, m.MaxRuns, m.ExecutedCount);
+    }
+
+    /// <inheritdoc />
+    public async Task<bool> IncrementAutoExecutedCountAndDisableIfReachedAsync(Guid id)
+    {
+        var shouldDisable = false;
+
+        await _unitOfWork.ExecuteAsync(async tx =>
+        {
+            var existing = await _monitorRepository.GetByIdAsync(id, tx);
+            if (existing == null)
+                return;
+
+            if (!existing.AutoDailyEnabled)
+                return;
+
+            existing.SetExecutedCount(existing.ExecutedCount + 1);
+
+            if (existing.MaxRuns != null && existing.ExecutedCount >= existing.MaxRuns.Value)
+            {
+                existing.UpdateSchedule(false, existing.AutoDailyTime, existing.MaxRuns);
+                shouldDisable = true;
+            }
+
+            await _monitorRepository.UpdateAsync(existing, tx);
+        });
+
+        await _cacheService.RemoveAsync($"Monitor{id}");
+        return shouldDisable;
+    }
+
+    /// <inheritdoc />
+    public async Task<(MonitorExecutionStats Stats, IEnumerable<MonitorErrorStat> TopErrors)> GetMonitorRuntimeStatsAsync(Guid monitorId, int takeTopErrors = 10)
+    {
+        var stats = await _executionRecordRepository.GetMonitorExecutionStatsAsync(monitorId);
+        var topErrors = await _executionRecordRepository.GetTopErrorStatsAsync(monitorId, takeTopErrors);
+        return (stats, topErrors);
     }
 }

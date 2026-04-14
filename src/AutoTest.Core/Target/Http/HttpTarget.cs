@@ -6,6 +6,9 @@ using AutoTest.Core.Assertion;
 using AutoTest.Core.http;
 namespace AutoTest.Core.Target.Http;
 
+/// <summary>
+/// HTTP 监控目标：描述一次 HTTP 请求的完整配置（URL、方法、请求体/头、超时、认证、重试与限流等）。
+/// </summary>
 public class HttpTarget : MonitorTarget
 {
     /// <summary>

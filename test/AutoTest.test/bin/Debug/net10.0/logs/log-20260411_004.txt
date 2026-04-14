@@ -1,0 +1,95 @@
+2026-04-11 17:12:26 [INF] Beginning Transaction
+2026-04-11 17:12:26 [INF] Rolling back transaction
+2026-04-11 17:12:26 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 17:12:26 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 17:12:26 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 17:12:26 [INF] Outbox webhook dispatcher disabled
+2026-04-11 17:12:26 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 17:12:26 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 17:12:26 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 17:12:26 [INF] Hosting environment: Development
+2026-04-11 17:12:26 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-11 17:12:26 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 14
+2026-04-11 17:12:26 [WRN] Failed to determine the https port for redirect.
+2026-04-11 17:12:26 [INF] Server tomwang:21672:47131299 successfully announced in 19.7662 ms
+2026-04-11 17:12:26 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 17:12:26 [INF] Server tomwang:21672:47131299 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 17:12:26 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-11 17:12:26 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-04-11 17:12:26 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 18.5941ms
+2026-04-11 17:12:26 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 17:12:26 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 400 null text/plain; charset=utf-8 76.4835ms
+2026-04-11 17:12:26 [INF] Server tomwang:21672:47131299 caught stopping signal...
+2026-04-11 17:12:26 [INF] Application is shutting down...
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [INF] Server tomwang:21672:47131299 all the dispatchers started
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [INF] WorkflowJob started for monitor: "f0a82ef7-fe15-4d31-ad75-d4257661e65b"
+2026-04-11 17:12:26 [INF] Executing monitor: "f0a82ef7-fe15-4d31-ad75-d4257661e65b"
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [INF] 开始执行 HTTP 请求 [0]，地址：http://127.0.0.1:64151/ 方法：Get
+2026-04-11 17:12:26 [WRN] Monitor "f0a82ef7-fe15-4d31-ad75-d4257661e65b" already running or executed, skipping.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Monitor "f0a82ef7-fe15-4d31-ad75-d4257661e65b" already running or executed, skipping.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Monitor "f0a82ef7-fe15-4d31-ad75-d4257661e65b" already running or executed, skipping.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:26 [WRN] Worker stop requested while processing background job '8'. It will be re-queued.
+2026-04-11 17:12:27 [INF] Server tomwang:21672:47131299 caught stopped signal...
+2026-04-11 17:12:28 [ERR] HTTP 请求失败 [0]，耗时 2008ms
+Flurl.Http.FlurlHttpException: Call failed. 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:64151): GET http://127.0.0.1:64151/
+ ---> System.Net.Http.HttpRequestException: 由于目标计算机积极拒绝，无法连接。 (127.0.0.1:64151)
+ ---> System.Net.Sockets.SocketException (10061): 由于目标计算机积极拒绝，无法连接。
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.ThrowException(SocketError error, CancellationToken cancellationToken)
+   at System.Net.Sockets.Socket.AwaitableSocketAsyncEventArgs.System.Threading.Tasks.Sources.IValueTaskSource.GetResult(Int16 token)
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at System.Net.Http.HttpConnectionPool.ConnectToTcpHostAsync(String host, Int32 port, HttpRequestMessage initialRequest, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.ConnectAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.CreateHttp11ConnectionAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.InjectNewHttp11ConnectionAsync(QueueItem queueItem)
+   at System.Threading.Tasks.TaskCompletionSourceWithCancellation`1.WaitWithCancellationAsync(CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.SocketsHttpHandler.<SendAsync>g__CreateHandlerAndSendAsync|115_0(HttpRequestMessage request, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   --- End of inner exception stack trace ---
+   at Flurl.Http.FlurlClient.HandleExceptionAsync(FlurlCall call, Exception ex, CancellationToken token)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at Flurl.Http.FlurlClient.SendAsync(IFlurlRequest request, HttpCompletionOption completionOption, CancellationToken cancellationToken)
+   at HttpExecutionEngine.ExecuteAsync(HttpTarget target) in d:\AutoTest\src\AutoTest.Execution.Http\HttpExecutionEngine.cs:line 76
+2026-04-11 17:12:28 [INF] Assertion step started.
+2026-04-11 17:12:28 [ERR] Assertion failed: StatusCode, actual=0, expected=200
+2026-04-11 17:12:28 [INF] Assertion step finished.
+2026-04-11 17:12:28 [INF] Updating monitor "f0a82ef7-fe15-4d31-ad75-d4257661e65b"
+2026-04-11 17:12:28 [ERR] Failed to update monitor "f0a82ef7-fe15-4d31-ad75-d4257661e65b"
+Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'FOREIGN KEY constraint failed'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at System.Data.Common.DbCommand.ExecuteNonQueryAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at Dapper.SqlMapper.ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, Object param) in /_/Dapper/SqlMapper.Async.cs:line 663
+   at AutoTest.Infrastructure.MonitorRepository.UpdateAsync(MonitorEntity monitorEntity, IDbTransaction tx) in d:\AutoTest\src\AutoTest.Infrastructure\MonitorRepository.cs:line 167
+2026-04-11 17:12:28 [ERR] Error executing monitor: "f0a82ef7-fe15-4d31-ad75-d4257661e65b"
+System.InvalidOperationException: Invalid state transition
+   at AutoTest.Core.MonitorEntity.MarkFailed() in d:\AutoTest\src\AutoTest.Core\Monitor\MonitorEntity.cs:line 70
+   at Orchestrator.TryExecuteAsync(MonitorEntity monitor) in d:\AutoTest\src\AutoTest.Application\Orchestrator.cs:line 113
+   at AutoTest.Infrastructure.WorkflowJob.RunAsync(Guid monitorId) in d:\AutoTest\src\AutoTest.Infrastructure\WorkflowJob.cs:line 59
+2026-04-11 17:12:28 [INF] WorkflowJob completed for monitor: "f0a82ef7-fe15-4d31-ad75-d4257661e65b"
+2026-04-11 17:12:28 [INF] Server tomwang:21672:47131299 All dispatchers stopped
+2026-04-11 17:12:28 [INF] Server tomwang:21672:47131299 successfully reported itself as stopped in 22.3508 ms
+2026-04-11 17:12:28 [INF] Server tomwang:21672:47131299 has been stopped in total 2132.2582 ms

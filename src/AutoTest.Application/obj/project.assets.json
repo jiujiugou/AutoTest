@@ -15,6 +15,35 @@
           }
         }
       },
+      "Flurl/4.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Flurl.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Flurl.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Flurl.Http/4.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Flurl": "4.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Flurl.Http.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Flurl.Http.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Google.Protobuf/3.32.0": {
         "type": "package",
         "compile": {
@@ -1167,63 +1196,22 @@
           "lib/net9.0/ZstdSharp.dll": {}
         }
       },
-      "AutoTest.Assertion/1.0.0": {
+      "AutoTest.Assertions/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "AutoTest.Core": "1.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
-        },
-        "compile": {
-          "bin/placeholder/AutoTest.Assertion.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AutoTest.Assertion.dll": {}
-        }
-      },
-      "AutoTest.Assertion.Db/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "AutoTest.Assertion": "1.0.0",
-          "AutoTest.Core": "1.0.0",
-          "AutoTest.Execution.Db": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/AutoTest.Assertion.Db.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AutoTest.Assertion.Db.dll": {}
-        }
-      },
-      "AutoTest.Assertions.Http/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "AutoTest.Assertion": "1.0.0",
-          "AutoTest.Core": "1.0.0",
+          "AutoTest.Execution": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "10.0.5",
-          "Microsoft.Extensions.Logging": "10.0.5"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Logging": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.5"
         },
         "compile": {
-          "bin/placeholder/AutoTest.Assertions.Http.dll": {}
+          "bin/placeholder/AutoTest.Assertions.dll": {}
         },
         "runtime": {
-          "bin/placeholder/AutoTest.Assertions.Http.dll": {}
-        }
-      },
-      "AutoTest.Assertions.Tcp/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "AutoTest.Core": "1.0.0",
-          "Microsoft.Extensions.Logging": "10.0.5"
-        },
-        "compile": {
-          "bin/placeholder/AutoTest.Assertions.Tcp.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/AutoTest.Assertions.Tcp.dll": {}
+          "bin/placeholder/AutoTest.Assertions.dll": {}
         }
       },
       "AutoTest.Core/1.0.0": {
@@ -1236,27 +1224,30 @@
           "bin/placeholder/AutoTest.Core.dll": {}
         }
       },
-      "AutoTest.Execution.Db/1.0.0": {
+      "AutoTest.Execution/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
           "AutoTest.Core": "1.0.0",
+          "Flurl.Http": "4.0.2",
           "Microsoft.Data.SqlClient": "7.0.0",
+          "Microsoft.Extensions.DependencyInjection": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.5",
           "MySql.Data": "9.6.0",
           "Npgsql": "10.0.2"
         },
         "compile": {
-          "bin/placeholder/AutoTest.Execution.Db.dll": {}
+          "bin/placeholder/AutoTest.Execution.dll": {}
         },
         "runtime": {
-          "bin/placeholder/AutoTest.Execution.Db.dll": {}
+          "bin/placeholder/AutoTest.Execution.dll": {}
         }
       },
       "CacheCommons/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v10.0",
         "dependencies": {
-          "AutoTest.Assertions.Http": "1.0.0",
+          "AutoTest.Assertions": "1.0.0",
           "Microsoft.Extensions.Caching.Memory": "10.0.5"
         },
         "compile": {
@@ -1300,6 +1291,43 @@
         "lib/netstandard2.0/BouncyCastle.Cryptography.dll",
         "lib/netstandard2.0/BouncyCastle.Cryptography.xml",
         "packageIcon.png"
+      ]
+    },
+    "Flurl/4.0.0": {
+      "sha512": "rpts69yYgvJqg6PPgqShBQEZ4aNzWQqWpWppcT0oDWxDCIsBqiod4pj6LQZdhk+1OozLFagemldMRACdHF3CsA==",
+      "type": "package",
+      "path": "flurl/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "flurl.4.0.0.nupkg.sha512",
+        "flurl.nuspec",
+        "icon.png",
+        "lib/net461/Flurl.dll",
+        "lib/net461/Flurl.xml",
+        "lib/net472/Flurl.dll",
+        "lib/net472/Flurl.xml",
+        "lib/netstandard2.0/Flurl.dll",
+        "lib/netstandard2.0/Flurl.xml"
+      ]
+    },
+    "Flurl.Http/4.0.2": {
+      "sha512": "9vCqFFyceA11yplkFD8AbCFFTvG1Lrw3tpsgOpL5sLUc28p6zcvGszNleuT6nDymRvtt5eS+rqUX+bRztg1fhA==",
+      "type": "package",
+      "path": "flurl.http/4.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "flurl.http.4.0.2.nupkg.sha512",
+        "flurl.http.nuspec",
+        "icon.png",
+        "lib/net461/Flurl.Http.dll",
+        "lib/net461/Flurl.Http.xml",
+        "lib/net6.0/Flurl.Http.dll",
+        "lib/net6.0/Flurl.Http.xml",
+        "lib/netstandard2.0/Flurl.Http.dll",
+        "lib/netstandard2.0/Flurl.Http.xml"
       ]
     },
     "Google.Protobuf/3.32.0": {
@@ -2949,35 +2977,20 @@
         "zstdsharp.port.nuspec"
       ]
     },
-    "AutoTest.Assertion/1.0.0": {
+    "AutoTest.Assertions/1.0.0": {
       "type": "project",
-      "path": "../AutoTest.Assertion/AutoTest.Assertion.csproj",
-      "msbuildProject": "../AutoTest.Assertion/AutoTest.Assertion.csproj"
-    },
-    "AutoTest.Assertion.Db/1.0.0": {
-      "type": "project",
-      "path": "../AutoTest.Assertion.Db/AutoTest.Assertion.Db.csproj",
-      "msbuildProject": "../AutoTest.Assertion.Db/AutoTest.Assertion.Db.csproj"
-    },
-    "AutoTest.Assertions.Http/1.0.0": {
-      "type": "project",
-      "path": "../AutoTest.Assertions.Http/AutoTest.Assertions.Http.csproj",
-      "msbuildProject": "../AutoTest.Assertions.Http/AutoTest.Assertions.Http.csproj"
-    },
-    "AutoTest.Assertions.Tcp/1.0.0": {
-      "type": "project",
-      "path": "../AutoTest.Assertions.Tcp/AutoTest.Assertions.Tcp.csproj",
-      "msbuildProject": "../AutoTest.Assertions.Tcp/AutoTest.Assertions.Tcp.csproj"
+      "path": "../AutoTest.Assertions/AutoTest.Assertions.csproj",
+      "msbuildProject": "../AutoTest.Assertions/AutoTest.Assertions.csproj"
     },
     "AutoTest.Core/1.0.0": {
       "type": "project",
       "path": "../AutoTest.Core/AutoTest.Core.csproj",
       "msbuildProject": "../AutoTest.Core/AutoTest.Core.csproj"
     },
-    "AutoTest.Execution.Db/1.0.0": {
+    "AutoTest.Execution/1.0.0": {
       "type": "project",
-      "path": "../AutoTest.Execution.Db/AutoTest.Execution.Db.csproj",
-      "msbuildProject": "../AutoTest.Execution.Db/AutoTest.Execution.Db.csproj"
+      "path": "../AutoTest.Execution/AutoTest.Execution.csproj",
+      "msbuildProject": "../AutoTest.Execution/AutoTest.Execution.csproj"
     },
     "CacheCommons/1.0.0": {
       "type": "project",
@@ -2992,9 +3005,6 @@
   },
   "projectFileDependencyGroups": {
     "net10.0": [
-      "AutoTest.Assertion.Db >= 1.0.0",
-      "AutoTest.Assertions.Http >= 1.0.0",
-      "AutoTest.Assertions.Tcp >= 1.0.0",
       "AutoTest.Core >= 1.0.0",
       "CacheCommons >= 1.0.0",
       "EventCommons >= 1.0.0",
@@ -3033,18 +3043,8 @@
       },
       "frameworks": {
         "net10.0": {
-          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj": {
-              "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertion.Db\\AutoTest.Assertion.Db.csproj"
-            },
-            "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj": {
-              "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Http\\AutoTest.Assertions.Http.csproj"
-            },
-            "D:\\AutoTest\\src\\AutoTest.Assertions.Tcp\\AutoTest.Assertions.Tcp.csproj": {
-              "projectPath": "D:\\AutoTest\\src\\AutoTest.Assertions.Tcp\\AutoTest.Assertions.Tcp.csproj"
-            },
             "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
               "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
             },
@@ -3071,7 +3071,6 @@
     },
     "frameworks": {
       "net10.0": {
-        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Microsoft.Extensions.Hosting": {

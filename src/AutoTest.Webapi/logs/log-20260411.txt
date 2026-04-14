@@ -1,0 +1,1652 @@
+2026-04-11 14:24:19 [INF] Beginning Transaction
+2026-04-11 14:24:20 [INF] Rolling back transaction
+2026-04-11 14:24:20 [INF] 2026041004: CreateOutboxTable migrating
+2026-04-11 14:24:20 [INF] Beginning Transaction
+2026-04-11 14:24:20 [INF] CreateTable OutboxMessage
+2026-04-11 14:24:20 [INF] CREATE TABLE "OutboxMessage" ("Id" TEXT NOT NULL, "Type" TEXT NOT NULL, "PayloadJson" TEXT NOT NULL, "OccurredAt" DATETIME NOT NULL, "Status" INTEGER NOT NULL, "Attempts" INTEGER NOT NULL DEFAULT 0, "NextAttemptAt" DATETIME, "LockedUntil" DATETIME, "LockedBy" TEXT, "LastError" TEXT, "SentAt" DATETIME, CONSTRAINT "PK_OutboxMessage" PRIMARY KEY ("Id"));
+2026-04-11 14:24:20 [INF] => 0.0435801s
+2026-04-11 14:24:20 [INF] CreateIndex OutboxMessage (Status, NextAttemptAt, OccurredAt)
+2026-04-11 14:24:20 [INF] CREATE INDEX "IX_OutboxMessage_Status_NextAttemptAt_OccurredAt" ON "OutboxMessage" ("Status" ASC, "NextAttemptAt" ASC, "OccurredAt" ASC);
+2026-04-11 14:24:20 [INF] => 0.0042209s
+2026-04-11 14:24:20 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041004, CURRENT_TIMESTAMP, 'CreateOutboxTable');
+2026-04-11 14:24:20 [INF] Committing Transaction
+2026-04-11 14:24:20 [INF] 2026041004: CreateOutboxTable migrated
+2026-04-11 14:24:20 [INF] => 0.0158646s
+2026-04-11 14:24:20 [INF] Start installing Hangfire SQL objects...
+2026-04-11 14:24:20 [INF] Hangfire SQL objects installed.
+2026-04-11 14:24:20 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 14:24:20 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 14:24:20 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 14:24:20 [INF] Outbox webhook dispatcher disabled
+2026-04-11 14:24:21 [INF] Now listening on: http://localhost:5033
+2026-04-11 14:24:21 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 14:24:21 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 14:24:21 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 14:24:21 [INF] Hosting environment: Development
+2026-04-11 14:24:21 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 14:24:21 [INF] Server tomwang:21024:61e409ba successfully announced in 22.7905 ms
+2026-04-11 14:24:21 [INF] Server tomwang:21024:61e409ba is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 14:24:21 [INF] 1 servers were removed due to timeout
+2026-04-11 14:24:21 [INF] Server tomwang:21024:61e409ba all the dispatchers started
+2026-04-11 14:24:23 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 14:24:24 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 760.218ms
+2026-04-11 14:24:24 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 14:24:24 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 14:24:24 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 18.6151ms
+2026-04-11 14:24:24 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 156.4956ms
+2026-04-11 14:24:24 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 14:24:24 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 37.6712ms
+2026-04-11 14:24:35 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:24:35 [WRN] Failed to determine the https port for redirect.
+2026-04-11 14:24:35 [INF] CORS policy execution successful.
+2026-04-11 14:24:35 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 21.2438ms
+2026-04-11 14:24:35 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 35
+2026-04-11 14:24:35 [INF] CORS policy execution successful.
+2026-04-11 14:24:35 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:24:35 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:24:35 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-04-11 14:24:35 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 309.8247ms
+2026-04-11 14:24:35 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:24:35 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 401 null application/problem+json; charset=utf-8 456.1008ms
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Found 1 pending monitors
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:37 [INF] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already scheduled or running
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:38 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:24:39 [WRN] Monitor "40b94bed-19e8-454f-911a-3c8799185c3b" already running or executed, skipping.
+2026-04-11 14:25:13 [INF] Beginning Transaction
+2026-04-11 14:25:13 [INF] Rolling back transaction
+2026-04-11 14:25:13 [INF] Start installing Hangfire SQL objects...
+2026-04-11 14:25:13 [INF] Hangfire SQL objects installed.
+2026-04-11 14:25:13 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 14:25:13 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 14:25:13 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 14:25:13 [INF] Outbox webhook dispatcher disabled
+2026-04-11 14:25:14 [INF] Now listening on: http://localhost:5033
+2026-04-11 14:25:14 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 14:25:14 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 14:25:14 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 14:25:14 [INF] Hosting environment: Development
+2026-04-11 14:25:14 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 14:25:14 [INF] Server tomwang:31676:e9af3417 successfully announced in 34.748 ms
+2026-04-11 14:25:14 [INF] Server tomwang:31676:e9af3417 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 14:25:14 [INF] Server tomwang:31676:e9af3417 all the dispatchers started
+2026-04-11 14:25:15 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 14:25:17 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 2720.5994ms
+2026-04-11 14:25:17 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 14:25:17 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 14:25:17 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 49.1034ms
+2026-04-11 14:25:17 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 180.8646ms
+2026-04-11 14:25:18 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 14:25:18 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 43.9271ms
+2026-04-11 14:25:20 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:25:20 [WRN] Failed to determine the https port for redirect.
+2026-04-11 14:25:20 [INF] CORS policy execution successful.
+2026-04-11 14:25:20 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 28.992ms
+2026-04-11 14:25:20 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 35
+2026-04-11 14:25:20 [INF] CORS policy execution successful.
+2026-04-11 14:25:20 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:25:20 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:35:40 [INF] Beginning Transaction
+2026-04-11 14:35:40 [INF] Rolling back transaction
+2026-04-11 14:35:40 [INF] Start installing Hangfire SQL objects...
+2026-04-11 14:35:40 [INF] Hangfire SQL objects installed.
+2026-04-11 14:35:40 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 14:35:40 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 14:35:41 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 14:35:41 [INF] Outbox webhook dispatcher disabled
+2026-04-11 14:35:41 [INF] Now listening on: http://localhost:5033
+2026-04-11 14:35:41 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 14:35:41 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 14:35:41 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 14:35:41 [INF] Hosting environment: Development
+2026-04-11 14:35:41 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 14:35:41 [INF] Server tomwang:27152:5f8b0c44 successfully announced in 26.1634 ms
+2026-04-11 14:35:41 [INF] Server tomwang:27152:5f8b0c44 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 14:35:41 [INF] 2 servers were removed due to timeout
+2026-04-11 14:35:41 [INF] Server tomwang:27152:5f8b0c44 all the dispatchers started
+2026-04-11 14:35:42 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 14:35:42 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 609.3486ms
+2026-04-11 14:35:42 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 14:35:42 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 14:35:42 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 13.0377ms
+2026-04-11 14:35:43 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 74.6332ms
+2026-04-11 14:35:43 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 14:35:43 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 36.9635ms
+2026-04-11 14:35:49 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:35:49 [WRN] Failed to determine the https port for redirect.
+2026-04-11 14:35:49 [INF] CORS policy execution successful.
+2026-04-11 14:35:49 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 31.4894ms
+2026-04-11 14:35:49 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:35:49 [INF] CORS policy execution successful.
+2026-04-11 14:35:49 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:35:49 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:35:49 [INF] Executing ObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ProblemDetails'.
+2026-04-11 14:35:49 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 361.2903ms
+2026-04-11 14:35:49 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:35:49 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 401 null application/problem+json; charset=utf-8 536.6471ms
+2026-04-11 14:36:18 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:36:18 [INF] CORS policy execution successful.
+2026-04-11 14:36:18 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 6.0459ms
+2026-04-11 14:36:18 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:36:18 [INF] CORS policy execution successful.
+2026-04-11 14:36:18 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:36:18 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:39:03 [INF] Beginning Transaction
+2026-04-11 14:39:03 [INF] Rolling back transaction
+2026-04-11 14:39:03 [INF] Start installing Hangfire SQL objects...
+2026-04-11 14:39:03 [INF] Hangfire SQL objects installed.
+2026-04-11 14:39:03 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 14:39:03 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 14:39:04 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 14:39:04 [INF] Outbox webhook dispatcher disabled
+2026-04-11 14:39:04 [INF] Now listening on: http://localhost:5033
+2026-04-11 14:39:05 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 14:39:05 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 14:39:05 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 14:39:05 [INF] Hosting environment: Development
+2026-04-11 14:39:05 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 14:39:05 [INF] Server tomwang:34608:0d341d8d successfully announced in 45.2976 ms
+2026-04-11 14:39:05 [INF] Server tomwang:34608:0d341d8d is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 14:39:05 [INF] Server tomwang:34608:0d341d8d all the dispatchers started
+2026-04-11 14:39:05 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 14:39:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 903.7481ms
+2026-04-11 14:39:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 14:39:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 14:39:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 31.8999ms
+2026-04-11 14:39:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 145.7506ms
+2026-04-11 14:39:07 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 14:39:07 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 59.0879ms
+2026-04-11 14:39:09 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:39:09 [WRN] Failed to determine the https port for redirect.
+2026-04-11 14:39:09 [INF] CORS policy execution successful.
+2026-04-11 14:39:09 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 26.7839ms
+2026-04-11 14:39:09 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:39:09 [INF] CORS policy execution successful.
+2026-04-11 14:39:09 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:09 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:39:10 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 322.6837ms
+2026-04-11 14:39:10 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:10 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot return null from an action method with a return type of 'Microsoft.AspNetCore.Mvc.IActionResult'.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.EnsureActionResultNotNull(ObjectMethodExecutor executor, IActionResult actionResult)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-11 14:39:10 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 500 null text/plain; charset=utf-8 614.1183ms
+2026-04-11 14:39:11 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:39:11 [INF] CORS policy execution successful.
+2026-04-11 14:39:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:11 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:39:11 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 104.4205ms
+2026-04-11 14:39:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:11 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot return null from an action method with a return type of 'Microsoft.AspNetCore.Mvc.IActionResult'.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.EnsureActionResultNotNull(ObjectMethodExecutor executor, IActionResult actionResult)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-11 14:39:11 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 500 null text/plain; charset=utf-8 150.8281ms
+2026-04-11 14:39:11 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:39:11 [INF] CORS policy execution successful.
+2026-04-11 14:39:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:11 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:39:11 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 70.2038ms
+2026-04-11 14:39:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:11 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot return null from an action method with a return type of 'Microsoft.AspNetCore.Mvc.IActionResult'.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.EnsureActionResultNotNull(ObjectMethodExecutor executor, IActionResult actionResult)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-11 14:39:11 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 500 null text/plain; charset=utf-8 124.382ms
+2026-04-11 14:39:12 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:39:12 [INF] CORS policy execution successful.
+2026-04-11 14:39:12 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:12 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:39:12 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 91.6814ms
+2026-04-11 14:39:12 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:12 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot return null from an action method with a return type of 'Microsoft.AspNetCore.Mvc.IActionResult'.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.EnsureActionResultNotNull(ObjectMethodExecutor executor, IActionResult actionResult)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-11 14:39:12 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 500 null text/plain; charset=utf-8 127.8614ms
+2026-04-11 14:39:19 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:39:19 [INF] CORS policy execution successful.
+2026-04-11 14:39:19 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 15.6793ms
+2026-04-11 14:39:19 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:39:19 [INF] CORS policy execution successful.
+2026-04-11 14:39:19 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:19 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:39:20 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 136.4969ms
+2026-04-11 14:39:20 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:39:20 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot return null from an action method with a return type of 'Microsoft.AspNetCore.Mvc.IActionResult'.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.EnsureActionResultNotNull(ObjectMethodExecutor executor, IActionResult actionResult)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-11 14:39:20 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 500 null text/plain; charset=utf-8 195.2897ms
+2026-04-11 14:40:49 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:40:49 [INF] CORS policy execution successful.
+2026-04-11 14:40:49 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 17.7592ms
+2026-04-11 14:40:49 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:40:49 [INF] CORS policy execution successful.
+2026-04-11 14:40:49 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:40:49 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:40:49 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 165.4023ms
+2026-04-11 14:40:49 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:40:49 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Cannot return null from an action method with a return type of 'Microsoft.AspNetCore.Mvc.IActionResult'.
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.EnsureActionResultNotNull(ObjectMethodExecutor executor, IActionResult actionResult)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddlewareImpl.Invoke(HttpContext context)
+2026-04-11 14:40:49 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 500 null text/plain; charset=utf-8 211.4501ms
+2026-04-11 14:52:44 [INF] Beginning Transaction
+2026-04-11 14:52:44 [INF] Rolling back transaction
+2026-04-11 14:52:44 [INF] Start installing Hangfire SQL objects...
+2026-04-11 14:52:44 [INF] Hangfire SQL objects installed.
+2026-04-11 14:52:44 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 14:52:44 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 14:52:44 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 14:52:44 [INF] Outbox webhook dispatcher disabled
+2026-04-11 14:52:45 [INF] Now listening on: http://localhost:5033
+2026-04-11 14:52:45 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 14:52:45 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 14:52:45 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 14:52:45 [INF] Hosting environment: Development
+2026-04-11 14:52:45 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 14:52:45 [INF] Server tomwang:29524:97416aad successfully announced in 33.5123 ms
+2026-04-11 14:52:45 [INF] Server tomwang:29524:97416aad is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 14:52:46 [INF] 2 servers were removed due to timeout
+2026-04-11 14:52:46 [INF] Server tomwang:29524:97416aad all the dispatchers started
+2026-04-11 14:52:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 14:52:48 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 1538.2129ms
+2026-04-11 14:52:48 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 14:52:48 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 14:52:48 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 17.7843ms
+2026-04-11 14:52:48 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 94.8293ms
+2026-04-11 14:52:49 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 14:52:49 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 164.2654ms
+2026-04-11 14:53:15 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/bootstrap - application/json 49
+2026-04-11 14:53:15 [WRN] Failed to determine the https port for redirect.
+2026-04-11 14:53:15 [INF] CORS policy execution successful.
+2026-04-11 14:53:15 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi)'
+2026-04-11 14:53:15 [INF] Route matched with {action = "Bootstrap", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Bootstrap(AutoTest.Webapi.Controllers.BootstrapRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:53:15 [INF] Executing ConflictObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 14:53:15 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi) in 285.1344ms
+2026-04-11 14:53:15 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi)'
+2026-04-11 14:53:15 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/bootstrap - 409 null application/json; charset=utf-8 536.8608ms
+2026-04-11 14:53:35 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:53:35 [INF] CORS policy execution successful.
+2026-04-11 14:53:35 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 8.4331ms
+2026-04-11 14:53:35 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:53:35 [INF] CORS policy execution successful.
+2026-04-11 14:53:35 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:53:35 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:58:03 [INF] Beginning Transaction
+2026-04-11 14:58:03 [INF] Rolling back transaction
+2026-04-11 14:58:03 [INF] Start installing Hangfire SQL objects...
+2026-04-11 14:58:03 [INF] Hangfire SQL objects installed.
+2026-04-11 14:58:03 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 14:58:03 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 14:58:04 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 14:58:04 [INF] Outbox webhook dispatcher disabled
+2026-04-11 14:58:04 [INF] Now listening on: http://localhost:5033
+2026-04-11 14:58:04 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 14:58:04 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 14:58:04 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 14:58:04 [INF] Hosting environment: Development
+2026-04-11 14:58:04 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 14:58:04 [INF] Server tomwang:3896:4c2b372b successfully announced in 29.5293 ms
+2026-04-11 14:58:04 [INF] Server tomwang:3896:4c2b372b is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 14:58:05 [INF] Server tomwang:3896:4c2b372b all the dispatchers started
+2026-04-11 14:58:05 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 14:58:05 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 556.7706ms
+2026-04-11 14:58:05 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 14:58:05 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 14:58:05 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 19.988ms
+2026-04-11 14:58:05 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 81.4179ms
+2026-04-11 14:58:06 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 14:58:06 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 23.9363ms
+2026-04-11 14:58:09 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:58:09 [WRN] Failed to determine the https port for redirect.
+2026-04-11 14:58:09 [INF] CORS policy execution successful.
+2026-04-11 14:58:09 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 28.7887ms
+2026-04-11 14:58:09 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:58:09 [INF] CORS policy execution successful.
+2026-04-11 14:58:10 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:58:10 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:58:10 [INF] Executing UnauthorizedObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 14:58:10 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 90.8324ms
+2026-04-11 14:58:10 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:58:10 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 401 null application/json; charset=utf-8 365.7944ms
+2026-04-11 14:58:32 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:58:32 [INF] CORS policy execution successful.
+2026-04-11 14:58:32 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 11.3953ms
+2026-04-11 14:58:32 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:58:32 [INF] CORS policy execution successful.
+2026-04-11 14:58:32 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:58:32 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:58:32 [INF] Executing UnauthorizedObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 14:58:32 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 10.7336ms
+2026-04-11 14:58:32 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:58:32 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 401 null application/json; charset=utf-8 44.039ms
+2026-04-11 14:58:49 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:58:49 [INF] CORS policy execution successful.
+2026-04-11 14:58:49 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 6.2249ms
+2026-04-11 14:58:49 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:58:49 [INF] CORS policy execution successful.
+2026-04-11 14:58:49 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:58:49 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 14:58:49 [INF] Executing UnauthorizedObjectResult, writing value of type '<>f__AnonymousType1`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 14:58:49 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 7.7485ms
+2026-04-11 14:58:49 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:58:49 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 401 null application/json; charset=utf-8 39.1751ms
+2026-04-11 14:59:37 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 14:59:37 [INF] CORS policy execution successful.
+2026-04-11 14:59:37 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 11.9214ms
+2026-04-11 14:59:37 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 14:59:37 [INF] CORS policy execution successful.
+2026-04-11 14:59:37 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 14:59:37 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 15:04:43 [INF] Beginning Transaction
+2026-04-11 15:04:43 [INF] Rolling back transaction
+2026-04-11 15:04:44 [INF] Start installing Hangfire SQL objects...
+2026-04-11 15:04:44 [INF] Hangfire SQL objects installed.
+2026-04-11 15:04:44 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 15:04:44 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 15:04:44 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 15:04:44 [INF] Outbox webhook dispatcher disabled
+2026-04-11 15:04:45 [INF] Now listening on: http://localhost:5033
+2026-04-11 15:04:45 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 15:04:45 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 15:04:45 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 15:04:45 [INF] Hosting environment: Development
+2026-04-11 15:04:45 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 15:04:45 [INF] Server tomwang:30924:0c3d6328 successfully announced in 51.484 ms
+2026-04-11 15:04:45 [INF] Server tomwang:30924:0c3d6328 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 15:04:45 [INF] 2 servers were removed due to timeout
+2026-04-11 15:04:45 [INF] Server tomwang:30924:0c3d6328 all the dispatchers started
+2026-04-11 15:04:45 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 15:04:45 [WRN] Failed to determine the https port for redirect.
+2026-04-11 15:04:45 [INF] CORS policy execution successful.
+2026-04-11 15:04:45 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 302.617ms
+2026-04-11 15:04:45 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 15:04:45 [INF] CORS policy execution successful.
+2026-04-11 15:04:46 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 15:04:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 15:04:46 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 15:06:05 [INF] Beginning Transaction
+2026-04-11 15:06:06 [INF] Rolling back transaction
+2026-04-11 15:06:06 [INF] Start installing Hangfire SQL objects...
+2026-04-11 15:06:06 [INF] Hangfire SQL objects installed.
+2026-04-11 15:06:06 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 15:06:06 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 15:06:07 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 15:06:07 [INF] Outbox webhook dispatcher disabled
+2026-04-11 15:06:07 [INF] Now listening on: http://localhost:5033
+2026-04-11 15:06:07 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 15:06:07 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 15:06:07 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 15:06:07 [INF] Hosting environment: Development
+2026-04-11 15:06:07 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 15:06:08 [INF] Server tomwang:20152:f01984a4 successfully announced in 52.9027 ms
+2026-04-11 15:06:08 [INF] Server tomwang:20152:f01984a4 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 15:06:08 [INF] Server tomwang:20152:f01984a4 all the dispatchers started
+2026-04-11 15:06:08 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 15:06:13 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 5384.5824ms
+2026-04-11 15:06:13 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 15:06:13 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 15:06:13 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 41.4256ms
+2026-04-11 15:06:14 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 161.2344ms
+2026-04-11 15:06:14 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 15:06:14 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 26.9207ms
+2026-04-11 15:06:18 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 15:06:18 [WRN] Failed to determine the https port for redirect.
+2026-04-11 15:06:18 [INF] CORS policy execution successful.
+2026-04-11 15:06:18 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 55.4576ms
+2026-04-11 15:06:18 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 15:06:18 [INF] CORS policy execution successful.
+2026-04-11 15:06:18 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 15:06:18 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 15:13:20 [INF] Beginning Transaction
+2026-04-11 15:13:20 [INF] Rolling back transaction
+2026-04-11 15:13:20 [INF] Start installing Hangfire SQL objects...
+2026-04-11 15:13:20 [INF] Hangfire SQL objects installed.
+2026-04-11 15:13:20 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 15:13:20 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 15:13:21 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 15:13:21 [INF] Outbox webhook dispatcher disabled
+2026-04-11 15:13:21 [INF] Now listening on: http://localhost:5033
+2026-04-11 15:13:21 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 15:13:21 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 15:13:21 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 15:13:21 [INF] Hosting environment: Development
+2026-04-11 15:13:21 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 15:13:21 [INF] Server tomwang:30908:03fe63ca successfully announced in 62.5783 ms
+2026-04-11 15:13:21 [INF] Server tomwang:30908:03fe63ca is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 15:13:22 [INF] Server tomwang:30908:03fe63ca all the dispatchers started
+2026-04-11 15:13:22 [INF] 2 servers were removed due to timeout
+2026-04-11 15:13:22 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 15:13:23 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 768.5323ms
+2026-04-11 15:13:23 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 15:13:23 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 15:13:23 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 17.1403ms
+2026-04-11 15:13:23 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 58.5536ms
+2026-04-11 15:13:23 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 15:13:23 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 27.7889ms
+2026-04-11 15:13:26 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 15:13:26 [WRN] Failed to determine the https port for redirect.
+2026-04-11 15:13:26 [INF] CORS policy execution successful.
+2026-04-11 15:13:26 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 31.6222ms
+2026-04-11 15:13:26 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 15:13:26 [INF] CORS policy execution successful.
+2026-04-11 15:13:26 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 15:13:26 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 15:13:31 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`2[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 15:13:31 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 4577.3004ms
+2026-04-11 15:13:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 15:13:31 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 200 null application/json; charset=utf-8 4768.7822ms
+2026-04-11 21:09:56 [INF] Beginning Transaction
+2026-04-11 21:09:56 [INF] Rolling back transaction
+2026-04-11 21:11:36 [INF] Beginning Transaction
+2026-04-11 21:11:36 [INF] Rolling back transaction
+2026-04-11 21:11:36 [INF] VersionMigration migrating
+2026-04-11 21:11:36 [INF] Beginning Transaction
+2026-04-11 21:11:36 [INF] CreateTable VersionInfo
+2026-04-11 21:11:36 [INF] CREATE TABLE "VersionInfo" ("Version" INTEGER NOT NULL);
+2026-04-11 21:11:36 [INF] => 0.0728119s
+2026-04-11 21:11:36 [INF] Committing Transaction
+2026-04-11 21:11:36 [INF] VersionMigration migrated
+2026-04-11 21:11:36 [INF] => 0.0929853s
+2026-04-11 21:11:36 [INF] VersionUniqueMigration migrating
+2026-04-11 21:11:36 [INF] Beginning Transaction
+2026-04-11 21:11:36 [INF] CreateIndex VersionInfo (Version)
+2026-04-11 21:11:36 [INF] CREATE UNIQUE INDEX "UC_Version" ON "VersionInfo" ("Version" ASC);
+2026-04-11 21:11:36 [INF] => 0.0145869s
+2026-04-11 21:11:36 [INF] AlterTable VersionInfo
+2026-04-11 21:11:36 [INF] => 0.0003932s
+2026-04-11 21:11:36 [INF] CreateColumn VersionInfo AppliedOn DateTime
+2026-04-11 21:11:36 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "AppliedOn" DATETIME;
+2026-04-11 21:11:36 [INF] => 0.0031786s
+2026-04-11 21:11:36 [INF] Committing Transaction
+2026-04-11 21:11:36 [INF] VersionUniqueMigration migrated
+2026-04-11 21:11:36 [INF] => 0.0096563s
+2026-04-11 21:11:36 [INF] VersionDescriptionMigration migrating
+2026-04-11 21:11:36 [INF] Beginning Transaction
+2026-04-11 21:11:36 [INF] AlterTable VersionInfo
+2026-04-11 21:11:36 [INF] => 7.48E-05s
+2026-04-11 21:11:36 [INF] CreateColumn VersionInfo Description String
+2026-04-11 21:11:36 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "Description" TEXT;
+2026-04-11 21:11:36 [INF] => 0.0039633s
+2026-04-11 21:11:36 [INF] Committing Transaction
+2026-04-11 21:11:36 [INF] VersionDescriptionMigration migrated
+2026-04-11 21:11:36 [INF] => 0.0101233s
+2026-04-11 21:11:37 [INF] 2026032201: InitMonitorTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable Monitor
+2026-04-11 21:11:37 [INF] CREATE TABLE "Monitor" ("Id" UNIQUEIDENTIFIER NOT NULL, "Name" TEXT NOT NULL, "Status" INTEGER NOT NULL, "LastRunTime" DATETIME, "IsEnabled" INTEGER NOT NULL, "TargetType" TEXT NOT NULL, "TargetConfig" TEXT NOT NULL, "CreatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_Monitor" PRIMARY KEY ("Id"));
+2026-04-11 21:11:37 [INF] => 0.0043266s
+2026-04-11 21:11:37 [INF] CreateIndex Monitor (TargetType)
+2026-04-11 21:11:37 [INF] CREATE INDEX "IX_Monitor_TargetType" ON "Monitor" ("TargetType" ASC);
+2026-04-11 21:11:37 [INF] => 0.0017941s
+2026-04-11 21:11:37 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032201, CURRENT_TIMESTAMP, 'InitMonitorTable');
+2026-04-11 21:11:37 [INF] Committing Transaction
+2026-04-11 21:11:37 [INF] 2026032201: InitMonitorTable migrated
+2026-04-11 21:11:37 [INF] => 0.0231442s
+2026-04-11 21:11:37 [INF] 2026032202: InitAssertionTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable Assertion
+2026-04-11 21:11:37 [INF] CREATE TABLE "Assertion" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Type" TEXT NOT NULL, "ConfigJson" TEXT NOT NULL, CONSTRAINT "PK_Assertion" PRIMARY KEY ("Id"), CONSTRAINT "FK_Assertion_MonitorId_Monitor_Id" FOREIGN KEY ("MonitorId") REFERENCES "Monitor" ("Id"));
+2026-04-11 21:11:37 [INF] => 0.0062241s
+2026-04-11 21:11:37 [INF] CreateForeignKey $$IGNORE$$_FK_Assertion_MonitorId_Monitor_Id Assertion(MonitorId) Monitor(Id)
+2026-04-11 21:11:37 [INF] => 0.0006924s
+2026-04-11 21:11:37 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032202, CURRENT_TIMESTAMP, 'InitAssertionTable');
+2026-04-11 21:11:37 [INF] Committing Transaction
+2026-04-11 21:11:37 [INF] 2026032202: InitAssertionTable migrated
+2026-04-11 21:11:37 [INF] => 0.0096566s
+2026-04-11 21:11:37 [INF] 2026032203: InitAssertionResultTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable AssertionResult
+2026-04-11 21:11:37 [INF] CREATE TABLE "AssertionResult" ("Id" UNIQUEIDENTIFIER NOT NULL, "AssertionId" UNIQUEIDENTIFIER NOT NULL, "Target" TEXT NOT NULL, "IsSuccess" INTEGER NOT NULL, "Actual" TEXT, "Expected" TEXT, "Message" TEXT, "Timestamp" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_AssertionResult" PRIMARY KEY ("Id"), CONSTRAINT "FK_AssertionResult_Assertion" FOREIGN KEY ("AssertionId") REFERENCES "Assertion" ("Id") ON DELETE CASCADE ON UPDATE CASCADE);
+2026-04-11 21:11:37 [INF] => 0.003261s
+2026-04-11 21:11:37 [INF] CreateForeignKey $$IGNORE$$_FK_AssertionResult_Assertion AssertionResult(AssertionId) Assertion(Id)
+2026-04-11 21:11:37 [INF] => 0.0001081s
+2026-04-11 21:11:37 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032203, CURRENT_TIMESTAMP, 'InitAssertionResultTable');
+2026-04-11 21:11:37 [INF] Committing Transaction
+2026-04-11 21:11:37 [INF] 2026032203: InitAssertionResultTable migrated
+2026-04-11 21:11:37 [INF] => 0.0089584s
+2026-04-11 21:11:37 [INF] 2026032204: InitExecutionRecordTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable ExecutionRecord
+2026-04-11 21:11:37 [INF] CREATE TABLE "ExecutionRecord" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Status" INTEGER NOT NULL, "StartedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "FinishedAt" DATETIME, "IsExecutionSuccess" INTEGER NOT NULL, "ErrorMessage" TEXT, "ResultType" TEXT NOT NULL, "ResultJson" TEXT NOT NULL, CONSTRAINT "PK_ExecutionRecord" PRIMARY KEY ("Id"));
+2026-04-11 21:11:37 [INF] => 0.0031977s
+2026-04-11 21:11:37 [INF] CreateIndex ExecutionRecord (MonitorId, StartedAt)
+2026-04-11 21:11:37 [INF] CREATE INDEX "IX_ExecutionRecord_MonitorId_StartedAt" ON "ExecutionRecord" ("MonitorId" ASC, "StartedAt" DESC);
+2026-04-11 21:11:37 [INF] => 0.0023048s
+2026-04-11 21:11:37 [INF] AlterTable AssertionResult
+2026-04-11 21:11:37 [INF] => 4.4E-06s
+2026-04-11 21:11:37 [INF] CreateColumn AssertionResult ExecutionId Guid
+2026-04-11 21:11:37 [INF] ALTER TABLE "AssertionResult" ADD COLUMN "ExecutionId" UNIQUEIDENTIFIER;
+2026-04-11 21:11:37 [INF] => 0.0026168s
+2026-04-11 21:11:37 [INF] CreateIndex AssertionResult (ExecutionId)
+2026-04-11 21:11:37 [INF] CREATE INDEX "IX_AssertionResult_ExecutionId" ON "AssertionResult" ("ExecutionId" ASC);
+2026-04-11 21:11:37 [INF] => 0.0018613s
+2026-04-11 21:11:37 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032204, CURRENT_TIMESTAMP, 'InitExecutionRecordTable');
+2026-04-11 21:11:37 [INF] Committing Transaction
+2026-04-11 21:11:37 [INF] 2026032204: InitExecutionRecordTable migrated
+2026-04-11 21:11:37 [INF] => 0.0100014s
+2026-04-11 21:11:37 [INF] 2026041001: CreateUsersTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable Users
+2026-04-11 21:11:37 [INF] CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);
+2026-04-11 21:11:37 [INF] => 0.0030907s
+2026-04-11 21:11:37 [INF] CreateIndex Users (Username)
+2026-04-11 21:11:37 [INF] CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username" ASC);
+2026-04-11 21:11:37 [INF] => 0.0016002s
+2026-04-11 21:11:37 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041001, CURRENT_TIMESTAMP, 'CreateUsersTable');
+2026-04-11 21:11:37 [INF] Committing Transaction
+2026-04-11 21:11:37 [INF] 2026041001: CreateUsersTable migrated
+2026-04-11 21:11:37 [INF] => 0.0099435s
+2026-04-11 21:11:37 [INF] 2026041002: CreateRefreshTokensTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable RefreshTokens
+2026-04-11 21:11:37 [INF] CREATE TABLE "RefreshTokens" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" INTEGER NOT NULL, "Token" TEXT NOT NULL UNIQUE, "ExpireAt" DATETIME NOT NULL, "Revoked" INTEGER NOT NULL DEFAULT 0, "CreatedAt" DATETIME NOT NULL, "ReplacedByToken" TEXT, CONSTRAINT "FK_RefreshTokens_UserId_Users_Id" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id"));
+2026-04-11 21:11:37 [INF] => 0.0027441s
+2026-04-11 21:11:37 [INF] CreateForeignKey $$IGNORE$$_FK_RefreshTokens_UserId_Users_Id RefreshTokens(UserId) Users(Id)
+2026-04-11 21:11:37 [INF] => 2.66E-05s
+2026-04-11 21:11:37 [INF] CreateIndex RefreshTokens (Token)
+2026-04-11 21:11:37 [INF] CREATE UNIQUE INDEX "IX_RefreshTokens_Token" ON "RefreshTokens" ("Token" ASC);
+2026-04-11 21:11:37 [INF] => 0.001816s
+2026-04-11 21:11:37 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041002, CURRENT_TIMESTAMP, 'CreateRefreshTokensTable');
+2026-04-11 21:11:37 [INF] Committing Transaction
+2026-04-11 21:11:37 [INF] 2026041002: CreateRefreshTokensTable migrated
+2026-04-11 21:11:37 [INF] => 0.0105368s
+2026-04-11 21:11:37 [INF] 2026041003: CreateUserPermissionTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable UserPermission
+2026-04-11 21:11:37 [INF] CREATE TABLE "UserPermission" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" TEXT NOT NULL, "Permission" TEXT NOT NULL);
+2026-04-11 21:11:37 [INF] => 0.0026949s
+2026-04-11 21:11:37 [INF] CreateIndex UserPermission (UserId, Permission)
+2026-04-11 21:11:37 [INF] CREATE UNIQUE INDEX "UX_UserPermission_UserId_Permission" ON "UserPermission" ("UserId" ASC, "Permission" ASC);
+2026-04-11 21:11:37 [INF] => 0.0014877s
+2026-04-11 21:11:37 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041003, CURRENT_TIMESTAMP, 'CreateUserPermissionTable');
+2026-04-11 21:11:37 [INF] Committing Transaction
+2026-04-11 21:11:37 [INF] 2026041003: CreateUserPermissionTable migrated
+2026-04-11 21:11:37 [INF] => 0.0093033s
+2026-04-11 21:11:37 [INF] 2026041004: CreateOutboxTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable OutboxMessage
+2026-04-11 21:11:37 [INF] CREATE TABLE "OutboxMessage" ("Id" TEXT NOT NULL, "Type" TEXT NOT NULL, "PayloadJson" TEXT NOT NULL, "OccurredAt" DATETIME NOT NULL, "Status" INTEGER NOT NULL, "Attempts" INTEGER NOT NULL DEFAULT 0, "NextAttemptAt" DATETIME, "LockedUntil" DATETIME, "LockedBy" TEXT, "LastError" TEXT, "SentAt" DATETIME, CONSTRAINT "PK_OutboxMessage" PRIMARY KEY ("Id"));
+2026-04-11 21:11:37 [INF] => 0.0038286s
+2026-04-11 21:11:37 [INF] CreateIndex OutboxMessage (Status, NextAttemptAt, OccurredAt)
+2026-04-11 21:11:37 [INF] CREATE INDEX "IX_OutboxMessage_Status_NextAttemptAt_OccurredAt" ON "OutboxMessage" ("Status" ASC, "NextAttemptAt" ASC, "OccurredAt" ASC);
+2026-04-11 21:11:37 [INF] => 0.001769s
+2026-04-11 21:11:37 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041004, CURRENT_TIMESTAMP, 'CreateOutboxTable');
+2026-04-11 21:11:37 [INF] Committing Transaction
+2026-04-11 21:11:37 [INF] 2026041004: CreateOutboxTable migrated
+2026-04-11 21:11:37 [INF] => 0.0101861s
+2026-04-11 21:11:37 [INF] 2026041101: UsersTable migrating
+2026-04-11 21:11:37 [INF] Beginning Transaction
+2026-04-11 21:11:37 [INF] CreateTable Users
+2026-04-11 21:11:37 [INF] CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);
+2026-04-11 21:11:37 [ERR] SQLite Error 1: 'table "Users" already exists'.
+While Processing:
+"CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);"
+System.Exception: SQLite Error 1: 'table "Users" already exists'.
+While Processing:
+"CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);"
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'table "Users" already exists'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   --- End of inner exception stack trace ---
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.Process(String sql)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(CreateTableExpression expression)
+   at FluentMigrator.Expressions.CreateTableExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__1()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.AnnounceTime(String message, Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-11 21:11:37 [INF] Rolling back transaction
+2026-04-11 21:12:32 [INF] Beginning Transaction
+2026-04-11 21:12:32 [INF] Rolling back transaction
+2026-04-11 21:12:32 [INF] VersionMigration migrating
+2026-04-11 21:12:32 [INF] Beginning Transaction
+2026-04-11 21:12:32 [INF] CreateTable VersionInfo
+2026-04-11 21:12:32 [INF] CREATE TABLE "VersionInfo" ("Version" INTEGER NOT NULL);
+2026-04-11 21:12:32 [INF] => 0.0703275s
+2026-04-11 21:12:32 [INF] Committing Transaction
+2026-04-11 21:12:32 [INF] VersionMigration migrated
+2026-04-11 21:12:32 [INF] => 0.0832764s
+2026-04-11 21:12:32 [INF] VersionUniqueMigration migrating
+2026-04-11 21:12:32 [INF] Beginning Transaction
+2026-04-11 21:12:32 [INF] CreateIndex VersionInfo (Version)
+2026-04-11 21:12:32 [INF] CREATE UNIQUE INDEX "UC_Version" ON "VersionInfo" ("Version" ASC);
+2026-04-11 21:12:32 [INF] => 0.0137222s
+2026-04-11 21:12:32 [INF] AlterTable VersionInfo
+2026-04-11 21:12:32 [INF] => 0.000305s
+2026-04-11 21:12:32 [INF] CreateColumn VersionInfo AppliedOn DateTime
+2026-04-11 21:12:32 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "AppliedOn" DATETIME;
+2026-04-11 21:12:32 [INF] => 0.002837s
+2026-04-11 21:12:32 [INF] Committing Transaction
+2026-04-11 21:12:32 [INF] VersionUniqueMigration migrated
+2026-04-11 21:12:32 [INF] => 0.0092674s
+2026-04-11 21:12:32 [INF] VersionDescriptionMigration migrating
+2026-04-11 21:12:32 [INF] Beginning Transaction
+2026-04-11 21:12:32 [INF] AlterTable VersionInfo
+2026-04-11 21:12:32 [INF] => 5.34E-05s
+2026-04-11 21:12:32 [INF] CreateColumn VersionInfo Description String
+2026-04-11 21:12:32 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "Description" TEXT;
+2026-04-11 21:12:32 [INF] => 0.0023233s
+2026-04-11 21:12:32 [INF] Committing Transaction
+2026-04-11 21:12:32 [INF] VersionDescriptionMigration migrated
+2026-04-11 21:12:32 [INF] => 0.0089461s
+2026-04-11 21:12:33 [INF] 2026032201: InitMonitorTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable Monitor
+2026-04-11 21:12:33 [INF] CREATE TABLE "Monitor" ("Id" UNIQUEIDENTIFIER NOT NULL, "Name" TEXT NOT NULL, "Status" INTEGER NOT NULL, "LastRunTime" DATETIME, "IsEnabled" INTEGER NOT NULL, "TargetType" TEXT NOT NULL, "TargetConfig" TEXT NOT NULL, "CreatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_Monitor" PRIMARY KEY ("Id"));
+2026-04-11 21:12:33 [INF] => 0.0046628s
+2026-04-11 21:12:33 [INF] CreateIndex Monitor (TargetType)
+2026-04-11 21:12:33 [INF] CREATE INDEX "IX_Monitor_TargetType" ON "Monitor" ("TargetType" ASC);
+2026-04-11 21:12:33 [INF] => 0.0015445s
+2026-04-11 21:12:33 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032201, CURRENT_TIMESTAMP, 'InitMonitorTable');
+2026-04-11 21:12:33 [INF] Committing Transaction
+2026-04-11 21:12:33 [INF] 2026032201: InitMonitorTable migrated
+2026-04-11 21:12:33 [INF] => 0.016494s
+2026-04-11 21:12:33 [INF] 2026032202: InitAssertionTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable Assertion
+2026-04-11 21:12:33 [INF] CREATE TABLE "Assertion" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Type" TEXT NOT NULL, "ConfigJson" TEXT NOT NULL, CONSTRAINT "PK_Assertion" PRIMARY KEY ("Id"), CONSTRAINT "FK_Assertion_MonitorId_Monitor_Id" FOREIGN KEY ("MonitorId") REFERENCES "Monitor" ("Id"));
+2026-04-11 21:12:33 [INF] => 0.0068177s
+2026-04-11 21:12:33 [INF] CreateForeignKey $$IGNORE$$_FK_Assertion_MonitorId_Monitor_Id Assertion(MonitorId) Monitor(Id)
+2026-04-11 21:12:33 [INF] => 0.0006706s
+2026-04-11 21:12:33 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032202, CURRENT_TIMESTAMP, 'InitAssertionTable');
+2026-04-11 21:12:33 [INF] Committing Transaction
+2026-04-11 21:12:33 [INF] 2026032202: InitAssertionTable migrated
+2026-04-11 21:12:33 [INF] => 0.0102988s
+2026-04-11 21:12:33 [INF] 2026032203: InitAssertionResultTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable AssertionResult
+2026-04-11 21:12:33 [INF] CREATE TABLE "AssertionResult" ("Id" UNIQUEIDENTIFIER NOT NULL, "AssertionId" UNIQUEIDENTIFIER NOT NULL, "Target" TEXT NOT NULL, "IsSuccess" INTEGER NOT NULL, "Actual" TEXT, "Expected" TEXT, "Message" TEXT, "Timestamp" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_AssertionResult" PRIMARY KEY ("Id"), CONSTRAINT "FK_AssertionResult_Assertion" FOREIGN KEY ("AssertionId") REFERENCES "Assertion" ("Id") ON DELETE CASCADE ON UPDATE CASCADE);
+2026-04-11 21:12:33 [INF] => 0.0032317s
+2026-04-11 21:12:33 [INF] CreateForeignKey $$IGNORE$$_FK_AssertionResult_Assertion AssertionResult(AssertionId) Assertion(Id)
+2026-04-11 21:12:33 [INF] => 9.37E-05s
+2026-04-11 21:12:33 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032203, CURRENT_TIMESTAMP, 'InitAssertionResultTable');
+2026-04-11 21:12:33 [INF] Committing Transaction
+2026-04-11 21:12:33 [INF] 2026032203: InitAssertionResultTable migrated
+2026-04-11 21:12:33 [INF] => 0.0091146s
+2026-04-11 21:12:33 [INF] 2026032204: InitExecutionRecordTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable ExecutionRecord
+2026-04-11 21:12:33 [INF] CREATE TABLE "ExecutionRecord" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Status" INTEGER NOT NULL, "StartedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "FinishedAt" DATETIME, "IsExecutionSuccess" INTEGER NOT NULL, "ErrorMessage" TEXT, "ResultType" TEXT NOT NULL, "ResultJson" TEXT NOT NULL, CONSTRAINT "PK_ExecutionRecord" PRIMARY KEY ("Id"));
+2026-04-11 21:12:33 [INF] => 0.0035444s
+2026-04-11 21:12:33 [INF] CreateIndex ExecutionRecord (MonitorId, StartedAt)
+2026-04-11 21:12:33 [INF] CREATE INDEX "IX_ExecutionRecord_MonitorId_StartedAt" ON "ExecutionRecord" ("MonitorId" ASC, "StartedAt" DESC);
+2026-04-11 21:12:33 [INF] => 0.0019635s
+2026-04-11 21:12:33 [INF] AlterTable AssertionResult
+2026-04-11 21:12:33 [INF] => 5.3E-06s
+2026-04-11 21:12:33 [INF] CreateColumn AssertionResult ExecutionId Guid
+2026-04-11 21:12:33 [INF] ALTER TABLE "AssertionResult" ADD COLUMN "ExecutionId" UNIQUEIDENTIFIER;
+2026-04-11 21:12:33 [INF] => 0.0027108s
+2026-04-11 21:12:33 [INF] CreateIndex AssertionResult (ExecutionId)
+2026-04-11 21:12:33 [INF] CREATE INDEX "IX_AssertionResult_ExecutionId" ON "AssertionResult" ("ExecutionId" ASC);
+2026-04-11 21:12:33 [INF] => 0.0017707s
+2026-04-11 21:12:33 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032204, CURRENT_TIMESTAMP, 'InitExecutionRecordTable');
+2026-04-11 21:12:33 [INF] Committing Transaction
+2026-04-11 21:12:33 [INF] 2026032204: InitExecutionRecordTable migrated
+2026-04-11 21:12:33 [INF] => 0.010376s
+2026-04-11 21:12:33 [INF] 2026041001: CreateUsersTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable Users
+2026-04-11 21:12:33 [INF] CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);
+2026-04-11 21:12:33 [INF] => 0.0040661s
+2026-04-11 21:12:33 [INF] CreateIndex Users (Username)
+2026-04-11 21:12:33 [INF] CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username" ASC);
+2026-04-11 21:12:33 [INF] => 0.001806s
+2026-04-11 21:12:33 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041001, CURRENT_TIMESTAMP, 'CreateUsersTable');
+2026-04-11 21:12:33 [INF] Committing Transaction
+2026-04-11 21:12:33 [INF] 2026041001: CreateUsersTable migrated
+2026-04-11 21:12:33 [INF] => 0.0106246s
+2026-04-11 21:12:33 [INF] 2026041002: CreateRefreshTokensTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable RefreshTokens
+2026-04-11 21:12:33 [INF] CREATE TABLE "RefreshTokens" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" INTEGER NOT NULL, "Token" TEXT NOT NULL UNIQUE, "ExpireAt" DATETIME NOT NULL, "Revoked" INTEGER NOT NULL DEFAULT 0, "CreatedAt" DATETIME NOT NULL, "ReplacedByToken" TEXT, CONSTRAINT "FK_RefreshTokens_UserId_Users_Id" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id"));
+2026-04-11 21:12:33 [INF] => 0.0033694s
+2026-04-11 21:12:33 [INF] CreateForeignKey $$IGNORE$$_FK_RefreshTokens_UserId_Users_Id RefreshTokens(UserId) Users(Id)
+2026-04-11 21:12:33 [INF] => 2.88E-05s
+2026-04-11 21:12:33 [INF] CreateIndex RefreshTokens (Token)
+2026-04-11 21:12:33 [INF] CREATE UNIQUE INDEX "IX_RefreshTokens_Token" ON "RefreshTokens" ("Token" ASC);
+2026-04-11 21:12:33 [INF] => 0.0019198s
+2026-04-11 21:12:33 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041002, CURRENT_TIMESTAMP, 'CreateRefreshTokensTable');
+2026-04-11 21:12:33 [INF] Committing Transaction
+2026-04-11 21:12:33 [INF] 2026041002: CreateRefreshTokensTable migrated
+2026-04-11 21:12:33 [INF] => 0.0099497s
+2026-04-11 21:12:33 [INF] 2026041003: CreateUserPermissionTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable UserPermission
+2026-04-11 21:12:33 [INF] CREATE TABLE "UserPermission" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" TEXT NOT NULL, "Permission" TEXT NOT NULL);
+2026-04-11 21:12:33 [INF] => 0.0029478s
+2026-04-11 21:12:33 [INF] CreateIndex UserPermission (UserId, Permission)
+2026-04-11 21:12:33 [INF] CREATE UNIQUE INDEX "UX_UserPermission_UserId_Permission" ON "UserPermission" ("UserId" ASC, "Permission" ASC);
+2026-04-11 21:12:33 [INF] => 0.0018891s
+2026-04-11 21:12:33 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041003, CURRENT_TIMESTAMP, 'CreateUserPermissionTable');
+2026-04-11 21:12:33 [INF] Committing Transaction
+2026-04-11 21:12:33 [INF] 2026041003: CreateUserPermissionTable migrated
+2026-04-11 21:12:33 [INF] => 0.0119459s
+2026-04-11 21:12:33 [INF] 2026041004: CreateOutboxTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable OutboxMessage
+2026-04-11 21:12:33 [INF] CREATE TABLE "OutboxMessage" ("Id" TEXT NOT NULL, "Type" TEXT NOT NULL, "PayloadJson" TEXT NOT NULL, "OccurredAt" DATETIME NOT NULL, "Status" INTEGER NOT NULL, "Attempts" INTEGER NOT NULL DEFAULT 0, "NextAttemptAt" DATETIME, "LockedUntil" DATETIME, "LockedBy" TEXT, "LastError" TEXT, "SentAt" DATETIME, CONSTRAINT "PK_OutboxMessage" PRIMARY KEY ("Id"));
+2026-04-11 21:12:33 [INF] => 0.0041796s
+2026-04-11 21:12:33 [INF] CreateIndex OutboxMessage (Status, NextAttemptAt, OccurredAt)
+2026-04-11 21:12:33 [INF] CREATE INDEX "IX_OutboxMessage_Status_NextAttemptAt_OccurredAt" ON "OutboxMessage" ("Status" ASC, "NextAttemptAt" ASC, "OccurredAt" ASC);
+2026-04-11 21:12:33 [INF] => 0.0017075s
+2026-04-11 21:12:33 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041004, CURRENT_TIMESTAMP, 'CreateOutboxTable');
+2026-04-11 21:12:33 [INF] Committing Transaction
+2026-04-11 21:12:33 [INF] 2026041004: CreateOutboxTable migrated
+2026-04-11 21:12:33 [INF] => 0.0101844s
+2026-04-11 21:12:33 [INF] 2026041101: UsersTable migrating
+2026-04-11 21:12:33 [INF] Beginning Transaction
+2026-04-11 21:12:33 [INF] CreateTable Users
+2026-04-11 21:12:33 [INF] CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);
+2026-04-11 21:12:33 [ERR] SQLite Error 1: 'table "Users" already exists'.
+While Processing:
+"CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);"
+System.Exception: SQLite Error 1: 'table "Users" already exists'.
+While Processing:
+"CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);"
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'table "Users" already exists'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   --- End of inner exception stack trace ---
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.Process(String sql)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(CreateTableExpression expression)
+   at FluentMigrator.Expressions.CreateTableExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__1()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.AnnounceTime(String message, Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-11 21:12:33 [INF] Rolling back transaction
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] Rolling back transaction
+2026-04-11 21:15:55 [INF] VersionMigration migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable VersionInfo
+2026-04-11 21:15:55 [INF] CREATE TABLE "VersionInfo" ("Version" INTEGER NOT NULL);
+2026-04-11 21:15:55 [INF] => 0.0556208s
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] VersionMigration migrated
+2026-04-11 21:15:55 [INF] => 0.0656664s
+2026-04-11 21:15:55 [INF] VersionUniqueMigration migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateIndex VersionInfo (Version)
+2026-04-11 21:15:55 [INF] CREATE UNIQUE INDEX "UC_Version" ON "VersionInfo" ("Version" ASC);
+2026-04-11 21:15:55 [INF] => 0.009983s
+2026-04-11 21:15:55 [INF] AlterTable VersionInfo
+2026-04-11 21:15:55 [INF] => 0.000275s
+2026-04-11 21:15:55 [INF] CreateColumn VersionInfo AppliedOn DateTime
+2026-04-11 21:15:55 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "AppliedOn" DATETIME;
+2026-04-11 21:15:55 [INF] => 0.0019472s
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] VersionUniqueMigration migrated
+2026-04-11 21:15:55 [INF] => 0.0077335s
+2026-04-11 21:15:55 [INF] VersionDescriptionMigration migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] AlterTable VersionInfo
+2026-04-11 21:15:55 [INF] => 3.23E-05s
+2026-04-11 21:15:55 [INF] CreateColumn VersionInfo Description String
+2026-04-11 21:15:55 [INF] ALTER TABLE "VersionInfo" ADD COLUMN "Description" TEXT;
+2026-04-11 21:15:55 [INF] => 0.0019818s
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] VersionDescriptionMigration migrated
+2026-04-11 21:15:55 [INF] => 0.0067346s
+2026-04-11 21:15:55 [INF] 2026032201: InitMonitorTable migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable Monitor
+2026-04-11 21:15:55 [INF] CREATE TABLE "Monitor" ("Id" UNIQUEIDENTIFIER NOT NULL, "Name" TEXT NOT NULL, "Status" INTEGER NOT NULL, "LastRunTime" DATETIME, "IsEnabled" INTEGER NOT NULL, "TargetType" TEXT NOT NULL, "TargetConfig" TEXT NOT NULL, "CreatedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_Monitor" PRIMARY KEY ("Id"));
+2026-04-11 21:15:55 [INF] => 0.0041953s
+2026-04-11 21:15:55 [INF] CreateIndex Monitor (TargetType)
+2026-04-11 21:15:55 [INF] CREATE INDEX "IX_Monitor_TargetType" ON "Monitor" ("TargetType" ASC);
+2026-04-11 21:15:55 [INF] => 0.0011801s
+2026-04-11 21:15:55 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032201, CURRENT_TIMESTAMP, 'InitMonitorTable');
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] 2026032201: InitMonitorTable migrated
+2026-04-11 21:15:55 [INF] => 0.0108776s
+2026-04-11 21:15:55 [INF] 2026032202: InitAssertionTable migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable Assertion
+2026-04-11 21:15:55 [INF] CREATE TABLE "Assertion" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Type" TEXT NOT NULL, "ConfigJson" TEXT NOT NULL, CONSTRAINT "PK_Assertion" PRIMARY KEY ("Id"), CONSTRAINT "FK_Assertion_MonitorId_Monitor_Id" FOREIGN KEY ("MonitorId") REFERENCES "Monitor" ("Id"));
+2026-04-11 21:15:55 [INF] => 0.0048395s
+2026-04-11 21:15:55 [INF] CreateForeignKey $$IGNORE$$_FK_Assertion_MonitorId_Monitor_Id Assertion(MonitorId) Monitor(Id)
+2026-04-11 21:15:55 [INF] => 0.0004933s
+2026-04-11 21:15:55 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032202, CURRENT_TIMESTAMP, 'InitAssertionTable');
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] 2026032202: InitAssertionTable migrated
+2026-04-11 21:15:55 [INF] => 0.0081132s
+2026-04-11 21:15:55 [INF] 2026032203: InitAssertionResultTable migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable AssertionResult
+2026-04-11 21:15:55 [INF] CREATE TABLE "AssertionResult" ("Id" UNIQUEIDENTIFIER NOT NULL, "AssertionId" UNIQUEIDENTIFIER NOT NULL, "Target" TEXT NOT NULL, "IsSuccess" INTEGER NOT NULL, "Actual" TEXT, "Expected" TEXT, "Message" TEXT, "Timestamp" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, CONSTRAINT "PK_AssertionResult" PRIMARY KEY ("Id"), CONSTRAINT "FK_AssertionResult_Assertion" FOREIGN KEY ("AssertionId") REFERENCES "Assertion" ("Id") ON DELETE CASCADE ON UPDATE CASCADE);
+2026-04-11 21:15:55 [INF] => 0.0024399s
+2026-04-11 21:15:55 [INF] CreateForeignKey $$IGNORE$$_FK_AssertionResult_Assertion AssertionResult(AssertionId) Assertion(Id)
+2026-04-11 21:15:55 [INF] => 5.21E-05s
+2026-04-11 21:15:55 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032203, CURRENT_TIMESTAMP, 'InitAssertionResultTable');
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] 2026032203: InitAssertionResultTable migrated
+2026-04-11 21:15:55 [INF] => 0.0073003s
+2026-04-11 21:15:55 [INF] 2026032204: InitExecutionRecordTable migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable ExecutionRecord
+2026-04-11 21:15:55 [INF] CREATE TABLE "ExecutionRecord" ("Id" UNIQUEIDENTIFIER NOT NULL, "MonitorId" UNIQUEIDENTIFIER NOT NULL, "Status" INTEGER NOT NULL, "StartedAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP, "FinishedAt" DATETIME, "IsExecutionSuccess" INTEGER NOT NULL, "ErrorMessage" TEXT, "ResultType" TEXT NOT NULL, "ResultJson" TEXT NOT NULL, CONSTRAINT "PK_ExecutionRecord" PRIMARY KEY ("Id"));
+2026-04-11 21:15:55 [INF] => 0.0025025s
+2026-04-11 21:15:55 [INF] CreateIndex ExecutionRecord (MonitorId, StartedAt)
+2026-04-11 21:15:55 [INF] CREATE INDEX "IX_ExecutionRecord_MonitorId_StartedAt" ON "ExecutionRecord" ("MonitorId" ASC, "StartedAt" DESC);
+2026-04-11 21:15:55 [INF] => 0.0019021s
+2026-04-11 21:15:55 [INF] AlterTable AssertionResult
+2026-04-11 21:15:55 [INF] => 2.3E-06s
+2026-04-11 21:15:55 [INF] CreateColumn AssertionResult ExecutionId Guid
+2026-04-11 21:15:55 [INF] ALTER TABLE "AssertionResult" ADD COLUMN "ExecutionId" UNIQUEIDENTIFIER;
+2026-04-11 21:15:55 [INF] => 0.0015511s
+2026-04-11 21:15:55 [INF] CreateIndex AssertionResult (ExecutionId)
+2026-04-11 21:15:55 [INF] CREATE INDEX "IX_AssertionResult_ExecutionId" ON "AssertionResult" ("ExecutionId" ASC);
+2026-04-11 21:15:55 [INF] => 0.001244s
+2026-04-11 21:15:55 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026032204, CURRENT_TIMESTAMP, 'InitExecutionRecordTable');
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] 2026032204: InitExecutionRecordTable migrated
+2026-04-11 21:15:55 [INF] => 0.0077036s
+2026-04-11 21:15:55 [INF] 2026041001: CreateUsersTable migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable Users
+2026-04-11 21:15:55 [INF] CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);
+2026-04-11 21:15:55 [INF] => 0.0023451s
+2026-04-11 21:15:55 [INF] CreateIndex Users (Username)
+2026-04-11 21:15:55 [INF] CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username" ASC);
+2026-04-11 21:15:55 [INF] => 0.0013888s
+2026-04-11 21:15:55 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041001, CURRENT_TIMESTAMP, 'CreateUsersTable');
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] 2026041001: CreateUsersTable migrated
+2026-04-11 21:15:55 [INF] => 0.0115788s
+2026-04-11 21:15:55 [INF] 2026041002: CreateRefreshTokensTable migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable RefreshTokens
+2026-04-11 21:15:55 [INF] CREATE TABLE "RefreshTokens" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" INTEGER NOT NULL, "Token" TEXT NOT NULL UNIQUE, "ExpireAt" DATETIME NOT NULL, "Revoked" INTEGER NOT NULL DEFAULT 0, "CreatedAt" DATETIME NOT NULL, "ReplacedByToken" TEXT, CONSTRAINT "FK_RefreshTokens_UserId_Users_Id" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id"));
+2026-04-11 21:15:55 [INF] => 0.0022605s
+2026-04-11 21:15:55 [INF] CreateForeignKey $$IGNORE$$_FK_RefreshTokens_UserId_Users_Id RefreshTokens(UserId) Users(Id)
+2026-04-11 21:15:55 [INF] => 1.52E-05s
+2026-04-11 21:15:55 [INF] CreateIndex RefreshTokens (Token)
+2026-04-11 21:15:55 [INF] CREATE UNIQUE INDEX "IX_RefreshTokens_Token" ON "RefreshTokens" ("Token" ASC);
+2026-04-11 21:15:55 [INF] => 0.0020542s
+2026-04-11 21:15:55 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041002, CURRENT_TIMESTAMP, 'CreateRefreshTokensTable');
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] 2026041002: CreateRefreshTokensTable migrated
+2026-04-11 21:15:55 [INF] => 0.0085486s
+2026-04-11 21:15:55 [INF] 2026041004: CreateOutboxTable migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable OutboxMessage
+2026-04-11 21:15:55 [INF] CREATE TABLE "OutboxMessage" ("Id" TEXT NOT NULL, "Type" TEXT NOT NULL, "PayloadJson" TEXT NOT NULL, "OccurredAt" DATETIME NOT NULL, "Status" INTEGER NOT NULL, "Attempts" INTEGER NOT NULL DEFAULT 0, "NextAttemptAt" DATETIME, "LockedUntil" DATETIME, "LockedBy" TEXT, "LastError" TEXT, "SentAt" DATETIME, CONSTRAINT "PK_OutboxMessage" PRIMARY KEY ("Id"));
+2026-04-11 21:15:55 [INF] => 0.003219s
+2026-04-11 21:15:55 [INF] CreateIndex OutboxMessage (Status, NextAttemptAt, OccurredAt)
+2026-04-11 21:15:55 [INF] CREATE INDEX "IX_OutboxMessage_Status_NextAttemptAt_OccurredAt" ON "OutboxMessage" ("Status" ASC, "NextAttemptAt" ASC, "OccurredAt" ASC);
+2026-04-11 21:15:55 [INF] => 0.0013157s
+2026-04-11 21:15:55 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041004, CURRENT_TIMESTAMP, 'CreateOutboxTable');
+2026-04-11 21:15:55 [INF] Committing Transaction
+2026-04-11 21:15:55 [INF] 2026041004: CreateOutboxTable migrated
+2026-04-11 21:15:55 [INF] => 0.0083012s
+2026-04-11 21:15:55 [INF] 2026041101: UsersTable migrating
+2026-04-11 21:15:55 [INF] Beginning Transaction
+2026-04-11 21:15:55 [INF] CreateTable Users
+2026-04-11 21:15:55 [INF] CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);
+2026-04-11 21:15:55 [ERR] SQLite Error 1: 'table "Users" already exists'.
+While Processing:
+"CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);"
+System.Exception: SQLite Error 1: 'table "Users" already exists'.
+While Processing:
+"CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);"
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'table "Users" already exists'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   --- End of inner exception stack trace ---
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.Process(String sql)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(CreateTableExpression expression)
+   at FluentMigrator.Expressions.CreateTableExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__1()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.AnnounceTime(String message, Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-11 21:15:55 [INF] Rolling back transaction
+2026-04-11 21:18:13 [INF] Beginning Transaction
+2026-04-11 21:18:13 [INF] Rolling back transaction
+2026-04-11 21:18:13 [INF] 2026041102: CreateRbacPermissionsTable migrating
+2026-04-11 21:18:13 [INF] Beginning Transaction
+2026-04-11 21:18:13 [INF] CreateTable Permissions
+2026-04-11 21:18:13 [INF] CREATE TABLE "Permissions" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Code" TEXT NOT NULL, "Name" TEXT NOT NULL, "Description" TEXT);
+2026-04-11 21:18:13 [INF] => 0.0448545s
+2026-04-11 21:18:13 [INF] CreateIndex Permissions (Code)
+2026-04-11 21:18:13 [INF] CREATE UNIQUE INDEX "UX_Permissions_Code" ON "Permissions" ("Code" ASC);
+2026-04-11 21:18:13 [INF] => 0.0030789s
+2026-04-11 21:18:13 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041102, CURRENT_TIMESTAMP, 'CreateRbacPermissionsTable');
+2026-04-11 21:18:13 [INF] Committing Transaction
+2026-04-11 21:18:13 [INF] 2026041102: CreateRbacPermissionsTable migrated
+2026-04-11 21:18:13 [INF] => 0.0136093s
+2026-04-11 21:18:14 [INF] 2026041103: CreateRbacUserRolesTable migrating
+2026-04-11 21:18:14 [INF] Beginning Transaction
+2026-04-11 21:18:14 [INF] CreateTable UserRoles
+2026-04-11 21:18:14 [INF] CREATE TABLE "UserRoles" ("UserId" INTEGER NOT NULL, "RoleId" INTEGER NOT NULL, CONSTRAINT "FK_UserRoles_UserId_Users_Id" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id"), CONSTRAINT "FK_UserRoles_RoleId_Roles_Id" FOREIGN KEY ("RoleId") REFERENCES "Roles" ("Id"));
+2026-04-11 21:18:14 [INF] => 0.0036965s
+2026-04-11 21:18:14 [INF] CreateForeignKey $$IGNORE$$_FK_UserRoles_UserId_Users_Id UserRoles(UserId) Users(Id)
+2026-04-11 21:18:14 [INF] => 0.0003751s
+2026-04-11 21:18:14 [INF] CreateForeignKey $$IGNORE$$_FK_UserRoles_RoleId_Roles_Id UserRoles(RoleId) Roles(Id)
+2026-04-11 21:18:14 [INF] => 5.5E-05s
+2026-04-11 21:18:14 [INF] CreateIndex UserRoles (UserId, RoleId)
+2026-04-11 21:18:14 [INF] CREATE UNIQUE INDEX "UX_UserRoles_UserId_RoleId" ON "UserRoles" ("UserId" ASC, "RoleId" ASC);
+2026-04-11 21:18:14 [INF] => 0.0010692s
+2026-04-11 21:18:14 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041103, CURRENT_TIMESTAMP, 'CreateRbacUserRolesTable');
+2026-04-11 21:18:14 [INF] Committing Transaction
+2026-04-11 21:18:14 [INF] 2026041103: CreateRbacUserRolesTable migrated
+2026-04-11 21:18:14 [INF] => 0.0064252s
+2026-04-11 21:18:14 [INF] 2026041104: CreateRbacRolePermissionsTable migrating
+2026-04-11 21:18:14 [INF] Beginning Transaction
+2026-04-11 21:18:14 [INF] CreateTable RolePermissions
+2026-04-11 21:18:14 [INF] CREATE TABLE "RolePermissions" ("RoleId" INTEGER NOT NULL, "PermissionId" INTEGER NOT NULL, CONSTRAINT "FK_RolePermissions_RoleId_Roles_Id" FOREIGN KEY ("RoleId") REFERENCES "Roles" ("Id"), CONSTRAINT "FK_RolePermissions_PermissionId_Permissions_Id" FOREIGN KEY ("PermissionId") REFERENCES "Permissions" ("Id"));
+2026-04-11 21:18:14 [INF] => 0.0021701s
+2026-04-11 21:18:14 [INF] CreateForeignKey $$IGNORE$$_FK_RolePermissions_RoleId_Roles_Id RolePermissions(RoleId) Roles(Id)
+2026-04-11 21:18:14 [INF] => 1.35E-05s
+2026-04-11 21:18:14 [INF] CreateForeignKey $$IGNORE$$_FK_RolePermissions_PermissionId_Permissions_Id RolePermissions(PermissionId) Permissions(Id)
+2026-04-11 21:18:14 [INF] => 7.2E-06s
+2026-04-11 21:18:14 [INF] CreateIndex RolePermissions (RoleId, PermissionId)
+2026-04-11 21:18:14 [INF] CREATE UNIQUE INDEX "UX_RolePermissions_RoleId_PermissionId" ON "RolePermissions" ("RoleId" ASC, "PermissionId" ASC);
+2026-04-11 21:18:14 [INF] => 0.0009476s
+2026-04-11 21:18:14 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041104, CURRENT_TIMESTAMP, 'CreateRbacRolePermissionsTable');
+2026-04-11 21:18:14 [INF] Committing Transaction
+2026-04-11 21:18:14 [INF] 2026041104: CreateRbacRolePermissionsTable migrated
+2026-04-11 21:18:14 [INF] => 0.0079466s
+2026-04-11 21:18:14 [INF] 2026041105: CreateRbacRolesTable migrating
+2026-04-11 21:18:14 [INF] Beginning Transaction
+2026-04-11 21:18:14 [INF] CreateTable Roles
+2026-04-11 21:18:14 [INF] CREATE TABLE "Roles" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Name" TEXT NOT NULL, "DisplayName" TEXT NOT NULL, "Description" TEXT);
+2026-04-11 21:18:14 [INF] => 0.0029078s
+2026-04-11 21:18:14 [INF] CreateIndex Roles (Name)
+2026-04-11 21:18:14 [INF] CREATE UNIQUE INDEX "UX_Roles_Name" ON "Roles" ("Name" ASC);
+2026-04-11 21:18:14 [INF] => 0.0017427s
+2026-04-11 21:18:14 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041105, CURRENT_TIMESTAMP, 'CreateRbacRolesTable');
+2026-04-11 21:18:14 [INF] Committing Transaction
+2026-04-11 21:18:14 [INF] 2026041105: CreateRbacRolesTable migrated
+2026-04-11 21:18:14 [INF] => 0.009584s
+2026-04-11 21:18:14 [INF] 2026041106: SeedRbacDefaults migrating
+2026-04-11 21:18:14 [INF] Beginning Transaction
+2026-04-11 21:18:14 [INF] INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('admin', '管理员', '平台管理员');
+2026-04-11 21:18:14 [INF] INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('user', '用户', '普通用户');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('dashboard.view', '查看仪表盘');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('logs.view', '查看日志');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('monitor.view', '查看监控');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('monitor.run', '运行监控');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('monitor.create', '创建监控');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('monitor.update', '更新监控');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('monitor.delete', '删除监控');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('tasks.view', '查看任务');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('tasks.manage', '任务管理');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('settings.view', '查看设置');
+2026-04-11 21:18:14 [INF] INSERT INTO "Permissions" ("Code", "Name") VALUES ('settings.manage', '管理设置');
+2026-04-11 21:18:14 [INF] ExecuteSqlStatement     INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+    SELECT r.Id, p.Id
+    FROM Roles r
+    JOIN Permissions p
+    WHERE r.Name = 'admin';
+2026-04-11 21:18:14 [INF]     INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+    SELECT r.Id, p.Id
+    FROM Roles r
+    JOIN Permissions p
+    WHERE r.Name = 'admin';
+2026-04-11 21:18:14 [INF] => 0.0024853s
+2026-04-11 21:18:14 [INF] ExecuteSqlStatement     INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+    SELECT r.Id, p.Id
+    FROM Roles r
+    JOIN Permissions p
+    WHERE r.Name = 'user'
+    AND p.Code IN (
+        'dashboard.view',
+        'logs.view',
+        'monitor.view',
+        'tasks.view'
+    );
+2026-04-11 21:18:14 [INF]     INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
+    SELECT r.Id, p.Id
+    FROM Roles r
+    JOIN Permissions p
+    WHERE r.Name = 'user'
+    AND p.Code IN (
+        'dashboard.view',
+        'logs.view',
+        'monitor.view',
+        'tasks.view'
+    );
+2026-04-11 21:18:14 [INF] => 0.0015597s
+2026-04-11 21:18:14 [INF] -> 13 Insert operations completed in 00:00:00.0191335 taking an average of 00:00:00.0014718
+2026-04-11 21:18:14 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041106, CURRENT_TIMESTAMP, 'SeedRbacDefaults');
+2026-04-11 21:18:14 [INF] Committing Transaction
+2026-04-11 21:18:14 [INF] 2026041106: SeedRbacDefaults migrated
+2026-04-11 21:18:14 [INF] => 0.009551s
+2026-04-11 21:18:14 [INF] Start installing Hangfire SQL objects...
+2026-04-11 21:18:14 [INF] Hangfire SQL objects installed.
+2026-04-11 21:18:14 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 21:18:14 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 21:18:14 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 21:18:14 [INF] Outbox webhook dispatcher disabled
+2026-04-11 21:18:14 [INF] Now listening on: http://localhost:5033
+2026-04-11 21:18:14 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 21:18:14 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 21:18:14 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 21:18:14 [INF] Hosting environment: Development
+2026-04-11 21:18:14 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 21:18:14 [INF] Server tomwang:26572:41333f83 successfully announced in 25.3583 ms
+2026-04-11 21:18:14 [INF] Server tomwang:26572:41333f83 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 21:18:15 [INF] 1 servers were removed due to timeout
+2026-04-11 21:18:15 [INF] Server tomwang:26572:41333f83 all the dispatchers started
+2026-04-11 21:18:19 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 21:18:20 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 1151.7665ms
+2026-04-11 21:18:20 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 21:18:20 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 25.7668ms
+2026-04-11 21:18:20 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 21:18:20 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 611.7896ms
+2026-04-11 21:18:21 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 21:18:21 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 209.3082ms
+2026-04-11 21:22:33 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/rbac/roles - null null
+2026-04-11 21:22:34 [WRN] Failed to determine the https port for redirect.
+2026-04-11 21:22:34 [INF] CORS policy execution successful.
+2026-04-11 21:22:34 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/rbac/roles - 204 null null 43.535ms
+2026-04-11 21:22:34 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/roles - null null
+2026-04-11 21:22:34 [INF] CORS policy execution successful.
+2026-04-11 21:22:34 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenMalformedException: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EncodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken.ReadToken(ReadOnlyMemory`1 encodedTokenMemory)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebToken..ctor(String jwtEncodedString, TryReadJwtClaim tryReadJwtClaim)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ReadToken(String token, TokenValidationParameters validationParameters)
+2026-04-11 21:22:34 [INF] Bearer was not authenticated. Failure message: IDX14100: JWT is not well formed, there are no dots (.).
+The token needs to be in JWS or JWE Compact Serialization Format. (JWS): 'EncodedHeader.EncodedPayload.EncodedSignature'. (JWE): 'EncodedProtectedHeader.EncodedEncryptedKey.EncodedInitializationVector.EncodedCiphertext.EncodedAuthenticationTag'.
+2026-04-11 21:22:34 [INF] Authorization failed. These requirements were not met:
+DenyAnonymousAuthorizationRequirement: Requires an authenticated user.
+Auth.PermissionRequirement
+2026-04-11 21:22:34 [INF] AuthenticationScheme: Bearer was challenged.
+2026-04-11 21:22:34 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/roles - 401 0 null 235.233ms
+2026-04-11 21:22:44 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 21:22:44 [INF] CORS policy execution successful.
+2026-04-11 21:22:44 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 14.5042ms
+2026-04-11 21:22:44 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 21:22:44 [INF] CORS policy execution successful.
+2026-04-11 21:22:44 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:22:44 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 21:22:44 [INF] Executing UnauthorizedObjectResult, writing value of type '<>f__AnonymousType1`2[[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 21:22:44 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 63.8492ms
+2026-04-11 21:22:44 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:22:44 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 401 null application/json; charset=utf-8 144.3223ms
+2026-04-11 21:23:19 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/bootstrap - application/json 49
+2026-04-11 21:23:19 [INF] CORS policy execution successful.
+2026-04-11 21:23:19 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi)'
+2026-04-11 21:23:19 [INF] Route matched with {action = "Bootstrap", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Bootstrap(AutoTest.Webapi.Controllers.BootstrapRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 21:23:19 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-11 21:23:19 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi) in 128.5764ms
+2026-04-11 21:23:19 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi)'
+2026-04-11 21:23:19 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/bootstrap - 200 0 null 166.4358ms
+2026-04-11 21:23:25 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/bootstrap - application/json 49
+2026-04-11 21:23:25 [INF] CORS policy execution successful.
+2026-04-11 21:23:25 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi)'
+2026-04-11 21:23:25 [INF] Route matched with {action = "Bootstrap", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Bootstrap(AutoTest.Webapi.Controllers.BootstrapRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 21:23:25 [INF] Executing ConflictObjectResult, writing value of type '<>f__AnonymousType2`1[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 21:23:25 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi) in 295.2602ms
+2026-04-11 21:23:25 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Bootstrap (AutoTest.Webapi)'
+2026-04-11 21:23:25 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/bootstrap - 409 null application/json; charset=utf-8 323.1415ms
+2026-04-11 21:23:38 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 21:23:38 [INF] CORS policy execution successful.
+2026-04-11 21:23:38 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 5.4876ms
+2026-04-11 21:23:38 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 21:23:38 [INF] CORS policy execution successful.
+2026-04-11 21:23:38 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:23:38 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 21:23:38 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`2[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 21:23:38 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 123.4022ms
+2026-04-11 21:23:38 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:23:38 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 200 null application/json; charset=utf-8 133.6043ms
+2026-04-11 21:46:23 [INF] Beginning Transaction
+2026-04-11 21:46:23 [INF] Rolling back transaction
+2026-04-11 21:46:24 [INF] Start installing Hangfire SQL objects...
+2026-04-11 21:46:24 [INF] Hangfire SQL objects installed.
+2026-04-11 21:46:24 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 21:46:24 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 21:46:25 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 21:46:25 [INF] Outbox webhook dispatcher disabled
+2026-04-11 21:46:25 [INF] Now listening on: http://localhost:5033
+2026-04-11 21:46:25 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 21:46:25 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 21:46:26 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 21:46:26 [INF] Hosting environment: Development
+2026-04-11 21:46:26 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 21:46:26 [INF] Server tomwang:11748:221ed904 successfully announced in 32.4263 ms
+2026-04-11 21:46:26 [INF] Server tomwang:11748:221ed904 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 21:46:26 [INF] 1 servers were removed due to timeout
+2026-04-11 21:46:26 [INF] Server tomwang:11748:221ed904 all the dispatchers started
+2026-04-11 21:46:27 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 21:46:28 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 784.8501ms
+2026-04-11 21:46:28 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 21:46:28 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 21:46:28 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 11.5819ms
+2026-04-11 21:46:28 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 104.3455ms
+2026-04-11 21:46:28 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 21:46:28 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 61.4641ms
+2026-04-11 21:46:34 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 21:46:34 [WRN] Failed to determine the https port for redirect.
+2026-04-11 21:46:34 [INF] CORS policy execution successful.
+2026-04-11 21:46:34 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 26.5293ms
+2026-04-11 21:46:34 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 21:46:34 [INF] CORS policy execution successful.
+2026-04-11 21:46:34 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:46:34 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 21:46:34 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`2[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 21:46:34 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 264.6312ms
+2026-04-11 21:46:34 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:46:34 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 200 null application/json; charset=utf-8 429.21ms
+2026-04-11 21:46:55 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - null null
+2026-04-11 21:46:55 [INF] CORS policy execution successful.
+2026-04-11 21:46:55 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5033/api/auth/login - 204 null null 19.5947ms
+2026-04-11 21:46:55 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 21:46:55 [INF] CORS policy execution successful.
+2026-04-11 21:46:55 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:46:55 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 21:46:55 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`2[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 21:46:55 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 83.6201ms
+2026-04-11 21:46:55 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:46:55 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 200 null application/json; charset=utf-8 99.5138ms
+2026-04-11 21:51:36 [INF] Beginning Transaction
+2026-04-11 21:51:36 [INF] Rolling back transaction
+2026-04-11 21:51:37 [INF] Start installing Hangfire SQL objects...
+2026-04-11 21:51:37 [INF] Hangfire SQL objects installed.
+2026-04-11 21:51:37 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 21:51:37 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 21:51:37 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 21:51:37 [INF] Outbox webhook dispatcher disabled
+2026-04-11 21:51:37 [INF] Now listening on: http://localhost:5033
+2026-04-11 21:51:38 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 21:51:38 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 21:51:38 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 21:51:38 [INF] Hosting environment: Development
+2026-04-11 21:51:38 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 21:51:38 [INF] Server tomwang:844:a6c07ec2 successfully announced in 29.327 ms
+2026-04-11 21:51:38 [INF] Server tomwang:844:a6c07ec2 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 21:51:38 [INF] Server tomwang:844:a6c07ec2 all the dispatchers started
+2026-04-11 21:51:39 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 21:51:39 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 666.8236ms
+2026-04-11 21:51:39 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 21:51:39 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 21:51:39 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 15.122ms
+2026-04-11 21:51:39 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 104.101ms
+2026-04-11 21:51:40 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 21:51:40 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 63.4455ms
+2026-04-11 21:52:05 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/auth/login - application/json 40
+2026-04-11 21:52:05 [WRN] Failed to determine the https port for redirect.
+2026-04-11 21:52:05 [INF] CORS policy execution successful.
+2026-04-11 21:52:05 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:52:05 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(AutoTest.Webapi.Controllers.LoginRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AuthController (AutoTest.Webapi).
+2026-04-11 21:52:05 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType0`2[[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2026-04-11 21:52:05 [INF] Executed action AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi) in 336.7928ms
+2026-04-11 21:52:05 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AuthController.Login (AutoTest.Webapi)'
+2026-04-11 21:52:05 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/auth/login - 200 null application/json; charset=utf-8 825.979ms
+2026-04-11 21:52:11 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/roles - null null
+2026-04-11 21:52:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.Roles (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Route matched with {action = "Roles", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Roles() on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 21:52:11 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.Role, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:52:11 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.Roles (AutoTest.Webapi) in 12.3925ms
+2026-04-11 21:52:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.Roles (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/roles - 200 null application/json; charset=utf-8 129.3013ms
+2026-04-11 21:52:11 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/permissions - null null
+2026-04-11 21:52:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.Permissions (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Route matched with {action = "Permissions", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Permissions() on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 21:52:11 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.Permission, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:52:11 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.Permissions (AutoTest.Webapi) in 6.5335ms
+2026-04-11 21:52:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.Permissions (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/permissions - 200 null application/json; charset=utf-8 32.9834ms
+2026-04-11 21:52:11 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/roles/1/permissions - null null
+2026-04-11 21:52:11 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/roles/2/permissions - null null
+2026-04-11 21:52:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Route matched with {action = "RolePermissions", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RolePermissions(Int32) on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 21:52:11 [INF] Route matched with {action = "RolePermissions", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RolePermissions(Int32) on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 21:52:11 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.RolePermission, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:52:11 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.RolePermission, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:52:11 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi) in 10.48ms
+2026-04-11 21:52:11 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi) in 8.7419ms
+2026-04-11 21:52:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/roles/2/permissions - 200 null application/json; charset=utf-8 47.7342ms
+2026-04-11 21:52:11 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/roles/1/permissions - 200 null application/json; charset=utf-8 49.4637ms
+2026-04-11 21:52:11 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/users?take=200 - null null
+2026-04-11 21:52:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.Users (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Route matched with {action = "Users", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Users(Int32) on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 21:52:11 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.AuthUser, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:52:11 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.Users (AutoTest.Webapi) in 38.6691ms
+2026-04-11 21:52:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.Users (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/users?take=200 - 200 null application/json; charset=utf-8 59.0626ms
+2026-04-11 21:52:11 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/users/1/role - null null
+2026-04-11 21:52:11 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.UserRole (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Route matched with {action = "UserRole", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRole(Int32) on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 21:52:11 [INF] Executing OkObjectResult, writing value of type 'Auth.RBAC.UserRole'.
+2026-04-11 21:52:11 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.UserRole (AutoTest.Webapi) in 4.4307ms
+2026-04-11 21:52:11 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.UserRole (AutoTest.Webapi)'
+2026-04-11 21:52:11 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/users/1/role - 200 null application/json; charset=utf-8 23.4303ms
+2026-04-11 21:53:00 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list - null null
+2026-04-11 21:53:00 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:53:00 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:53:00 [INF] Executing OkObjectResult, writing value of type '<>f__AnonymousType3`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]][]'.
+2026-04-11 21:53:00 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 49.1119ms
+2026-04-11 21:53:00 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:53:00 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list - 200 null application/json; charset=utf-8 89.5322ms
+2026-04-11 21:53:33 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor - application/json 833
+2026-04-11 21:53:33 [INF] CORS policy execution successful.
+2026-04-11 21:53:33 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-11 21:53:33 [INF] Route matched with {action = "Add", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Add(AutoTest.Application.Dto.MonitorDto) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:53:33 [INF] AddAsync started for monitor: 123
+2026-04-11 21:53:33 [INF] Adding monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" with name 123
+2026-04-11 21:53:33 [INF] Added 1 assertions for monitor "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:53:33 [INF] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" added successfully
+2026-04-11 21:53:33 [INF] Executing OkObjectResult, writing value of type 'System.Guid'.
+2026-04-11 21:53:33 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi) in 139.1726ms
+2026-04-11 21:53:33 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Add (AutoTest.Webapi)'
+2026-04-11 21:53:33 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor - 200 null application/json; charset=utf-8 172.8186ms
+2026-04-11 21:53:33 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list - null null
+2026-04-11 21:53:33 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:53:33 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:53:33 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType3`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:53:33 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 59.2031ms
+2026-04-11 21:53:33 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:53:33 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list - 200 null application/json; charset=utf-8 74.6091ms
+2026-04-11 21:53:47 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025/run - application/x-www-form-urlencoded 0
+2026-04-11 21:53:47 [INF] CORS policy execution successful.
+2026-04-11 21:53:47 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-11 21:53:47 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:53:47 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-11 21:53:47 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 87.625ms
+2026-04-11 21:53:47 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-11 21:53:47 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025/run - 200 0 null 111.1112ms
+2026-04-11 21:53:53 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list - null null
+2026-04-11 21:53:53 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:53:53 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:53:53 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType3`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:53:53 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 3.0122ms
+2026-04-11 21:53:53 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:53:53 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list - 200 null application/json; charset=utf-8 15.1351ms
+2026-04-11 21:53:54 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list - null null
+2026-04-11 21:53:54 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:53:54 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:53:54 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType3`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:53:54 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 3.3701ms
+2026-04-11 21:53:54 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:53:54 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list - 200 null application/json; charset=utf-8 17.2749ms
+2026-04-11 21:54:01 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025 - null null
+2026-04-11 21:54:01 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-11 21:54:01 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:54:01 [INF] GetByIdAsync called for monitor: "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:54:01 [INF] Cache miss for monitor: "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:54:01 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-11 21:54:01 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 30.9647ms
+2026-04-11 21:54:01 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-11 21:54:01 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025 - 200 null application/json; charset=utf-8 61.7051ms
+2026-04-11 21:58:21 [INF] Beginning Transaction
+2026-04-11 21:58:22 [INF] Rolling back transaction
+2026-04-11 21:58:22 [INF] Start installing Hangfire SQL objects...
+2026-04-11 21:58:22 [INF] Hangfire SQL objects installed.
+2026-04-11 21:58:22 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 21:58:22 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 21:58:23 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 21:58:23 [INF] Outbox webhook dispatcher disabled
+2026-04-11 21:58:23 [INF] Now listening on: http://localhost:5033
+2026-04-11 21:58:24 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 21:58:24 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 21:58:24 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 21:58:24 [INF] Hosting environment: Development
+2026-04-11 21:58:24 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-11 21:58:24 [INF] Server tomwang:26176:025db543 successfully announced in 51.3395 ms
+2026-04-11 21:58:24 [INF] Server tomwang:26176:025db543 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 21:58:24 [INF] 1 servers were removed due to timeout
+2026-04-11 21:58:25 [INF] Server tomwang:26176:025db543 all the dispatchers started
+2026-04-11 21:58:25 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [INF] WorkflowJob started for monitor: "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:26 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-11 21:58:26 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 1203.2437ms
+2026-04-11 21:58:26 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 39.9492ms
+2026-04-11 21:58:26 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-11 21:58:26 [INF] Executing monitor: "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:58:26 [INF] 开始执行 HTTP 请求 [0]，地址：https://example.com 方法：Get
+2026-04-11 21:58:26 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 145.2248ms
+2026-04-11 21:58:27 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-11 21:58:27 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 90.942ms
+2026-04-11 21:58:27 [INF] HTTP 请求完成，状态码：200 耗时：744ms
+2026-04-11 21:58:27 [INF] Assertion step started.
+2026-04-11 21:58:27 [INF] Assertion passed: StatusCode, actual=200, expected=200
+2026-04-11 21:58:27 [INF] Assertion step finished.
+2026-04-11 21:58:27 [INF] Updating monitor "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:58:27 [INF] Updated 1 assertions for monitor "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:58:27 [INF] WorkflowJob completed for monitor: "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:58:31 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list - null null
+2026-04-11 21:58:31 [WRN] Failed to determine the https port for redirect.
+2026-04-11 21:58:32 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:58:32 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:58:32 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType3`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:58:32 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 89.7611ms
+2026-04-11 21:58:32 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:58:32 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list - 200 null application/json; charset=utf-8 499.3986ms
+2026-04-11 21:58:37 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025 - null null
+2026-04-11 21:58:37 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-11 21:58:37 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:58:37 [INF] GetByIdAsync called for monitor: "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:58:37 [INF] Cache miss for monitor: "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:58:37 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-11 21:58:37 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 34.5092ms
+2026-04-11 21:58:37 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-11 21:58:37 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025 - 200 null application/json; charset=utf-8 66.9281ms
+2026-04-11 21:58:39 [INF] Request starting HTTP/1.1 POST http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025/run - application/x-www-form-urlencoded 0
+2026-04-11 21:58:39 [INF] CORS policy execution successful.
+2026-04-11 21:58:39 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-11 21:58:39 [INF] Route matched with {action = "TaskRun", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] TaskRun(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:58:39 [INF] Executing StatusCodeResult, setting HTTP status code 200
+2026-04-11 21:58:39 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi) in 95.5827ms
+2026-04-11 21:58:39 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.TaskRun (AutoTest.Webapi)'
+2026-04-11 21:58:39 [INF] Request finished HTTP/1.1 POST http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025/run - 200 0 null 135.1238ms
+2026-04-11 21:58:41 [WRN] Monitor "c0c2b59a-a551-4286-8f43-2c31d8469025" already running or executed, skipping.
+2026-04-11 21:58:51 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list - null null
+2026-04-11 21:58:51 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:58:51 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:58:51 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType3`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:58:51 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 3.4658ms
+2026-04-11 21:58:51 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:58:51 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list - 200 null application/json; charset=utf-8 33.8964ms
+2026-04-11 21:59:00 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025 - null null
+2026-04-11 21:59:00 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-11 21:59:00 [INF] Route matched with {action = "Get", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Get(System.Guid) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:59:00 [INF] GetByIdAsync called for monitor: "c0c2b59a-a551-4286-8f43-2c31d8469025"
+2026-04-11 21:59:00 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Core.MonitorEntity'.
+2026-04-11 21:59:00 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi) in 5.595ms
+2026-04-11 21:59:00 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.Get (AutoTest.Webapi)'
+2026-04-11 21:59:00 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/c0c2b59a-a551-4286-8f43-2c31d8469025 - 200 null application/json; charset=utf-8 20.3561ms
+2026-04-11 21:59:17 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list - null null
+2026-04-11 21:59:17 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:59:17 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:59:17 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType3`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:59:17 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 3.6523ms
+2026-04-11 21:59:17 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:59:17 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list - 200 null application/json; charset=utf-8 45.1566ms
+2026-04-11 21:59:19 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/monitor/list - null null
+2026-04-11 21:59:19 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:59:19 [INF] Route matched with {action = "List", controller = "Monitor"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] List(Int32) on controller AutoTest.Webapi.Controllers.MonitorController (AutoTest.Webapi).
+2026-04-11 21:59:19 [INF] Executing OkObjectResult, writing value of type 'System.Linq.Enumerable+ListSelectIterator`2[[AutoTest.Application.Dto.MonitorDto, AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null],[<>f__AnonymousType3`7[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Nullable`1[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Boolean, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Int32, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]], AutoTest.Webapi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 21:59:19 [INF] Executed action AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi) in 3.2152ms
+2026-04-11 21:59:19 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.MonitorController.List (AutoTest.Webapi)'
+2026-04-11 21:59:19 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/monitor/list - 200 null application/json; charset=utf-8 16.2529ms
+2026-04-11 22:03:25 [INF] 1 servers were removed due to timeout
+2026-04-11 23:07:14 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/roles - null null
+2026-04-11 23:07:14 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.Roles (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Route matched with {action = "Roles", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Roles() on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 23:07:14 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.Role, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 23:07:14 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.Roles (AutoTest.Webapi) in 41.072ms
+2026-04-11 23:07:14 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.Roles (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/roles - 200 null application/json; charset=utf-8 155.2658ms
+2026-04-11 23:07:14 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/permissions - null null
+2026-04-11 23:07:14 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.Permissions (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Route matched with {action = "Permissions", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Permissions() on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 23:07:14 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.Permission, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 23:07:14 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.Permissions (AutoTest.Webapi) in 10.4746ms
+2026-04-11 23:07:14 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.Permissions (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/permissions - 200 null application/json; charset=utf-8 39.7589ms
+2026-04-11 23:07:14 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/roles/2/permissions - null null
+2026-04-11 23:07:14 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/roles/1/permissions - null null
+2026-04-11 23:07:14 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Route matched with {action = "RolePermissions", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RolePermissions(Int32) on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 23:07:14 [INF] Route matched with {action = "RolePermissions", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] RolePermissions(Int32) on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 23:07:14 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.RolePermission, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 23:07:14 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.RolePermission, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 23:07:14 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi) in 11.8651ms
+2026-04-11 23:07:14 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi) in 16.3285ms
+2026-04-11 23:07:14 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.RolePermissions (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/roles/2/permissions - 200 null application/json; charset=utf-8 55.7273ms
+2026-04-11 23:07:14 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/roles/1/permissions - 200 null application/json; charset=utf-8 54.2449ms
+2026-04-11 23:07:14 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/users?take=200 - null null
+2026-04-11 23:07:14 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.Users (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Route matched with {action = "Users", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Users(Int32) on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 23:07:14 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[Auth.RBAC.AuthUser, Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-04-11 23:07:14 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.Users (AutoTest.Webapi) in 47.631ms
+2026-04-11 23:07:14 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.Users (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/users?take=200 - 200 null application/json; charset=utf-8 70.2495ms
+2026-04-11 23:07:14 [INF] Request starting HTTP/1.1 GET http://localhost:5033/api/rbac/users/1/role - null null
+2026-04-11 23:07:14 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.RbacController.UserRole (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Route matched with {action = "UserRole", controller = "Rbac"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UserRole(Int32) on controller AutoTest.Webapi.Controllers.RbacController (AutoTest.Webapi).
+2026-04-11 23:07:14 [INF] Executing OkObjectResult, writing value of type 'Auth.RBAC.UserRole'.
+2026-04-11 23:07:14 [INF] Executed action AutoTest.Webapi.Controllers.RbacController.UserRole (AutoTest.Webapi) in 7.5762ms
+2026-04-11 23:07:14 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.RbacController.UserRole (AutoTest.Webapi)'
+2026-04-11 23:07:14 [INF] Request finished HTTP/1.1 GET http://localhost:5033/api/rbac/users/1/role - 200 null application/json; charset=utf-8 30.2112ms

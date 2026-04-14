@@ -40,12 +40,8 @@ D:\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.pdb
 D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\CacheCommons.deps.json
 D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\CacheCommons.dll
 D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\CacheCommons.pdb
-D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Assertion.dll
-D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Assertions.Http.dll
 D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Core.dll
-D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Assertions.Http.pdb
 D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Core.pdb
-D:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Assertion.pdb
 D:\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.csproj.AssemblyReference.cache
 D:\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.GeneratedMSBuildEditorConfig.editorconfig
 D:\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.AssemblyInfoInputs.cache
@@ -54,3 +50,7 @@ D:\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.csproj.CoreCo
 D:\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCommons.sourcelink.json
 D:\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\CacheCom.B7C1800D.Up2Date
 D:\AutoTest\src\common\CacheCommons\obj\Debug\net10.0\ref\CacheCommons.dll
+d:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Assertions.dll
+d:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Execution.dll
+d:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Assertions.pdb
+d:\AutoTest\src\common\CacheCommons\bin\Debug\net10.0\AutoTest.Execution.pdb

@@ -4,6 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.Step;
 
+/// <summary>
+/// 断言步骤：将 <see cref="AutoTest.Core.Assertion.AssertionRule"/> 映射为可执行断言，并对执行结果进行评估。
+/// </summary>
 public class AssertionStep : IPipelineStep
 {
     private readonly IReadOnlyDictionary<string, IAssertionMap> _assertionMaps;
@@ -15,6 +18,7 @@ public class AssertionStep : IPipelineStep
         _assertionEngine = assertionEngine;
         _logger = logger;
     }
+    /// <inheritdoc />
     public async Task InvokeAsync(PipelineContext context, Func<Task> next)
     {
 

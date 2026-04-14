@@ -1,4 +1,6 @@
 {
+  "Auth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\Auth",
+  "AutoTest.AI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.AI",
   "AutoTest.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Application",
   "AutoTest.Assertion.Db, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Assertion.Db",
   "AutoTest.Assertion, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Assertion",
@@ -7,6 +9,7 @@
   "AutoTest.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Core",
   "AutoTest.Execution.Db, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Execution.Db",
   "AutoTest.Execution.Http, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Execution.Http",
+  "AutoTest.Execution.Python, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\AutoTest.Execution.Python",
   "AutoTest.Execution.Tcp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Execution.Tcp",
   "AutoTest.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Infrastructure",
   "AutoTest.Migrations, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "d:\\AutoTest\\src\\AutoTest.Migrations",

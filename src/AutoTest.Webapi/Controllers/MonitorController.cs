@@ -1,11 +1,14 @@
 using AutoTest.Application;
 using AutoTest.Application.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AutoTest.Webapi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class MonitorController : ControllerBase
 {
     private readonly IMonitorService _monitorService;
@@ -16,9 +19,6 @@ public class MonitorController : ControllerBase
         _monitorService = monitorService;
         _workflowScheduler=workflowScheduler;
     }
-
-    [HttpGet]
-    public IActionResult Index() => Ok("Server running");
 
     [HttpGet("list")]
     public async Task<IActionResult> List([FromQuery] int take = 50)
@@ -32,7 +32,11 @@ public class MonitorController : ControllerBase
             Status = (int)m.Status,
             m.LastRunTime,
             m.IsEnabled,
-            AssertionCount = m.Assertions.Count
+            AssertionCount = m.Assertions.Count,
+            m.AutoDailyEnabled,
+            m.AutoDailyTime,
+            m.MaxRuns,
+            m.ExecutedCount
         });
         return Ok(result);
     }
@@ -45,30 +49,66 @@ public class MonitorController : ControllerBase
         if (result == null)
             return NotFound();
 
-        return Ok(result);
+        return Ok(new
+        {
+            result.Id,
+            result.Name,
+            TargetType = result.Target.Type,
+            TargetConfig = result.Target.ToJson(),
+            result.IsEnabled,
+            result.AutoDailyEnabled,
+            result.AutoDailyTime,
+            result.MaxRuns,
+            result.ExecutedCount,
+            AssertionCount = result.Assertions.Count
+        });
     }
 
     //创建
+ 
     [HttpPost]
+    [Authorize(Policy = "perm:monitor.add")]
     public async Task<IActionResult> Add([FromBody] MonitorDto dto)
     {
         var id = await _monitorService.AddAsync(dto);
+        var sch = await _monitorService.GetScheduleAsync(id);
+        await ApplyScheduleAsync(id, dto.IsEnabled, sch.AutoDailyEnabled, sch.AutoDailyTime);
         return Ok(id);
     }
 
     //删除
     [HttpDelete("{id}")]
+    [Authorize(Policy = "perm:monitor.delete")]
     public async Task<IActionResult> Delete(Guid id)
     {
         await _monitorService.DeleteAsync(id);
+        await _workflowScheduler.RemoveMonitorScheduleAsync(id);
         return NoContent();
     }
     //更新
     [HttpPut("{id}")]
+    [Authorize(Policy = "perm:monitor.update")]
     public async Task<IActionResult> Update(Guid id, [FromBody] MonitorDto dto)
     {
         await _monitorService.UpdateAsync(id, dto);
+        var sch = await _monitorService.GetScheduleAsync(id);
+        await ApplyScheduleAsync(id, dto.IsEnabled, sch.AutoDailyEnabled, sch.AutoDailyTime);
         return NoContent(); // 更新成功但不返回内容
+    }
+
+    public sealed record SetEnabledRequest(bool IsEnabled);
+
+    [HttpPut("{id}/enabled")]
+    [Authorize(Policy = "perm:monitor.update")]
+    public async Task<IActionResult> SetEnabled(Guid id, [FromBody] SetEnabledRequest req)
+    {
+        await _monitorService.SetEnabledAsync(id, req.IsEnabled);
+        var sch = await _monitorService.GetScheduleAsync(id);
+        if (req.IsEnabled && sch.AutoDailyEnabled && !string.IsNullOrWhiteSpace(sch.AutoDailyTime))
+            await _workflowScheduler.UpsertDailyMonitorAsync(id, sch.AutoDailyTime!);
+        else
+            await _workflowScheduler.RemoveMonitorScheduleAsync(id);
+        return NoContent();
     }
 
     [HttpGet("{id}/executions/latest")]
@@ -89,6 +129,13 @@ public class MonitorController : ControllerBase
         return Ok(records);
     }
 
+    [HttpGet("{id}/runtime-stats")]
+    public async Task<IActionResult> GetRuntimeStats(Guid id, [FromQuery] int topErrors = 10)
+    {
+        var result = await _monitorService.GetMonitorRuntimeStatsAsync(id, topErrors);
+        return Ok(new { stats = result.Stats, topErrors = result.TopErrors });
+    }
+
     [HttpGet("executions/{executionId}/assertions")]
     public async Task<IActionResult> GetExecutionAssertions(Guid executionId)
     {
@@ -96,9 +143,19 @@ public class MonitorController : ControllerBase
         return Ok(assertions);
     }
     [HttpPost("{id}/run")]
+    [Authorize(Policy = "perm:monitor.run")]
     public async Task<IActionResult> TaskRun(Guid id)
     {
-        await _workflowScheduler.RunNowAsync(id);
+        var userId = User.FindFirstValue("sub") ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
+        await _workflowScheduler.RunNowAsync(id, userId);
         return Ok();
+    }
+
+    private Task ApplyScheduleAsync(Guid monitorId, bool isEnabled, bool autoDailyEnabled, string? autoDailyTime)
+    {
+        if (isEnabled && autoDailyEnabled && !string.IsNullOrWhiteSpace(autoDailyTime))
+            return _workflowScheduler.UpsertDailyMonitorAsync(monitorId, autoDailyTime);
+
+        return _workflowScheduler.RemoveMonitorScheduleAsync(monitorId);
     }
 }

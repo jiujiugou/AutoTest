@@ -1,0 +1,28 @@
+2026-04-09 07:39:38 [INF] Beginning Transaction
+2026-04-09 07:39:38 [INF] Rolling back transaction
+2026-04-09 07:39:39 [INF] Start installing Hangfire SQL objects...
+2026-04-09 07:39:39 [INF] Hangfire SQL objects installed.
+2026-04-09 07:39:39 [INF] Initializing Hangfire scheduled jobs...
+2026-04-09 07:39:39 [INF] Hangfire scheduled jobs initialized.
+2026-04-09 07:39:40 [INF] Now listening on: http://localhost:5033
+2026-04-09 07:39:40 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-09 07:39:40 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-09 07:39:40 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-09 07:39:40 [INF] Hosting environment: Development
+2026-04-09 07:39:40 [INF] Content root path: D:\AutoTest\src\AutoTest.Webapi
+2026-04-09 07:39:40 [INF] Server tomwang:26744:7d25d7e6 successfully announced in 269.9937 ms
+2026-04-09 07:39:40 [INF] Server tomwang:26744:7d25d7e6 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-09 07:39:40 [INF] Server tomwang:26744:7d25d7e6 all the dispatchers started
+2026-04-09 07:39:41 [INF] 1 servers were removed due to timeout
+2026-04-09 07:39:44 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/index.html - null null
+2026-04-09 07:39:46 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/index.html - 200 null text/html;charset=utf-8 1780.5789ms
+2026-04-09 07:39:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_vs/browserLink - null null
+2026-04-09 07:39:46 [INF] Request starting HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - null null
+2026-04-09 07:39:46 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_framework/aspnetcore-browser-refresh.js - 200 14935 application/javascript; charset=utf-8 101.0692ms
+2026-04-09 07:39:47 [INF] Request finished HTTP/1.1 GET http://localhost:5033/_vs/browserLink - 200 null text/javascript; charset=UTF-8 346.0492ms
+2026-04-09 07:39:48 [INF] Request starting HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - null null
+2026-04-09 07:39:48 [INF] Request finished HTTP/1.1 GET http://localhost:5033/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 146.9278ms

@@ -22,9 +22,11 @@ namespace AutoTest.Tests.Execution.Http;
 
 public class HttpExecutionEngineTests
 {
+    // 测试基础 GET 请求，确保成功返回、捕获 Body 与 Headers
     [Fact]
     public async Task ExecuteAsync_ShouldReturnSuccess_AndCaptureBodyHeaders()
     {
+        // 启动一个临时 HTTP 服务，返回状态码 200，Header X-Test=abc，Body="ok"
         await using var server = await TestHttpServer.StartAsync(async ctx =>
         {
             ctx.Response.StatusCode = 200;
@@ -34,9 +36,11 @@ public class HttpExecutionEngineTests
 
         var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
         var target = new HttpTarget(server.Url("/ok").ToString(), RequestMethod.Get, null!);
-        target.RetryCount = 1;
+        target.RetryCount = 1; // 禁用重试
 
         var result = (HttpExecutionResult)await engine.ExecuteAsync(target);
+
+        // 验证返回结果
         result.IsExecutionSuccess.Should().BeTrue();
         result.StatusCode.Should().Be(200);
         result.Body.Should().Be("ok");
@@ -46,6 +50,7 @@ public class HttpExecutionEngineTests
         result.ElapsedMilliseconds!.Value.Should().BeGreaterThanOrEqualTo(0);
     }
 
+    // 测试 POST JSON 请求
     [Fact]
     public async Task ExecuteAsync_ShouldSendJsonBody()
     {
@@ -54,7 +59,7 @@ public class HttpExecutionEngineTests
             using var reader = new StreamReader(ctx.Request.Body, Encoding.UTF8);
             var body = await reader.ReadToEndAsync();
             ctx.Response.StatusCode = 200;
-            await ctx.Response.WriteAsync(body);
+            await ctx.Response.WriteAsync(body); // 直接回显请求体
         });
 
         var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
@@ -63,10 +68,13 @@ public class HttpExecutionEngineTests
         target.RetryCount = 1;
 
         var result = (HttpExecutionResult)await engine.ExecuteAsync(target);
+
+        // 验证返回结果为 JSON 字符串
         result.StatusCode.Should().Be(200);
         result.Body.Should().Be("{\"a\":1}");
     }
 
+    // 测试 POST FormUrlEncoded 请求
     [Fact]
     public async Task ExecuteAsync_ShouldSendFormUrlEncodedBody()
     {
@@ -75,7 +83,7 @@ public class HttpExecutionEngineTests
             using var reader = new StreamReader(ctx.Request.Body, Encoding.UTF8);
             var body = await reader.ReadToEndAsync();
             ctx.Response.StatusCode = 200;
-            await ctx.Response.WriteAsync($"{ctx.Request.ContentType}|{body}");
+            await ctx.Response.WriteAsync($"{ctx.Request.ContentType}|{body}"); // 回显 Content-Type 和 Body
         });
 
         var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
@@ -88,12 +96,15 @@ public class HttpExecutionEngineTests
         target.RetryCount = 1;
 
         var result = (HttpExecutionResult)await engine.ExecuteAsync(target);
+
+        // 验证请求被正确编码
         result.StatusCode.Should().Be(200);
         result.Body.Should().Contain("application/x-www-form-urlencoded");
         result.Body.Should().Contain("k=v");
-        result.Body.Should().Contain("k2=v+2");
+        result.Body.Should().Contain("k2=v+2"); // 空格编码为 +
     }
 
+    // 测试 Raw 请求体并带 Content-Type
     [Fact]
     public async Task ExecuteAsync_ShouldSendRawBody_WithContentType()
     {
@@ -111,18 +122,21 @@ public class HttpExecutionEngineTests
         target.RetryCount = 1;
 
         var result = (HttpExecutionResult)await engine.ExecuteAsync(target);
+
+        // 验证返回 Content-Type 与 Body
         result.StatusCode.Should().Be(200);
         result.Body.Should().Contain("text/plain");
         result.Body.Should().EndWith("|hello");
     }
 
+    // 测试自动追加 Query 参数
     [Fact]
     public async Task ExecuteAsync_ShouldAppendQueryParams()
     {
         await using var server = await TestHttpServer.StartAsync(async ctx =>
         {
             ctx.Response.StatusCode = 200;
-            await ctx.Response.WriteAsync(ctx.Request.QueryString.Value ?? "");
+            await ctx.Response.WriteAsync(ctx.Request.QueryString.Value ?? ""); // 回显 Query
         });
 
         var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
@@ -132,10 +146,12 @@ public class HttpExecutionEngineTests
         target.RetryCount = 1;
 
         var result = (HttpExecutionResult)await engine.ExecuteAsync(target);
+
         result.Body.Should().Contain("a=1");
-        result.Body.Should().Contain("b=hello%20world");
+        result.Body.Should().Contain("b=hello%20world"); // URL 编码
     }
 
+    // 测试 Bearer Token 认证
     [Fact]
     public async Task ExecuteAsync_ShouldSetBearerAuthHeader()
     {
@@ -143,7 +159,7 @@ public class HttpExecutionEngineTests
         {
             var auth = ctx.Request.Headers.Authorization.ToString();
             ctx.Response.StatusCode = 200;
-            await ctx.Response.WriteAsync(auth);
+            await ctx.Response.WriteAsync(auth); // 回显 Authorization
         });
 
         var engine = new HttpExecutionEngine(new NullLogger<HttpExecutionEngine>(), new TestHttpClient());
@@ -156,6 +172,7 @@ public class HttpExecutionEngineTests
         result.Body.Should().Be("Bearer t1");
     }
 
+    // 测试 Basic 认证
     [Fact]
     public async Task ExecuteAsync_ShouldSetBasicAuthHeader()
     {
@@ -179,6 +196,7 @@ public class HttpExecutionEngineTests
         Encoding.UTF8.GetString(Convert.FromBase64String(b64)).Should().Be("u:p");
     }
 
+    // 测试 ApiKey Header 认证
     [Fact]
     public async Task ExecuteAsync_ShouldSetApiKeyHeader()
     {
@@ -199,12 +217,13 @@ public class HttpExecutionEngineTests
         result.Body.Should().Be("k1");
     }
 
+    // 测试同 URL 并发执行
     [Fact]
     public async Task ExecuteAsync_ShouldReturn4044_WhenSameUrlIsInFlight()
     {
         await using var server = await TestHttpServer.StartAsync(async ctx =>
         {
-            await Task.Delay(400);
+            await Task.Delay(400); // 模拟慢响应
             ctx.Response.StatusCode = 200;
             await ctx.Response.WriteAsync("ok");
         });
@@ -216,21 +235,23 @@ public class HttpExecutionEngineTests
         t1Target.RetryCount = 1;
         t2Target.RetryCount = 1;
 
-        var first = engine.ExecuteAsync(t1Target);
+        var first = engine.ExecuteAsync(t1Target); // 发起第一个请求
         await Task.Delay(30);
-        var second = (HttpExecutionResult)await engine.ExecuteAsync(t2Target);
+        var second = (HttpExecutionResult)await engine.ExecuteAsync(t2Target); // 发起第二个请求
 
         second.StatusCode.Should().Be(200);
         second.IsExecutionSuccess.Should().BeTrue();
         await first;
     }
 
+    // 测试重试逻辑：第一次失败，第二次成功
     [Fact]
     public async Task ExecuteAsync_ShouldRetry_WhenTransientFailureThenSuccess()
     {
         var port = GetFreeTcpPort();
         var url = new Uri($"http://127.0.0.1:{port}/ok");
 
+        // 延迟启动服务，模拟第一次请求失败
         _ = Task.Run(async () =>
         {
             await Task.Delay(250);
@@ -255,12 +276,13 @@ public class HttpExecutionEngineTests
         result.IsExecutionSuccess.Should().BeTrue();
     }
 
+    // 测试超时返回失败
     [Fact]
     public async Task ExecuteAsync_ShouldReturnFailure_WhenTimeout()
     {
         await using var server = await TestHttpServer.StartAsync(async ctx =>
         {
-            await Task.Delay(1500);
+            await Task.Delay(1500); // 模拟延迟
             ctx.Response.StatusCode = 200;
             await ctx.Response.WriteAsync("late");
         });
@@ -271,9 +293,10 @@ public class HttpExecutionEngineTests
 
         var result = (HttpExecutionResult)await engine.ExecuteAsync(target);
         result.IsExecutionSuccess.Should().BeFalse();
-        result.StatusCode.Should().Be(0);
+        result.StatusCode.Should().Be(0); // 超时返回 0
     }
 
+    // 测试全局限流
     [Fact]
     public async Task ExecuteAsync_ShouldLimitGlobalConcurrency_WhenRateLimitEnabled()
     {
@@ -306,9 +329,10 @@ public class HttpExecutionEngineTests
         });
 
         await Task.WhenAll(tasks);
-        max.Should().BeLessThanOrEqualTo(5);
+        max.Should().BeLessThanOrEqualTo(5); // 限流 5 个并发
     }
 
+    // 辅助函数：更新最大并发数
     private static void UpdateMax(ref int target, int value)
     {
         while (true)
@@ -321,6 +345,7 @@ public class HttpExecutionEngineTests
         }
     }
 
+    // 辅助函数：获取可用 TCP 端口
     private static int GetFreeTcpPort()
     {
         var listener = new TcpListener(IPAddress.Loopback, 0);
@@ -330,6 +355,7 @@ public class HttpExecutionEngineTests
         return port;
     }
 
+    // 辅助函数：创建带超时的 HttpTarget
     private static HttpTarget CreateTargetWithTimeout(string url, int timeoutSeconds)
     {
         var json = JsonSerializer.Serialize(new
@@ -344,6 +370,7 @@ public class HttpExecutionEngineTests
         })!;
     }
 
+    // 内部临时 HTTP 服务封装
     private sealed class TestHttpServer : IAsyncDisposable
     {
         private readonly WebApplication _app;
@@ -378,7 +405,7 @@ public class HttpExecutionEngineTests
             });
 
             var app = builder.Build();
-            app.MapFallback(handler);
+            app.MapFallback(handler); // 所有请求都使用 handler
             await app.StartAsync();
 
             var addresses = app.Services.GetRequiredService<IServer>().Features.Get<IServerAddressesFeature>()!.Addresses;
@@ -393,6 +420,7 @@ public class HttpExecutionEngineTests
         }
     }
 
+    // 测试用 HttpClient 封装，支持不同 Auth 类型
     private sealed class TestHttpClient : IHttpClient
     {
         public Task<FlurlClient> GetOrCreateClient(HttpTarget target)

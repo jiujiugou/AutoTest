@@ -1,9 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace AutoTest.Application.Dto
 {
+    /// <summary>
+    /// Python 监控目标 DTO。
+    /// </summary>
     public class PythonTargetDto
     {
         /// <summary>Python 脚本路径（绝对或相对）</summary>

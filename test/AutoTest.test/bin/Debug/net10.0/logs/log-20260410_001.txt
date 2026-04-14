@@ -1,0 +1,72 @@
+2026-04-10 16:59:26 [INF] Beginning Transaction
+2026-04-10 16:59:26 [INF] Rolling back transaction
+2026-04-10 16:59:26 [INF] 2026041002: CreateRefreshTokensTable migrating
+2026-04-10 16:59:26 [INF] Beginning Transaction
+2026-04-10 16:59:26 [INF] CreateTable RefreshTokens
+2026-04-10 16:59:26 [INF] CREATE TABLE "RefreshTokens" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" INTEGER NOT NULL, "Token" TEXT NOT NULL UNIQUE, "ExpireAt" DATETIME NOT NULL, "Revoked" INTEGER NOT NULL DEFAULT 0, "CreatedAt" DATETIME NOT NULL, "ReplacedByToken" TEXT);
+2026-04-10 16:59:26 [INF] => 0.003182s
+2026-04-10 16:59:26 [INF] CreateIndex RefreshTokens (Token)
+2026-04-10 16:59:26 [INF] CREATE UNIQUE INDEX "IX_RefreshTokens_Token" ON "RefreshTokens" ("Token" ASC);
+2026-04-10 16:59:26 [INF] => 0.0012698s
+2026-04-10 16:59:26 [INF] CreateForeignKey FK_RefreshTokens_UserId_Users_Id RefreshTokens(UserId) Users(Id)
+2026-04-10 16:59:26 [ERR] Foreign keys are not supported in SQLite
+FluentMigrator.Exceptions.DatabaseOperationNotSupportedException: Foreign keys are not supported in SQLite
+   at FluentMigrator.Runner.Generators.CompatibilityModeExtension.HandleCompatibility(CompatibilityMode mode, String message)
+   at FluentMigrator.Runner.Generators.SQLite.SQLiteGenerator.Generate(CreateForeignKeyExpression expression)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(CreateForeignKeyExpression expression)
+   at FluentMigrator.Expressions.CreateForeignKeyExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__1()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.AnnounceTime(String message, Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-10 16:59:26 [INF] Rolling back transaction
+2026-04-10 17:01:50 [INF] Beginning Transaction
+2026-04-10 17:01:51 [INF] Rolling back transaction
+2026-04-10 17:01:51 [INF] 2026041002: CreateRefreshTokensTable migrating
+2026-04-10 17:01:51 [INF] Beginning Transaction
+2026-04-10 17:01:51 [INF] CreateTable RefreshTokens
+2026-04-10 17:01:51 [INF] CREATE TABLE "RefreshTokens" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" INTEGER NOT NULL, "Token" TEXT NOT NULL UNIQUE, "ExpireAt" DATETIME NOT NULL, "Revoked" INTEGER NOT NULL DEFAULT 0, "CreatedAt" DATETIME NOT NULL, "ReplacedByToken" TEXT, CONSTRAINT "FK_RefreshTokens_UserId_Users_Id" FOREIGN KEY ("UserId") REFERENCES "Users" ("Id"));
+2026-04-10 17:01:51 [INF] => 0.1028408s
+2026-04-10 17:01:51 [INF] CreateForeignKey $$IGNORE$$_FK_RefreshTokens_UserId_Users_Id RefreshTokens(UserId) Users(Id)
+2026-04-10 17:01:51 [INF] => 0.000773s
+2026-04-10 17:01:51 [INF] CreateIndex RefreshTokens (Token)
+2026-04-10 17:01:51 [INF] CREATE UNIQUE INDEX "IX_RefreshTokens_Token" ON "RefreshTokens" ("Token" ASC);
+2026-04-10 17:01:51 [INF] => 0.0045241s
+2026-04-10 17:01:51 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041002, CURRENT_TIMESTAMP, 'CreateRefreshTokensTable');
+2026-04-10 17:01:51 [INF] Committing Transaction
+2026-04-10 17:01:51 [INF] 2026041002: CreateRefreshTokensTable migrated
+2026-04-10 17:01:51 [INF] => 0.0290342s
+2026-04-10 17:01:52 [INF] Start installing Hangfire SQL objects...
+2026-04-10 17:01:52 [INF] Hangfire SQL objects installed.
+2026-04-10 17:01:52 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-10 17:01:52 [INF] Initializing Hangfire scheduled jobs...
+2026-04-10 17:01:52 [INF] Hangfire scheduled jobs initialized.
+2026-04-10 17:01:52 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-10 17:01:52 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-10 17:01:52 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-10 17:01:52 [INF] Hosting environment: Development
+2026-04-10 17:01:52 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-10 17:01:52 [INF] Server tomwang:25716:1540991e successfully announced in 57.1025 ms
+2026-04-10 17:01:52 [INF] Server tomwang:25716:1540991e is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-10 17:01:52 [INF] Server tomwang:25716:1540991e all the dispatchers started
+2026-04-10 17:01:52 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 18
+2026-04-10 17:01:52 [WRN] Failed to determine the https port for redirect.
+2026-04-10 17:01:53 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-10 17:01:53 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-10 17:01:53 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Webapi.Controllers.AiChatResponse'.
+2026-04-10 17:01:53 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 151.2537ms
+2026-04-10 17:01:53 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-10 17:01:53 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 200 null application/json; charset=utf-8 517.6016ms
+2026-04-10 17:01:53 [INF] Server tomwang:25716:1540991e caught stopping signal...
+2026-04-10 17:01:53 [INF] Application is shutting down...
+2026-04-10 17:01:53 [INF] Server tomwang:25716:1540991e All dispatchers stopped
+2026-04-10 17:01:53 [INF] Server tomwang:25716:1540991e successfully reported itself as stopped in 12.727 ms
+2026-04-10 17:01:53 [INF] Server tomwang:25716:1540991e has been stopped in total 25.485 ms
+2026-04-10 17:01:53 [INF] Start installing Hangfire SQL objects...
+2026-04-10 17:01:53 [INF] Hangfire SQL objects installed.
+2026-04-10 17:02:01 [INF] Start installing Hangfire SQL objects...
+2026-04-10 17:02:01 [INF] Hangfire SQL objects installed.

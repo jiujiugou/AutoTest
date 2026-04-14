@@ -1,0 +1,16 @@
+D:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.GeneratedMSBuildEditorConfig.editorconfig
+D:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.AssemblyInfoInputs.cache
+D:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.AssemblyInfo.cs
+D:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.csproj.CoreCompileInputs.cache
+D:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.sourcelink.json
+D:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.csproj.AssemblyReference.cache
+d:\AutoTest\src\OutBox\bin\Debug\net10.0\OutBox.deps.json
+d:\AutoTest\src\OutBox\bin\Debug\net10.0\OutBox.dll
+d:\AutoTest\src\OutBox\bin\Debug\net10.0\OutBox.pdb
+d:\AutoTest\src\OutBox\bin\Debug\net10.0\AutoTest.Core.dll
+d:\AutoTest\src\OutBox\bin\Debug\net10.0\AutoTest.Core.pdb
+d:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.csproj.Up2Date
+d:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.dll
+d:\AutoTest\src\OutBox\obj\Debug\net10.0\refint\OutBox.dll
+d:\AutoTest\src\OutBox\obj\Debug\net10.0\OutBox.pdb
+d:\AutoTest\src\OutBox\obj\Debug\net10.0\ref\OutBox.dll

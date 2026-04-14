@@ -1,0 +1,27 @@
+2026-04-12 01:39:51 [INF] Beginning Transaction
+2026-04-12 01:39:52 [INF] Rolling back transaction
+2026-04-12 01:39:53 [INF] 2026041106: SeedRbacDefaults migrating
+2026-04-12 01:39:53 [INF] Beginning Transaction
+2026-04-12 01:39:53 [INF] INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('admin', '管理员', '平台管理员');
+2026-04-12 01:39:53 [ERR] SQLite Error 19: 'UNIQUE constraint failed: Roles.Name'.
+While Processing:
+"INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('admin', '管理员', '平台管理员');"
+System.Exception: SQLite Error 19: 'UNIQUE constraint failed: Roles.Name'.
+While Processing:
+"INSERT INTO "Roles" ("Name", "DisplayName", "Description") VALUES ('admin', '管理员', '平台管理员');"
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 19: 'UNIQUE constraint failed: Roles.Name'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   --- End of inner exception stack trace ---
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.Process(String sql)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(InsertDataExpression expression)
+   at FluentMigrator.Expressions.InsertDataExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__0()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-12 01:39:53 [INF] Rolling back transaction

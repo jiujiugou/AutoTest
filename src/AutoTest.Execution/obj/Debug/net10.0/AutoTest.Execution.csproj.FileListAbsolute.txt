@@ -1,0 +1,16 @@
+d:\AutoTest\src\AutoTest.Execution\bin\Debug\net10.0\AutoTest.Execution.deps.json
+d:\AutoTest\src\AutoTest.Execution\bin\Debug\net10.0\AutoTest.Execution.dll
+d:\AutoTest\src\AutoTest.Execution\bin\Debug\net10.0\AutoTest.Execution.pdb
+d:\AutoTest\src\AutoTest.Execution\bin\Debug\net10.0\AutoTest.Core.dll
+d:\AutoTest\src\AutoTest.Execution\bin\Debug\net10.0\AutoTest.Core.pdb
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.Execution.csproj.AssemblyReference.cache
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.Execution.GeneratedMSBuildEditorConfig.editorconfig
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.Execution.AssemblyInfoInputs.cache
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.Execution.AssemblyInfo.cs
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.Execution.csproj.CoreCompileInputs.cache
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.Execution.sourcelink.json
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.16718954.Up2Date
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.Execution.dll
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\refint\AutoTest.Execution.dll
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\AutoTest.Execution.pdb
+d:\AutoTest\src\AutoTest.Execution\obj\Debug\net10.0\ref\AutoTest.Execution.dll

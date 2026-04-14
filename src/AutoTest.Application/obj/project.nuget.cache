@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "AqPL+1ddWlQ=",
+  "dgSpecHash": "La0yEbls7ws=",
   "success": true,
   "projectFilePath": "D:\\AutoTest\\src\\AutoTest.Application\\AutoTest.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jiuji\\.nuget\\packages\\bouncycastle.cryptography\\2.6.2\\bouncycastle.cryptography.2.6.2.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\flurl\\4.0.0\\flurl.4.0.0.nupkg.sha512",
+    "C:\\Users\\jiuji\\.nuget\\packages\\flurl.http\\4.0.2\\flurl.http.4.0.2.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\google.protobuf\\3.32.0\\google.protobuf.3.32.0.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\k4os.compression.lz4\\1.3.8\\k4os.compression.lz4.1.3.8.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\k4os.compression.lz4.streams\\1.3.8\\k4os.compression.lz4.streams.1.3.8.nupkg.sha512",

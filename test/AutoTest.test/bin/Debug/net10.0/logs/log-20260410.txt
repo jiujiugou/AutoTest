@@ -1,0 +1,34 @@
+2026-04-10 16:59:24 [INF] Beginning Transaction
+2026-04-10 16:59:24 [INF] Rolling back transaction
+2026-04-10 16:59:25 [INF] 2026041001: CreateUsersTable migrating
+2026-04-10 16:59:25 [INF] Beginning Transaction
+2026-04-10 16:59:25 [INF] CreateTable Users
+2026-04-10 16:59:25 [INF] CREATE TABLE "Users" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "Username" TEXT NOT NULL UNIQUE, "PasswordHash" TEXT NOT NULL, "Role" TEXT NOT NULL, "IsActive" INTEGER NOT NULL DEFAULT 1, "CreatedAt" DATETIME NOT NULL, "LastLoginAt" DATETIME);
+2026-04-10 16:59:25 [INF] => 0.1046424s
+2026-04-10 16:59:25 [INF] CreateIndex Users (Username)
+2026-04-10 16:59:25 [INF] CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username" ASC);
+2026-04-10 16:59:25 [INF] => 0.0061039s
+2026-04-10 16:59:25 [INF] INSERT INTO "VersionInfo" ("Version", "AppliedOn", "Description") VALUES (2026041001, CURRENT_TIMESTAMP, 'CreateUsersTable');
+2026-04-10 16:59:25 [INF] Committing Transaction
+2026-04-10 16:59:25 [INF] 2026041001: CreateUsersTable migrated
+2026-04-10 16:59:25 [INF] => 0.0250872s
+2026-04-10 16:59:25 [INF] 2026041002: CreateRefreshTokensTable migrating
+2026-04-10 16:59:25 [INF] Beginning Transaction
+2026-04-10 16:59:25 [INF] CreateTable RefreshTokens
+2026-04-10 16:59:25 [INF] CREATE TABLE "RefreshTokens" ("Id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, "UserId" INTEGER NOT NULL, "Token" TEXT NOT NULL UNIQUE, "ExpireAt" DATETIME NOT NULL, "Revoked" INTEGER NOT NULL DEFAULT 0, "CreatedAt" DATETIME NOT NULL, "ReplacedByToken" TEXT);
+2026-04-10 16:59:25 [INF] => 0.0036186s
+2026-04-10 16:59:25 [INF] CreateIndex RefreshTokens (Token)
+2026-04-10 16:59:25 [INF] CREATE UNIQUE INDEX "IX_RefreshTokens_Token" ON "RefreshTokens" ("Token" ASC);
+2026-04-10 16:59:25 [INF] => 0.0008721s
+2026-04-10 16:59:25 [INF] CreateForeignKey FK_RefreshTokens_UserId_Users_Id RefreshTokens(UserId) Users(Id)
+2026-04-10 16:59:25 [ERR] Foreign keys are not supported in SQLite
+FluentMigrator.Exceptions.DatabaseOperationNotSupportedException: Foreign keys are not supported in SQLite
+   at FluentMigrator.Runner.Generators.CompatibilityModeExtension.HandleCompatibility(CompatibilityMode mode, String message)
+   at FluentMigrator.Runner.Generators.SQLite.SQLiteGenerator.Generate(CreateForeignKeyExpression expression)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(CreateForeignKeyExpression expression)
+   at FluentMigrator.Expressions.CreateForeignKeyExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__1()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.AnnounceTime(String message, Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-10 16:59:25 [INF] Rolling back transaction

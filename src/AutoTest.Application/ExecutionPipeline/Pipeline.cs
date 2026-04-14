@@ -2,6 +2,9 @@ using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.ExecutionPipeline;
 
+/// <summary>
+/// 默认执行管道实现：按注册顺序编排 <see cref="IPipelineStep"/> 并执行。
+/// </summary>
 public class Pipeline : IPipeline
 {
     private readonly IEnumerable<IPipelineStep> _steps;
@@ -12,6 +15,7 @@ public class Pipeline : IPipeline
         _logger = logger;
     }
 
+    /// <inheritdoc />
     public async Task ExecuteAsync(PipelineContext context)
     {
         Func<Task> pipeline = () => Task.CompletedTask;

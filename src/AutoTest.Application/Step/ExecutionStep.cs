@@ -5,6 +5,9 @@ using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.Step;
 
+/// <summary>
+/// 执行步骤：选择合适的执行引擎并执行目标。
+/// </summary>
 public class ExecutionStep : IPipelineStep
 {
     private readonly ExecutionEngineResolver _engineResolver;
@@ -16,6 +19,7 @@ public class ExecutionStep : IPipelineStep
         _logger = logger;
     }
 
+    /// <inheritdoc />
     public async Task InvokeAsync(PipelineContext context, Func<Task> next)
     {
         try

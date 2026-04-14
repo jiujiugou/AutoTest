@@ -1,10 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
 namespace AutoTest.Core.Target.Python
 {
+    /// <summary>
+    /// Python 监控目标：描述一次 Python 脚本执行的配置（脚本路径、参数、环境变量、超时与重试等）。
+    /// </summary>
     public class PythonTarget : MonitorTarget
     {
         /// <summary>目标类型</summary>

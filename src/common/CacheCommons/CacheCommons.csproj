@@ -8,6 +8,6 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.5" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AutoTest.Assertions.Http\AutoTest.Assertions.Http.csproj" />
+    <ProjectReference Include="..\..\AutoTest.Assertions\AutoTest.Assertions.csproj" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,84 @@
+2026-04-10 17:03:39 [INF] Beginning Transaction
+2026-04-10 17:03:39 [INF] Rolling back transaction
+2026-04-10 17:03:39 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-10 17:03:39 [INF] Initializing Hangfire scheduled jobs...
+2026-04-10 17:03:39 [INF] Hangfire scheduled jobs initialized.
+2026-04-10 17:03:39 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-10 17:03:39 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-10 17:03:39 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-10 17:03:39 [INF] Hosting environment: Development
+2026-04-10 17:03:39 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-10 17:03:39 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 14
+2026-04-10 17:03:39 [INF] Server tomwang:34740:c48ae981 successfully announced in 11.6831 ms
+2026-04-10 17:03:39 [INF] Server tomwang:34740:c48ae981 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-10 17:03:39 [WRN] Failed to determine the https port for redirect.
+2026-04-10 17:03:39 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-10 17:03:39 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-10 17:03:39 [INF] Server tomwang:34740:c48ae981 all the dispatchers started
+2026-04-10 17:03:39 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-04-10 17:03:39 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 27.3318ms
+2026-04-10 17:03:39 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-10 17:03:39 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 400 null text/plain; charset=utf-8 136.0714ms
+2026-04-10 17:03:39 [INF] Server tomwang:34740:c48ae981 caught stopping signal...
+2026-04-10 17:03:39 [INF] Application is shutting down...
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" already running or executed, skipping.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Worker stop requested while processing background job '3'. It will be re-queued.
+2026-04-10 17:03:39 [WRN] Monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" already running or executed, skipping.
+2026-04-10 17:03:39 [WRN] Monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" already running or executed, skipping.
+2026-04-10 17:03:39 [WRN] Monitor "bfeb5b1a-9ee7-4819-8070-2841b2b5d85e" already running or executed, skipping.
+2026-04-10 17:03:39 [INF] Server tomwang:34740:c48ae981 All dispatchers stopped
+2026-04-10 17:03:39 [INF] Server tomwang:34740:c48ae981 successfully reported itself as stopped in 22.703 ms
+2026-04-10 17:03:39 [INF] Server tomwang:34740:c48ae981 has been stopped in total 486.3505 ms
+2026-04-10 17:05:33 [INF] Beginning Transaction
+2026-04-10 17:05:33 [INF] Rolling back transaction
+2026-04-10 17:05:34 [INF] 2026041003: CreateUserPermissionTable migrating
+2026-04-10 17:05:34 [INF] Beginning Transaction
+2026-04-10 17:05:34 [INF] CreateTable UserPermission
+2026-04-10 17:05:34 [INF] CREATE TABLE "UserPermission" ("UserId" TEXT NOT NULL, "Permission" TEXT NOT NULL);
+2026-04-10 17:05:34 [INF] => 0.0029213s
+2026-04-10 17:05:34 [INF] CreateConstraint PK_UserPermission
+2026-04-10 17:05:34 [INF] ALTER TABLE "UserPermission" ADD CONSTRAINT "PK_UserPermission" PRIMARY KEY ("UserId", "Permission");
+2026-04-10 17:05:34 [ERR] SQLite Error 1: 'near "CONSTRAINT": syntax error'.
+While Processing:
+"ALTER TABLE "UserPermission" ADD CONSTRAINT "PK_UserPermission" PRIMARY KEY ("UserId", "Permission");"
+System.Exception: SQLite Error 1: 'near "CONSTRAINT": syntax error'.
+While Processing:
+"ALTER TABLE "UserPermission" ADD CONSTRAINT "PK_UserPermission" PRIMARY KEY ("UserId", "Permission");"
+ ---> Microsoft.Data.Sqlite.SqliteException (0x80004005): SQLite Error 1: 'near "CONSTRAINT": syntax error'.
+   at Microsoft.Data.Sqlite.SqliteException.ThrowExceptionForRC(Int32 rc, sqlite3 db)
+   at Microsoft.Data.Sqlite.SqliteCommand.PrepareAndEnumerateStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteCommand.GetStatements()+MoveNext()
+   at Microsoft.Data.Sqlite.SqliteDataReader.NextResult()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteReader()
+   at Microsoft.Data.Sqlite.SqliteCommand.ExecuteNonQuery()
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   --- End of inner exception stack trace ---
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.ExecuteNonQuery(String sql)
+   at FluentMigrator.Runner.Processors.SQLite.SQLiteProcessor.Process(String sql)
+   at FluentMigrator.Runner.Processors.ProcessorBase.Process(CreateConstraintExpression expression)
+   at FluentMigrator.Expressions.CreateConstraintExpression.ExecuteWith(IMigrationProcessor processor)
+   at FluentMigrator.Runner.MigrationRunner.<>c__DisplayClass75_0.<ExecuteExpressions>b__1()
+   at FluentMigrator.Runner.StopWatch.Time(Action action)
+   at FluentMigrator.Runner.MigrationRunner.AnnounceTime(String message, Action action)
+   at FluentMigrator.Runner.MigrationRunner.ExecuteExpressions(ICollection`1 expressions)
+2026-04-10 17:05:34 [INF] Rolling back transaction

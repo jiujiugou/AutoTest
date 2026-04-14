@@ -1,0 +1,8 @@
+D:\AutoTest\test\AutoTest.test\bin\Release\net10.0\.msCoverageSourceRootsMapping_AutoTest.test
+D:\AutoTest\test\AutoTest.test\obj\Release\net10.0\AutoTest.test.csproj.AssemblyReference.cache
+D:\AutoTest\test\AutoTest.test\obj\Release\net10.0\MvcTestingAppManifest.json
+D:\AutoTest\test\AutoTest.test\obj\Release\net10.0\AutoTest.test.GeneratedMSBuildEditorConfig.editorconfig
+D:\AutoTest\test\AutoTest.test\obj\Release\net10.0\AutoTest.test.AssemblyInfoInputs.cache
+D:\AutoTest\test\AutoTest.test\obj\Release\net10.0\AutoTest.test.AssemblyInfo.cs
+D:\AutoTest\test\AutoTest.test\obj\Release\net10.0\AutoTest.test.csproj.CoreCompileInputs.cache
+D:\AutoTest\test\AutoTest.test\obj\Release\net10.0\AutoTest.test.sourcelink.json

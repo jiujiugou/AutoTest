@@ -1,21 +1,101 @@
 [
   {
-    "ContainingType": "AutoTest.Webapi.Controllers.AiController",
+    "ContainingType": "AutoTest.Webapi.Controllers.AiAgentController",
     "Method": "Chat",
-    "RelativePath": "api/ai/chat",
+    "RelativePath": "api/AiAgent/chat",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "AutoTest.Webapi.Controllers.AiChatRequest",
+        "Name": "req",
+        "Type": "AutoTest.Webapi.Controllers.AiAgentController\u002BChatRequest",
         "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.AuthController",
+    "Method": "Bootstrap",
+    "RelativePath": "api/auth/bootstrap",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "AutoTest.Webapi.Controllers.BootstrapRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "AutoTest.Webapi.Controllers.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.AuthController",
+    "Method": "Logout",
+    "RelativePath": "api/auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "AutoTest.Webapi.Controllers.RefreshRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.AuthController",
+    "Method": "Refresh",
+    "RelativePath": "api/auth/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "req",
+        "Type": "AutoTest.Webapi.Controllers.RefreshRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.DashboardController",
+    "Method": "Get",
+    "RelativePath": "api/Dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "range",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "AutoTest.Webapi.Controllers.AiChatResponse",
+        "Type": "AutoTest.Application.Dto.DashboardResponseDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -24,6 +104,72 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.LogsController",
+    "Method": "List",
+    "RelativePath": "api/Logs",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "level",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "module",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "keyword",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "fromUtc",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "toUtc",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "before",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AutoTest.Application.Dto.LogPageDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.LogsController",
+    "Method": "Clear",
+    "RelativePath": "api/Logs",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
   },
   {
     "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
@@ -106,6 +252,27 @@
   },
   {
     "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
+    "Method": "SetEnabled",
+    "RelativePath": "api/Monitor/{id}/enabled",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "req",
+        "Type": "AutoTest.Webapi.Controllers.MonitorController\u002BSetEnabledRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
     "Method": "GetExecutions",
     "RelativePath": "api/Monitor/{id}/executions",
     "HttpMethod": "GET",
@@ -159,6 +326,27 @@
   },
   {
     "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
+    "Method": "GetRuntimeStats",
+    "RelativePath": "api/Monitor/{id}/runtime-stats",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "topErrors",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
     "Method": "GetExecutionAssertions",
     "RelativePath": "api/Monitor/executions/{executionId}/assertions",
     "HttpMethod": "GET",
@@ -185,6 +373,116 @@
         "Name": "take",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.RbacController",
+    "Method": "Permissions",
+    "RelativePath": "api/rbac/permissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.RbacController",
+    "Method": "Roles",
+    "RelativePath": "api/rbac/roles",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.RbacController",
+    "Method": "RolePermissions",
+    "RelativePath": "api/rbac/roles/{roleId}/permissions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.RbacController",
+    "Method": "SetRolePermissions",
+    "RelativePath": "api/rbac/roles/{roleId}/permissions",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roleId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "req",
+        "Type": "AutoTest.Webapi.Controllers.RbacController\u002BSetRolePermissionsRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.RbacController",
+    "Method": "Users",
+    "RelativePath": "api/rbac/users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.RbacController",
+    "Method": "UserRole",
+    "RelativePath": "api/rbac/users/{userId}/role",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.RbacController",
+    "Method": "SetUserRole",
+    "RelativePath": "api/rbac/users/{userId}/role",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "req",
+        "Type": "AutoTest.Webapi.Controllers.RbacController\u002BSetUserRoleRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

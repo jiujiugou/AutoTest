@@ -1,0 +1,62 @@
+2026-04-11 00:41:30 [INF] Beginning Transaction
+2026-04-11 00:41:30 [INF] Rolling back transaction
+2026-04-11 00:41:30 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 00:41:30 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 00:41:30 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 00:41:30 [INF] Outbox webhook dispatcher disabled
+2026-04-11 00:41:30 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 00:41:30 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 00:41:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 00:41:30 [INF] Hosting environment: Development
+2026-04-11 00:41:30 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-11 00:41:30 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 14
+2026-04-11 00:41:31 [INF] Server tomwang:19276:553589fd successfully announced in 17.5812 ms
+2026-04-11 00:41:31 [INF] Server tomwang:19276:553589fd is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 00:41:31 [WRN] Failed to determine the https port for redirect.
+2026-04-11 00:41:31 [INF] Server tomwang:19276:553589fd all the dispatchers started
+2026-04-11 00:41:31 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 00:41:31 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-11 00:41:31 [INF] Executing BadRequestObjectResult, writing value of type 'System.String'.
+2026-04-11 00:41:31 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 20.1824ms
+2026-04-11 00:41:31 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 00:41:31 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 400 null text/plain; charset=utf-8 97.8816ms
+2026-04-11 00:41:31 [INF] Server tomwang:19276:553589fd caught stopping signal...
+2026-04-11 00:41:31 [INF] Application is shutting down...
+2026-04-11 00:41:31 [INF] Server tomwang:19276:553589fd All dispatchers stopped
+2026-04-11 00:41:31 [INF] Server tomwang:19276:553589fd successfully reported itself as stopped in 7.1904 ms
+2026-04-11 00:41:31 [INF] Server tomwang:19276:553589fd has been stopped in total 10.0459 ms
+2026-04-11 16:45:41 [INF] Beginning Transaction
+2026-04-11 16:45:41 [INF] Rolling back transaction
+2026-04-11 16:45:41 [INF] User profile is available. Using 'C:\Users\jiuji\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-11 16:45:41 [INF] Initializing Hangfire scheduled jobs...
+2026-04-11 16:45:41 [INF] Hangfire scheduled jobs initialized.
+2026-04-11 16:45:41 [INF] Outbox webhook dispatcher disabled
+2026-04-11 16:45:41 [INF] Starting Hangfire Server using job storage: 'SQLite Server: hangfire.db'
+2026-04-11 16:45:41 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-04-11 16:45:41 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-11 16:45:41 [INF] Hosting environment: Development
+2026-04-11 16:45:41 [INF] Content root path: d:\AutoTest\src\AutoTest.Webapi
+2026-04-11 16:45:41 [INF] Request starting HTTP/1.1 POST http://localhost/api/ai/chat - application/json; charset=utf-8 18
+2026-04-11 16:45:41 [WRN] Failed to determine the https port for redirect.
+2026-04-11 16:45:41 [INF] Server tomwang:13564:b48f9dab successfully announced in 84.6007 ms
+2026-04-11 16:45:41 [INF] Server tomwang:13564:b48f9dab is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-04-11 16:45:41 [INF] Server tomwang:13564:b48f9dab all the dispatchers started
+2026-04-11 16:45:41 [INF] Executing endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 16:45:41 [INF] Route matched with {action = "Chat", controller = "Ai"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[AutoTest.Webapi.Controllers.AiChatResponse]] Chat(AutoTest.Webapi.Controllers.AiChatRequest, System.Threading.CancellationToken) on controller AutoTest.Webapi.Controllers.AiController (AutoTest.Webapi).
+2026-04-11 16:45:41 [INF] Executing OkObjectResult, writing value of type 'AutoTest.Webapi.Controllers.AiChatResponse'.
+2026-04-11 16:45:41 [INF] Executed action AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi) in 24.7223ms
+2026-04-11 16:45:41 [INF] Executed endpoint 'AutoTest.Webapi.Controllers.AiController.Chat (AutoTest.Webapi)'
+2026-04-11 16:45:41 [INF] Request finished HTTP/1.1 POST http://localhost/api/ai/chat - 200 null application/json; charset=utf-8 170.1147ms
+2026-04-11 16:45:41 [INF] Server tomwang:13564:b48f9dab caught stopping signal...
+2026-04-11 16:45:41 [INF] Application is shutting down...
+2026-04-11 16:45:41 [INF] Server tomwang:13564:b48f9dab All dispatchers stopped
+2026-04-11 16:45:41 [INF] Server tomwang:13564:b48f9dab successfully reported itself as stopped in 10.9825 ms
+2026-04-11 16:45:41 [INF] Server tomwang:13564:b48f9dab has been stopped in total 372.5513 ms

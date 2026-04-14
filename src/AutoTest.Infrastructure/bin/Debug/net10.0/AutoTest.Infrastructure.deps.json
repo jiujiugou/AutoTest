@@ -9,11 +9,12 @@
       "AutoTest.Infrastructure/1.0.0": {
         "dependencies": {
           "AutoTest.Application": "1.0.0",
-          "AutoTest.Assertions.Http": "1.0.0",
+          "AutoTest.Assertions": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "Dapper": "2.1.72",
           "Hangfire.AspNetCore": "1.8.23",
           "Hangfire.SQLite": "1.4.2",
+          "Hangfire.SqlServer": "1.8.23",
           "Microsoft.Data.SqlClient": "7.0.0",
           "Microsoft.Data.Sqlite": "10.0.5",
           "Newtonsoft.Json": "13.0.3",
@@ -36,6 +37,25 @@
           "lib/net10.0/Dapper.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.1.72.10375"
+          }
+        }
+      },
+      "Flurl/4.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/Flurl.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "Flurl.Http/4.0.2": {
+        "dependencies": {
+          "Flurl": "4.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Flurl.Http.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.0.2.0"
           }
         }
       },
@@ -136,6 +156,17 @@
           "lib/netstandard2.0/Hangfire.SQLite.dll": {
             "assemblyVersion": "1.4.2.0",
             "fileVersion": "1.4.2.0"
+          }
+        }
+      },
+      "Hangfire.SqlServer/1.8.23": {
+        "dependencies": {
+          "Hangfire.Core": "1.8.23"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.SqlServer.dll": {
+            "assemblyVersion": "1.8.23.0",
+            "fileVersion": "1.8.23.0"
           }
         }
       },
@@ -681,9 +712,6 @@
       },
       "AutoTest.Application/1.0.0": {
         "dependencies": {
-          "AutoTest.Assertion.Db": "1.0.0",
-          "AutoTest.Assertions.Http": "1.0.0",
-          "AutoTest.Assertions.Tcp": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "CacheCommons": "1.0.0",
           "EventCommons": "1.0.0"
@@ -695,48 +723,13 @@
           }
         }
       },
-      "AutoTest.Assertion/1.0.0": {
+      "AutoTest.Assertions/1.0.0": {
         "dependencies": {
-          "AutoTest.Core": "1.0.0"
-        },
-        "runtime": {
-          "AutoTest.Assertion.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertion.Db/1.0.0": {
-        "dependencies": {
-          "AutoTest.Assertion": "1.0.0",
           "AutoTest.Core": "1.0.0",
-          "AutoTest.Execution.Db": "1.0.0"
+          "AutoTest.Execution": "1.0.0"
         },
         "runtime": {
-          "AutoTest.Assertion.Db.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertions.Http/1.0.0": {
-        "dependencies": {
-          "AutoTest.Assertion": "1.0.0",
-          "AutoTest.Core": "1.0.0"
-        },
-        "runtime": {
-          "AutoTest.Assertions.Http.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertions.Tcp/1.0.0": {
-        "dependencies": {
-          "AutoTest.Core": "1.0.0"
-        },
-        "runtime": {
-          "AutoTest.Assertions.Tcp.dll": {
+          "AutoTest.Assertions.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -750,15 +743,16 @@
           }
         }
       },
-      "AutoTest.Execution.Db/1.0.0": {
+      "AutoTest.Execution/1.0.0": {
         "dependencies": {
           "AutoTest.Core": "1.0.0",
+          "Flurl.Http": "4.0.2",
           "Microsoft.Data.SqlClient": "7.0.0",
           "MySql.Data": "9.6.0",
           "Npgsql": "10.0.2"
         },
         "runtime": {
-          "AutoTest.Execution.Db.dll": {
+          "AutoTest.Execution.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -766,7 +760,7 @@
       },
       "CacheCommons/1.0.0": {
         "dependencies": {
-          "AutoTest.Assertions.Http": "1.0.0"
+          "AutoTest.Assertions": "1.0.0"
         },
         "runtime": {
           "CacheCommons.dll": {
@@ -805,6 +799,20 @@
       "path": "dapper/2.1.72",
       "hashPath": "dapper.2.1.72.nupkg.sha512"
     },
+    "Flurl/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rpts69yYgvJqg6PPgqShBQEZ4aNzWQqWpWppcT0oDWxDCIsBqiod4pj6LQZdhk+1OozLFagemldMRACdHF3CsA==",
+      "path": "flurl/4.0.0",
+      "hashPath": "flurl.4.0.0.nupkg.sha512"
+    },
+    "Flurl.Http/4.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9vCqFFyceA11yplkFD8AbCFFTvG1Lrw3tpsgOpL5sLUc28p6zcvGszNleuT6nDymRvtt5eS+rqUX+bRztg1fhA==",
+      "path": "flurl.http/4.0.2",
+      "hashPath": "flurl.http.4.0.2.nupkg.sha512"
+    },
     "Google.Protobuf/3.32.0": {
       "type": "package",
       "serviceable": true,
@@ -839,6 +847,13 @@
       "sha512": "sha512-8ZONqFjC7la5dTB1I57WSBOlcx9ZVxXY/8C8+MLQwCiBHNQXfb3HjtyODP1NIQDjuNBOhyxOl4Z6KlXNLmpxMg==",
       "path": "hangfire.sqlite/1.4.2",
       "hashPath": "hangfire.sqlite.1.4.2.nupkg.sha512"
+    },
+    "Hangfire.SqlServer/1.8.23": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HiRUbwveK0+wop8iY98Z5DrtfjP+1QCly6IO+21Bnolb5kTO5eCrtKbGErHfhSN0BzKk9ehmTLk9uDHQdAtfcQ==",
+      "path": "hangfire.sqlserver/1.8.23",
+      "hashPath": "hangfire.sqlserver.1.8.23.nupkg.sha512"
     },
     "K4os.Compression.LZ4/1.3.8": {
       "type": "package",
@@ -1076,22 +1091,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoTest.Assertion/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertion.Db/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertions.Http/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertions.Tcp/1.0.0": {
+    "AutoTest.Assertions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1101,7 +1101,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoTest.Execution.Db/1.0.0": {
+    "AutoTest.Execution/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
