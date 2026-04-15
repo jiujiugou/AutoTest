@@ -92,7 +92,7 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddHostedService<OutboxWebhookDispatcherHostedService>();
         services.AddSingleton<RedisService>(sp =>
         {
-            var redisConnection = "localhost:6379";
+            var redisConnection = configuration["Redis:ConnectionString"] ?? "localhost:6379";
             return new RedisService(redisConnection);
         });
         return services;
