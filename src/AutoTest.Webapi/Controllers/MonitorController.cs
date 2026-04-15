@@ -147,8 +147,12 @@ public class MonitorController : ControllerBase
     public async Task<IActionResult> TaskRun(Guid id)
     {
         var userId = User.FindFirstValue("sub") ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
-        await _workflowScheduler.RunNowAsync(id, userId);
-        return Ok();
+        var idempotencyKey = Request.Headers.TryGetValue("Idempotency-Key", out var v) ? v.ToString() : null;
+        if (string.IsNullOrWhiteSpace(idempotencyKey))
+            idempotencyKey = Guid.NewGuid().ToString("N");
+
+        await _workflowScheduler.RunNowAsync(id, userId, idempotencyKey);
+        return Ok(new { idempotencyKey });
     }
 
     private Task ApplyScheduleAsync(Guid monitorId, bool isEnabled, bool autoDailyEnabled, string? autoDailyTime)

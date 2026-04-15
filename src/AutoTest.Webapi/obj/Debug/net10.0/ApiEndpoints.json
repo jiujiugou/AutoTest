@@ -173,16 +173,6 @@
   },
   {
     "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
-    "Method": "Index",
-    "RelativePath": "api/Monitor",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
     "Method": "Add",
     "RelativePath": "api/Monitor",
     "HttpMethod": "POST",

@@ -36,6 +36,41 @@ public interface IExecutionRecordRepository
     Task AddAsync(ExecutionRecord record, IDbTransaction? tx = null);
 
     /// <summary>
+    /// 尝试以幂等键创建一条“运行中”的执行记录。
+    /// </summary>
+    Task<bool> TryAddRunningAsync(
+        Guid executionId,
+        Guid monitorId,
+        DateTime startedAtUtc,
+        string? idempotencyKey,
+        string lockedBy,
+        DateTime heartbeatAtUtc,
+        IDbTransaction tx);
+
+    /// <summary>
+    /// 获取指定幂等键对应的执行记录 ID。
+    /// </summary>
+    Task<Guid?> GetIdByIdempotencyKeyAsync(string idempotencyKey);
+
+    /// <summary>
+    /// 更新执行心跳时间。
+    /// </summary>
+    Task UpdateHeartbeatAsync(Guid executionId, string lockedBy, DateTime heartbeatAtUtc, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 更新执行记录的最终结果（结束时间/状态/结果 JSON 等）。
+    /// </summary>
+    Task UpdateCompletionAsync(
+        Guid executionId,
+        int status,
+        DateTime finishedAtUtc,
+        bool isExecutionSuccess,
+        string? errorMessage,
+        string resultType,
+        string resultJson,
+        IDbTransaction tx);
+
+    /// <summary>
     /// 批量新增断言结果。
     /// </summary>
     Task AddAssertionResultsAsync(Guid executionId, IEnumerable<AssertionResult> results, IDbTransaction? tx = null);

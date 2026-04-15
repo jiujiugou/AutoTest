@@ -33,6 +33,7 @@ public sealed class PythonTargetMap : ITargetMap
         return new PythonTarget
         {
             ScriptPath = dto.ScriptPath,
+            ScriptContent = dto.ScriptContent,
             Args = dto.Args,
             WorkingDirectory = dto.WorkingDirectory,
             PythonExecutable = dto.PythonExecutable,

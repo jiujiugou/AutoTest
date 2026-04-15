@@ -2247,6 +2247,10 @@
               "target": "Package",
               "version": "[2.1.72, )"
             },
+            "Elastic.Clients.Elasticsearch": {
+              "target": "Package",
+              "version": "[8.19.18, )"
+            },
             "Hangfire.AspNetCore": {
               "target": "Package",
               "version": "[1.8.23, )"
@@ -3208,6 +3212,10 @@
             "Serilog.Sinks.Console": {
               "target": "Package",
               "version": "[6.1.1, )"
+            },
+            "Serilog.Sinks.Elasticsearch": {
+              "target": "Package",
+              "version": "[10.0.0, )"
             },
             "Serilog.Sinks.File": {
               "target": "Package",

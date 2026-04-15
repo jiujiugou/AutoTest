@@ -30,11 +30,6 @@ public interface IMonitorRepository
     Task RemoveAsync(Guid id, IDbTransaction? tx = null);
 
     /// <summary>
-    /// 获取待执行的任务集合（通常用于调度器）。
-    /// </summary>
-    Task<IEnumerable<MonitorEntity>> GetPendingTasksAsync();
-
-    /// <summary>
     /// 获取监控任务列表。
     /// </summary>
     Task<IEnumerable<MonitorEntity>> ListAsync(int take = 50);

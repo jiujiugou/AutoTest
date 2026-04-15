@@ -13,8 +13,8 @@ export default defineConfig({
       },
       '/hubs': {
         target: apiBaseUrl,
-        changeOrigin: true,
-        ws: true
+        ws: true,
+        changeOrigin: true
       }
     }
   }

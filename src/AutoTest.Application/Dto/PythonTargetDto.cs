@@ -12,6 +12,8 @@ namespace AutoTest.Application.Dto
         /// <summary>Python 脚本路径（绝对或相对）</summary>
         public string ScriptPath { get; set; } = string.Empty;
 
+        public string? ScriptContent { get; set; }
+
         /// <summary>命令行参数数组</summary>
         public string[] Args { get; set; } = Array.Empty<string>();
 

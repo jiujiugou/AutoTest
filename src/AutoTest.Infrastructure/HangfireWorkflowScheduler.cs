@@ -48,6 +48,12 @@ namespace AutoTest.Infrastructure
             return Task.CompletedTask;
         }
 
+        public Task RunNowAsync(Guid workflowId, string? userId, string? idempotencyKey)
+        {
+            BackgroundJob.Enqueue<WorkflowJob>(job => job.RunAsync(workflowId, userId, idempotencyKey));
+            return Task.CompletedTask;
+        }
+
         /// <summary>
         /// 添加或更新每日定时任务。
         /// </summary>

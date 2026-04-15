@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using AutoTest.Infrastructure.Hubs;
 
 namespace AutoTest.Infrastructure
@@ -43,7 +44,8 @@ namespace AutoTest.Infrastructure
         /// <param name="monitorId">监控任务 ID。</param>
         public async Task RunAsync(Guid monitorId)
         {
-            await RunAsync(monitorId, null);
+            var key = $"schedule:{monitorId}:{DateTime.UtcNow:yyyyMMdd}";
+            await RunAsync(monitorId, null, key);
         }
 
         /// <summary>
@@ -53,19 +55,17 @@ namespace AutoTest.Infrastructure
         /// <param name="userId">触发用户 ID；为空时视为系统触发。</param>
         public async Task RunAsync(Guid monitorId, string? userId)
         {
+            await RunAsync(monitorId, userId, null);
+        }
+
+        public async Task RunAsync(Guid monitorId, string? userId, string? idempotencyKey)
+        {
             var redisKey = $"monitor-lock:{monitorId}";
 
             await using var myLock = _redisService.GetLock($"{redisKey}", TimeSpan.FromSeconds(10));
-            var execKey = $"execution:{monitorId}";
             if (!await myLock.AcquireAsync())
             {
                 _logger.LogInformation("Monitor {Id} is already being processed by another instance.", monitorId);
-                return;
-            }
-            // 如果没有拿到幂等标记，说明任务可能被重复执行了，直接跳过
-            if (!await _redisService.TrySetOnceAsync(execKey, TimeSpan.FromMinutes(10)))
-            {
-                _logger.LogWarning("Monitor {Id} already running or executed, skipping.", monitorId);
                 return;
             }
             _logger.LogInformation("WorkflowJob started for monitor: {Id}", monitorId);
@@ -76,6 +76,7 @@ namespace AutoTest.Infrastructure
                 var monitorRepository = scope.ServiceProvider.GetRequiredService<IMonitorRepository>();
                 var orchestrator = scope.ServiceProvider.GetRequiredService<IOrchestrator>();
                 var monitorService = scope.ServiceProvider.GetRequiredService<IMonitorService>();
+                var executionRecordRepository = scope.ServiceProvider.GetRequiredService<IExecutionRecordRepository>();
                 var workflowScheduler = scope.ServiceProvider.GetRequiredService<IWorkflowScheduler>();
 
                 var monitor = await monitorRepository.GetByIdAsync(monitorId);
@@ -85,11 +86,59 @@ namespace AutoTest.Infrastructure
                     return;
                 }
                 _logger.LogInformation("Executing monitor: {Id}", monitorId);
-                await PublishAsync(userId, new { monitorId, status = "running" });
+                var lockedBy = $"{Environment.MachineName}:{Environment.ProcessId}:{Guid.NewGuid():N}";
+                var start = await monitorService.TryStartExecutionAsync(monitorId, idempotencyKey, lockedBy);
+                if (!start.Started)
+                {
+                    _logger.LogInformation("Duplicate execution detected for monitor {Id}, skipping.", monitorId);
+                    return;
+                }
+
+                monitor = await monitorRepository.GetByIdAsync(monitorId);
+                if (monitor == null)
+                    return;
+
+                await PublishAsync(userId, new { monitorId, status = "running", executionId = start.ExecutionId });
 
                 try
                 {
-                    await orchestrator.TryExecuteAsync(monitor);
+                    using var heartbeatCts = new CancellationTokenSource();
+                    var heartbeatTask = Task.Run(async () =>
+                    {
+                        while (!heartbeatCts.IsCancellationRequested)
+                        {
+                            try
+                            {
+                                await executionRecordRepository.UpdateHeartbeatAsync(
+                                    start.ExecutionId,
+                                    lockedBy,
+                                    DateTime.UtcNow,
+                                    heartbeatCts.Token);
+                            }
+                            catch
+                            {
+                            }
+
+                            try
+                            {
+                                await Task.Delay(TimeSpan.FromSeconds(5), heartbeatCts.Token);
+                            }
+                            catch
+                            {
+                                break;
+                            }
+                        }
+                    }, heartbeatCts.Token);
+
+                    try
+                    {
+                        await orchestrator.TryExecuteAsync(monitor, start.ExecutionId, start.StartedAtUtc, lockedBy);
+                    }
+                    finally
+                    {
+                        heartbeatCts.Cancel();
+                        try { await heartbeatTask; } catch { }
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -107,6 +156,7 @@ namespace AutoTest.Infrastructure
                             {
                                 monitorId,
                                 status = "finished",
+                                executionId = start.ExecutionId,
                                 record,
                                 assertions
                             });

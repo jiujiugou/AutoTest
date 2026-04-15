@@ -18,8 +18,9 @@ public class LogsController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = "perm:logs.view")]
     public async Task<ActionResult<LogPageDto>> List(
-        [FromQuery] int take = 200,
+        [FromQuery] int take = 100,
         [FromQuery] string? level = null,
         [FromQuery] string? module = null,
         [FromQuery] string? keyword = null,
@@ -36,8 +37,15 @@ public class LogsController : ControllerBase
             ToUtc: toUtc,
             Before: before);
 
-        var page = await _logService.QueryAsync(query);
-        return Ok(page);
+        try
+        {
+            var page = await _logService.QueryAsync(query);
+            return Ok(page);
+        }
+        catch (Exception ex)
+        {
+            return Problem(ex.Message);
+        }
     }
 
     [HttpDelete]

@@ -42,20 +42,8 @@ public class Orchestrator : IOrchestrator
     /// <summary>
     /// 尝试执行单个任务
     /// </summary>
-    public async Task<ExecutionResult> TryExecuteAsync(MonitorEntity monitor)
+    public async Task<ExecutionResult> TryExecuteAsync(MonitorEntity monitor, Guid executionId, DateTime startedAtUtc, string lockedBy)
     {
-        if (!monitor.CanExecute())
-            throw new InvalidOperationException("Monitor cannot execute");
-
-        var startedAt = DateTime.UtcNow;
-        monitor.MarkRunning();
-
-        // 立即持久化 Running 状态到数据库
-        await _unitOfWork.ExecuteAsync(async tx =>
-        {
-            await _monitorRepository.UpdateAsync(monitor, tx);
-        });
-
         var context = new PipelineContext(monitor);
 
         try
@@ -71,19 +59,7 @@ public class Orchestrator : IOrchestrator
                 monitor.MarkFailed();
 
             var finishedAt = DateTime.UtcNow;
-
-            var executionId = Guid.NewGuid();
-            var record = new ExecutionRecord(
-                executionId,
-                monitor.Id,
-                monitor.Status,
-                startedAt,
-                finishedAt,
-                result.IsExecutionSuccess,
-                result.ErrorMessage,
-                monitor.Target.Type,
-                JsonSerializer.Serialize(result, result.GetType())
-            );
+            var resultJson = JsonSerializer.Serialize(result, result.GetType());
 
             var shouldNotify = !(result.IsExecutionSuccess && isAssertionSuccess);
             var outboxMessage = shouldNotify
@@ -97,7 +73,7 @@ public class Orchestrator : IOrchestrator
                         MonitorName = monitor.Name,
                         TargetType = monitor.Target.Type,
                         ExecutionId = executionId,
-                        StartedAt = startedAt,
+                        StartedAt = startedAtUtc,
                         FinishedAt = finishedAt,
                         IsExecutionSuccess = result.IsExecutionSuccess,
                         IsAssertionSuccess = isAssertionSuccess,
@@ -113,7 +89,15 @@ public class Orchestrator : IOrchestrator
             await _unitOfWork.ExecuteAsync(async tx =>
             {
                 await _monitorRepository.UpdateAsync(monitor, tx);
-                await _executionRecordRepository.AddAsync(record, tx);
+                await _executionRecordRepository.UpdateCompletionAsync(
+                    executionId,
+                    (int)monitor.Status,
+                    finishedAt,
+                    result.IsExecutionSuccess,
+                    result.ErrorMessage,
+                    monitor.Target.Type,
+                    resultJson,
+                    tx);
                 if (result.Assertions.Count > 0)
                     await _executionRecordRepository.AddAssertionResultsAsync(executionId, result.Assertions, tx);
                 if (outboxMessage != null)
@@ -126,18 +110,7 @@ public class Orchestrator : IOrchestrator
             monitor.MarkFailed();
 
             var finishedAt = DateTime.UtcNow;
-            var executionId = Guid.NewGuid();
-            var record = new ExecutionRecord(
-                executionId,
-                monitor.Id,
-                monitor.Status,
-                startedAt,
-                finishedAt,
-                false,
-                ex.Message,
-                "Exception",
-                JsonSerializer.Serialize(new { ex.Message, Exception = ex.ToString() })
-            );
+            var resultJson = JsonSerializer.Serialize(new { ex.Message, Exception = ex.ToString() });
 
             var outboxMessage = new OutboxMessage
             {
@@ -149,7 +122,7 @@ public class Orchestrator : IOrchestrator
                     MonitorName = monitor.Name,
                     TargetType = monitor.Target.Type,
                     ExecutionId = executionId,
-                    StartedAt = startedAt,
+                    StartedAt = startedAtUtc,
                     FinishedAt = finishedAt,
                     IsExecutionSuccess = false,
                     IsAssertionSuccess = false,
@@ -164,7 +137,15 @@ public class Orchestrator : IOrchestrator
             await _unitOfWork.ExecuteAsync(async tx =>
             {
                 await _monitorRepository.UpdateAsync(monitor, tx);
-                await _executionRecordRepository.AddAsync(record, tx);
+                await _executionRecordRepository.UpdateCompletionAsync(
+                    executionId,
+                    (int)monitor.Status,
+                    finishedAt,
+                    false,
+                    ex.Message,
+                    "Exception",
+                    resultJson,
+                    tx);
                 await _outboxRepository.AddAsync(outboxMessage, tx);
             });
 

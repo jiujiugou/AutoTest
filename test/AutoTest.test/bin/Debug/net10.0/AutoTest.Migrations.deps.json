@@ -283,6 +283,25 @@
           }
         }
       },
+      "Flurl/4.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/Flurl.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "Flurl.Http/4.0.2": {
+        "dependencies": {
+          "Flurl": "4.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Flurl.Http.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.0.2.0"
+          }
+        }
+      },
       "Google.Protobuf/3.32.0": {
         "runtime": {
           "lib/net5.0/Google.Protobuf.dll": {
@@ -830,9 +849,6 @@
       },
       "AutoTest.Application/1.0.0": {
         "dependencies": {
-          "AutoTest.Assertion.Db": "1.0.0",
-          "AutoTest.Assertions.Http": "1.0.0",
-          "AutoTest.Assertions.Tcp": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "CacheCommons": "1.0.0",
           "EventCommons": "1.0.0"
@@ -844,48 +860,13 @@
           }
         }
       },
-      "AutoTest.Assertion/1.0.0": {
+      "AutoTest.Assertions/1.0.0": {
         "dependencies": {
-          "AutoTest.Core": "1.0.0"
-        },
-        "runtime": {
-          "AutoTest.Assertion.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertion.Db/1.0.0": {
-        "dependencies": {
-          "AutoTest.Assertion": "1.0.0",
           "AutoTest.Core": "1.0.0",
-          "AutoTest.Execution.Db": "1.0.0"
+          "AutoTest.Execution": "1.0.0"
         },
         "runtime": {
-          "AutoTest.Assertion.Db.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertions.Http/1.0.0": {
-        "dependencies": {
-          "AutoTest.Assertion": "1.0.0",
-          "AutoTest.Core": "1.0.0"
-        },
-        "runtime": {
-          "AutoTest.Assertions.Http.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertions.Tcp/1.0.0": {
-        "dependencies": {
-          "AutoTest.Core": "1.0.0"
-        },
-        "runtime": {
-          "AutoTest.Assertions.Tcp.dll": {
+          "AutoTest.Assertions.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -899,15 +880,16 @@
           }
         }
       },
-      "AutoTest.Execution.Db/1.0.0": {
+      "AutoTest.Execution/1.0.0": {
         "dependencies": {
           "AutoTest.Core": "1.0.0",
+          "Flurl.Http": "4.0.2",
           "Microsoft.Data.SqlClient": "7.0.0",
           "MySql.Data": "9.6.0",
           "Npgsql": "10.0.2"
         },
         "runtime": {
-          "AutoTest.Execution.Db.dll": {
+          "AutoTest.Execution.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -915,7 +897,7 @@
       },
       "CacheCommons/1.0.0": {
         "dependencies": {
-          "AutoTest.Assertions.Http": "1.0.0"
+          "AutoTest.Assertions": "1.0.0"
         },
         "runtime": {
           "CacheCommons.dll": {
@@ -1093,6 +1075,20 @@
       "sha512": "sha512-LZRt+lVcAETY+hOSv+f+4YWlCoY1qrcYiz/QqF/j0NbuypJ8fOchMOhiIupBxrzmW96BWoqlc8uk7FoXlXzlMQ==",
       "path": "fluentmigrator.runner.sqlserver/8.0.1",
       "hashPath": "fluentmigrator.runner.sqlserver.8.0.1.nupkg.sha512"
+    },
+    "Flurl/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rpts69yYgvJqg6PPgqShBQEZ4aNzWQqWpWppcT0oDWxDCIsBqiod4pj6LQZdhk+1OozLFagemldMRACdHF3CsA==",
+      "path": "flurl/4.0.0",
+      "hashPath": "flurl.4.0.0.nupkg.sha512"
+    },
+    "Flurl.Http/4.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9vCqFFyceA11yplkFD8AbCFFTvG1Lrw3tpsgOpL5sLUc28p6zcvGszNleuT6nDymRvtt5eS+rqUX+bRztg1fhA==",
+      "path": "flurl.http/4.0.2",
+      "hashPath": "flurl.http.4.0.2.nupkg.sha512"
     },
     "Google.Protobuf/3.32.0": {
       "type": "package",
@@ -1328,22 +1324,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoTest.Assertion/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertion.Db/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertions.Http/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertions.Tcp/1.0.0": {
+    "AutoTest.Assertions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1353,7 +1334,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoTest.Execution.Db/1.0.0": {
+    "AutoTest.Execution/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

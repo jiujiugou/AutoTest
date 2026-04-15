@@ -9,12 +9,16 @@ public static class MigrationServiceCollectionExtensions
     public static IServiceCollection AddAutoTestMigrations(this IServiceCollection services, IConfiguration configuration)
     {
         var provider = configuration["Database:Provider"] ?? "SqlServer";
-        var cs = configuration.GetConnectionString("DefaultConnection");
+        var cs = configuration.GetConnectionString("DefaultConnection")
+                 ?? configuration["ConnectionStrings:DefaultConnection"]
+                 ?? throw new InvalidOperationException("Missing connection string: DefaultConnection");
                  
         services.AddFluentMigratorCore()
             .ConfigureRunner(rb =>
             {
-                var runner =rb.AddSqlServer();
+                var runner = string.Equals(provider, "Sqlite", StringComparison.OrdinalIgnoreCase)
+                    ? rb.AddSQLite()
+                    : rb.AddSqlServer();
 
                 runner.WithGlobalConnectionString(cs)
                       .ScanIn(typeof(MigrationServiceCollectionExtensions).Assembly) // 扫描本类库的所有迁移

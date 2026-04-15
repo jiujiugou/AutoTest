@@ -1,2 +1,38 @@
 # 忽略 Visual Studio 缓存和索引文件
 .vs/
+# ---- OS ----
+.DS_Store
+Thumbs.db
+
+# ---- IDE ----
+.vs/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ---- .NET build ----
+**/bin/
+**/obj/
+*.pdb
+
+# ---- Logs ----
+*.log
+logs/
+
+# ---- Frontend (Vite/Node) ----
+node_modules/
+dist/
+.vite/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---- Secrets / Local config ----
+**/appsettings.Development.json
+**/secrets.json
+**/*DataProtection-Keys*
+*.pfx
+*.key

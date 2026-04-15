@@ -338,14 +338,29 @@ public class HttpEndToEndIntegrationTests
             using var scope = _serviceProvider.CreateScope();
             var monitorRepository = scope.ServiceProvider.GetRequiredService<IMonitorRepository>();
             var orchestrator = scope.ServiceProvider.GetRequiredService<IOrchestrator>();
+            var monitorService = scope.ServiceProvider.GetRequiredService<IMonitorService>();
             var monitor = await monitorRepository.GetByIdAsync(workflowId);
             if (monitor == null)
                 return;
 
-            await orchestrator.TryExecuteAsync(monitor);
+            var lockedBy = "test";
+            var start = await monitorService.TryStartExecutionAsync(workflowId, idempotencyKey: null, lockedBy);
+            if (!start.Started)
+                return;
+
+            monitor = await monitorRepository.GetByIdAsync(workflowId);
+            if (monitor == null)
+                return;
+
+            await orchestrator.TryExecuteAsync(monitor, start.ExecutionId, start.StartedAtUtc, lockedBy);
         }
 
         public Task RunNowAsync(Guid workflowId, string? userId)
+        {
+            return RunNowAsync(workflowId);
+        }
+
+        public Task RunNowAsync(Guid workflowId, string? userId, string? idempotencyKey)
         {
             return RunNowAsync(workflowId);
         }

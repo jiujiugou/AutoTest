@@ -20,7 +20,28 @@
           <template #header>
             <div class="card-header">
               <span>任务列表（调度控制）</span>
-              <el-tag size="small" type="info">{{ filtered.length }} 个</el-tag>
+              <div class="list-actions">
+                <el-tag size="small" type="info">{{ filtered.length }} 个</el-tag>
+                <el-button
+                  size="small"
+                  type="danger"
+                  plain
+                  :disabled="selectedRows.length === 0"
+                  :loading="deleting"
+                  @click="removeSelected"
+                >
+                  删除选中
+                </el-button>
+                <el-button
+                  size="small"
+                  type="danger"
+                  :disabled="filtered.length === 0"
+                  :loading="deleting"
+                  @click="removeAll"
+                >
+                  一键删除
+                </el-button>
+              </div>
             </div>
           </template>
 
@@ -30,7 +51,10 @@
             v-loading="loading"
             highlight-current-row
             @row-click="selectRow"
+            @selection-change="onSelectionChange"
+            :row-key="row => row.id"
           >
+            <el-table-column type="selection" width="46" />
             <el-table-column prop="name" label="任务" min-width="140" show-overflow-tooltip />
             <el-table-column prop="targetType" label="类型" width="80">
               <template #default="{ row }">
@@ -324,6 +348,15 @@
                   <div class="kv-label">ScriptPath</div>
                   <el-input v-model="pythonConfig.scriptPath" placeholder="例如：scripts/check.py" />
                 </div>
+                <div class="kv-item kv-span2">
+                  <div class="kv-label">选择脚本文件</div>
+                  <div class="file-row">
+                    <input ref="pythonFileInput" class="hidden-file" type="file" accept=".py,text/x-python" @change="onPythonFileSelected" />
+                    <el-button size="small" type="primary" plain @click="choosePythonFile">选择文件</el-button>
+                    <span class="muted" v-if="pythonConfig.scriptFileName">{{ pythonConfig.scriptFileName }}</span>
+                    <el-button v-if="pythonConfig.scriptContent" size="small" type="danger" plain @click="clearPythonFile">清除</el-button>
+                  </div>
+                </div>
                 <div class="kv-item">
                   <div class="kv-label">PythonExecutable</div>
                   <el-input v-model="pythonConfig.pythonExecutable" placeholder="python / python3 / venv\\Scripts\\python.exe" />
@@ -452,9 +485,11 @@ import { ensureMonitorHubStarted, getMonitorHubConnection } from '../realtime/mo
 const loading = ref(false)
 const saving = ref(false)
 const running = ref(false)
+const deleting = ref(false)
 const keyword = ref('')
 
 const monitors = ref([])
+const selectedRows = ref([])
 const lastSummary = ref(null)
 const httpPanels = ref(['base', 'headers', 'query', 'body', 'auth', 'advanced'])
 
@@ -508,6 +543,8 @@ const tcpConfig = ref({
 
 const pythonConfig = ref({
   scriptPath: '',
+  scriptContent: '',
+  scriptFileName: '',
   pythonExecutable: 'python',
   timeoutSeconds: 60,
   workingDirectory: '',
@@ -528,6 +565,91 @@ const filtered = computed(() => {
   if (!k) return monitors.value
   return (monitors.value || []).filter(x => String(x.name || '').toLowerCase().includes(k))
 })
+
+const pythonFileInput = ref(null)
+
+function choosePythonFile() {
+  pythonFileInput.value?.click?.()
+}
+
+async function onPythonFileSelected(e) {
+  const file = e?.target?.files?.[0]
+  if (!file) return
+  try {
+    const text = await file.text()
+    pythonConfig.value.scriptContent = text
+    pythonConfig.value.scriptFileName = file.name || ''
+    if (!String(pythonConfig.value.scriptPath || '').trim())
+      pythonConfig.value.scriptPath = pythonConfig.value.scriptFileName || 'inline.py'
+  } catch (err) {
+    ElMessage.error(err?.message || '读取脚本文件失败')
+  } finally {
+    try { e.target.value = '' } catch { }
+  }
+}
+
+function clearPythonFile() {
+  pythonConfig.value.scriptContent = ''
+  pythonConfig.value.scriptFileName = ''
+}
+
+function onSelectionChange(rows) {
+  selectedRows.value = Array.isArray(rows) ? rows : []
+}
+
+async function removeSelected() {
+  const ids = selectedRows.value.map(x => x?.id).filter(Boolean)
+  if (ids.length === 0) return
+  try {
+    await ElMessageBox.confirm(`确定删除选中的 ${ids.length} 个任务吗？`, '确认删除', {
+      confirmButtonText: '删除',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+  } catch {
+    return
+  }
+
+  deleting.value = true
+  try {
+    for (const id of ids) await MonitorsApi.remove(id)
+    ElMessage.success('已删除')
+    if (ids.some(x => String(x) === String(form.value.id))) clearForm()
+    selectedRows.value = []
+    await refresh()
+  } catch (e) {
+    ElMessage.error(e.message || String(e))
+  } finally {
+    deleting.value = false
+  }
+}
+
+async function removeAll() {
+  const ids = (filtered.value || []).map(x => x?.id).filter(Boolean)
+  if (ids.length === 0) return
+  try {
+    await ElMessageBox.confirm(`确定一键删除 ${ids.length} 个任务吗？`, '确认删除', {
+      confirmButtonText: '删除',
+      cancelButtonText: '取消',
+      type: 'warning'
+    })
+  } catch {
+    return
+  }
+
+  deleting.value = true
+  try {
+    for (const id of ids) await MonitorsApi.remove(id)
+    ElMessage.success('已删除')
+    clearForm()
+    selectedRows.value = []
+    await refresh()
+  } catch (e) {
+    ElMessage.error(e.message || String(e))
+  } finally {
+    deleting.value = false
+  }
+}
 
 function statusInfo(status) {
   const s = Number(status)
@@ -589,6 +711,7 @@ function tcpTargetTemplate() {
 function pythonTargetTemplate() {
   return {
     ScriptPath: '',
+    ScriptContent: null,
     Args: [],
     WorkingDirectory: null,
     PythonExecutable: 'python',
@@ -636,6 +759,8 @@ function fillTemplate() {
   } else if (form.value.targetType === 'PYTHON') {
     pythonConfig.value = {
       scriptPath: '',
+      scriptContent: '',
+      scriptFileName: '',
       pythonExecutable: 'python',
       timeoutSeconds: 60,
       workingDirectory: '',
@@ -694,6 +819,8 @@ function clearForm() {
   tcpConfig.value = { host: '127.0.0.1', port: 80, timeout: 5, messagesText: '', responseContains: '', latencyLessThan: null }
   pythonConfig.value = {
     scriptPath: '',
+    scriptContent: '',
+    scriptFileName: '',
     pythonExecutable: 'python',
     timeoutSeconds: 60,
     workingDirectory: '',
@@ -862,6 +989,8 @@ async function selectRow(row) {
     } else if (form.value.targetType === 'PYTHON') {
       const t = cfg || {}
       pythonConfig.value.scriptPath = t.ScriptPath ?? t.scriptPath ?? ''
+      pythonConfig.value.scriptContent = t.ScriptContent ?? t.scriptContent ?? ''
+      pythonConfig.value.scriptFileName = pythonConfig.value.scriptContent ? (pythonConfig.value.scriptPath || 'inline.py') : ''
       pythonConfig.value.pythonExecutable = t.PythonExecutable ?? t.pythonExecutable ?? 'python'
       pythonConfig.value.timeoutSeconds = t.TimeoutSeconds ?? t.timeoutSeconds ?? 60
       pythonConfig.value.workingDirectory = t.WorkingDirectory ?? t.workingDirectory ?? ''
@@ -989,8 +1118,10 @@ function buildDto() {
       Messages: messages
     }
   } else if (form.value.targetType === 'PYTHON') {
-    const scriptPath = String(pythonConfig.value.scriptPath || '').trim()
-    if (!scriptPath) throw new Error('ScriptPath 不能为空')
+    const scriptContent = String(pythonConfig.value.scriptContent || '')
+    const scriptPathRaw = String(pythonConfig.value.scriptPath || '').trim()
+    if (!scriptPathRaw && !scriptContent.trim()) throw new Error('ScriptPath 不能为空')
+    const scriptPath = scriptPathRaw || String(pythonConfig.value.scriptFileName || '').trim() || 'inline.py'
 
     const args = String(pythonConfig.value.argsText || '')
       .split('\n')
@@ -1014,6 +1145,7 @@ function buildDto() {
     targetConfigObj = {
       ...pythonTargetTemplate(),
       ScriptPath: scriptPath,
+      ScriptContent: scriptContent.trim() ? scriptContent : null,
       Args: args,
       WorkingDirectory: String(pythonConfig.value.workingDirectory || '').trim() || null,
       PythonExecutable: String(pythonConfig.value.pythonExecutable || 'python').trim() || 'python',
@@ -1334,6 +1466,23 @@ onBeforeUnmount(() => {
 .actions {
   display: flex;
   gap: 10px;
+}
+
+.list-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.hidden-file {
+  display: none;
+}
+
+.file-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .execute-bar {

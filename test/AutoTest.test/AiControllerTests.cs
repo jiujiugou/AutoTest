@@ -1,6 +1,5 @@
 using System.Net;
 using System.Net.Http.Json;
-using AutoTest.Webapi.Ai;
 using AutoTest.Webapi.Controllers;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -17,7 +16,7 @@ namespace AutoTest.Tests.Webapi;
 public class AiControllerTests
 {
     [Fact]
-    public async Task Chat_ShouldReturnReply_FromService()
+    public async Task Chat_ShouldReturnHint_WhenAiNotConfigured()
     {
         var tempRoot = Path.Combine(Path.GetTempPath(), $"autotest-ai-{Guid.NewGuid():N}");
         Directory.CreateDirectory(tempRoot);
@@ -29,13 +28,15 @@ public class AiControllerTests
             builder.UseSetting("Database:Provider", "Sqlite");
             builder.UseSetting("ConnectionStrings:DefaultConnection", $"Data Source={dbPath};");
             builder.UseSetting("ConnectionStrings:HangfireConnection", $"Data Source={hangfireDbPath};Foreign Keys=True;");
+            builder.UseSetting("AI:ApiKey", "YOUR_DOUBAO_API_KEY");
             builder.ConfigureAppConfiguration((_, cfg) =>
             {
                 cfg.AddInMemoryCollection(new Dictionary<string, string?>
                 {
                     ["Database:Provider"] = "Sqlite",
                     ["ConnectionStrings:DefaultConnection"] = $"Data Source={dbPath};",
-                    ["ConnectionStrings:HangfireConnection"] = $"Data Source={hangfireDbPath};Foreign Keys=True;"
+                    ["ConnectionStrings:HangfireConnection"] = $"Data Source={hangfireDbPath};Foreign Keys=True;",
+                    ["AI:ApiKey"] = "YOUR_DOUBAO_API_KEY"
                 });
             });
             builder.ConfigureServices(services =>
@@ -49,23 +50,18 @@ public class AiControllerTests
                         break;
                     services.Remove(hosted);
                 }
-
-                var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IAiChatService));
-                if (descriptor != null)
-                    services.Remove(descriptor);
-
-                services.AddSingleton<IAiChatService>(new FakeAiChatService("hello"));
             });
         });
 
         var client = factory.CreateClient();
 
-        var resp = await client.PostAsJsonAsync("/api/ai/chat", new { message = "ping" });
+        var resp = await client.PostAsJsonAsync("/api/AiAgent/chat", new { message = "ping" });
         resp.StatusCode.Should().Be(HttpStatusCode.OK);
 
-        var body = await resp.Content.ReadFromJsonAsync<AiChatResponse>();
+        var body = await resp.Content.ReadFromJsonAsync<Dictionary<string, string>>();
         body.Should().NotBeNull();
-        body!.Reply.Should().Be("hello");
+        body!.Should().ContainKey("text");
+        body["text"].Should().Contain("提示");
 
         try
         {
@@ -110,18 +106,12 @@ public class AiControllerTests
                         break;
                     services.Remove(hosted);
                 }
-
-                var descriptor = services.SingleOrDefault(d => d.ServiceType == typeof(IAiChatService));
-                if (descriptor != null)
-                    services.Remove(descriptor);
-
-                services.AddSingleton<IAiChatService>(new FakeAiChatService("ignored"));
             });
         });
 
         var client = factory.CreateClient();
 
-        var resp = await client.PostAsJsonAsync("/api/ai/chat", new { message = "" });
+        var resp = await client.PostAsJsonAsync("/api/AiAgent/chat", new { message = "" });
         resp.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
         try
@@ -138,20 +128,5 @@ public class AiControllerTests
     {
         var root = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", ".."));
         return Path.Combine(root, "src", "AutoTest.Webapi");
-    }
-
-    private sealed class FakeAiChatService : IAiChatService
-    {
-        private readonly string _reply;
-
-        public FakeAiChatService(string reply)
-        {
-            _reply = reply;
-        }
-
-        public Task<AiChatResult> ChatAsync(string userMessage, string? systemMessage, CancellationToken cancellationToken)
-        {
-            return Task.FromResult(new AiChatResult(_reply));
-        }
     }
 }

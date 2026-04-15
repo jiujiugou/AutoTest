@@ -4,6 +4,7 @@ using AutoTest.Core.Target.Python;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace AutoTest.Execution.Python
@@ -32,7 +33,7 @@ namespace AutoTest.Execution.Python
             if (pyTarget.EnableRateLimit)
             {
                 var max = pyTarget.MaxConcurrency <= 0 ? 1 : pyTarget.MaxConcurrency;
-                var key = $"{pyTarget.PythonExecutable}|{pyTarget.ScriptPath}|{max}";
+                var key = $"{pyTarget.PythonExecutable}|{GetScriptIdentity(pyTarget)}|{max}";
                 var semaphore = _semaphores.GetOrAdd(key, _ => new SemaphoreSlim(max, max));
                 _logger.LogDebug($"等待并发信号量 (MaxConcurrency={max})");
                 await semaphore.WaitAsync();
@@ -71,7 +72,7 @@ namespace AutoTest.Execution.Python
                 if (pyTarget.EnableRateLimit)
                 {
                     var max = pyTarget.MaxConcurrency <= 0 ? 1 : pyTarget.MaxConcurrency;
-                    var key = $"{pyTarget.PythonExecutable}|{pyTarget.ScriptPath}|{max}";
+                    var key = $"{pyTarget.PythonExecutable}|{GetScriptIdentity(pyTarget)}|{max}";
                     if (_semaphores.TryGetValue(key, out var semaphore))
                         semaphore.Release();
                     _logger.LogDebug("释放全局并发信号量");
@@ -82,6 +83,15 @@ namespace AutoTest.Execution.Python
         private async Task<PythonExecutionResult> RunProcessAsync(PythonTarget pyTarget)
         {
             var stopwatch = Stopwatch.StartNew();
+            var tempScriptPath = (string?)null;
+            var scriptPath = pyTarget.ScriptPath;
+
+            if (!string.IsNullOrWhiteSpace(pyTarget.ScriptContent))
+            {
+                tempScriptPath = await WriteTempScriptAsync(pyTarget.ScriptPath, pyTarget.ScriptContent);
+                scriptPath = tempScriptPath;
+            }
+
             var startInfo = new ProcessStartInfo
             {
                 FileName = pyTarget.PythonExecutable,
@@ -92,7 +102,7 @@ namespace AutoTest.Execution.Python
             };
 
             // 参数安全传递
-            startInfo.ArgumentList.Add(pyTarget.ScriptPath);
+            startInfo.ArgumentList.Add(scriptPath);
             foreach (var arg in pyTarget.Args)
                 startInfo.ArgumentList.Add(arg);
 
@@ -117,7 +127,7 @@ namespace AutoTest.Execution.Python
 
             try
             {
-                _logger.LogDebug($"启动 Python 进程: {pyTarget.PythonExecutable} {pyTarget.ScriptPath}");
+                _logger.LogDebug($"启动 Python 进程: {pyTarget.PythonExecutable} {scriptPath}");
                 process.Start();
                 process.BeginOutputReadLine();
                 process.BeginErrorReadLine();
@@ -133,17 +143,20 @@ namespace AutoTest.Execution.Python
             var timeoutOccurred = completedTask == timeoutTask;
             if (timeoutOccurred)
             {
-                _logger.LogWarning($"Python 脚本 [{pyTarget.ScriptPath}] 执行超时 ({pyTarget.TimeoutSeconds}s), 尝试终止进程");
+                _logger.LogWarning($"Python 脚本 [{scriptPath}] 执行超时 ({pyTarget.TimeoutSeconds}s), 尝试终止进程");
                 KillProcessTree(process);
-                return new PythonExecutionResult(
-                    -1,
-                    stdoutBuilder.ToString(),
-                    stderrBuilder.ToString(),
-                    false,
-                    stopwatch.ElapsedMilliseconds,
-                    true,
-                    $"Python 脚本执行超时 ({pyTarget.TimeoutSeconds}s)",
-                    BuildCommandLinePreview(pyTarget)
+                return BuildResultAndCleanup(
+                    tempScriptPath,
+                    new PythonExecutionResult(
+                        -1,
+                        stdoutBuilder.ToString(),
+                        stderrBuilder.ToString(),
+                        false,
+                        stopwatch.ElapsedMilliseconds,
+                        true,
+                        $"Python 脚本执行超时 ({pyTarget.TimeoutSeconds}s)",
+                        BuildCommandLinePreview(pyTarget, scriptPath)
+                    )
                 );
             }
 
@@ -155,30 +168,78 @@ namespace AutoTest.Execution.Python
                 _logger.LogWarning($"Python 脚本 [{pyTarget.ScriptPath}] 退出码异常: {exitCode}");
             }
 
-            return new PythonExecutionResult(
-                exitCode,
-                stdoutBuilder.ToString(),
-                stderrBuilder.ToString(),
-                isSuccess,
-                stopwatch.ElapsedMilliseconds,
-                false,
-                isSuccess ? null : $"执行失败, ExitCode={exitCode}",
-                BuildCommandLinePreview(pyTarget)
+            return BuildResultAndCleanup(
+                tempScriptPath,
+                new PythonExecutionResult(
+                    exitCode,
+                    stdoutBuilder.ToString(),
+                    stderrBuilder.ToString(),
+                    isSuccess,
+                    stopwatch.ElapsedMilliseconds,
+                    false,
+                    isSuccess ? null : $"执行失败, ExitCode={exitCode}",
+                    BuildCommandLinePreview(pyTarget, scriptPath)
+                )
             );
         }
 
-        private static string BuildCommandLinePreview(PythonTarget target)
+        private static string BuildCommandLinePreview(PythonTarget target, string scriptPath)
         {
             var sb = new StringBuilder();
             sb.Append(target.PythonExecutable);
             sb.Append(' ');
-            sb.Append(target.ScriptPath);
+            sb.Append(scriptPath);
             foreach (var arg in target.Args)
             {
                 sb.Append(' ');
                 sb.Append(arg);
             }
             return sb.ToString();
+        }
+
+        private static string GetScriptIdentity(PythonTarget target)
+        {
+            if (!string.IsNullOrWhiteSpace(target.ScriptContent))
+            {
+                var bytes = Encoding.UTF8.GetBytes(target.ScriptContent);
+                var hash = SHA256.HashData(bytes);
+                var shortHex = Convert.ToHexString(hash).Substring(0, 12);
+                return $"inline:{shortHex}";
+            }
+
+            return target.ScriptPath ?? string.Empty;
+        }
+
+        private static async Task<string> WriteTempScriptAsync(string? scriptPath, string scriptContent)
+        {
+            var dir = Path.Combine(Path.GetTempPath(), "autotest-python");
+            Directory.CreateDirectory(dir);
+
+            var name = Path.GetFileName(string.IsNullOrWhiteSpace(scriptPath) ? "inline.py" : scriptPath);
+            if (string.IsNullOrWhiteSpace(name))
+                name = "inline.py";
+            if (!name.EndsWith(".py", StringComparison.OrdinalIgnoreCase))
+                name += ".py";
+
+            var fullPath = Path.Combine(dir, $"{Guid.NewGuid():N}_{name}");
+            await File.WriteAllTextAsync(fullPath, scriptContent, new UTF8Encoding(encoderShouldEmitUTF8Identifier: false));
+            return fullPath;
+        }
+
+        private static PythonExecutionResult BuildResultAndCleanup(string? tempScriptPath, PythonExecutionResult result)
+        {
+            if (!string.IsNullOrWhiteSpace(tempScriptPath))
+            {
+                try
+                {
+                    File.Delete(tempScriptPath);
+                }
+                catch
+                {
+                }
+            }
+
+            return result;
         }
 
         private void KillProcessTree(Process process)

@@ -1,5 +1,7 @@
 using System.Data;
+using System.Threading;
 using AutoTest.Core.Abstraction;
+using AutoTest.Core;
 using AutoTest.Core.Assertion;
 using AutoTest.Core.Execution;
 using Dapper;
@@ -65,6 +67,143 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
             record.ErrorMessage,
             record.ResultType,
             record.ResultJson
+        }, tx);
+    }
+
+    public async Task<bool> TryAddRunningAsync(
+        Guid executionId,
+        Guid monitorId,
+        DateTime startedAtUtc,
+        string? idempotencyKey,
+        string lockedBy,
+        DateTime heartbeatAtUtc,
+        IDbTransaction tx)
+    {
+        const string insertSql = """
+                                 INSERT INTO ExecutionRecord(
+                                     Id,
+                                     MonitorId,
+                                     Status,
+                                     StartedAt,
+                                     FinishedAt,
+                                     IsExecutionSuccess,
+                                     ErrorMessage,
+                                     ResultType,
+                                     ResultJson,
+                                     IdempotencyKey,
+                                     LockedBy,
+                                     HeartbeatAtUtc
+                                 )
+                                 VALUES(
+                                     @Id,
+                                     @MonitorId,
+                                     @Status,
+                                     @StartedAt,
+                                     NULL,
+                                     0,
+                                     NULL,
+                                     @ResultType,
+                                     @ResultJson,
+                                     @IdempotencyKey,
+                                     @LockedBy,
+                                     @HeartbeatAtUtc
+                                 )
+                                 """;
+
+        try
+        {
+            var affected = await _dbConnection.ExecuteAsync(insertSql, new
+            {
+                Id = executionId,
+                MonitorId = monitorId,
+                Status = (int)MonitorStatus.Running,
+                StartedAt = startedAtUtc,
+                ResultType = "Running",
+                ResultJson = "{}",
+                IdempotencyKey = idempotencyKey,
+                LockedBy = lockedBy,
+                HeartbeatAtUtc = heartbeatAtUtc
+            }, tx);
+
+            return affected == 1;
+        }
+        catch
+        {
+            if (!string.IsNullOrWhiteSpace(idempotencyKey))
+            {
+                var existing = await GetIdByIdempotencyKeyAsync(idempotencyKey);
+                if (existing != null)
+                    return false;
+            }
+            throw;
+        }
+    }
+
+    public Task<Guid?> GetIdByIdempotencyKeyAsync(string idempotencyKey)
+    {
+        const string sql = """
+                            SELECT Id
+                            FROM ExecutionRecord
+                            WHERE IdempotencyKey = @IdempotencyKey
+                            """;
+        return _dbConnection.QuerySingleOrDefaultAsync<Guid?>(sql, new { IdempotencyKey = idempotencyKey });
+    }
+
+    public Task UpdateHeartbeatAsync(Guid executionId, string lockedBy, DateTime heartbeatAtUtc, CancellationToken cancellationToken)
+    {
+        const string sql = """
+                            UPDATE ExecutionRecord
+                            SET HeartbeatAtUtc = @HeartbeatAtUtc,
+                                LockedBy = COALESCE(LockedBy, @LockedBy)
+                            WHERE Id = @Id
+                              AND FinishedAt IS NULL
+                              AND Status = @Running
+                              AND (LockedBy IS NULL OR LockedBy = @LockedBy)
+                            """;
+        return _dbConnection.ExecuteAsync(new CommandDefinition(
+            sql,
+            new
+            {
+                Id = executionId,
+                LockedBy = lockedBy,
+                HeartbeatAtUtc = heartbeatAtUtc,
+                Running = (int)MonitorStatus.Running
+            },
+            cancellationToken: cancellationToken
+        ));
+    }
+
+    public Task UpdateCompletionAsync(
+        Guid executionId,
+        int status,
+        DateTime finishedAtUtc,
+        bool isExecutionSuccess,
+        string? errorMessage,
+        string resultType,
+        string resultJson,
+        IDbTransaction tx)
+    {
+        const string sql = """
+                            UPDATE ExecutionRecord
+                            SET Status = @Status,
+                                FinishedAt = @FinishedAt,
+                                IsExecutionSuccess = @IsExecutionSuccess,
+                                ErrorMessage = @ErrorMessage,
+                                ResultType = @ResultType,
+                                ResultJson = @ResultJson,
+                                LockedBy = NULL,
+                                HeartbeatAtUtc = NULL
+                            WHERE Id = @Id
+                            """;
+        return _dbConnection.ExecuteAsync(sql, new
+        {
+            Id = executionId,
+            Status = status,
+            FinishedAt = finishedAtUtc,
+            IsExecutionSuccess = isExecutionSuccess,
+            ErrorMessage = errorMessage,
+            ResultType = resultType,
+            ResultJson = resultJson
         }, tx);
     }
 

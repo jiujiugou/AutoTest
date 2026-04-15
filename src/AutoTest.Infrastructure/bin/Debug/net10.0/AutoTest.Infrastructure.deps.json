@@ -12,6 +12,7 @@
           "AutoTest.Assertions": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "Dapper": "2.1.72",
+          "Elastic.Clients.Elasticsearch": "8.19.18",
           "Hangfire.AspNetCore": "1.8.23",
           "Hangfire.SQLite": "1.4.2",
           "Hangfire.SqlServer": "1.8.23",
@@ -37,6 +38,34 @@
           "lib/net10.0/Dapper.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.1.72.10375"
+          }
+        }
+      },
+      "Elastic.Clients.Elasticsearch/8.19.18": {
+        "dependencies": {
+          "Elastic.Esql": "0.10.0",
+          "Elastic.Transport": "0.15.1"
+        },
+        "runtime": {
+          "lib/net10.0/Elastic.Clients.Elasticsearch.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.19.18.0"
+          }
+        }
+      },
+      "Elastic.Esql/0.10.0": {
+        "runtime": {
+          "lib/net10.0/Elastic.Esql.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.10.0.0"
+          }
+        }
+      },
+      "Elastic.Transport/0.15.1": {
+        "runtime": {
+          "lib/net10.0/Elastic.Transport.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.15.1.0"
           }
         }
       },
@@ -798,6 +827,27 @@
       "sha512": "sha512-ns4mGqQd9a/MhP8m6w556vVlZIa0/MfUu03zrxjZC/jlr1uVCsUac8bkdB+Fs98Llbd56rRSo1eZH5VVmeGZyw==",
       "path": "dapper/2.1.72",
       "hashPath": "dapper.2.1.72.nupkg.sha512"
+    },
+    "Elastic.Clients.Elasticsearch/8.19.18": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bOZNSLPbpbeRxRby8N38BXgJEXR1z+xY86XW1Jp50LHTsL4araPDQgAeUmGp303yo53vUrYhumcqSjBQsl1uOA==",
+      "path": "elastic.clients.elasticsearch/8.19.18",
+      "hashPath": "elastic.clients.elasticsearch.8.19.18.nupkg.sha512"
+    },
+    "Elastic.Esql/0.10.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wZZI3iJu0ClxZxTKom88zAbSSEaTOqarnoTfmSdn7C+TV24XIpNtjJ6PIvPmoUOdNowsbW9j6eOJraNHDU8LsA==",
+      "path": "elastic.esql/0.10.0",
+      "hashPath": "elastic.esql.0.10.0.nupkg.sha512"
+    },
+    "Elastic.Transport/0.15.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-p/MWttUhpU6kY3Hdx1ZGRUiOrejCaghit2E9M5cpeuwNQ7dkiolEAM6k7ewwKwEfRz53z6P9Z1GClZ6pi6H2RQ==",
+      "path": "elastic.transport/0.15.1",
+      "hashPath": "elastic.transport.0.15.1.nupkg.sha512"
     },
     "Flurl/4.0.0": {
       "type": "package",

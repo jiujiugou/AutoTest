@@ -211,7 +211,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "default": 200
+              "default": 100
             }
           },
           {
@@ -286,47 +286,6 @@
         "tags": [
           "Logs"
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Monitor": {
-      "get": {
-        "tags": [
-          "Monitor"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Monitor"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MonitorDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MonitorDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/MonitorDto"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK"
@@ -414,6 +373,37 @@
               "format": "uuid"
             }
           }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MonitorDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MonitorDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/MonitorDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Monitor": {
+      "post": {
+        "tags": [
+          "Monitor"
         ],
         "requestBody": {
           "content": {

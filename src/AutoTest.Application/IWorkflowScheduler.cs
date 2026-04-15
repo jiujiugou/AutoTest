@@ -21,6 +21,11 @@ namespace AutoTest.Application
         Task RunNowAsync(Guid workflowId, string? userId);
 
         /// <summary>
+        /// 立即触发执行，并携带幂等键用于去重。
+        /// </summary>
+        Task RunNowAsync(Guid workflowId, string? userId, string? idempotencyKey);
+
+        /// <summary>
         /// 延迟执行指定工作流/监控任务。
         /// </summary>
         Task RunAfterAsync(Guid workflowId, TimeSpan delay);

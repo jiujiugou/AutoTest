@@ -9,6 +9,7 @@
       "AutoTest.AI/1.0.0": {
         "dependencies": {
           "AutoTest.Application": "1.0.0",
+          "Microsoft.Agents.AI": "1.0.0",
           "Microsoft.Extensions.AI": "10.4.1",
           "Microsoft.SemanticKernel": "1.74.0"
         },
@@ -49,6 +50,25 @@
           }
         }
       },
+      "Flurl/4.0.0": {
+        "runtime": {
+          "lib/netstandard2.0/Flurl.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "Flurl.Http/4.0.2": {
+        "dependencies": {
+          "Flurl": "4.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/Flurl.Http.dll": {
+            "assemblyVersion": "4.0.2.0",
+            "fileVersion": "4.0.2.0"
+          }
+        }
+      },
       "Google.Protobuf/3.32.0": {
         "runtime": {
           "lib/net5.0/Google.Protobuf.dll": {
@@ -82,6 +102,35 @@
           "lib/net6.0/K4os.Hash.xxHash.dll": {
             "assemblyVersion": "1.0.8.0",
             "fileVersion": "1.0.8.0"
+          }
+        }
+      },
+      "Microsoft.Agents.AI/1.0.0": {
+        "dependencies": {
+          "Microsoft.Agents.AI.Abstractions": "1.0.0",
+          "Microsoft.Extensions.AI": "10.4.1",
+          "Microsoft.Extensions.AI.Abstractions": "10.4.1",
+          "Microsoft.Extensions.Compliance.Abstractions": "10.4.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.5",
+          "Microsoft.Extensions.VectorData.Abstractions": "10.1.0",
+          "Microsoft.ML.Tokenizers": "2.0.0"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Agents.AI.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Microsoft.Agents.AI.Abstractions/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.AI.Abstractions": "10.4.1"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Agents.AI.Abstractions.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
           }
         }
       },
@@ -280,6 +329,18 @@
           "lib/net10.0/Microsoft.Extensions.Caching.Memory.dll": {
             "assemblyVersion": "10.0.0.0",
             "fileVersion": "10.0.526.15411"
+          }
+        }
+      },
+      "Microsoft.Extensions.Compliance.Abstractions/10.4.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5",
+          "Microsoft.Extensions.ObjectPool": "10.0.4"
+        },
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.Compliance.Abstractions.dll": {
+            "assemblyVersion": "10.4.0.0",
+            "fileVersion": "10.400.26.16002"
           }
         }
       },
@@ -624,6 +685,14 @@
           }
         }
       },
+      "Microsoft.Extensions.ObjectPool/10.0.4": {
+        "runtime": {
+          "lib/net10.0/Microsoft.Extensions.ObjectPool.dll": {
+            "assemblyVersion": "10.0.0.0",
+            "fileVersion": "10.0.426.12010"
+          }
+        }
+      },
       "Microsoft.Extensions.Options/10.0.5": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5",
@@ -732,6 +801,17 @@
           "lib/net10.0/Microsoft.IdentityModel.Tokens.dll": {
             "assemblyVersion": "8.16.0.0",
             "fileVersion": "8.16.0.26043"
+          }
+        }
+      },
+      "Microsoft.ML.Tokenizers/2.0.0": {
+        "dependencies": {
+          "Google.Protobuf": "3.32.0"
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.ML.Tokenizers.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "2.0.25.55704"
           }
         }
       },
@@ -1009,9 +1089,6 @@
       },
       "AutoTest.Application/1.0.0": {
         "dependencies": {
-          "AutoTest.Assertion.Db": "1.0.0",
-          "AutoTest.Assertions.Http": "1.0.0",
-          "AutoTest.Assertions.Tcp": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "CacheCommons": "1.0.0",
           "EventCommons": "1.0.0",
@@ -1026,52 +1103,17 @@
           }
         }
       },
-      "AutoTest.Assertion/1.0.0": {
+      "AutoTest.Assertions/1.0.0": {
         "dependencies": {
           "AutoTest.Core": "1.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5"
-        },
-        "runtime": {
-          "AutoTest.Assertion.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertion.Db/1.0.0": {
-        "dependencies": {
-          "AutoTest.Assertion": "1.0.0",
-          "AutoTest.Core": "1.0.0",
-          "AutoTest.Execution.Db": "1.0.0"
-        },
-        "runtime": {
-          "AutoTest.Assertion.Db.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertions.Http/1.0.0": {
-        "dependencies": {
-          "AutoTest.Assertion": "1.0.0",
-          "AutoTest.Core": "1.0.0",
+          "AutoTest.Execution": "1.0.0",
           "Microsoft.Extensions.DependencyInjection": "10.0.5",
-          "Microsoft.Extensions.Logging": "10.0.5"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "10.0.5",
+          "Microsoft.Extensions.Logging": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.5"
         },
         "runtime": {
-          "AutoTest.Assertions.Http.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "AutoTest.Assertions.Tcp/1.0.0": {
-        "dependencies": {
-          "AutoTest.Core": "1.0.0",
-          "Microsoft.Extensions.Logging": "10.0.5"
-        },
-        "runtime": {
-          "AutoTest.Assertions.Tcp.dll": {
+          "AutoTest.Assertions.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1085,15 +1127,18 @@
           }
         }
       },
-      "AutoTest.Execution.Db/1.0.0": {
+      "AutoTest.Execution/1.0.0": {
         "dependencies": {
           "AutoTest.Core": "1.0.0",
+          "Flurl.Http": "4.0.2",
           "Microsoft.Data.SqlClient": "7.0.0",
+          "Microsoft.Extensions.DependencyInjection": "10.0.5",
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.5",
           "MySql.Data": "9.6.0",
           "Npgsql": "10.0.2"
         },
         "runtime": {
-          "AutoTest.Execution.Db.dll": {
+          "AutoTest.Execution.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1101,7 +1146,7 @@
       },
       "CacheCommons/1.0.0": {
         "dependencies": {
-          "AutoTest.Assertions.Http": "1.0.0",
+          "AutoTest.Assertions": "1.0.0",
           "Microsoft.Extensions.Caching.Memory": "10.0.5"
         },
         "runtime": {
@@ -1151,6 +1196,20 @@
       "path": "bouncycastle.cryptography/2.6.2",
       "hashPath": "bouncycastle.cryptography.2.6.2.nupkg.sha512"
     },
+    "Flurl/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-rpts69yYgvJqg6PPgqShBQEZ4aNzWQqWpWppcT0oDWxDCIsBqiod4pj6LQZdhk+1OozLFagemldMRACdHF3CsA==",
+      "path": "flurl/4.0.0",
+      "hashPath": "flurl.4.0.0.nupkg.sha512"
+    },
+    "Flurl.Http/4.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9vCqFFyceA11yplkFD8AbCFFTvG1Lrw3tpsgOpL5sLUc28p6zcvGszNleuT6nDymRvtt5eS+rqUX+bRztg1fhA==",
+      "path": "flurl.http/4.0.2",
+      "hashPath": "flurl.http.4.0.2.nupkg.sha512"
+    },
     "Google.Protobuf/3.32.0": {
       "type": "package",
       "serviceable": true,
@@ -1178,6 +1237,20 @@
       "sha512": "sha512-Wp2F7BamQ2Q/7Hk834nV9vRQapgcr8kgv9Jvfm8J3D0IhDqZMMl+a2yxUq5ltJitvXvQfB8W6K4F4fCbw/P6YQ==",
       "path": "k4os.hash.xxhash/1.0.8",
       "hashPath": "k4os.hash.xxhash.1.0.8.nupkg.sha512"
+    },
+    "Microsoft.Agents.AI/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-28Ykw80s6oKMer91exn4pKpCyZjp3Phvtv2uuIYY9224PLphzb4zS6bzvGqy1cCJGzIV/dSo2sYk6zklCm9F5w==",
+      "path": "microsoft.agents.ai/1.0.0",
+      "hashPath": "microsoft.agents.ai.1.0.0.nupkg.sha512"
+    },
+    "Microsoft.Agents.AI.Abstractions/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xvQkgKyKk/9uvaejku15MF7kQHDCCslSWgb7YQShWxivtgjgFS5NivTDAVcwXAL5MKakLmDAyUCKzzI6h8Xvzg==",
+      "path": "microsoft.agents.ai.abstractions/1.0.0",
+      "hashPath": "microsoft.agents.ai.abstractions.1.0.0.nupkg.sha512"
     },
     "Microsoft.Bcl.AsyncInterfaces/10.0.2": {
       "type": "package",
@@ -1262,6 +1335,13 @@
       "sha512": "sha512-jUEXmkBUPdOS/MP9areK/sbKhdklq9+tEhvwfxGalZVnmyLUO5rrheNNutUBtvbZ7J8ECkG7/r2KXi/IFC06cA==",
       "path": "microsoft.extensions.caching.memory/10.0.5",
       "hashPath": "microsoft.extensions.caching.memory.10.0.5.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Compliance.Abstractions/10.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4WkknDbVrHNf+S6fwSt1OAXlGJ/G/QrtJlqx4aNzOLmeT3GRyxpGLZn+Q3UV+RMRAF6FfsijEZBg2ZAW8bTAkg==",
+      "path": "microsoft.extensions.compliance.abstractions/10.4.0",
+      "hashPath": "microsoft.extensions.compliance.abstractions.10.4.0.nupkg.sha512"
     },
     "Microsoft.Extensions.Configuration/10.0.5": {
       "type": "package",
@@ -1438,6 +1518,13 @@
       "path": "microsoft.extensions.logging.eventsource/10.0.5",
       "hashPath": "microsoft.extensions.logging.eventsource.10.0.5.nupkg.sha512"
     },
+    "Microsoft.Extensions.ObjectPool/10.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2pufIFOgNl/yWTOoIC9XgBnO9VxgfAjdRCnVwpE2+ICfcroGnjuEAGzJ5lTdZeAe0HvA31vMBWXtcmGB7TOq3g==",
+      "path": "microsoft.extensions.objectpool/10.0.4",
+      "hashPath": "microsoft.extensions.objectpool.10.0.4.nupkg.sha512"
+    },
     "Microsoft.Extensions.Options/10.0.5": {
       "type": "package",
       "serviceable": true,
@@ -1507,6 +1594,13 @@
       "sha512": "sha512-rtViGJcGsN7WcfUNErwNeQgjuU5cJNl6FDQsfi9TncwO+Epzn0FTfBsg3YuFW1Q0Ch/KPxaVdjLw3/+5Z5ceFQ==",
       "path": "microsoft.identitymodel.tokens/8.16.0",
       "hashPath": "microsoft.identitymodel.tokens.8.16.0.nupkg.sha512"
+    },
+    "Microsoft.ML.Tokenizers/2.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+b8lT4cLLO/sBR2hjvE/qG6qrZG15h7/PBvnIrzTh4xDaAxdHUY6449rC+1pHzQUsBiCHZVbj+VMn+xS0sL7TA==",
+      "path": "microsoft.ml.tokenizers/2.0.0",
+      "hashPath": "microsoft.ml.tokenizers.2.0.0.nupkg.sha512"
     },
     "Microsoft.SemanticKernel/1.74.0": {
       "type": "package",
@@ -1653,22 +1747,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoTest.Assertion/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertion.Db/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertions.Http/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "AutoTest.Assertions.Tcp/1.0.0": {
+    "AutoTest.Assertions/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -1678,7 +1757,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoTest.Execution.Db/1.0.0": {
+    "AutoTest.Execution/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

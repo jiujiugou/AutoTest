@@ -12,22 +12,11 @@ public sealed class SeedRbacDefaults : Migration
                                                 INSERT INTO Roles (Name, DisplayName, Description)
                                                 VALUES ('admin', N'管理员', N'平台管理员');
                                             """);
-
-        IfDatabase("SQLite").Execute.Sql("""
-                                         INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
-                                         VALUES ('admin', '管理员', '平台管理员');
-                                         """);
-
         IfDatabase("SqlServer").Execute.Sql("""
                                             IF NOT EXISTS (SELECT 1 FROM Roles WHERE Name = 'user')
                                                 INSERT INTO Roles (Name, DisplayName, Description)
                                                 VALUES ('user', N'用户', N'普通用户');
                                             """);
-
-        IfDatabase("SQLite").Execute.Sql("""
-                                         INSERT OR IGNORE INTO Roles (Name, DisplayName, Description)
-                                         VALUES ('user', '用户', '普通用户');
-                                         """);
 
         // ================= 权限 =================
         var perms = new[]
@@ -78,13 +67,6 @@ public sealed class SeedRbacDefaults : Migration
                                               );
                                             """);
 
-        IfDatabase("SQLite").Execute.Sql("""
-                                         INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
-                                         SELECT r.Id, p.Id
-                                         FROM Roles r, Permissions p
-                                         WHERE r.Name = 'admin';
-                                         """);
-
         // ================= user：基础权限 =================
         IfDatabase("SqlServer").Execute.Sql("""
                                             INSERT INTO RolePermissions (RoleId, PermissionId)
@@ -97,14 +79,6 @@ public sealed class SeedRbacDefaults : Migration
                                                 WHERE rp.RoleId = r.Id AND rp.PermissionId = p.Id
                                               );
                                             """);
-
-        IfDatabase("SQLite").Execute.Sql("""
-                                         INSERT OR IGNORE INTO RolePermissions (RoleId, PermissionId)
-                                         SELECT r.Id, p.Id
-                                         FROM Roles r
-                                         JOIN Permissions p ON p.Code IN ('dashboard.view','logs.view','monitor.view','tasks.view')
-                                         WHERE r.Name = 'user';
-                                         """);
     }
 
     public override void Down()

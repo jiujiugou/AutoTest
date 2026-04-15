@@ -16,6 +16,8 @@ namespace AutoTest.Core.Target.Python
         /// <summary>Python 脚本路径（绝对或相对路径）</summary>
         public string ScriptPath { get; set; } = string.Empty;
 
+        public string? ScriptContent { get; set; }
+
         /// <summary>命令行参数数组，避免拼接字符串注入问题</summary>
         public string[] Args { get; set; } = Array.Empty<string>();
 

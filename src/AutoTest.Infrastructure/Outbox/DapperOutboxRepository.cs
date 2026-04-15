@@ -73,7 +73,7 @@ public sealed class DapperOutboxRepository : IOutboxRepository
             ? """
               SELECT TOP (@Take) Id
               FROM OutboxMessage
-              WHERE (Status = @Pending OR Status = @Failed)
+              WHERE (Status = @Pending OR Status = @Failed OR (Status = @Processing AND LockedUntil IS NOT NULL AND LockedUntil <= @Now))
                 AND (NextAttemptAt IS NULL OR NextAttemptAt <= @Now)
                 AND (LockedUntil IS NULL OR LockedUntil <= @Now)
               ORDER BY OccurredAt ASC
@@ -81,7 +81,7 @@ public sealed class DapperOutboxRepository : IOutboxRepository
             : """
               SELECT Id
               FROM OutboxMessage
-              WHERE (Status = @Pending OR Status = @Failed)
+              WHERE (Status = @Pending OR Status = @Failed OR (Status = @Processing AND LockedUntil IS NOT NULL AND LockedUntil <= @Now))
                 AND (NextAttemptAt IS NULL OR NextAttemptAt <= @Now)
                 AND (LockedUntil IS NULL OR LockedUntil <= @Now)
               ORDER BY OccurredAt ASC
@@ -93,6 +93,7 @@ public sealed class DapperOutboxRepository : IOutboxRepository
             {
                 Pending = (int)OutboxStatus.Pending,
                 Failed = (int)OutboxStatus.Failed,
+                Processing = (int)OutboxStatus.Processing,
                 Now = utcNow,
                 Take = take
             },
@@ -109,7 +110,7 @@ public sealed class DapperOutboxRepository : IOutboxRepository
                     LockedBy = @LockedBy,
                     Attempts = Attempts + 1
                 WHERE Id = @Id
-                  AND (Status = @Pending OR Status = @Failed)
+                  AND (Status = @Pending OR Status = @Failed OR (Status = @Processing AND LockedUntil IS NOT NULL AND LockedUntil <= @Now))
                   AND (NextAttemptAt IS NULL OR NextAttemptAt <= @Now)
                   AND (LockedUntil IS NULL OR LockedUntil <= @Now)
                 """,

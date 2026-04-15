@@ -29,8 +29,10 @@ public static class AddInfrastructureServiceCollectionExtensions
     public static IServiceCollection AddAutoTestInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         DapperTypeHandlers.EnsureInitialized();
+        var provider = configuration["Database:Provider"] ?? "SqlServer";
         var hangfireConnection = configuration.GetConnectionString("HangfireConnection")
-                                 ?? configuration["ConnectionStrings:HangfireConnection"];
+                                 ?? configuration["ConnectionStrings:HangfireConnection"]
+                                 ?? throw new InvalidOperationException("Missing connection string: HangfireConnection");
         hangfireConnection = hangfireConnection.Trim();
         if (!hangfireConnection.EndsWith(";", StringComparison.Ordinal))
             hangfireConnection += ";";
@@ -38,17 +40,23 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddSingleton<IWorkflowScheduler, HangfireWorkflowScheduler>();
         services.AddHangfire(config =>
         {
-            var provider = configuration["Database:Provider"] ?? "SqlServer";
-                config.UseSimpleAssemblyNameTypeSerializer()
-                      .UseRecommendedSerializerSettings()
-                      .UseSqlServerStorage(hangfireConnection, new SqlServerStorageOptions
-                      {
-                          QueuePollInterval = TimeSpan.FromSeconds(1),
-                          PrepareSchemaIfNecessary = true,
-                          UseRecommendedIsolationLevel = true,
-                          DisableGlobalLocks = true
-                      });
-            
+            config.UseSimpleAssemblyNameTypeSerializer()
+                  .UseRecommendedSerializerSettings();
+
+            if (string.Equals(provider, "Sqlite", StringComparison.OrdinalIgnoreCase))
+            {
+                config.UseSQLiteStorage(hangfireConnection);
+            }
+            else
+            {
+                config.UseSqlServerStorage(hangfireConnection, new SqlServerStorageOptions
+                {
+                    QueuePollInterval = TimeSpan.FromSeconds(1),
+                    PrepareSchemaIfNecessary = true,
+                    UseRecommendedIsolationLevel = true,
+                    DisableGlobalLocks = true
+                });
+            }
         });
         services.AddHangfireServer(options =>
         {
@@ -73,7 +81,12 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddScoped<IAssertionRuleMap, TcpAssertionRuleMap>();
         services.AddScoped<IAssertionRuleMap, DbAssertionRuleMap>();
         services.AddScoped<IAssertionRuleMap, PythonAssertionRuleMap>();
-        services.AddHostedService<LogTailHostedService>();
+        
+        var elasticNodes = configuration["Logging:ElasticNodes"] ?? "http://localhost:9200";
+        var firstNode = elasticNodes.Split(',', StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "http://localhost:9200";
+        services.AddSingleton(new Elastic.Clients.Elasticsearch.ElasticsearchClient(new Uri(firstNode)));
+        
+        services.AddHostedService<ExecutionWatchdogHostedService>();
         services.Configure<OutboxWebhookOptions>(configuration.GetSection("Outbox:Webhook"));
         services.AddHttpClient(OutboxWebhookDispatcherHostedService.HttpClientName);
         services.AddHostedService<OutboxWebhookDispatcherHostedService>();

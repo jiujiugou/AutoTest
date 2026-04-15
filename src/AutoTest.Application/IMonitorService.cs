@@ -78,4 +78,9 @@ public interface IMonitorService
     /// 获取监控任务运行统计信息（执行统计 + Top 错误）。
     /// </summary>
     Task<(MonitorExecutionStats Stats, IEnumerable<MonitorErrorStat> TopErrors)> GetMonitorRuntimeStatsAsync(Guid monitorId, int takeTopErrors = 10);
+
+    /// <summary>
+    /// 尝试启动一次执行（幂等）：如果幂等键已存在则返回 Started=false；否则将 Monitor 标记为 Running 并创建 Running 的执行记录。
+    /// </summary>
+    Task<(bool Started, Guid ExecutionId, DateTime StartedAtUtc)> TryStartExecutionAsync(Guid monitorId, string? idempotencyKey, string lockedBy);
 }
