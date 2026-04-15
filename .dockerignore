@@ -1,0 +1,11 @@
+**/bin/
+**/obj/
+**/.vs/
+**/.idea/
+**/node_modules/
+**/dist/
+**/.vite/
+**/*.log
+.git
+.gitignore
+.VSCodeCounter/
