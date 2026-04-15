@@ -1,16 +1,85 @@
-version: "3.8"
-
 services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: autotest_sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Express"
+      MSSQL_SA_PASSWORD: ${AUTOTEST_SQL_SA_PASSWORD:-AutoTest_Sql_2026!}
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    restart: unless-stopped
+
+  sqlserver-init:
+    image: mcr.microsoft.com/mssql-tools18
+    container_name: autotest_sqlserver_init
+    depends_on:
+      - sqlserver
+    environment:
+      SQLSERVER_HOST: sqlserver
+      SA_PASSWORD: ${AUTOTEST_SQL_SA_PASSWORD:-AutoTest_Sql_2026!}
+      AUTOTEST_DB: AutoTestDb
+      HANGFIRE_DB: HangfireDb
+    volumes:
+      - ./docker/sqlserver/init:/init:ro
+    command: [ "/bin/bash", "/init/init-db.sh" ]
+    restart: "no"
+
+  redis:
+    image: redis:7-alpine
+    container_name: autotest_redis
+    command: [ "redis-server", "--appendonly", "yes" ]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
+    container_name: autotest_elasticsearch
+    environment:
+      discovery.type: single-node
+      xpack.security.enabled: "false"
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    restart: unless-stopped
+
   api:
     build:
       context: .
-      dockerfile: Dockerfile.api
+      dockerfile: Dockerfile
     container_name: autotest_api
     ports:
       - "5033:80"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-    restart: always
+      ASPNETCORE_ENVIRONMENT: Production
+      App__EnableHttpsRedirection: "false"
+      Database__Provider: SqlServer
+      ConnectionStrings__DefaultConnection: Server=sqlserver;Database=AutoTestDb;User Id=sa;Password=${AUTOTEST_SQL_SA_PASSWORD:-AutoTest_Sql_2026!};TrustServerCertificate=True;Encrypt=False;
+      ConnectionStrings__HangfireConnection: Server=sqlserver;Database=HangfireDb;User Id=sa;Password=${AUTOTEST_SQL_SA_PASSWORD:-AutoTest_Sql_2026!};TrustServerCertificate=True;Encrypt=False;
+      Redis__ConnectionString: redis:6379
+      Logging__EnableElasticsearch: "true"
+      Logging__ElasticNodes: http://elasticsearch:9200
+      Jwt__SigningKey: ${AUTOTEST_JWT_SIGNING_KEY:-this_is_a_super_long_secure_key_1234567890}
+      Jwt__Key: ${AUTOTEST_JWT_SIGNING_KEY:-this_is_a_super_long_secure_key_1234567890}
+    depends_on:
+      sqlserver-init:
+        condition: service_completed_successfully
+      redis:
+        condition: service_started
+      elasticsearch:
+        condition: service_started
+    restart: unless-stopped
 
   web:
     build:
@@ -20,5 +89,11 @@ services:
     ports:
       - "80:80"
     depends_on:
-      - api
-    restart: always
+      api:
+        condition: service_started
+    restart: unless-stopped
+
+volumes:
+  sqlserver_data:
+  redis_data:
+  es_data:

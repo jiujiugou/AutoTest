@@ -139,3 +139,59 @@ dotnet test test/AutoTest.test/AutoTest.test.csproj
 cd AutoTestWeb
 npm run build
 ```
+
+## Docker 部署
+
+项目根目录已提供可直接上线的单机 Docker 编排，包含：
+- `web`：前端 Nginx 静态站点
+- `api`：ASP.NET Core WebApi
+- `sqlserver`：业务库与 Hangfire 库
+- `redis`：分布式锁 / 幂等
+- `elasticsearch`：日志历史查询
+
+### 1. 准备环境变量
+
+在服务器仓库根目录复制一份环境变量文件：
+
+```bash
+cp .env.example .env
+```
+
+至少修改这两个值：
+- `AUTOTEST_SQL_SA_PASSWORD`
+- `AUTOTEST_JWT_SIGNING_KEY`
+
+### 2. 一键启动
+
+```bash
+docker compose up -d --build
+```
+
+### 3. 访问地址
+
+- 前端首页：`http://你的服务器IP/`
+- 后端 API：`http://你的服务器IP/api/...`
+- SignalR：`http://你的服务器IP/hubs/...`
+- Elasticsearch：`http://你的服务器IP:9200`
+
+### 4. 默认端口映射
+
+- `80 -> web`
+- `5033 -> api`
+- `1433 -> sqlserver`
+- `6379 -> redis`
+- `9200 -> elasticsearch`
+
+### 5. 容器内关键配置
+
+- 业务数据库：`Server=sqlserver;Database=AutoTestDb;...`
+- Hangfire 数据库：`Server=sqlserver;Database=HangfireDb;...`
+- Redis：`redis:6379`
+- Elasticsearch：`http://elasticsearch:9200`
+
+### 6. 注意事项
+
+- 首次启动会先执行 `sqlserver-init`，自动创建 `AutoTestDb` 和 `HangfireDb`
+- API 启动时会自动执行 FluentMigrator 迁移
+- 当前编排默认关闭 Elasticsearch 安全认证，适合单机自托管；如果后续要暴露到公网，建议只开放 `80`，并在安全组中限制 `1433/6379/9200`
+- 当前前端 Nginx 已包含 `/api` 与 `/hubs` 反向代理，以及 WebSocket 升级头

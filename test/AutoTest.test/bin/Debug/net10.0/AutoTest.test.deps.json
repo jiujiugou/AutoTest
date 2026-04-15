@@ -433,15 +433,15 @@
           "lib/net10.0/Dapper.dll": {}
         }
       },
-      "Elastic.Clients.Elasticsearch/9.3.4": {
+      "Elastic.Clients.Elasticsearch/8.19.18": {
         "dependencies": {
           "Elastic.Esql": "0.10.0",
           "Elastic.Transport": "0.15.1"
         },
         "runtime": {
           "lib/net10.0/Elastic.Clients.Elasticsearch.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.3.4.0"
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.19.18.0"
           }
         },
         "compile": {
@@ -2639,7 +2639,7 @@
           "AutoTest.Assertions": "1.0.0",
           "AutoTest.Core": "1.0.0",
           "Dapper": "2.1.72",
-          "Elastic.Clients.Elasticsearch": "9.3.4",
+          "Elastic.Clients.Elasticsearch": "8.19.18",
           "Hangfire.AspNetCore": "1.8.23",
           "Hangfire.SQLite": "1.4.2",
           "Hangfire.SqlServer": "1.8.23",
@@ -4930,12 +4930,12 @@
       "path": "dapper/2.1.72",
       "hashPath": "dapper.2.1.72.nupkg.sha512"
     },
-    "Elastic.Clients.Elasticsearch/9.3.4": {
+    "Elastic.Clients.Elasticsearch/8.19.18": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-06N4iTCAdqCxRbUleIVig7A0+kUX76j5u2/bfjcHCMLCf2iWFxgoG4jAbybVQTNHxy5LlWEQT4Y/ueMHk7z6CA==",
-      "path": "elastic.clients.elasticsearch/9.3.4",
-      "hashPath": "elastic.clients.elasticsearch.9.3.4.nupkg.sha512"
+      "sha512": "sha512-bOZNSLPbpbeRxRby8N38BXgJEXR1z+xY86XW1Jp50LHTsL4araPDQgAeUmGp303yo53vUrYhumcqSjBQsl1uOA==",
+      "path": "elastic.clients.elasticsearch/8.19.18",
+      "hashPath": "elastic.clients.elasticsearch.8.19.18.nupkg.sha512"
     },
     "Elastic.Esql/0.10.0": {
       "type": "package",

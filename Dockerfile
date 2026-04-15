@@ -4,6 +4,7 @@ WORKDIR /app
 COPY AutoTest.sln ./
 
 COPY src/AutoTest.Webapi/AutoTest.Webapi.csproj src/AutoTest.Webapi/
+COPY src/AutoTest.AI/AutoTest.AI.csproj src/AutoTest.AI/
 COPY src/AutoTest.Application/AutoTest.Application.csproj src/AutoTest.Application/
 COPY src/AutoTest.Core/AutoTest.Core.csproj src/AutoTest.Core/
 COPY src/AutoTest.Infrastructure/AutoTest.Infrastructure.csproj src/AutoTest.Infrastructure/
