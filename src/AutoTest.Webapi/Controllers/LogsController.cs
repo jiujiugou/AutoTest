@@ -18,7 +18,7 @@ public class LogsController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Policy = "perm:logs.view")]
+    [Authorize(Policy = "perm:api.logs.view")]
     public async Task<ActionResult<LogPageDto>> List(
         [FromQuery] int take = 100,
         [FromQuery] string? level = null,

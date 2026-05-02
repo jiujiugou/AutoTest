@@ -1256,19 +1256,6 @@
         "runtime": {
           "bin/placeholder/CacheCommons.dll": {}
         }
-      },
-      "EventCommons/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v10.0",
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection": "10.0.2"
-        },
-        "compile": {
-          "bin/placeholder/EventCommons.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/EventCommons.dll": {}
-        }
       }
     }
   },
@@ -2996,18 +2983,12 @@
       "type": "project",
       "path": "../common/CacheCommons/CacheCommons.csproj",
       "msbuildProject": "../common/CacheCommons/CacheCommons.csproj"
-    },
-    "EventCommons/1.0.0": {
-      "type": "project",
-      "path": "../common/EventCommons/EventCommons.csproj",
-      "msbuildProject": "../common/EventCommons/EventCommons.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "AutoTest.Core >= 1.0.0",
       "CacheCommons >= 1.0.0",
-      "EventCommons >= 1.0.0",
       "Microsoft.Extensions.Hosting >= 10.0.5",
       "Microsoft.Extensions.Http >= 10.0.2",
       "Microsoft.Extensions.Logging >= 10.0.5"
@@ -3051,9 +3032,6 @@
             },
             "D:\\AutoTest\\src\\common\\CacheCommons\\CacheCommons.csproj": {
               "projectPath": "D:\\AutoTest\\src\\common\\CacheCommons\\CacheCommons.csproj"
-            },
-            "D:\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj": {
-              "projectPath": "D:\\AutoTest\\src\\common\\EventCommons\\EventCommons.csproj"
             }
           }
         }

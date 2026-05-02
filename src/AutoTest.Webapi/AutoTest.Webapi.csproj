@@ -3,6 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>c69594f5-958f-4b1c-8e16-0973121b84e1</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.72" />
@@ -22,12 +23,14 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Auth\Auth.csproj" />
-    <ProjectReference Include="..\AutoTest.AI\AutoTest.AI.csproj" />
     <ProjectReference Include="..\AutoTest.Migrations\AutoTest.Migrations.csproj" />
     <ProjectReference Include="..\AutoTest.Application\AutoTest.Application.csproj" />
     <ProjectReference Include="..\AutoTest.Infrastructure\AutoTest.Infrastructure.csproj" />
     <ProjectReference Include="..\common\CacheCommons\CacheCommons.csproj" />
     <ProjectReference Include="..\AutoTest.Execution\AutoTest.Execution.csproj" />
     <ProjectReference Include="..\AutoTest.Assertions\AutoTest.Assertions.csproj" />
+    <ProjectReference Include="..\AutoTest.Dsl\AutoTest.Dsl.csproj" />
+    <ProjectReference Include="..\AutoTest.Orchestration\AutoTest.Orchestration.csproj" />
+    <ProjectReference Include="..\common\LockCommons\LockCommons.csproj" />
   </ItemGroup>
 </Project>

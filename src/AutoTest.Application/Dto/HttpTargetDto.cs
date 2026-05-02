@@ -79,4 +79,8 @@ public class HttpTargetDto
     /// 是否启用全局并发限制
     /// </summary>
     public bool EnableRateLimit { get; set; } = true;
+    /// <summary>
+    /// 最大并发数
+    /// </summary>
+    public int MaxConcurrency { get; set; } = 5;
 }

@@ -1,3 +1,4 @@
+using AutoTest.Core.ExecutionPipeline;
 using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.ExecutionPipeline;

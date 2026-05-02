@@ -2,6 +2,7 @@ using AutoTest.Application;
 using AutoTest.Core.Abstraction;
 using AutoTest.Core.Execution;
 using Hangfire;
+using LockCommons;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,46 +14,27 @@ using AutoTest.Infrastructure.Hubs;
 
 namespace AutoTest.Infrastructure
 {
-    /// <summary>
-    /// Hangfire 任务执行入口：负责获取分布式锁/幂等标记，加载监控实体并触发编排执行，同时通过 SignalR 推送运行状态。
-    /// </summary>
     internal class WorkflowJob
     {
-        private readonly RedisService _redisService;
+        private readonly RedisLockService _redisLockService;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<WorkflowJob> _logger;
         private readonly IHubContext<MonitorHub> _hub;
 
-        /// <summary>
-        /// 初始化 <see cref="WorkflowJob"/>。
-        /// </summary>
-        /// <param name="serviceProvider">依赖注入根容器，用于创建执行作用域。</param>
-        /// <param name="logger">日志记录器。</param>
-        /// <param name="redisService">Redis 服务，用于分布式锁与幂等标记。</param>
-        /// <param name="hub">监控 SignalR Hub 上下文。</param>
-        public WorkflowJob(IServiceProvider serviceProvider, ILogger<WorkflowJob> logger, RedisService redisService, IHubContext<MonitorHub> hub)
+        public WorkflowJob(IServiceProvider serviceProvider, ILogger<WorkflowJob> logger, RedisLockService redisLockService, IHubContext<MonitorHub> hub)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
-            _redisService = redisService;
+            _redisLockService = redisLockService;
             _hub = hub;
         }
 
-        /// <summary>
-        /// 执行一次监控任务（无用户上下文，通知广播给管理员组）。
-        /// </summary>
-        /// <param name="monitorId">监控任务 ID。</param>
         public async Task RunAsync(Guid monitorId)
         {
             var key = $"schedule:{monitorId}:{DateTime.UtcNow:yyyyMMdd}";
             await RunAsync(monitorId, null, key);
         }
 
-        /// <summary>
-        /// 执行一次监控任务（可选用户上下文，通知可定向推送给触发用户）。
-        /// </summary>
-        /// <param name="monitorId">监控任务 ID。</param>
-        /// <param name="userId">触发用户 ID；为空时视为系统触发。</param>
         public async Task RunAsync(Guid monitorId, string? userId)
         {
             await RunAsync(monitorId, userId, null);
@@ -62,7 +44,7 @@ namespace AutoTest.Infrastructure
         {
             var redisKey = $"monitor-lock:{monitorId}";
 
-            await using var myLock = _redisService.GetLock($"{redisKey}", TimeSpan.FromSeconds(10));
+            await using var myLock = _redisLockService.CreateLock($"{redisKey}", TimeSpan.FromSeconds(10));
             if (!await myLock.AcquireAsync())
             {
                 _logger.LogInformation("Monitor {Id} is already being processed by another instance.", monitorId);

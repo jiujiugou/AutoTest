@@ -1,7 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Auth.RBAC
 {
     /// <summary>
@@ -14,5 +10,8 @@ namespace Auth.RBAC
 
         /// <summary>权限ID</summary>
         public int PermissionId { get; set; }
+
+        /// <summary>权限标识 Code</summary>
+        public string Code { get; set; } = string.Empty;
     }
 }

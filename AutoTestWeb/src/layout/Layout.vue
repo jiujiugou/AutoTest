@@ -16,31 +16,31 @@
         :collapse="isCollapse"
         :collapse-transition="false"
       >
-        <el-menu-item index="/dashboard">
+        <el-menu-item v-if="hasPerm('ui.menu.dashboard')" index="/dashboard">
           <el-icon><DataBoard /></el-icon>
           <template #title>仪表盘</template>
         </el-menu-item>
-        <el-menu-item index="/monitor">
+        <el-menu-item v-if="hasPerm('ui.menu.monitor')" index="/monitor">
           <el-icon><Monitor /></el-icon>
           <template #title>监控观测</template>
         </el-menu-item>
-        <el-menu-item index="/task">
+        <el-menu-item v-if="hasPerm('ui.menu.task')" index="/task">
           <el-icon><Operation /></el-icon>
           <template #title>任务调度</template>
         </el-menu-item>
-        <el-menu-item index="/RbacAdmin">
+        <el-menu-item v-if="hasPerm('ui.menu.rbac')" index="/RbacAdmin">
           <el-icon><User /></el-icon>
           <template #title>权限管理</template>
         </el-menu-item>
-        <el-menu-item index="/log">
+        <el-menu-item v-if="hasPerm('ui.menu.log')" index="/log">
           <el-icon><Document /></el-icon>
           <template #title>系统日志</template>
         </el-menu-item>
-        <el-menu-item index="/setting">
+        <el-menu-item v-if="hasPerm('ui.menu.settings')" index="/setting">
           <el-icon><Setting /></el-icon>
           <template #title>系统设置</template>
         </el-menu-item>
-        <el-menu-item index="/ai">
+        <el-menu-item v-if="hasPerm('ui.menu.ai')" index="/ai">
           <el-icon><ChatDotRound /></el-icon>
           <template #title>AI 助手</template>
         </el-menu-item>
@@ -90,7 +90,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   DataBoard, Monitor, Operation, User,
@@ -101,6 +101,19 @@ import {
 const route = useRoute()
 const router = useRouter()
 const isCollapse = ref(false)
+const permissions = ref([])
+
+onMounted(() => {
+  const stored = localStorage.getItem('userPermissions')
+  console.log(localStorage.getItem('userPermissions'))
+  if (stored) {
+    try { permissions.value = JSON.parse(stored) } catch { permissions.value = [] }
+  }
+})
+
+function hasPerm(code) {
+  return permissions.value.includes(code)
+}
 
 const routeNameMap = {
   '/dashboard': '仪表盘',
@@ -119,6 +132,8 @@ function handleCommand(command) {
   if (command === 'logout') {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
+    localStorage.removeItem('userInfo')
+    localStorage.removeItem('userPermissions')
     router.push('/login')
   } else if (command === 'profile') {
     router.push('/person')

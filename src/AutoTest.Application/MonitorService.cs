@@ -93,6 +93,8 @@ public class MonitorService : IMonitorService
                 dto.AutoDailyTime,
                 dto.MaxRuns,
                 dto.ExecutedCount);
+            if (dto.IsTemplate)
+                monitorEntity.SetTemplateConfig(true, dto.TemplateVariablesJson);
             foreach (var assertion in assertions)
                 monitorEntity.AddAssertion(assertion);
             await _unitOfWork.ExecuteAsync(async tx =>
@@ -173,6 +175,8 @@ public class MonitorService : IMonitorService
                                     ?? throw new InvalidOperationException($"No target builder for type: {dto.TargetType}");
 
                 existing.Update(dto.Name, targetBuilder.Map(dto.TargetConfig), dto.IsEnabled);
+                if (dto.IsTemplate)
+                    existing.SetTemplateConfig(true, dto.TemplateVariablesJson);
                 var autoDailyEnabled = dto.AutoDailyEnabled;
                 if (dto.MaxRuns != null && existing.ExecutedCount >= dto.MaxRuns.Value)
                     autoDailyEnabled = false;

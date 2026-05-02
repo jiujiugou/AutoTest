@@ -113,7 +113,7 @@ async function saveRolePermissions() {
     const arr = rolePermCodes.value[String(rid)] || [];
     await rbacSetRolePermissions(rid, arr);
 
-    alert("角色权限已保存");
+    ElMessage.success("角色权限已保存");
   } catch (e) {
     setError(e);
   } finally {

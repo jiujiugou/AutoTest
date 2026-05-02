@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6lsd+uNau8c=",
+  "dgSpecHash": "LqnJqsdgbeI=",
   "success": true,
-  "projectFilePath": "d:\\AutoTest\\src\\OutBox\\OutBox.csproj",
+  "projectFilePath": "D:\\AutoTest\\src\\OutBox\\OutBox.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jiuji\\.nuget\\packages\\dapper\\2.1.72\\dapper.2.1.72.nupkg.sha512",
     "C:\\Users\\jiuji\\.nuget\\packages\\microsoft.extensions.configuration\\10.0.5\\microsoft.extensions.configuration.10.0.5.nupkg.sha512",

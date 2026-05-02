@@ -6,55 +6,51 @@ using Flurl.Http;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 using System.Diagnostics;
+using System.Net;
 using System.Text;
 using System.Text.Json;
 
-/// <summary>
-/// HTTP 执行引擎，用于发送 HTTP 请求并返回结果，支持重试和并发控制。
-/// </summary>
 public class HttpExecutionEngine : IExecutionEngine
 {
     private readonly ILogger<HttpExecutionEngine> _logger;
     private readonly IHttpClient _httpClient;
-    // 全局并发限制信号量
-    private static readonly SemaphoreSlim _globalSemaphore = new(5);
+
+    private static readonly ConcurrentDictionary<int, SemaphoreSlim> _semaphorePool = new();
 
     public HttpExecutionEngine(ILogger<HttpExecutionEngine> logger, IHttpClient httpClient)
     {
-
         _logger = logger;
         _httpClient = httpClient;
     }
-    /// <summary>
-    /// 执行 HTTP 请求，适配 MonitorTarget 类型
-    /// </summary>
-    /// <param name="target">测试目标</param>
-    /// <returns>ExecutionResult 执行结果</returns>
+
+    public bool CanExecute(MonitorTarget target) => target is HttpTarget;
+
     public Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
     {
         if (target is not HttpTarget httpTarget)
             throw new ArgumentException("目标类型不正确", nameof(target));
-
         return ExecuteAsync(httpTarget);
     }
-    /// <summary>
-    /// 执行 HTTP 请求，带重试和并发控制
-    /// </summary>
-    /// <param name="target">HTTP 测试目标</param>
-    /// <returns>HTTP 执行结果</returns>
+
     public async Task<ExecutionResult> ExecuteAsync(HttpTarget target)
     {
         if (target.EnableRateLimit)
-            await _globalSemaphore.WaitAsync(); // 等待全局信号量
+        {
+            var semaphore = _semaphorePool.GetOrAdd(
+                target.MaxConcurrency,
+                _ => new SemaphoreSlim(target.MaxConcurrency));
+            await semaphore.WaitAsync();
+        }
+
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            for (int i = 0; i < target.RetryCount; i++)
+            for (int i = 0; i <= target.RetryCount; i++)
             {
-
                 try
                 {
-                    _logger.LogInformation($"开始执行 HTTP 请求 [{i}]，地址：{target.Url} 方法：{target.Method}");
+                    _logger.LogInformation("HTTP 请求开始 [{i}/{max}]: {Method} {Url}",
+                        i + 1, target.RetryCount + 1, target.Method, target.Url);
 
                     var client = await _httpClient.GetOrCreateClient(target);
 
@@ -73,60 +69,87 @@ public class HttpExecutionEngine : IExecutionEngine
 
                     var body = await response.GetStringAsync();
                     var elapsedMs = stopwatch.ElapsedMilliseconds;
-                    // 1. 取响应头
-                    var headersDict = response.Headers.GroupBy(h => h.Name, h => h.Value)
-                        .ToDictionary(g => g.Key, g => g.ToArray());
 
+                    var headersDict = new Dictionary<string, string[]>();
+                    foreach (var group in response.Headers.GroupBy(h => h.Name))
+                        headersDict[group.Key] = group.Select(h => h.Value).ToArray();
+                    if (response.ResponseMessage?.Content?.Headers != null)
+                    {
+                        foreach (var h in response.ResponseMessage.Content.Headers)
+                            headersDict[h.Key] = h.Value.ToArray();
+                    }
 
-                    _logger.LogInformation($"HTTP 请求完成，状态码：{response.StatusCode} 耗时：{elapsedMs}ms");
+                    _logger.LogInformation("HTTP 请求完成: {Url}, Status={Status}, 耗时={Elapsed}ms",
+                        target.Url, (int)response.StatusCode, elapsedMs);
+
                     return new HttpExecutionResult(
                         (int)response.StatusCode,
-                         body,
+                        body,
                         true,
                         headersDict,
-                    elapsedMs
+                        elapsedMs
                     );
+                }
+                catch (OperationCanceledException) when (!(i == target.RetryCount))
+                {
+                    _logger.LogWarning("HTTP 请求超时 [{i}/{max}]: {Url}，将在 {Delay}ms 后重试",
+                        i + 1, target.RetryCount + 1, target.Url, target.RetryDelayMs);
+                    await Task.Delay(target.RetryDelayMs);
+                }
+                catch (HttpRequestException hrex) when (!(i == target.RetryCount))
+                {
+                    _logger.LogWarning(hrex, "HTTP 网络异常 [{i}/{max}]: {Url}，将在 {Delay}ms 后重试",
+                        i + 1, target.RetryCount + 1, target.Url, target.RetryDelayMs);
+                    await Task.Delay(target.RetryDelayMs);
                 }
                 catch (FlurlHttpException fex)
                 {
                     var elapsedMs = stopwatch.ElapsedMilliseconds;
-                    _logger.LogError(fex, $"HTTP 请求失败 [{i}]，耗时 {elapsedMs}ms");
+                    _logger.LogError(fex, "HTTP 请求失败 [{i}/{max}]: {Url}，耗时 {Elapsed}ms",
+                        i + 1, target.RetryCount + 1, target.Url, elapsedMs);
 
-                    if (!target.EnableRetry || i == target.RetryCount - 1)
+                    if (!target.EnableRetry || i == target.RetryCount)
                     {
                         var status = fex.Call?.Response?.StatusCode ?? 0;
                         var content = await fex.GetResponseStringAsync();
-                        return new HttpExecutionResult(status, content, false, "请求失败");
+                        return new HttpExecutionResult((int)status, content, false, "请求失败");
                     }
                     else
                     {
-                        _logger.LogInformation($"重试 {target.RetryDelayMs}ms 后再次尝试...");
+                        _logger.LogInformation("将在 {Delay}ms 后重试...", target.RetryDelayMs);
                         await Task.Delay(target.RetryDelayMs);
                     }
                 }
-
             }
+        }
+        catch (OperationCanceledException) when (!Debugger.IsAttached)
+        {
+            _logger.LogWarning("HTTP 请求最终超时: {Url}", target.Url);
+            return new HttpExecutionResult(0, null, false, "请求超时");
+        }
+        catch (HttpRequestException hrex)
+        {
+            _logger.LogError(hrex, "HTTP 请求最终失败: {Url}", target.Url);
+            return new HttpExecutionResult(0, null, false, $"网络异常: {hrex.Message}");
         }
         catch (Exception ex)
         {
             var elapsedMs = stopwatch.ElapsedMilliseconds;
-            _logger.LogError(ex, $"执行 HTTP 请求时发生异常，耗时 {elapsedMs}ms");
-
+            _logger.LogError(ex, "HTTP 请求异常: {Url}，耗时 {Elapsed}ms", target.Url, elapsedMs);
+            return new HttpExecutionResult(0, null, false, $"请求异常: {ex.Message}");
         }
         finally
         {
             if (target.EnableRateLimit)
-                _globalSemaphore.Release();
-
+            {
+                if (_semaphorePool.TryGetValue(target.MaxConcurrency, out var sem))
+                    sem.Release();
+            }
         }
-        return new HttpExecutionResult(404, null, false, "请求失败");
+
+        return new HttpExecutionResult(0, null, false, "重试耗尽");
     }
 
-    public bool CanExecute(MonitorTarget target) => target is HttpTarget;
-
-    /// <summary>
-    /// 根据 HttpBody 类型构建 HttpContent
-    /// </summary>
     private HttpContent? BuildHttpContent(HttpBody? body)
     {
         if (body == null) return null;
@@ -138,21 +161,17 @@ public class HttpExecutionEngine : IExecutionEngine
                 Encoding.UTF8,
                 "application/json"
             ),
-
             BodyType.FormUrlEncoded => body.Value switch
             {
                 Dictionary<string, string> dict => new FormUrlEncodedContent(dict),
                 _ => throw new ArgumentException("FormUrlEncoded body.Value must be Dictionary<string,string>")
             },
-
             BodyType.Raw => new StringContent(
                 body.Value?.ToString() ?? "",
                 Encoding.UTF8,
                 body.ContentType ?? "text/plain"
             ),
-
             _ => throw new NotSupportedException($"Body type {body.Type} not supported")
         };
     }
-
 }

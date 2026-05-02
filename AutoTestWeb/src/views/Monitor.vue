@@ -175,12 +175,76 @@
                   <template #default="{ row }">{{ row.__elapsedMs != null ? `${row.__elapsedMs}ms` : '-' }}</template>
                 </el-table-column>
                 <el-table-column prop="errorMessage" label="错误信息" show-overflow-tooltip />
+                <el-table-column label="AI 分析" width="80" align="center">
+                  <template #default="{ row }">
+                    <el-button
+                      v-if="!row.isExecutionSuccess"
+                      size="small"
+                      type="warning"
+                      plain
+                      @click="showAiAnalysis(row)"
+                    >分析</el-button>
+                  </template>
+                </el-table-column>
               </el-table>
             </el-card>
           </div>
         </el-card>
       </el-col>
     </el-row>
+
+    <el-drawer
+      v-model="analysisDrawerVisible"
+      title="AI 分析结果"
+      size="500px"
+      direction="rtl"
+    >
+      <template v-if="analysisLoading">
+        <div style="text-align:center;padding:40px">
+          <el-skeleton :rows="6" animated />
+        </div>
+      </template>
+      <template v-else-if="analysisError">
+        <el-empty description="暂无 AI 分析结果" />
+        <p style="color:#999;font-size:13px;text-align:center">分析任务可能正在排队，请稍后重试</p>
+      </template>
+      <template v-else-if="analysisData">
+        <div class="analysis-detail">
+          <div class="analysis-section">
+            <span class="label">严重级别</span>
+            <el-tag :type="severityTagType(analysisData.severity)" size="default">
+              {{ severityLabel(analysisData.severity) }}
+            </el-tag>
+            <el-tag type="info" size="default" style="margin-left:8px">
+              置信度 {{ (analysisData.confidence * 100).toFixed(0) }}%
+            </el-tag>
+            <el-tag v-if="analysisData.type" type="info" size="default" style="margin-left:8px">
+              {{ analysisData.type }}
+            </el-tag>
+          </div>
+          <div class="analysis-section">
+            <span class="label">问题分类</span>
+            <span>{{ analysisData.category || '未分类' }}</span>
+          </div>
+          <div class="analysis-section">
+            <span class="label">摘要</span>
+            <p>{{ analysisData.summary }}</p>
+          </div>
+          <div class="analysis-section">
+            <span class="label">根因分析</span>
+            <div class="code-block">{{ analysisData.rootCause }}</div>
+          </div>
+          <div class="analysis-section">
+            <span class="label">修复建议</span>
+            <div class="code-block suggestion">{{ analysisData.suggestion }}</div>
+          </div>
+          <div class="analysis-section">
+            <span class="label">分析时间</span>
+            <span>{{ formatTime(analysisData.createdAt) }}</span>
+          </div>
+        </div>
+      </template>
+    </el-drawer>
   </div>
 </template>
 
@@ -349,6 +413,44 @@ const errorAgg = computed(() => {
  
 
 let hubConn = null
+
+const analysisDrawerVisible = ref(false)
+const analysisLoading = ref(false)
+const analysisError = ref(false)
+const analysisData = ref(null)
+
+async function showAiAnalysis(record) {
+  analysisDrawerVisible.value = true
+  analysisLoading.value = true
+  analysisError.value = false
+  analysisData.value = null
+
+  try {
+    const res = await MonitorsApi.executionAnalysis(record.id)
+
+    if (res && res.summary) {
+      analysisData.value = res
+    } else {
+      analysisError.value = true
+    }
+  } catch (e) {
+    console.error(e)
+    analysisError.value = true
+  } finally {
+    analysisLoading.value = false
+  }
+}
+
+function severityTagType(severity) {
+  const map = { critical: 'danger', high: 'warning', medium: 'warning', low: 'info' }
+  return map[severity] || 'info'
+}
+
+function severityLabel(severity) {
+  const map = { critical: '严重', high: '高', medium: '中', low: '低' }
+  return map[severity] || severity || '未知'
+}
+
 function onMonitorUpdated(payload) {
   const mid = payload?.monitorId
   if (!mid) return
@@ -460,6 +562,44 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.analysis-detail {
+  padding: 0 8px;
+}
+
+.analysis-section {
+  margin-bottom: 20px;
+}
+
+.analysis-section .label {
+  display: block;
+  font-size: 13px;
+  color: #909399;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.analysis-section p {
+  margin: 0;
+  line-height: 1.6;
+  color: #303133;
+}
+
+.code-block {
+  background: #f5f7fa;
+  border: 1px solid #e4e7ed;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #303133;
+}
+
+.code-block.suggestion {
+  border-left: 3px solid #e6a23c;
 }
 
 .content {

@@ -5,37 +5,6 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/AiAgent/chat": {
-      "post": {
-        "tags": [
-          "AiAgent"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChatRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChatRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChatRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/auth/login": {
       "post": {
         "tags": [
@@ -606,6 +575,61 @@
         }
       }
     },
+    "/api/Monitor/executions/{executionId}/analysis": {
+      "get": {
+        "tags": [
+          "Monitor"
+        ],
+        "parameters": [
+          {
+            "name": "executionId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Monitor/{monitorId}/analysis-list": {
+      "get": {
+        "tags": [
+          "Monitor"
+        ],
+        "parameters": [
+          {
+            "name": "monitorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/rbac/roles": {
       "get": {
         "tags": [
@@ -812,16 +836,6 @@
             "nullable": true
           },
           "password": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ChatRequest": {
-        "type": "object",
-        "properties": {
-          "message": {
             "type": "string",
             "nullable": true
           }
@@ -1084,6 +1098,13 @@
           "executedCount": {
             "type": "integer",
             "format": "int32"
+          },
+          "isTemplate": {
+            "type": "boolean"
+          },
+          "templateVariablesJson": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

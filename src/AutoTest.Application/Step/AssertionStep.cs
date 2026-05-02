@@ -1,5 +1,5 @@
 using AutoTest.Application.Builder;
-using AutoTest.Application.ExecutionPipeline;
+using AutoTest.Core.ExecutionPipeline;
 using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.Step;

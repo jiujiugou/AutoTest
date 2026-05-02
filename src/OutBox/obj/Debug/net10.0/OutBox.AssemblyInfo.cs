@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OutBox")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dffbe1f25385fb6eccb1777bfc3c4a1aac014a15")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a079c8ebf1a740a1a272fb856f35db6d6318e318")]
 [assembly: System.Reflection.AssemblyProductAttribute("OutBox")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OutBox")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

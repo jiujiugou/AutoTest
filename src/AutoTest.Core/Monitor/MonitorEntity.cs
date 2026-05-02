@@ -66,10 +66,12 @@ namespace AutoTest.Core
         public int ExecutedCount { get; private set; }
         private readonly List<AssertionRule> _assertions = new();
 
-        /// <summary>
-        /// 断言规则集合（只读视图）。
-        /// </summary>
         public IReadOnlyCollection<AssertionRule> Assertions => _assertions;
+
+        public bool IsTemplate { get; private set; }
+
+        public string? TemplateVariablesJson { get; private set; }
+
         private MonitorEntity()
         {
             Name = null!;
@@ -111,6 +113,15 @@ namespace AutoTest.Core
             Name = name;
             Target = target;
             IsEnabled = isEnabled;
+        }
+
+        /// <summary>
+        /// 设置模板配置（同时将目标设置为模板模式）。
+        /// </summary>
+        public void SetTemplateConfig(bool isTemplate, string? templateVariablesJson)
+        {
+            IsTemplate = isTemplate;
+            TemplateVariablesJson = templateVariablesJson;
         }
 
         /// <summary>

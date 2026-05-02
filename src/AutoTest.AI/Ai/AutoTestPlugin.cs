@@ -4,7 +4,7 @@ using AutoTest.Application;
 using AutoTest.Application.Dto;
 using Microsoft.SemanticKernel;
 
-namespace AutoTest.Webapi.AI;
+namespace AutoTest.AI;
 
 public class AutoTestPlugin
 {

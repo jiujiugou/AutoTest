@@ -20,7 +20,11 @@ namespace AutoTest.Webapi.Controllers
 
                 var r = await _auth.LoginAsync(req.Username, req.Password, cancellationToken);
             if(r != null)
-                return Ok(new { accessToken = r.AccessToken, refreshToken = r.RefreshToken });
+                return Ok(new {
+                    accessToken = r.AccessToken,
+                    refreshToken = r.RefreshToken,
+                    user = r.User
+                });
             else
                 return Unauthorized(new
                 {
@@ -42,7 +46,11 @@ namespace AutoTest.Webapi.Controllers
                         message = "Invalid refresh token"
                     });
                 }
-                return Ok(new { accessToken = r.AccessToken, refreshToken = r.RefreshToken });
+                return Ok(new {
+                    accessToken = r.AccessToken,
+                    refreshToken = r.RefreshToken,
+                    user = r.User
+                });
             
         }
 
@@ -66,6 +74,7 @@ namespace AutoTest.Webapi.Controllers
                 return Conflict(new { message = "Users already exist" });
             }
         }
+
     }
 
     public sealed class RefreshRequest

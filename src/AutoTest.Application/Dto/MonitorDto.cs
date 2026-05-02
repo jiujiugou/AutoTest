@@ -64,4 +64,14 @@ public class MonitorDto
     /// 已执行次数。
     /// </summary>
     public int ExecutedCount { get; set; }
+
+    /// <summary>
+    /// 是否为 DSL 模板模式。
+    /// </summary>
+    public bool IsTemplate { get; set; }
+
+    /// <summary>
+    /// 模板变量 JSON（仅模板模式使用）。
+    /// </summary>
+    public string? TemplateVariablesJson { get; set; }
 }

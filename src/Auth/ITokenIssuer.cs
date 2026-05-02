@@ -10,6 +10,7 @@ public interface ITokenIssuer
     /// </summary>
     /// <param name="subject">主体（通常为用户名或用户 Id）</param>
     /// <param name="role">角色</param>
+    /// <param name="permissions">权限列表（可选）</param>
     /// <returns>JWT 等形式的访问令牌</returns>
-    string GenerateAccessToken(string subject, string role);
+    string GenerateAccessToken(string subject, string role, IEnumerable<string>? permissions = null);
 }

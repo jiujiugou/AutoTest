@@ -49,7 +49,8 @@ public sealed class HttpTargetMap : ITargetMap
             enableRetry: dto.EnableRetry,
             retryCount: dto.RetryCount,
             retryDelayMs: dto.RetryDelayMs,
-            enableRateLimit: dto.EnableRateLimit
+            enableRateLimit: dto.EnableRateLimit,
+            maxConcurrency: dto.MaxConcurrency
         );
     }
 

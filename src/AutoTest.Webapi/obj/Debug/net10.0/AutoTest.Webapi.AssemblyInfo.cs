@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("c69594f5-958f-4b1c-8e16-0973121b84e1")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("AutoTest.Webapi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+883e7f59cb71b5daaa9c002e27f8cce36bbf06df")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a079c8ebf1a740a1a272fb856f35db6d6318e318")]
 [assembly: System.Reflection.AssemblyProductAttribute("AutoTest.Webapi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AutoTest.Webapi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

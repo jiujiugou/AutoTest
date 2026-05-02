@@ -32,7 +32,7 @@ public sealed class RbacController : ControllerBase
     /// 获取所有角色列表
     /// </summary>
     [HttpGet("roles")]
-    [Authorize(Policy = "perm:settings.view")]
+    [Authorize(Policy = "perm:api.settings.view")]
     public async Task<IActionResult> Roles()
     {
         var rows = await _rbac.GetRolesAsync();
@@ -45,7 +45,7 @@ public sealed class RbacController : ControllerBase
     /// 获取所有权限列表
     /// </summary>
     [HttpGet("permissions")]
-    [Authorize(Policy = "perm:settings.view")]
+    [Authorize(Policy = "perm:api.settings.view")]
     public async Task<IActionResult> Permissions()
     {
         var rows = await _rbac.GetPermissionsAsync();
@@ -59,7 +59,7 @@ public sealed class RbacController : ControllerBase
     /// </summary>
     /// <param name="roleId">角色ID</param>
     [HttpGet("roles/{roleId:int}/permissions")]
-    [Authorize(Policy = "perm:settings.view")]
+    [Authorize(Policy = "perm:api.settings.view")]
     public async Task<IActionResult> RolePermissions(int roleId)
     {
         var rows = await _rbac.GetRolePermissionsAsync(roleId);
@@ -72,7 +72,7 @@ public sealed class RbacController : ControllerBase
     /// <param name="roleId">角色ID</param>
     /// <param name="req">权限Code列表</param>
     [HttpPut("roles/{roleId:int}/permissions")]
-    [Authorize(Policy = "perm:settings.manage")]
+    [Authorize(Policy = "perm:api.settings.manage")]
     public async Task<IActionResult> SetRolePermissions(int roleId, SetRolePermissionsRequest req)
     {
         await _rbac.SetRolePermissionsAsync(roleId, req.Codes ?? []);
@@ -86,7 +86,7 @@ public sealed class RbacController : ControllerBase
     /// </summary>
     /// <param name="take">返回数量（默认100，最大500）</param>
     [HttpGet("users")]
-    [Authorize(Policy = "perm:settings.view")]
+    [Authorize(Policy = "perm:api.settings.view")]
     public async Task<IActionResult> Users([FromQuery] int take = 100)
     {
         var rows = await _rbac.GetUsersAsync(Math.Clamp(take, 1, 500));
@@ -100,7 +100,7 @@ public sealed class RbacController : ControllerBase
     /// </summary>
     /// <param name="userId">用户ID</param>
     [HttpGet("users/{userId:int}/role")]
-    [Authorize(Policy = "perm:settings.view")]
+    [Authorize(Policy = "perm:api.settings.view")]
     public async Task<IActionResult> UserRole(int userId)
     {
         var row = await _rbac.GetUserRoleAsync(userId);
@@ -113,7 +113,7 @@ public sealed class RbacController : ControllerBase
     /// <param name="userId">用户ID</param>
     /// <param name="req">角色名称</param>
     [HttpPut("users/{userId:int}/role")]
-    [Authorize(Policy = "perm:settings.manage")]
+    [Authorize(Policy = "perm:api.settings.manage")]
     public async Task<IActionResult> SetUserRole(int userId, SetUserRoleRequest req)
     {
         if (string.IsNullOrWhiteSpace(req.RoleName))

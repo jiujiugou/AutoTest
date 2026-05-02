@@ -43,5 +43,13 @@ export const MonitorsApi = {
 
   executionAssertions(executionId) {
     return api.get(`/api/monitor/executions/${encodeURIComponent(String(executionId))}/assertions`);
+  },
+
+  executionAnalysis(executionId) {
+    return api.get(`/api/monitor/executions/${encodeURIComponent(String(executionId))}/analysis`);
+  },
+
+  analysisList(monitorId, take = 20) {
+    return api.get(`/api/monitor/${encodeURIComponent(String(monitorId))}/analysis-list?take=${take}`);
   }
 };

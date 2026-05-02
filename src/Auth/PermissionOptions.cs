@@ -6,7 +6,7 @@ namespace Auth;
 public sealed class PermissionOptions
 {
     /// <summary>
-    /// 策略名前缀，形如 "perm:monitor.create"
+    /// 策略名前缀，形如 "perm:api.monitor.create"
     /// </summary>
     public string PolicyPrefix { get; set; } = "perm:";
 

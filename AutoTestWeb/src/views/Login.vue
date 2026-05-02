@@ -81,6 +81,13 @@ async function login() {
     localStorage.setItem('accessToken', accessToken)
     localStorage.setItem('refreshToken', refreshToken)
 
+    if (res.user) {
+      localStorage.setItem('userInfo', JSON.stringify(res.user))
+      if (res.user.permissions) {
+        localStorage.setItem('userPermissions', JSON.stringify(res.user.permissions))
+      }
+    }
+
     ElMessage.success('登录成功')
     router.push('/dashboard')
 

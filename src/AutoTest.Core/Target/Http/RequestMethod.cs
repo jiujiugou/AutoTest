@@ -11,5 +11,8 @@ public enum RequestMethod
     Get,
     Post,
     Put,
-    Delete
+    Delete,
+    Patch,
+    Head,
+    Options
 }

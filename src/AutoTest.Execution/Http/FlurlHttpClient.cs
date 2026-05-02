@@ -23,18 +23,21 @@ namespace AutoTest.Execution.Http
                 );
             var client = _handlers.GetOrAdd(key, _ =>
             {
-                // 1. 创建 Handler
                 var handler = new HttpClientHandler
                 {
                     AllowAutoRedirect = target.AllowAutoRedirect ?? false,
                     MaxAutomaticRedirections = target.MaxRedirects,
-                    UseCookies = target.UseCookies ?? false,
                     ServerCertificateCustomValidationCallback = (target.IgnoreSslErrors ?? false)
                         ? HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                         : null
                 };
 
-                // 2. 配置代理
+                if (target.UseCookies ?? false)
+                {
+                    handler.UseCookies = true;
+                    handler.CookieContainer = new CookieContainer();
+                }
+
                 if (!string.IsNullOrEmpty(target.ProxyUrl))
                 {
                     handler.Proxy = new WebProxy(target.ProxyUrl)
@@ -46,11 +49,9 @@ namespace AutoTest.Execution.Http
                     handler.UseProxy = true;
                 }
 
-                // 3. 创建 HttpClient + FlurlClient
                 var httpClient = new HttpClient(handler);
                 var flurlClient = new FlurlClient(httpClient);
 
-                // 4. 配置认证 Header
                 switch (target.AuthType)
                 {
                     case AuthType.Bearer:

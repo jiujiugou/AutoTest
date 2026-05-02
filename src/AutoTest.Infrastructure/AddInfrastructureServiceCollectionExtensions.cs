@@ -1,18 +1,25 @@
+using AutoTest.AI;
 using AutoTest.Application;
 using AutoTest.Application.Builder;
 using AutoTest.Core.Abstraction;
+using AutoTest.Core.AI;
+using AutoTest.Core.Dsl;
+using AutoTest.Core.Repositories;
+using AutoTest.Infrastructure.AI;
+using AutoTest.Infrastructure.Log;
+using AutoTest.Infrastructure.Mapper.AssertionMapper;
+using AutoTest.Infrastructure.Mapper.AssertionRuleMapper;
+using AutoTest.Infrastructure.Mapper.TargetMapper;
+using AutoTest.Infrastructure.Outbox;
 using Dapper;
 using Hangfire;
 using Hangfire.SQLite;
 using Hangfire.SqlServer;
-using AutoTest.Infrastructure.Outbox;
-using AutoTest.Infrastructure.Mapper.AssertionMapper;
-using AutoTest.Infrastructure.Mapper.AssertionRuleMapper;
-using AutoTest.Infrastructure.Mapper.TargetMapper;
+using LockCommons;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
-
+using AutoTest.Orchestration;
 namespace AutoTest.Infrastructure;
 
 /// <summary>
@@ -69,10 +76,15 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddScoped<IOutboxRepository, DapperOutboxRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IDashboardService, DashboardService>();
+        services.Configure<AiOptions>(configuration.GetSection("AI"));
+        services.Configure<AiWorkerOptions>(configuration.GetSection("AI:Worker"));
         services.AddScoped<ILogService, LogService>();
+        services.AddScoped<IAnalysisRepository, AnalysisRepository>();
+        services.AddHostedService<AiWorker>();
         services.AddScoped<ITargetMap, HttpTargetMap>();
         services.AddScoped<ITargetMap, TcpTargetMap>();
         services.AddScoped<ITargetMap, PythonTargetMap>();
+        services.AddScoped<ITargetMap, TemplateTargetMap>();
         services.AddScoped<IAssertionMap, HttpAssertionMap>();
         services.AddScoped<IAssertionMap, TcpAssertionMap>();
         services.AddScoped<IAssertionMap, DbAssertionMap>();
@@ -87,13 +99,23 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddSingleton(new Elastic.Clients.Elasticsearch.ElasticsearchClient(new Uri(firstNode)));
         
         services.AddHostedService<ExecutionWatchdogHostedService>();
-        services.Configure<OutboxWebhookOptions>(configuration.GetSection("Outbox:Webhook"));
-        services.AddHttpClient(OutboxWebhookDispatcherHostedService.HttpClientName);
-        services.AddHostedService<OutboxWebhookDispatcherHostedService>();
-        services.AddSingleton<RedisService>(sp =>
+        services.Configure<WebhookOptions>(configuration.GetSection("Outbox:Webhook"));
+        services.AddHttpClient(WebhookConsumer.HttpClientName);
+        services.AddHostedService<OutboxDispatcherHostedService>();
+
+        var redisConnection = configuration["Redis:ConnectionString"] ?? "localhost:6379";
+        services.AddRedisLock(redisConnection);
+        services.AddAutoTestOrchestration(redisConnection);
+        services.AddScoped<IVariableResolver, VariableResolver>();
+        services.AddScoped<IResponseValueExtractor, ResponseValueExtractor>();
+        services.AddScoped<IAiTaskService, AiTaskService>();
+        services.AddHostedService<AiWorker>();
+        services.AddMediatR(cfg =>
         {
-            var redisConnection = configuration["Redis:ConnectionString"] ?? "localhost:6379";
-            return new RedisService(redisConnection);
+            cfg.RegisterServicesFromAssemblies(
+                typeof(AiAnalysisConsumer).Assembly,
+                typeof(WebhookConsumer).Assembly
+            );
         });
         return services;
     }

@@ -1,4 +1,5 @@
 using AutoTest.Application.Dto;
+using AutoTest.Core.AI;
 
 namespace AutoTest.Application;
 
@@ -16,4 +17,9 @@ public interface ILogService
     /// 清理日志。
     /// </summary>
     Task ClearAsync();
+
+    /// <summary>
+    /// 获取指定 TraceId 的 AI 错误上下文日志。
+    /// </summary>
+    Task<List<TraceLogEntry>> GetAiErrorContextAsync(string traceId, DateTime? errorTime = null, int windowSeconds = 30, int take = 120);
 }

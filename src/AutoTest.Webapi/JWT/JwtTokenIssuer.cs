@@ -11,9 +11,8 @@ public sealed class JwtTokenIssuer : ITokenIssuer
         _jwtService = jwtService;
     }
 
-    public string GenerateAccessToken(string subject, string role)
+    public string GenerateAccessToken(string subject, string role, IEnumerable<string>? permissions = null)
     {
-        return _jwtService.GenerateToken(subject, role);
+        return _jwtService.GenerateToken(subject, role, permissions);
     }
 }
-

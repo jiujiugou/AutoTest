@@ -127,6 +127,7 @@
                 <el-radio-button label="HTTP">HTTP / API</el-radio-button>
                 <el-radio-button label="TCP">TCP</el-radio-button>
                 <el-radio-button label="PYTHON">Python 脚本</el-radio-button>
+                <el-radio-button label="TEMPLATE">模板</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item label="暂停/恢复">
@@ -418,6 +419,32 @@
                 <el-button type="primary" plain :icon="'Plus'" @click="addKv(pythonConfig.env)">新增 Env</el-button>
               </div>
             </el-form-item>
+            <el-form-item label="模板配置" v-if="form.targetType === 'TEMPLATE'">
+              <div style="width: 100%;">
+                <div class="file-row" style="margin-bottom: 12px;">
+                  <input ref="templateFileInput" class="hidden-file" type="file" accept=".json" @change="handleTemplateFileImport" />
+                  <el-button size="small" type="primary" plain @click="chooseTemplateFile">导入JSON文件</el-button>
+                  <el-button v-if="templateConfig.dslJson" size="small" type="danger" plain @click="clearTemplateFile">清除</el-button>
+                </div>
+                <div class="kv-label">DSL 定义（JSON）</div>
+                <el-input
+                  v-model="templateConfig.dslJson"
+                  type="textarea"
+                  :rows="14"
+                  placeholder="导入 JSON 文件或在此编辑 DSL 定义"
+                  class="code-input"
+                />
+                <div class="kv-label" style="margin-top: 12px;">模板变量（JSON 键值对，可选）</div>
+                <el-input
+                  v-model="templateConfig.variablesJson"
+                  type="textarea"
+                  :rows="4"
+                  placeholder='{"host": "https://example.com"}'
+                  class="code-input"
+                  style="margin-top: 4px;"
+                />
+              </div>
+            </el-form-item>
             <el-form-item label="HTTP 校验" v-if="form.targetType === 'HTTP'">
               <el-input v-model="form.assertExpected" placeholder="期望 StatusCode，例如 200；留空不创建断言" style="width: 320px" />
             </el-form-item>
@@ -567,6 +594,51 @@ const filtered = computed(() => {
 })
 
 const pythonFileInput = ref(null)
+const templateFileInput = ref(null)
+
+const templateConfig = ref({
+  dslJson: '',
+  variablesJson: ''
+})
+
+function isValidJson(str) {
+  if (!str || !str.trim()) return false
+  try { JSON.parse(str); return true } catch { return false }
+}
+
+function handleTemplateFileImport(e) {
+  const file = e?.target?.files?.[0]
+  if (!file) return
+  const reader = new FileReader()
+  reader.onload = (ev) => {
+    const content = ev.target?.result
+    if (typeof content !== 'string') { ElMessage.warning('无法读取文件'); return }
+    if (!isValidJson(content)) { ElMessage.warning('文件内容不是有效的 JSON 格式'); return }
+    templateConfig.value.dslJson = content
+    const ph = new Set()
+    const regex = /\{\{(\w+)\}\}/g
+    let m
+    while ((m = regex.exec(content)) !== null) ph.add(m[1])
+    if (ph.size > 0) {
+      const vars = {}
+      for (const p of ph) vars[p] = ''
+      templateConfig.value.variablesJson = JSON.stringify(vars, null, 2)
+    } else {
+      templateConfig.value.variablesJson = ''
+    }
+    ElMessage.success(`已导入: ${file.name}`)
+  }
+  reader.readAsText(file)
+  try { e.target.value = '' } catch { }
+}
+
+function chooseTemplateFile() {
+  templateFileInput.value?.click?.()
+}
+
+function clearTemplateFile() {
+  templateConfig.value = { dslJson: '', variablesJson: '' }
+}
 
 function choosePythonFile() {
   pythonFileInput.value?.click?.()
@@ -775,6 +847,8 @@ function fillTemplate() {
       stdOutContains: '',
       stdErrContains: ''
     }
+  } else if (form.value.targetType === 'TEMPLATE') {
+    templateConfig.value = { dslJson: '{\n  "steps": [\n    {\n      "name": "checkHealth",\n      "type": "http",\n      "input": {\n        "url": "{{host}}/api/health",\n        "method": "Get",\n        "timeout": 15\n      },\n      "assertions": [\n        { "field": "StatusCode", "operator": "Equal", "expected": "200" }\n      ]\n    }\n  ]\n}', variablesJson: '' }
   }
 }
 
@@ -835,6 +909,7 @@ function clearForm() {
     stdOutContains: '',
     stdErrContains: ''
   }
+  templateConfig.value = { dslJson: '', variablesJson: '' }
   lastSummary.value = null
 }
 
@@ -1011,6 +1086,9 @@ async function selectRow(row) {
       pythonConfig.value.successExitCodesText = Array.isArray(codes) ? codes.join(',') : '0'
       pythonConfig.value.stdOutContains = ''
       pythonConfig.value.stdErrContains = ''
+    } else if (form.value.targetType === 'TEMPLATE') {
+      templateConfig.value.dslJson = cfgText || ''
+      templateConfig.value.variablesJson = m.templateVariablesJson || m.TemplateVariablesJson || ''
     }
     lastSummary.value = null
   } catch (e) {
@@ -1158,11 +1236,20 @@ function buildDto() {
       Env: Object.keys(envDict).length ? envDict : null,
       SuccessExitCodes: codes.length ? codes : [0]
     }
+  } else if (form.value.targetType === 'TEMPLATE') {
+    const dsl = String(templateConfig.value.dslJson || '').trim()
+    if (!dsl) throw new Error('DSL 定义不能为空')
+    if (!isValidJson(dsl)) throw new Error('DSL 定义不是有效的 JSON 格式')
+    const vars = String(templateConfig.value.variablesJson || '').trim()
+    if (vars && !isValidJson(vars)) throw new Error('模板变量不是有效的 JSON 格式')
+    targetConfigObj = { __raw: dsl }
   } else {
     throw new Error('不支持的目标类型')
   }
 
-  const targetConfigText = JSON.stringify(targetConfigObj)
+  const targetConfigText = form.value.targetType === 'TEMPLATE'
+    ? String(templateConfig.value.dslJson || '').trim()
+    : JSON.stringify(targetConfigObj)
 
   const assertions = []
   const expected = String(form.value.assertExpected || '').trim()
@@ -1246,6 +1333,8 @@ function buildDto() {
     TargetType: form.value.targetType,
     TargetConfig: targetConfigText,
     IsEnabled: !!form.value.isEnabled,
+    IsTemplate: form.value.targetType === 'TEMPLATE',
+    TemplateVariablesJson: form.value.targetType === 'TEMPLATE' ? (String(templateConfig.value.variablesJson || '').trim() || null) : null,
     Assertions: assertions,
     AutoDailyEnabled: !!form.value.autoDailyEnabled,
     AutoDailyTime: form.value.autoDailyEnabled ? String(form.value.autoDailyTime || '').trim() : null,
@@ -1476,6 +1565,13 @@ onBeforeUnmount(() => {
 
 .hidden-file {
   display: none;
+}
+
+.code-input :deep(.el-textarea__inner) {
+  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 13px;
+  line-height: 1.6;
+  tab-size: 2;
 }
 
 .file-row {

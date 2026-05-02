@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
 
   sqlserver-init:
-    image: mcr.microsoft.com/mssql-tools18
+    image: mcr.microsoft.com/mssql-tools:latest
     container_name: autotest_sqlserver_init
     depends_on:
       - sqlserver
@@ -72,6 +72,8 @@ services:
       Logging__ElasticNodes: http://elasticsearch:9200
       Jwt__SigningKey: ${AUTOTEST_JWT_SIGNING_KEY:-this_is_a_super_long_secure_key_1234567890}
       Jwt__Key: ${AUTOTEST_JWT_SIGNING_KEY:-this_is_a_super_long_secure_key_1234567890}
+      BootstrapAdmin__Username: ${AUTOTEST_ADMIN_USERNAME:-}
+      BootstrapAdmin__Password: ${AUTOTEST_ADMIN_PASSWORD:-}
     depends_on:
       sqlserver-init:
         condition: service_completed_successfully

@@ -1,15 +1,20 @@
+using Auth;
 using AutoTest.Application;
 using AutoTest.Assertion;
 using AutoTest.Assertion.Db;
 using AutoTest.Assertions;
 using AutoTest.Assertions.Http;
+using AutoTest.Core.AI;
+using AutoTest.Dsl;
+using AutoTest.Execution;
 using AutoTest.Execution.Db;
 using AutoTest.Execution.Http;
 using AutoTest.Execution.Python;
 using AutoTest.Execution.Tcp;
 using AutoTest.Infrastructure;
-using Auth;
+using AutoTest.Infrastructure.Hubs;
 using AutoTest.Migrations;
+using AutoTest.Orchestration;
 using AutoTest.Webapi;
 using AutoTest.Webapi.FluentValidation;
 using AutoTest.Webapi.JWT;
@@ -21,28 +26,23 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Data.SqlClient;
-using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.AI;
 using Microsoft.IdentityModel.Tokens;
 using OpenAI.Chat;
 using System.Data;
 using System.Text;
-using AutoTest.Infrastructure.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddAutoTestMigrations(builder.Configuration); // 注册迁移服务
-builder.Services.AddMemoryCache();
 builder.Services.AddCacheService();
 builder.Services.AddHttpAssertion();
-builder.Services.AddHttpExecution();
-builder.Services.AddTcpExecution();
-builder.Services.AddPythonExecution();
-builder.Services.AddExecutionDb();
+builder.Services.AddAutoTestExecution();
+builder.Services.AddAutoTestDsl();
 builder.Services.AddDbAssertion();
-builder.Services.AddSingleton(typeof(AssertionOperator), AssertionOperator.Equal);
 builder.Services.AddOperatorAssertion();
+builder.Services.AddAutoTestOrchestration(builder.Configuration["Redis:ConnectionString"] ?? "localhost:6379");
 builder.Services.AddControllers();
 builder.Services.AddSignalR();
 builder.Services.AddSingleton<IUserIdProvider, ClaimUserIdProvider>();
@@ -51,7 +51,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMyLogging(o =>
 {
-    o.ElasticNodes = builder.Configuration["Logging:ElasticNodes"] ?? "http://localhost:9200";
+    o.ElasticNodes = builder.Configuration["Logging:ElasticNodes"];
     o.EnableElasticsearch = builder.Configuration.GetValue("Logging:EnableElasticsearch", true);
 });
 builder.Services.AddAutoTestApplication(); // 注册应用层服务
@@ -61,22 +61,21 @@ builder.Services.AddHostedService<DatabaseWarmupHostedService>();
 builder.Services.AddScoped<IDbConnection>(_ =>
 {
     var provider = builder.Configuration["Database:Provider"] ?? "SqlServer";
-    var cs = builder.Configuration.GetConnectionString("DefaultConnection")
-             ?? "Server=.;Database=AutoTestDb;Trusted_Connection=True;TrustServerCertificate=True;";
+    var cs = builder.Configuration.GetConnectionString("DefaultConnection");
     return new SqlConnection(cs);
 });
 
-// ✅ 修改 1：修复跨域配置，支持 SignalR 的 Credentials 要求
+//修改 1：修复跨域配置，支持 SignalR 的 Credentials 要求
 if (builder.Environment.IsDevelopment())
 {
     builder.Services.AddCors(options =>
     {
         options.AddDefaultPolicy(policy =>
         {
-            policy.SetIsOriginAllowed(_ => true) // 👈 允许任何来源，但不用通配符
+            policy.SetIsOriginAllowed(_ => true) //
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials(); // 👈 必须允许凭据，SignalR 才能工作
+                .AllowCredentials(); // 
         });
     });
 }
@@ -92,7 +91,7 @@ else
                 policy.WithOrigins(corsOrigins)
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .AllowCredentials(); // 👈 生产环境也必须允许凭据
+                    .AllowCredentials(); // 生产环境也必须允许凭据
             });
         });
     }
@@ -102,8 +101,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
     var signingKey = builder.Configuration["Jwt:SigningKey"]
-                     ?? builder.Configuration["Jwt:Key"]
-                     ?? "your-secret-key-123456";
+                     ?? builder.Configuration["Jwt:Key"];
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = false,
@@ -145,7 +143,7 @@ builder.Services.AddSingleton<JwtTokenIssuer>();
 builder.Services.AddSingleton<ITokenIssuer>(sp => sp.GetRequiredService<JwtTokenIssuer>());
 builder.Services.AddDapperAuth();
 builder.Services.AddRbac();
-
+builder.Services.AddHttpClient<IAiClient, ArkAiClient>();
 var app = builder.Build();
 
 SignalRLogSink.ServiceProvider = app.Services;
@@ -169,7 +167,7 @@ app.UseStaticFiles();
 // 使用端点路由（虽然 .NET 6+ 默认隐式使用，但为了中间件顺序清晰，显式调用更好）
 app.UseRouting();
 
-// ✅ 修改 2：UseWebSockets 必须放在鉴权和路由之前/之间，绝不能放在最后！
+// UseWebSockets 必须放在鉴权和路由之前/之间，绝不能放在最后！
 app.UseWebSockets();
 
 if (app.Environment.IsDevelopment() || app.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() is { Length: > 0 })
@@ -193,6 +191,22 @@ using (var scope = app.Services.CreateScope())
 {
     var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
     runner.MigrateUp(); // 执行所有未执行的迁移
+
+    var bootstrapUsername = app.Configuration["BootstrapAdmin:Username"];
+    var bootstrapPassword = app.Configuration["BootstrapAdmin:Password"];
+    if (!string.IsNullOrWhiteSpace(bootstrapUsername) && !string.IsNullOrWhiteSpace(bootstrapPassword))
+    {
+        try
+        {
+            var auth = scope.ServiceProvider.GetRequiredService<IAuthService>();
+            await auth.BootstrapAdminAsync(bootstrapUsername, bootstrapPassword, CancellationToken.None);
+            app.Logger.LogInformation("Bootstrap admin created.");
+        }
+        catch (InvalidOperationException)
+        {
+            app.Logger.LogInformation("Bootstrap admin skipped (users already exist).");
+        }
+    }
 }
 
 app.Run();

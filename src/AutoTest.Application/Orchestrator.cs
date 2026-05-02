@@ -1,22 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
-using System.Threading.Tasks;
 using AutoTest.Application;
 using AutoTest.Core;
-using AutoTest.Core.Execution;
 using AutoTest.Core.Abstraction;
+using AutoTest.Core.Execution;
+using AutoTest.Core.ExecutionPipeline;
 using AutoTest.Core.Outbox;
-using AutoTest.Application.ExecutionPipeline;
+using System.Text.Json;
 
-/// <summary>
-/// 任务编排器：驱动一次监控任务从“执行”到“断言”再到“持久化/通知”的完整流程。
-/// </summary>
-/// <remarks>
-/// 该编排器会在同一事务中落库：监控状态、执行记录、断言结果与 outbox 消息，
-/// 从而保证“业务结果”和“对外通知”的一致性（Transactional Outbox）。
-/// </remarks>
 public class Orchestrator : IOrchestrator
 {
     private readonly IPipeline _pipeline;
@@ -39,10 +28,11 @@ public class Orchestrator : IOrchestrator
         _unitOfWork = unitOfWork;
     }
 
-    /// <summary>
-    /// 尝试执行单个任务
-    /// </summary>
-    public async Task<ExecutionResult> TryExecuteAsync(MonitorEntity monitor, Guid executionId, DateTime startedAtUtc, string lockedBy)
+    public async Task<ExecutionResult> TryExecuteAsync(
+        MonitorEntity monitor,
+        Guid executionId,
+        DateTime startedAtUtc,
+        string lockedBy)
     {
         var context = new PipelineContext(monitor);
 
@@ -50,45 +40,59 @@ public class Orchestrator : IOrchestrator
         {
             await _pipeline.ExecuteAsync(context);
 
-            var result = context.Result ?? throw new InvalidOperationException("Pipeline did not produce a result");
+            var result = context.Result ?? throw new InvalidOperationException("No result");
 
             var isAssertionSuccess = result.Assertions.All(r => r.IsSuccess);
-            if (result.IsExecutionSuccess && isAssertionSuccess)
+            var success = result.IsExecutionSuccess && isAssertionSuccess;
+
+            // ✅ 统一状态设置
+            if (success)
                 monitor.MarkSuccess();
             else
                 monitor.MarkFailed();
 
             var finishedAt = DateTime.UtcNow;
-            var resultJson = JsonSerializer.Serialize(result, result.GetType());
 
-            var shouldNotify = !(result.IsExecutionSuccess && isAssertionSuccess);
-            var outboxMessage = shouldNotify
-                ? new OutboxMessage
+            if (success)
+            {
+                await _unitOfWork.ExecuteAsync(async tx =>
                 {
-                    Id = Guid.NewGuid(),
-                    Type = "monitor.execution.failed",
-                    PayloadJson = JsonSerializer.Serialize(new
-                    {
-                        MonitorId = monitor.Id,
-                        MonitorName = monitor.Name,
-                        TargetType = monitor.Target.Type,
-                        ExecutionId = executionId,
-                        StartedAt = startedAtUtc,
-                        FinishedAt = finishedAt,
-                        IsExecutionSuccess = result.IsExecutionSuccess,
-                        IsAssertionSuccess = isAssertionSuccess,
-                        ErrorMessage = result.ErrorMessage,
-                        Assertions = result.Assertions
-                    }),
-                    OccurredAt = finishedAt,
-                    Status = OutboxStatus.Pending,
-                    Attempts = 0
-                }
-                : null;
+                    await _monitorRepository.UpdateAsync(monitor, tx);
+
+                    await _executionRecordRepository.UpdateCompletionAsync(
+                        executionId,
+                        (int)monitor.Status,
+                        finishedAt,
+                        true,
+                        null,
+                        monitor.Target.Type,
+                        JsonSerializer.Serialize(result),
+                        tx);
+
+                    if (result.Assertions.Count > 0)
+                        await _executionRecordRepository.AddAssertionResultsAsync(
+                            executionId, result.Assertions, tx);
+                });
+
+                return result;
+            }
+
+            var payload = BuildFailurePayload(
+                monitor,
+                executionId,
+                startedAtUtc,
+                finishedAt,
+                result,
+                isAssertionSuccess,
+                null // 无异常
+            );
+
+            var outbox = BuildOutbox(payload, finishedAt);
 
             await _unitOfWork.ExecuteAsync(async tx =>
             {
                 await _monitorRepository.UpdateAsync(monitor, tx);
+
                 await _executionRecordRepository.UpdateCompletionAsync(
                     executionId,
                     (int)monitor.Status,
@@ -96,13 +100,16 @@ public class Orchestrator : IOrchestrator
                     result.IsExecutionSuccess,
                     result.ErrorMessage,
                     monitor.Target.Type,
-                    resultJson,
+                    JsonSerializer.Serialize(result),
                     tx);
+
                 if (result.Assertions.Count > 0)
-                    await _executionRecordRepository.AddAssertionResultsAsync(executionId, result.Assertions, tx);
-                if (outboxMessage != null)
-                    await _outboxRepository.AddAsync(outboxMessage, tx);
+                    await _executionRecordRepository.AddAssertionResultsAsync(
+                        executionId, result.Assertions, tx);
+
+                await _outboxRepository.AddAsync(outbox, tx);
             });
+
             return result;
         }
         catch (Exception ex)
@@ -110,33 +117,23 @@ public class Orchestrator : IOrchestrator
             monitor.MarkFailed();
 
             var finishedAt = DateTime.UtcNow;
-            var resultJson = JsonSerializer.Serialize(new { ex.Message, Exception = ex.ToString() });
 
-            var outboxMessage = new OutboxMessage
-            {
-                Id = Guid.NewGuid(),
-                Type = "monitor.execution.failed",
-                PayloadJson = JsonSerializer.Serialize(new
-                {
-                    MonitorId = monitor.Id,
-                    MonitorName = monitor.Name,
-                    TargetType = monitor.Target.Type,
-                    ExecutionId = executionId,
-                    StartedAt = startedAtUtc,
-                    FinishedAt = finishedAt,
-                    IsExecutionSuccess = false,
-                    IsAssertionSuccess = false,
-                    ErrorMessage = ex.Message,
-                    Exception = ex.ToString()
-                }),
-                OccurredAt = finishedAt,
-                Status = OutboxStatus.Pending,
-                Attempts = 0
-            };
+            var payload = BuildFailurePayload(
+                monitor,
+                executionId,
+                startedAtUtc,
+                finishedAt,
+                null,
+                false,
+                ex // ✅ 异常统一走这里
+            );
+
+            var outbox = BuildOutbox(payload, finishedAt);
 
             await _unitOfWork.ExecuteAsync(async tx =>
             {
                 await _monitorRepository.UpdateAsync(monitor, tx);
+
                 await _executionRecordRepository.UpdateCompletionAsync(
                     executionId,
                     (int)monitor.Status,
@@ -144,13 +141,71 @@ public class Orchestrator : IOrchestrator
                     false,
                     ex.Message,
                     "Exception",
-                    resultJson,
+                    JsonSerializer.Serialize(payload),
                     tx);
-                await _outboxRepository.AddAsync(outboxMessage, tx);
+
+                await _outboxRepository.AddAsync(outbox, tx);
             });
 
             throw;
         }
     }
 
+    private static MonitorExecutionFailedPayload BuildFailurePayload(
+        MonitorEntity monitor,
+        Guid executionId,
+        DateTime startedAt,
+        DateTime finishedAt,
+        ExecutionResult? result,
+        bool isAssertionSuccess,
+        Exception? ex)
+    {
+        // 判定失败类型
+        var failureType = ex != null
+            ? FailureType.Exception
+            : !result!.IsExecutionSuccess
+                ? FailureType.Execution
+                : FailureType.Assertion;
+
+        return new MonitorExecutionFailedPayload
+        {
+            MonitorId = monitor.Id,
+            MonitorName = monitor.Name,
+            ExecutionId = executionId,
+
+            StartedAt = startedAt,
+            FinishedAt = finishedAt,
+
+            FailureType = failureType,
+
+            IsExecutionSuccess = result?.IsExecutionSuccess ?? false,
+            IsAssertionSuccess = isAssertionSuccess,
+
+            ErrorMessage = ex?.Message ?? result?.ErrorMessage,
+
+            Assertions = result?.Assertions,
+
+            Exception = ex == null ? null : new ExceptionInfo
+            {
+                Type = ex.GetType().Name,
+                Message = ex.Message,
+                StackTrace = ex.StackTrace
+            }
+        };
+    }
+
+    private static OutboxMessage BuildOutbox(
+        MonitorExecutionFailedPayload payload,
+        DateTime occurredAt)
+    {
+        return new OutboxMessage
+        {
+            Id = Guid.NewGuid(),
+            Type = "monitor.execution.failed",
+            PayloadJson = JsonSerializer.Serialize(payload),
+            OccurredAt = occurredAt,
+            Status = OutboxStatus.Pending,
+            Attempts = 0
+        };
+    }
 }

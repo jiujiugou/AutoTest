@@ -1,6 +1,6 @@
 using AutoTest.Application.Execution;
-using AutoTest.Application.ExecutionPipeline;
 using AutoTest.Core.Execution;
+using AutoTest.Core.ExecutionPipeline;
 using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Application.Step;
@@ -22,6 +22,12 @@ public class ExecutionStep : IPipelineStep
     /// <inheritdoc />
     public async Task InvokeAsync(PipelineContext context, Func<Task> next)
     {
+        if (context.Monitor.IsTemplate)
+        {
+            await next();
+            return;
+        }
+
         try
         {
             var engine = _engineResolver.Resolve(context.Monitor.Target);

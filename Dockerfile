@@ -1,8 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /app
 
-COPY AutoTest.sln ./
-
 COPY src/AutoTest.Webapi/AutoTest.Webapi.csproj src/AutoTest.Webapi/
 COPY src/AutoTest.AI/AutoTest.AI.csproj src/AutoTest.AI/
 COPY src/AutoTest.Application/AutoTest.Application.csproj src/AutoTest.Application/
@@ -15,7 +13,7 @@ COPY src/Auth/Auth.csproj src/Auth/
 COPY src/common/CacheCommons/CacheCommons.csproj src/common/CacheCommons/
 COPY src/common/EventCommons/EventCommons.csproj src/common/EventCommons/
 
-RUN dotnet restore AutoTest.sln
+RUN dotnet restore src/AutoTest.Webapi/AutoTest.Webapi.csproj
 
 COPY . .
 

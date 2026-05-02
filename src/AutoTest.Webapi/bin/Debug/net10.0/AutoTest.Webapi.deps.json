@@ -9,17 +9,19 @@
       "AutoTest.Webapi/1.0.0": {
         "dependencies": {
           "Auth": "1.0.0",
-          "AutoTest.AI": "1.0.0",
           "AutoTest.Application": "1.0.0",
           "AutoTest.Assertions": "1.0.0",
+          "AutoTest.Dsl": "1.0.0",
           "AutoTest.Execution": "1.0.0",
           "AutoTest.Infrastructure": "1.0.0",
           "AutoTest.Migrations": "1.0.0",
+          "AutoTest.Orchestration": "1.0.0",
           "CacheCommons": "1.0.0",
           "Dapper": "2.1.72",
           "FluentValidation": "12.1.1",
           "FluentValidation.AspNetCore": "11.3.1",
           "FluentValidation.DependencyInjectionExtensions": "12.1.1",
+          "LockCommons": "1.0.0",
           "Microsoft.AspNetCore.Authentication.JwtBearer": "10.0.5",
           "Microsoft.AspNetCore.OpenApi": "8.0.12",
           "Microsoft.Data.SqlClient": "7.0.0",
@@ -548,6 +550,26 @@
           }
         }
       },
+      "MediatR/14.1.0": {
+        "dependencies": {
+          "MediatR.Contracts": "2.0.1",
+          "Microsoft.IdentityModel.JsonWebTokens": "8.16.0"
+        },
+        "runtime": {
+          "lib/net10.0/MediatR.dll": {
+            "assemblyVersion": "14.0.0.0",
+            "fileVersion": "14.1.0.0"
+          }
+        }
+      },
+      "MediatR.Contracts/2.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/MediatR.Contracts.dll": {
+            "assemblyVersion": "2.0.1.0",
+            "fileVersion": "2.0.1.0"
+          }
+        }
+      },
       "Microsoft.Agents.AI/1.0.0": {
         "dependencies": {
           "Microsoft.Agents.AI.Abstractions": "1.0.0",
@@ -1041,6 +1063,14 @@
           }
         }
       },
+      "RabbitMQ.Client/6.8.1": {
+        "runtime": {
+          "lib/netstandard2.0/RabbitMQ.Client.dll": {
+            "assemblyVersion": "6.0.0.0",
+            "fileVersion": "6.8.1.0"
+          }
+        }
+      },
       "Serilog/4.3.1": {
         "runtime": {
           "lib/net10.0/Serilog.dll": {
@@ -1462,8 +1492,7 @@
       "AutoTest.Application/1.0.0": {
         "dependencies": {
           "AutoTest.Core": "1.0.0",
-          "CacheCommons": "1.0.0",
-          "EventCommons": "1.0.0"
+          "CacheCommons": "1.0.0"
         },
         "runtime": {
           "AutoTest.Application.dll": {
@@ -1492,6 +1521,18 @@
           }
         }
       },
+      "AutoTest.Dsl/1.0.0": {
+        "dependencies": {
+          "AutoTest.Application": "1.0.0",
+          "AutoTest.Core": "1.0.0"
+        },
+        "runtime": {
+          "AutoTest.Dsl.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "AutoTest.Execution/1.0.0": {
         "dependencies": {
           "AutoTest.Core": "1.0.0",
@@ -1509,17 +1550,24 @@
       },
       "AutoTest.Infrastructure/1.0.0": {
         "dependencies": {
+          "AutoTest.AI": "1.0.0",
           "AutoTest.Application": "1.0.0",
           "AutoTest.Assertions": "1.0.0",
           "AutoTest.Core": "1.0.0",
+          "AutoTest.Execution": "1.0.0",
+          "AutoTest.Orchestration": "1.0.0",
           "Dapper": "2.1.72",
           "Elastic.Clients.Elasticsearch": "8.19.18",
           "Hangfire.AspNetCore": "1.8.23",
           "Hangfire.SQLite": "1.4.2",
           "Hangfire.SqlServer": "1.8.23",
+          "LockCommons": "1.0.0",
+          "MediatR": "14.1.0",
           "Microsoft.Data.SqlClient": "7.0.0",
           "Microsoft.Data.Sqlite": "10.0.5",
           "Newtonsoft.Json": "13.0.3",
+          "RabbitMQ.Client": "6.8.1",
+          "Serilog": "4.3.1",
           "StackExchange.Redis": "2.12.14"
         },
         "runtime": {
@@ -1546,6 +1594,20 @@
           }
         }
       },
+      "AutoTest.Orchestration/1.0.0": {
+        "dependencies": {
+          "AutoTest.Application": "1.0.0",
+          "AutoTest.Core": "1.0.0",
+          "AutoTest.Dsl": "1.0.0",
+          "LockCommons": "1.0.0"
+        },
+        "runtime": {
+          "AutoTest.Orchestration.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "CacheCommons/1.0.0": {
         "dependencies": {
           "AutoTest.Assertions": "1.0.0"
@@ -1557,9 +1619,12 @@
           }
         }
       },
-      "EventCommons/1.0.0": {
+      "LockCommons/1.0.0": {
+        "dependencies": {
+          "StackExchange.Redis": "2.12.14"
+        },
         "runtime": {
-          "EventCommons.dll": {
+          "LockCommons.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1867,6 +1932,20 @@
       "path": "k4os.hash.xxhash/1.0.8",
       "hashPath": "k4os.hash.xxhash.1.0.8.nupkg.sha512"
     },
+    "MediatR/14.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pdxza1pLqAk+06LV3THzNJrw5K5Ah6EC17TEkoC90gsAxwtXDJAQrGuDSDinHGgxWKWEn5ebqTNN3k1bLJOb0g==",
+      "path": "mediatr/14.1.0",
+      "hashPath": "mediatr.14.1.0.nupkg.sha512"
+    },
+    "MediatR.Contracts/2.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
+      "path": "mediatr.contracts/2.0.1",
+      "hashPath": "mediatr.contracts.2.0.1.nupkg.sha512"
+    },
     "Microsoft.Agents.AI/1.0.0": {
       "type": "package",
       "serviceable": true,
@@ -2133,6 +2212,13 @@
       "path": "pipelines.sockets.unofficial/2.2.8",
       "hashPath": "pipelines.sockets.unofficial.2.2.8.nupkg.sha512"
     },
+    "RabbitMQ.Client/6.8.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jNsmGgmCNw2S/NzskeN2ijtGywtH4Sk/G6jWUTD5sY9SrC27Xz6BsLIiB8hdsfjeyWCa4j4GvCIGkpE8wrjU1Q==",
+      "path": "rabbitmq.client/6.8.1",
+      "hashPath": "rabbitmq.client.6.8.1.nupkg.sha512"
+    },
     "Serilog/4.3.1": {
       "type": "package",
       "serviceable": true,
@@ -2347,6 +2433,11 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AutoTest.Dsl/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "AutoTest.Execution/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -2362,12 +2453,17 @@
       "serviceable": false,
       "sha512": ""
     },
+    "AutoTest.Orchestration/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "CacheCommons/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
-    "EventCommons/1.0.0": {
+    "LockCommons/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

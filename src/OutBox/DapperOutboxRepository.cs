@@ -47,24 +47,13 @@ public sealed class DapperOutboxRepository : IOutboxRepository
         CancellationToken cancellationToken)
     {
         var result = new List<OutboxMessage>(take);
-        var isSqlServer = _db is Microsoft.Data.SqlClient.SqlConnection;
-        var selectSql = isSqlServer
-            ? """
+        var selectSql = """
               SELECT TOP (@Take) Id
               FROM OutboxMessage
               WHERE (Status = @Pending OR Status = @Failed)
                 AND (NextAttemptAt IS NULL OR NextAttemptAt <= @Now)
                 AND (LockedUntil IS NULL OR LockedUntil <= @Now)
               ORDER BY OccurredAt ASC
-              """
-            : """
-              SELECT Id
-              FROM OutboxMessage
-              WHERE (Status = @Pending OR Status = @Failed)
-                AND (NextAttemptAt IS NULL OR NextAttemptAt <= @Now)
-                AND (LockedUntil IS NULL OR LockedUntil <= @Now)
-              ORDER BY OccurredAt ASC
-              LIMIT @Take
               """;
         var ids = await _db.QueryAsync<string>(new CommandDefinition(
             selectSql,

@@ -39,8 +39,9 @@ public sealed class DapperPermissionStore : IPermissionStore
                                SELECT 1
                                FROM Users u
                                JOIN UserRoles ur ON ur.UserId = u.Id
-                               JOIN RolePermissions rp ON rp.RoleId = ur.RoleId
-                               JOIN Permissions p ON p.Id = rp.PermissionId
+                               JOIN Roles r ON r.Id = ur.RoleId AND r.IsDeleted = 0
+                               JOIN RolePermissions rp ON rp.RoleId = r.Id
+                               JOIN Permissions p ON p.Id = rp.PermissionId AND p.IsDeleted = 0
                                WHERE u.Username = @UserId
                                  AND u.IsActive = 1
                                  AND p.Code = @Permission

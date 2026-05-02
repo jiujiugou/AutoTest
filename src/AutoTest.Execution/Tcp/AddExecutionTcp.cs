@@ -1,3 +1,4 @@
+using AutoTest.Core.Dsl;
 using AutoTest.Core.Execution;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,6 +9,7 @@ public static class AddExecutionTcp
     public static IServiceCollection AddTcpExecution(this IServiceCollection services)
     {
         services.AddScoped<IExecutionEngine, TcpExecutionEngine>();
+        services.AddScoped<IStepExecutor, TcpStepExecutor>();
         return services;
     }
 }

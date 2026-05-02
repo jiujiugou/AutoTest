@@ -1,0 +1,9 @@
+- [x] TraceLogEntry 包含 Timestamp、Level、Message、Exception 属性
+- [x] ILogService 新增了 GetAiErrorContextAsync 方法签名
+- [x] LogService 实现了 ILogService.GetAiErrorContextAsync，返回 List<TraceLogEntry>
+- [x] TraceContextBuilder 实现了 BuildTraceContextAsync，返回 Markdown 格式
+- [x] TraceContextBuilder 标记了 [KernelFunction] 属性
+- [x] KernelFactory.Create() 接受 ILogService 参数
+- [x] KernelFactory.Create() 注册了 TraceContextBuilder 为 Kernel Plugin
+- [x] SkAiClient 构造函数接受 ILogService 参数
+- [x] AutoTest.AI 编译无错误

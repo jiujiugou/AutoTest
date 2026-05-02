@@ -1,4 +1,7 @@
+using System.Data;
 using System.Security.Cryptography;
+using Auth.RBAC;
+using Dapper;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Auth;
@@ -11,15 +14,32 @@ public sealed class DapperAuthService : IAuthService
     private readonly IAuthStore _store;
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenIssuer _tokenIssuer;
+    private readonly IDbConnection _db;
 
     /// <summary>
     /// 构造
     /// </summary>
-    public DapperAuthService(IAuthStore store, IPasswordHasher passwordHasher, ITokenIssuer tokenIssuer)
+    public DapperAuthService(IAuthStore store, IPasswordHasher passwordHasher, ITokenIssuer tokenIssuer, IDbConnection db)
     {
         _store = store;
         _passwordHasher = passwordHasher;
         _tokenIssuer = tokenIssuer;
+        _db = db;
+    }
+
+    /// <summary>
+    /// 获取用户权限列表。admin 角色直接返回所有权限，不走 RolePermissions 表。
+    /// </summary>
+    private async Task<IReadOnlyList<string>> GetEffectivePermissionsAsync(AuthUser user, CancellationToken cancellationToken)
+    {
+        if (string.Equals(user.Role, "admin", StringComparison.OrdinalIgnoreCase))
+        {
+            var all = await _db.QueryAsync<string>(
+                new CommandDefinition("SELECT Code FROM Permissions WHERE IsDeleted = 0", cancellationToken: cancellationToken));
+            return all.ToList();
+        }
+
+        return await _store.GetUserPermissionsAsync(user.Id, cancellationToken);
     }
 
     /// <inheritdoc />
@@ -32,7 +52,16 @@ public sealed class DapperAuthService : IAuthService
         var hash = _passwordHasher.Hash(password);
         await _store.CreateUserAsync(username, hash, "admin", DateTime.UtcNow, cancellationToken);
     }
-
+    public async Task AddUserAsync(string username, string password, CancellationToken cancellationToken)
+    {
+        var count=await _store.CountUsersAsync(cancellationToken);
+        if (count != 0)
+        {
+            throw new InvalidOperationException("User already exist");
+        }
+        var hash = _passwordHasher.Hash(password);
+        await _store.CreateUserAsync(username, hash, "user", DateTime.UtcNow, cancellationToken);
+    }
     /// <inheritdoc />
     public async Task<LoginResult> LoginAsync(string username, string password, CancellationToken cancellationToken)
     {
@@ -43,10 +72,20 @@ public sealed class DapperAuthService : IAuthService
         if (!_passwordHasher.Verify(password, user.PasswordHash))
             return null;
 
-        var accessToken = _tokenIssuer.GenerateAccessToken(user.Username, user.Role);
+        var permissions = await GetEffectivePermissionsAsync(user, cancellationToken);
+        var accessToken = _tokenIssuer.GenerateAccessToken(user.Username, user.Role, permissions);
         var refreshToken = GenerateRefreshToken();
         await _store.AddRefreshTokenAsync(user.Id, refreshToken, DateTime.UtcNow.AddDays(30), DateTime.UtcNow, cancellationToken);
-        return new LoginResult(accessToken, refreshToken);
+        return new LoginResult(accessToken, refreshToken)
+        {
+            User = new LoginUserInfo
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Role = user.Role,
+                Permissions = permissions.ToList()
+            }
+        };
     }
 
     /// <inheritdoc />
@@ -60,11 +99,21 @@ public sealed class DapperAuthService : IAuthService
         if (user == null || !user.IsActive)
             return null;
 
-        var accessToken = _tokenIssuer.GenerateAccessToken(user.Username, user.Role);
+        var permissions = await GetEffectivePermissionsAsync(user, cancellationToken);
+        var accessToken = _tokenIssuer.GenerateAccessToken(user.Username, user.Role, permissions);
         var newRefreshToken = GenerateRefreshToken();
         await _store.RevokeRefreshTokenAsync(refreshToken, newRefreshToken, cancellationToken);
         await _store.AddRefreshTokenAsync(user.Id, newRefreshToken, DateTime.UtcNow.AddDays(30), DateTime.UtcNow, cancellationToken);
-        return new LoginResult(accessToken, newRefreshToken);
+        return new LoginResult(accessToken, newRefreshToken)
+        {
+            User = new LoginUserInfo
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Role = user.Role,
+                Permissions = permissions.ToList()
+            }
+        };
     }
 
     /// <inheritdoc />
@@ -80,5 +129,17 @@ public sealed class DapperAuthService : IAuthService
     {
         var bytes = RandomNumberGenerator.GetBytes(48);
         return WebEncoders.Base64UrlEncode(bytes);
+    }
+
+    public async Task UpdateUserPasswordAsync(int id, string password, CancellationToken cancellationToken)
+    {
+        var hash = _passwordHasher.Hash(password);
+        await _store.UpdatePasswordAsync(id, hash, cancellationToken);
+
+    }
+
+    public async Task UpdateUserRoleAsync(int id, string roleName, CancellationToken cancellationToken)
+    {
+        await _store.SetUserRoleAsync(id, roleName, cancellationToken);
     }
 }

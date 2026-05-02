@@ -13,4 +13,11 @@ public interface IAuthService
     Task LogoutAsync(string refreshToken, CancellationToken cancellationToken);
     /// <summary>首次启动初始化管理员账号（仅当用户数为 0）</summary>
     Task BootstrapAdminAsync(string username, string password, CancellationToken cancellationToken);
+    /// <summary>增加用户</summary>
+    Task AddUserAsync(string username, string password, CancellationToken cancellationToken);
+    /// <summary>修改用户密码/// </summary>
+    Task UpdateUserPasswordAsync(int id,string password, CancellationToken cancellationToken);
+    /// <summary>修改用户角色/// </summary>
+    Task UpdateUserRoleAsync(int id, string roleName, CancellationToken cancellationToken);
+
 }

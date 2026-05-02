@@ -1,5 +1,5 @@
 {
-  "version": 3,
+  "version": 4,
   "targets": {
     "net10.0": {
       "Dapper/2.1.72": {
@@ -1630,11 +1630,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "d:\\AutoTest\\src\\OutBox\\OutBox.csproj",
+      "projectUniqueName": "D:\\AutoTest\\src\\OutBox\\OutBox.csproj",
       "projectName": "OutBox",
-      "projectPath": "d:\\AutoTest\\src\\OutBox\\OutBox.csproj",
+      "projectPath": "D:\\AutoTest\\src\\OutBox\\OutBox.csproj",
       "packagesPath": "C:\\Users\\jiuji\\.nuget\\packages\\",
-      "outputPath": "d:\\AutoTest\\src\\OutBox\\obj\\",
+      "outputPath": "D:\\AutoTest\\src\\OutBox\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "D:\\AuthoringTools\\Vsiual Studio2022\\Shared\\NuGetPackages"
@@ -1653,10 +1653,11 @@
       },
       "frameworks": {
         "net10.0": {
+          "framework": "net10.0",
           "targetAlias": "net10.0",
           "projectReferences": {
-            "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
-              "projectPath": "d:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
+            "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj": {
+              "projectPath": "D:\\AutoTest\\src\\AutoTest.Core\\AutoTest.Core.csproj"
             }
           }
         }
@@ -1671,10 +1672,11 @@
         "auditLevel": "low",
         "auditMode": "all"
       },
-      "SdkAnalysisLevel": "10.0.200"
+      "SdkAnalysisLevel": "10.0.300"
     },
     "frameworks": {
       "net10.0": {
+        "framework": "net10.0",
         "targetAlias": "net10.0",
         "dependencies": {
           "Dapper": {
@@ -1710,7 +1712,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.201/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.300-preview.0.26177.108/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

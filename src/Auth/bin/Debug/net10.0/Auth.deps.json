@@ -434,8 +434,7 @@
       "AutoTest.Application/1.0.0": {
         "dependencies": {
           "AutoTest.Core": "1.0.0",
-          "CacheCommons": "1.0.0",
-          "EventCommons": "1.0.0"
+          "CacheCommons": "1.0.0"
         },
         "runtime": {
           "AutoTest.Application.dll": {
@@ -485,14 +484,6 @@
         },
         "runtime": {
           "CacheCommons.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "EventCommons/1.0.0": {
-        "runtime": {
-          "EventCommons.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -744,11 +735,6 @@
       "sha512": ""
     },
     "CacheCommons/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "EventCommons/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

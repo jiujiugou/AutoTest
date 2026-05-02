@@ -1,3 +1,4 @@
+using AutoTest.Core.Dsl;
 using AutoTest.Core.Execution;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,6 +10,7 @@ public static class AddExecutionHttp
     {
         services.AddScoped<IHttpClient, FlurlHttpClient>();
         services.AddScoped<IExecutionEngine, HttpExecutionEngine>();
+        services.AddScoped<IStepExecutor, HttpStepExecutor>();
         return services;
     }
 }

@@ -1,21 +1,5 @@
 [
   {
-    "ContainingType": "AutoTest.Webapi.Controllers.AiAgentController",
-    "Method": "Chat",
-    "RelativePath": "api/AiAgent/chat",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "req",
-        "Type": "AutoTest.Webapi.Controllers.AiAgentController\u002BChatRequest",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "AutoTest.Webapi.Controllers.AuthController",
     "Method": "Bootstrap",
     "RelativePath": "api/auth/bootstrap",
@@ -331,6 +315,43 @@
         "Name": "topErrors",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
+    "Method": "GetAnalysisList",
+    "RelativePath": "api/Monitor/{monitorId}/analysis-list",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "monitorId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "take",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "AutoTest.Webapi.Controllers.MonitorController",
+    "Method": "GetExecutionAnalysis",
+    "RelativePath": "api/Monitor/executions/{executionId}/analysis",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "executionId",
+        "Type": "System.Guid",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

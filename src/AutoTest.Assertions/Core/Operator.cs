@@ -6,11 +6,6 @@ namespace AutoTest.Assertion
     {
         public AssertionOperator Operator { get; set; }
 
-        public DefaultOperator(AssertionOperator assertionOperator)
-        {
-            Operator = assertionOperator;
-        }
-
         public bool Evaluate(object? actual, object? expected)
         {
             return Operator switch

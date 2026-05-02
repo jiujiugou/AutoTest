@@ -49,13 +49,6 @@ public class HttpTarget : MonitorTarget
         get; private set;
     }
     /// <summary>
-    /// 断言结果
-    /// </summary>
-    public List<AssertionResult>? Assertions
-    {
-        get; private set;
-    }
-    /// <summary>
     /// 请求超时时间
     /// </summary>
     [JsonInclude]
@@ -125,9 +118,14 @@ public class HttpTarget : MonitorTarget
     [JsonInclude]
     public int RetryDelayMs { get; set; } = 500;
 
-    // 7. 并发/大小限制（Flurl 可全局配置，这里开放开关）
+    // 7. 并发限制
     [JsonInclude]
     public bool EnableRateLimit { get; set; } = false;
+    /// <summary>
+    /// 最大并发请求数，仅在 EnableRateLimit=true 时生效
+    /// </summary>
+    [JsonInclude]
+    public int MaxConcurrency { get; set; } = 5;
 
     public override string Type => "HTTP";
 
@@ -166,7 +164,8 @@ public class HttpTarget : MonitorTarget
     bool enableRetry = false,
     int retryCount = 2,
     int retryDelayMs = 500,
-    bool enableRateLimit = false
+    bool enableRateLimit = false,
+    int maxConcurrency = 5
         ) : this()
     {
         Url = url;
@@ -190,6 +189,7 @@ public class HttpTarget : MonitorTarget
         RetryCount = retryCount;
         RetryDelayMs = retryDelayMs;
         EnableRateLimit = enableRateLimit;
+        MaxConcurrency = maxConcurrency;
     }
     #endregion
 

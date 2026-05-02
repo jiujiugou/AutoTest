@@ -161,6 +161,10 @@ cp .env.example .env
 - `AUTOTEST_SQL_SA_PASSWORD`
 - `AUTOTEST_JWT_SIGNING_KEY`
 
+可选：自动初始化管理员（推荐上线时用一次）
+- `AUTOTEST_ADMIN_USERNAME`
+- `AUTOTEST_ADMIN_PASSWORD`
+
 ### 2. 一键启动
 
 ```bash
@@ -193,5 +197,6 @@ docker compose up -d --build
 
 - 首次启动会先执行 `sqlserver-init`，自动创建 `AutoTestDb` 和 `HangfireDb`
 - API 启动时会自动执行 FluentMigrator 迁移
+- 如果配置了 `AUTOTEST_ADMIN_USERNAME/AUTOTEST_ADMIN_PASSWORD`，API 启动后会自动调用一次 bootstrap 创建管理员；如果库里已有用户，会自动跳过
 - 当前编排默认关闭 Elasticsearch 安全认证，适合单机自托管；如果后续要暴露到公网，建议只开放 `80`，并在安全组中限制 `1433/6379/9200`
 - 当前前端 Nginx 已包含 `/api` 与 `/hubs` 反向代理，以及 WebSocket 升级头
