@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace AutoTest.Core.Dsl;
 
 public class DslPipelineContext
@@ -15,6 +17,7 @@ public class DslRuntimeContext
     public int CurrentStepIndex { get; set; }
     public bool IsTerminated { get; set; }
     public StepSequence Dag { get; init; } = null!;
+    [JsonIgnore]
     public CancellationToken CancellationToken { get; set; }
 }
 
@@ -29,7 +32,17 @@ public class StepExecutionRecord
     public string? ErrorMessage { get; init; }
     public string? Body { get; init; }
     public Dictionary<string, string[]>? Headers { get; init; }
+    public List<StepAssertionResult>? Assertions { get; init; }
     public DateTime ExecutedAt { get; init; } = DateTime.UtcNow;
+}
+
+public class StepAssertionResult
+{
+    public string Field { get; init; } = "";
+    public string Operator { get; init; } = "";
+    public string Expected { get; init; } = "";
+    public string? Actual { get; init; }
+    public bool Passed { get; init; }
 }
 
 public class DslExecutionResult

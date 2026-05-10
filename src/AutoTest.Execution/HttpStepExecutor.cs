@@ -10,9 +10,9 @@ namespace AutoTest.Execution;
 internal class HttpStepExecutor : IStepExecutor
 {
     public string Type => "http";
-    private readonly IExecutionEngine _engine;
+    private readonly HttpExecutionEngine _engine;
 
-    public HttpStepExecutor(IExecutionEngine engine) => _engine = engine;
+    public HttpStepExecutor(HttpExecutionEngine engine) => _engine = engine;
 
     public async Task<StepResult> ExecuteAsync(JsonElement input, CancellationToken ct)
     {

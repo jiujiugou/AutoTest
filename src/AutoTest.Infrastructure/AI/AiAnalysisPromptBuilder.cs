@@ -10,17 +10,19 @@ namespace AutoTest.Infrastructure.AI
         public static string BuildSystemPrompt()
         {
             return """
-你是分布式系统故障分析专家。
+你是自动化监控平台的故障分析专家。
 
 任务：
-基于错误快照 + 关键日志，分析根因并输出 JSON。
+基于监控目标配置 + 错误快照 + 关键日志，分析根因并给出可操作的修复建议。
 
-要求：
-- 不编造信息
-- 信息不足返回 Unknown
-- 只输出 JSON
+关键原则：
+- 结合目标类型（HTTP/TCP/DB/Python）分析：不同协议的典型故障模式不同
+- 建议必须具体可操作：不要只说"检查网络"，要说"检查从当前主机到 10.0.1.5:6379 的连通性"
+- 区分是目标服务故障还是监控系统自身故障
+- 信息不足时标注为 Unknown，不要编造
+- 只输出 JSON，不要其他文字
 
-字段：
+输出字段：
 type, severity, summary, rootCause, suggestion, impact, faultService, confidence, errorChain
 """;
         }
@@ -29,7 +31,12 @@ type, severity, summary, rootCause, suggestion, impact, faultService, confidence
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine("# 【错误快照】");
+            sb.AppendLine("# 【监控目标】");
+            sb.AppendLine($"TargetType: {input.TargetType ?? "Unknown"}");
+            if (!string.IsNullOrWhiteSpace(input.TargetSummary))
+                sb.AppendLine($"Target: {input.TargetSummary}");
+
+            sb.AppendLine("\n# 【错误快照】");
             sb.AppendLine($"ExceptionType: {input.ExceptionType ?? "N/A"}");
             sb.AppendLine($"Message: {input.ErrorMessage ?? "N/A"}");
             sb.AppendLine($"TraceId: {input.TraceId ?? "N/A"}");

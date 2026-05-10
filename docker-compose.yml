@@ -11,12 +11,19 @@ services:
     volumes:
       - sqlserver_data:/var/opt/mssql
     restart: unless-stopped
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -C -P "$${MSSQL_SA_PASSWORD}" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   sqlserver-init:
     image: mcr.microsoft.com/mssql-tools:latest
     container_name: autotest_sqlserver_init
     depends_on:
-      - sqlserver
+      sqlserver:
+        condition: service_healthy
     environment:
       SQLSERVER_HOST: sqlserver
       SA_PASSWORD: ${AUTOTEST_SQL_SA_PASSWORD:-AutoTest_Sql_2026!}
@@ -36,6 +43,11 @@ services:
     volumes:
       - redis_data:/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.13.4
@@ -53,6 +65,12 @@ services:
         soft: -1
         hard: -1
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q 'green\\|yellow'"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
 
   api:
     build:
@@ -70,18 +88,31 @@ services:
       Redis__ConnectionString: redis:6379
       Logging__EnableElasticsearch: "true"
       Logging__ElasticNodes: http://elasticsearch:9200
-      Jwt__SigningKey: ${AUTOTEST_JWT_SIGNING_KEY:-this_is_a_super_long_secure_key_1234567890}
-      Jwt__Key: ${AUTOTEST_JWT_SIGNING_KEY:-this_is_a_super_long_secure_key_1234567890}
+      Jwt__SigningKey: ${AUTOTEST_JWT_SIGNING_KEY:?AUTOTEST_JWT_SIGNING_KEY must be set}
+      Jwt__Key: ${AUTOTEST_JWT_SIGNING_KEY:?AUTOTEST_JWT_SIGNING_KEY must be set}
       BootstrapAdmin__Username: ${AUTOTEST_ADMIN_USERNAME:-}
       BootstrapAdmin__Password: ${AUTOTEST_ADMIN_PASSWORD:-}
+      AI__Endpoint: ${AUTOTEST_AI_ENDPOINT:-}
+      AI__ApiKey: ${AUTOTEST_AI_API_KEY:-}
+      AI__Model: ${AUTOTEST_AI_MODEL:-doubao-pro-32k}
+      AI__Worker__PollIntervalMs: ${AUTOTEST_AI_POLL_INTERVAL:-1000}
+      AI__Worker__BatchSize: ${AUTOTEST_AI_BATCH_SIZE:-10}
+      AI__Worker__MaxConcurrency: ${AUTOTEST_AI_MAX_CONCURRENCY:-4}
+      AI__Worker__MaxRetryCount: ${AUTOTEST_AI_MAX_RETRY:-3}
     depends_on:
       sqlserver-init:
         condition: service_completed_successfully
       redis:
-        condition: service_started
+        condition: service_healthy
       elasticsearch:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:80/health/live || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
   web:
     build:
@@ -92,8 +123,13 @@ services:
       - "80:80"
     depends_on:
       api:
-        condition: service_started
+        condition: service_healthy
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:80/ || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
 
 volumes:
   sqlserver_data:

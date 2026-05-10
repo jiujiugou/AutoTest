@@ -1,5 +1,6 @@
 using Auth;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 
 namespace AutoTest.Webapi.Controllers
 {
@@ -15,7 +16,8 @@ namespace AutoTest.Webapi.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(LoginRequest req, CancellationToken cancellationToken)
+        [EnableRateLimiting("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest req, CancellationToken cancellationToken)
         {
 
                 var r = await _auth.LoginAsync(req.Username, req.Password, cancellationToken);
@@ -79,12 +81,19 @@ namespace AutoTest.Webapi.Controllers
 
     public sealed class RefreshRequest
     {
+        [System.ComponentModel.DataAnnotations.Required]
         public string RefreshToken { get; set; } = null!;
     }
 
     public sealed class BootstrapRequest
     {
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.MinLength(3)]
+        [System.ComponentModel.DataAnnotations.MaxLength(50)]
         public string Username { get; set; } = null!;
+
+        [System.ComponentModel.DataAnnotations.Required]
+        [System.ComponentModel.DataAnnotations.MinLength(6)]
         public string Password { get; set; } = null!;
     }
 }

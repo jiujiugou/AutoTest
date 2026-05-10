@@ -70,7 +70,8 @@ public class MonitorController : ControllerBase
             result.ExecutedCount,
             result.IsTemplate,
             result.TemplateVariablesJson,
-            AssertionCount = result.Assertions.Count
+            AssertionCount = result.Assertions.Count,
+            Assertions = result.Assertions.Select(a => new { a.Id, a.Type, a.ConfigJson })
         });
     }
 
@@ -157,9 +158,13 @@ public class MonitorController : ControllerBase
     public async Task<IActionResult> TaskRun(Guid id)
     {
         var userId = User.FindFirstValue("sub") ?? User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var idempotencyKey = Request.Headers.TryGetValue("Idempotency-Key", out var v) ? v.ToString() : null;
-        if (string.IsNullOrWhiteSpace(idempotencyKey))
-            idempotencyKey = Guid.NewGuid().ToString("N");
+
+        // Honor explicit client-provided key; otherwise use deterministic key for dedup
+        var idempotencyKey = Request.Headers.TryGetValue("Idempotency-Key", out var headerVal)
+            ? headerVal.ToString()
+            : !string.IsNullOrWhiteSpace(userId)
+                ? $"{id}:{userId}:{DateTime.UtcNow:yyyyMMddHHmm}"
+                : Guid.NewGuid().ToString("N");
 
         await _workflowScheduler.RunNowAsync(id, userId, idempotencyKey);
         return Ok(new { idempotencyKey });

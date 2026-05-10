@@ -4,38 +4,25 @@ using AutoTest.Application.Dto;
 using AutoTest.Assertion.Db;
 using AutoTest.Assertions;
 using AutoTest.Core.Assertion;
+using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Infrastructure.Mapper.AssertionMapper;
 
-/// <summary>
-/// DB 断言映射器：将断言规则的配置 JSON 转换为可执行的数据库断言对象。
-/// </summary>
 public sealed class DbAssertionMap : IAssertionMap
 {
-    /// <summary>
-    /// 映射器支持的断言类型标识。
-    /// </summary>
-    public string Type => "DB";
-
     private readonly IEnumerable<IField> _resolvers;
     private readonly IOperator _operator;
+    private readonly ILoggerFactory? _loggerFactory;
 
-    /// <summary>
-    /// 初始化 <see cref="DbAssertionMap"/>。
-    /// </summary>
-    /// <param name="resolvers">字段解析器集合。</param>
-    /// <param name="op">断言操作符集合。</param>
-    public DbAssertionMap(IEnumerable<IField> resolvers, IOperator op)
+    public string Type => "DB";
+
+    public DbAssertionMap(IEnumerable<IField> resolvers, IOperator op, ILoggerFactory? loggerFactory = null)
     {
         _resolvers = resolvers;
         _operator = op;
+        _loggerFactory = loggerFactory;
     }
 
-    /// <summary>
-    /// 将断言规则映射为断言实例。
-    /// </summary>
-    /// <param name="rule">断言规则。</param>
-    /// <returns>断言实例。</returns>
     public IAssertion Map(AssertionRule rule)
     {
         var dto = JsonSerializer.Deserialize<DbAssertionDto>(rule.ConfigJson, new JsonSerializerOptions
@@ -51,6 +38,7 @@ public sealed class DbAssertionMap : IAssertionMap
             dto.Expected,
             _resolvers,
             _operator,
+            logger: _loggerFactory?.CreateLogger<DbAssertion>(),
             rowIndex: dto.RowIndex,
             columnName: dto.ColumnName
         );

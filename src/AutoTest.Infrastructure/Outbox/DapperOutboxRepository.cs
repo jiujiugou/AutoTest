@@ -74,6 +74,7 @@ public sealed class DapperOutboxRepository : IOutboxRepository
               SELECT TOP (@Take) Id
               FROM OutboxMessage
               WHERE (Status = @Pending OR Status = @Failed OR (Status = @Processing AND LockedUntil IS NOT NULL AND LockedUntil <= @Now))
+                AND Status != @DeadLetter
                 AND (NextAttemptAt IS NULL OR NextAttemptAt <= @Now)
                 AND (LockedUntil IS NULL OR LockedUntil <= @Now)
               ORDER BY OccurredAt ASC
@@ -82,6 +83,7 @@ public sealed class DapperOutboxRepository : IOutboxRepository
               SELECT Id
               FROM OutboxMessage
               WHERE (Status = @Pending OR Status = @Failed OR (Status = @Processing AND LockedUntil IS NOT NULL AND LockedUntil <= @Now))
+                AND Status != @DeadLetter
                 AND (NextAttemptAt IS NULL OR NextAttemptAt <= @Now)
                 AND (LockedUntil IS NULL OR LockedUntil <= @Now)
               ORDER BY OccurredAt ASC
@@ -93,6 +95,7 @@ public sealed class DapperOutboxRepository : IOutboxRepository
             {
                 Pending = (int)OutboxStatus.Pending,
                 Failed = (int)OutboxStatus.Failed,
+                DeadLetter = (int)OutboxStatus.DeadLetter,
                 Processing = (int)OutboxStatus.Processing,
                 Now = utcNow,
                 Take = take
@@ -212,5 +215,41 @@ public sealed class DapperOutboxRepository : IOutboxRepository
         ));
     }
 
-    
+    public Task MarkDeadLetterAsync(Guid id, string lockedBy, string error, CancellationToken cancellationToken)
+    {
+        return _db.ExecuteAsync(new CommandDefinition(
+            """
+            UPDATE OutboxMessage
+            SET Status = @DeadLetter,
+                LockedUntil = NULL,
+                LockedBy = NULL,
+                LastError = @LastError,
+                SentAt = @SentAt
+            WHERE Id = @Id AND LockedBy = @LockedBy
+            """,
+            new
+            {
+                Id = id.ToString(),
+                LockedBy = lockedBy,
+                DeadLetter = (int)OutboxStatus.DeadLetter,
+                LastError = error,
+                SentAt = DateTime.UtcNow
+            },
+            cancellationToken: cancellationToken
+        ));
+    }
+
+    public Task<int> DeleteExpiredDeadLettersAsync(DateTime cutoff, CancellationToken cancellationToken)
+    {
+        return _db.ExecuteAsync(new CommandDefinition(
+            """
+            DELETE FROM OutboxMessage
+            WHERE Status = @DeadLetter AND SentAt IS NOT NULL AND SentAt < @Cutoff
+            """,
+            new { DeadLetter = (int)OutboxStatus.DeadLetter, Cutoff = cutoff },
+            cancellationToken: cancellationToken
+        ));
+    }
+
+
 }

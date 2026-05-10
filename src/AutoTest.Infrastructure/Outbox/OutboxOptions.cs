@@ -19,4 +19,14 @@ public sealed class OutboxOptions
     /// 单条消息锁定时长（秒）。
     /// </summary>
     public int LockSeconds { get; set; } = 60;
+
+    /// <summary>
+    /// 最大重试次数，超过后移入死信队列。默认 10。
+    /// </summary>
+    public int MaxRetryCount { get; set; } = 10;
+
+    /// <summary>
+    /// 死信消息保留天数，超期自动删除。默认 7 天。
+    /// </summary>
+    public int DeadLetterRetentionDays { get; set; } = 7;
 }

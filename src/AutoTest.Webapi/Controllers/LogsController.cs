@@ -44,7 +44,7 @@ public class LogsController : ControllerBase
         }
         catch (Exception ex)
         {
-            return Problem(ex.Message);
+            return Problem("查询日志失败，请稍后重试");
         }
     }
 

@@ -3,24 +3,21 @@ using AutoTest.Application;
 using AutoTest.Application.Dto;
 using AutoTest.Assertions.Tcp;
 using AutoTest.Core.Assertion;
+using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Infrastructure.Mapper.AssertionMapper;
 
-/// <summary>
-/// TCP 断言映射器：将断言规则的配置 JSON 转换为可执行的 TCP 断言对象。
-/// </summary>
 public sealed class TcpAssertionMap : IAssertionMap
 {
-    /// <summary>
-    /// 映射器支持的断言类型标识。
-    /// </summary>
+    private readonly ILoggerFactory? _loggerFactory;
+
     public string Type => "TCP";
 
-    /// <summary>
-    /// 将断言规则映射为断言实例。
-    /// </summary>
-    /// <param name="rule">断言规则。</param>
-    /// <returns>断言实例。</returns>
+    public TcpAssertionMap(ILoggerFactory? loggerFactory = null)
+    {
+        _loggerFactory = loggerFactory;
+    }
+
     public IAssertion Map(AssertionRule rule)
     {
         var options = new JsonSerializerOptions
@@ -39,7 +36,8 @@ public sealed class TcpAssertionMap : IAssertionMap
             dto.Id,
             field,
             op,
-            dto.Expected
+            dto.Expected,
+            _loggerFactory?.CreateLogger<TcpAssertion>()
         );
     }
 }

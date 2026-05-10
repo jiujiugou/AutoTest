@@ -6,6 +6,7 @@ using AutoTest.Core.Target;
 using AutoTest.Core.Target.Db;
 using AutoTest.Core.Target.Http;
 using AutoTest.Core.Target.Python;
+using AutoTest.Core.Target.Template;
 using Dapper;
 using Microsoft.Extensions.Logging;
 using System;
@@ -50,7 +51,7 @@ public class MonitorRepository : IMonitorRepository
             _logger.LogDebug("Fetching monitor by Id {Id}", id);
 
             var sqlMonitor = @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig,
-                                      AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount
+                                      AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount, TemplateVariablesJson
                                FROM Monitor
                                WHERE Id = @Id";
 
@@ -65,11 +66,12 @@ public class MonitorRepository : IMonitorRepository
             MonitorTarget target = dto.TargetType switch
             {
                 "HTTP" or "Http" => JsonSerializer.Deserialize<HttpTarget>(dto.TargetConfig)!,
-                
+
                 "TCP" or "Tcp" => JsonSerializer.Deserialize<TcpTarget>(dto.TargetConfig)!,
 
                 "Db" or "DB" => JsonSerializer.Deserialize<DbTarget>(dto.TargetConfig)!,
                 "PYTHON" or "Python" or "python" => JsonSerializer.Deserialize<PythonTarget>(dto.TargetConfig)!,
+                "TEMPLATE" or "Template" or "template" => new TemplateTarget(dto.TargetConfig),
                 _ => throw new InvalidOperationException($"Unknown TargetType: {dto.TargetType}")
             };
 
@@ -85,6 +87,9 @@ public class MonitorRepository : IMonitorRepository
                 dto.MaxRuns,
                 dto.ExecutedCount
             );
+
+            if (!string.IsNullOrWhiteSpace(dto.TemplateVariablesJson))
+                entity.SetTemplateVariables(dto.TemplateVariablesJson);
 
             var sqlAssertion = @"SELECT Id, Type, ConfigJson
                                  FROM Assertion
@@ -118,8 +123,8 @@ public class MonitorRepository : IMonitorRepository
         {
             _logger.LogInformation("Adding monitor {Id} with name {Name}", monitorEntity.Id, monitorEntity.Name);
 
-            var sql = @"INSERT INTO Monitor(Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig, AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount)
-                        VALUES(@Id, @Name, @Status, @LastRunTime, @IsEnabled, @TargetType, @TargetConfig, @AutoDailyEnabled, @AutoDailyTime, @MaxRuns, @ExecutedCount)";
+            var sql = @"INSERT INTO Monitor(Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig, AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount, TemplateVariablesJson)
+                        VALUES(@Id, @Name, @Status, @LastRunTime, @IsEnabled, @TargetType, @TargetConfig, @AutoDailyEnabled, @AutoDailyTime, @MaxRuns, @ExecutedCount, @TemplateVariablesJson)";
 
             await _dbConnection.ExecuteAsync(sql, new
             {
@@ -133,7 +138,8 @@ public class MonitorRepository : IMonitorRepository
                 monitorEntity.AutoDailyEnabled,
                 monitorEntity.AutoDailyTime,
                 monitorEntity.MaxRuns,
-                monitorEntity.ExecutedCount
+                monitorEntity.ExecutedCount,
+                monitorEntity.TemplateVariablesJson
             }, tx);
 
             if (monitorEntity.Assertions.Any())
@@ -182,7 +188,8 @@ public class MonitorRepository : IMonitorRepository
                             AutoDailyEnabled = @AutoDailyEnabled,
                             AutoDailyTime = @AutoDailyTime,
                             MaxRuns = @MaxRuns,
-                            ExecutedCount = @ExecutedCount
+                            ExecutedCount = @ExecutedCount,
+                            TemplateVariablesJson = @TemplateVariablesJson
                         WHERE Id = @Id";
 
             var affected = await _dbConnection.ExecuteAsync(sql, new
@@ -197,6 +204,7 @@ public class MonitorRepository : IMonitorRepository
                 monitorEntity.AutoDailyTime,
                 monitorEntity.MaxRuns,
                 monitorEntity.ExecutedCount,
+                monitorEntity.TemplateVariablesJson,
                 monitorEntity.Id
             }, tx);
 
@@ -271,12 +279,12 @@ public class MonitorRepository : IMonitorRepository
             var isSqlServer = _dbConnection is Microsoft.Data.SqlClient.SqlConnection;
             var sql = isSqlServer
                 ? @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig,
-                           AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount
+                           AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount, TemplateVariablesJson
                     FROM Monitor
                     ORDER BY CreatedAt DESC
                     OFFSET 0 ROWS FETCH NEXT @Take ROWS ONLY"
                 : @"SELECT Id, Name, Status, LastRunTime, IsEnabled, TargetType, TargetConfig,
-                           AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount
+                           AutoDailyEnabled, AutoDailyTime, MaxRuns, ExecutedCount, TemplateVariablesJson
                     FROM Monitor
                     ORDER BY CreatedAt DESC
                     LIMIT @Take";
@@ -303,6 +311,7 @@ public class MonitorRepository : IMonitorRepository
                     "TCP" or "Tcp" => JsonSerializer.Deserialize<TcpTarget>(dto.TargetConfig)!,
                     "Db" or "DB" => JsonSerializer.Deserialize<DbTarget>(dto.TargetConfig)!,
                     "PYTHON" or "Python" or "python" => JsonSerializer.Deserialize<PythonTarget>(dto.TargetConfig)!,
+                    "TEMPLATE" or "Template" or "template" => new TemplateTarget(dto.TargetConfig),
                     _ => throw new InvalidOperationException($"Unknown TargetType: {dto.TargetType}")
                 };
 
@@ -318,6 +327,9 @@ public class MonitorRepository : IMonitorRepository
                     dto.MaxRuns,
                     dto.ExecutedCount
                 );
+
+                if (!string.IsNullOrWhiteSpace(dto.TemplateVariablesJson))
+                    entity.SetTemplateVariables(dto.TemplateVariablesJson);
 
                 if (assertionLookup.TryGetValue(dto.Id, out var assertions))
                 {

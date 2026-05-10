@@ -6,21 +6,10 @@ using AutoTest.Core.Target;
 
 namespace AutoTest.Infrastructure.Mapper.TargetMapper;
 
-/// <summary>
-/// TCP 目标映射器：将前端提交的 JSON 配置反序列化为 <see cref="TcpTarget"/>。
-/// </summary>
 public sealed class TcpTargetMap : ITargetMap
 {
-    /// <summary>
-    /// 映射器支持的目标类型标识。
-    /// </summary>
     public string Type => "TCP";
 
-    /// <summary>
-    /// 将 JSON 配置映射为领域目标对象。
-    /// </summary>
-    /// <param name="json">目标配置 JSON。</param>
-    /// <returns>目标对象。</returns>
     public MonitorTarget Map(string json)
     {
         var dto = JsonSerializer.Deserialize<TcpTargetDto>(json, new JsonSerializerOptions
@@ -28,11 +17,21 @@ public sealed class TcpTargetMap : ITargetMap
             PropertyNameCaseInsensitive = true
         })!;
 
+        var fallbackMs = dto.Timeout * 1000;
+
         return new TcpTarget(
-            dto.Host,
-            dto.Port,
-            dto.Timeout,
-            dto.Messages
+            host: dto.Host,
+            port: dto.Port,
+            timeout: dto.Timeout,
+            messages: dto.Messages,
+            useTls: dto.UseTls,
+            ignoreSslErrors: dto.IgnoreSslErrors,
+            connectTimeoutMs: dto.ConnectTimeoutMs > 0 ? dto.ConnectTimeoutMs : fallbackMs,
+            readTimeoutMs: dto.ReadTimeoutMs > 0 ? dto.ReadTimeoutMs : fallbackMs,
+            writeTimeoutMs: dto.WriteTimeoutMs > 0 ? dto.WriteTimeoutMs : fallbackMs,
+            enableRetry: dto.EnableRetry,
+            retryCount: dto.RetryCount,
+            retryDelayMs: dto.RetryDelayMs
         );
     }
 }

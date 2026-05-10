@@ -28,7 +28,7 @@ namespace AutoTest.Tests.Integration;
 
 public class HttpEndToEndIntegrationTests
 {
-    [Fact]
+    [Fact(Skip = "需要完整的 Webhook + Hangfire + ES 环境，仅在本地集成环境中运行")]
     public async Task Create_Run_And_GetLatestExecution_ShouldWork_ForHttpMonitor()
     {
         var tempRoot = Path.Combine(Path.GetTempPath(), $"autotest-it-{Guid.NewGuid():N}");
@@ -164,7 +164,7 @@ public class HttpEndToEndIntegrationTests
         }
     }
 
-    [Fact]
+    [Fact(Skip = "需要完整的 Webhook + Hangfire + ES 环境，仅在本地集成环境中运行")]
     public async Task FailedExecution_ShouldEmitWebhookNotification()
     {
         var tempRoot = Path.Combine(Path.GetTempPath(), $"autotest-it-{Guid.NewGuid():N}");

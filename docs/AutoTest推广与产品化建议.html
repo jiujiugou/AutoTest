@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoTest 从个人工具到团队产品 — 建议书</title>
+<style>
+  :root { --bg: #1a1b26; --card: #24283b; --text: #c0caf5; --accent: #7aa2f7; --green: #9ece6a; --orange: #e0af68; --red: #f7768e; --border: #3b4261; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: -apple-system, 'Microsoft YaHei', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; padding: 40px 0; }
+  .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+  h1 { font-size: 2.2em; color: #fff; margin-bottom: 8px; }
+  .subtitle { color: #565f89; font-size: 1.1em; margin-bottom: 40px; }
+  h2 { color: var(--accent); font-size: 1.5em; margin: 48px 0 16px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+  h3 { color: #bb9af7; font-size: 1.15em; margin: 24px 0 10px; }
+  p { margin: 12px 0; }
+  ul { margin: 8px 0 8px 20px; }
+  li { margin: 6px 0; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin: 16px 0; }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 16px 0; }
+  .card.hero { border-color: var(--accent); }
+  .card h3 { margin-top: 0; color: var(--accent); }
+  .card .icon { font-size: 1.6em; margin-right: 8px; }
+
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 0.8em; margin: 2px 4px 2px 0; }
+  .tag.red { background: rgba(247,118,142,0.15); color: var(--red); }
+  .tag.green { background: rgba(158,206,106,0.15); color: var(--green); }
+  .tag.orange { background: rgba(224,175,104,0.15); color: var(--orange); }
+
+  .priority-bar { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
+  .priority-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .priority-dot.p0 { background: var(--red); }
+  .priority-dot.p1 { background: var(--orange); }
+  .priority-dot.p2 { background: var(--green); }
+
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.95em; }
+  th { text-align: left; padding: 8px 12px; color: var(--accent); border-bottom: 2px solid var(--border); }
+  td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+
+  .preview { background: #1a1b26; border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin: 12px 0; font-family: 'Consolas','Courier New',monospace; font-size: 0.85em; white-space: pre-wrap; }
+
+  .roadmap { display: flex; gap: 2px; margin: 20px 0; }
+  .phase { flex: 1; background: var(--card); border-radius: 8px; padding: 16px; text-align: center; border: 1px solid var(--border); }
+  .phase.num { font-size: 2em; font-weight: 700; color: var(--accent); }
+  .phase p { margin: 4px 0; font-size: 0.9em; }
+
+  strong { color: #e2e8f0; }
+  .highlight { color: var(--green); font-weight: 600; }
+  .footnote { color: #565f89; font-size: 0.9em; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>AutoTest 产品化建议书</h1>
+<p class="subtitle">从「一个人的工具」到「团队真正的依赖」——三条路径，八周可落地</p>
+
+
+
+<h2>一、当前状态诊断</h2>
+
+<div class="card hero">
+<h3>AutoTest 已有的</h3>
+<ul>
+  <li>5 种监控类型全覆盖（HTTP / TCP / DB / Python / TEMPLATE DSL）</li>
+  <li>完整的调度引擎（Hangfire）+ 断言的执行管道</li>
+  <li>失败 → Outbox 持久化 → 钉钉通知 + AI 分析的闭环</li>
+  <li>RBAC 权限 + JWT 认证</li>
+  <li><code>docker compose up -d</code> 一分钟部署</li>
+  <li>中等偏上的工程质量，分层架构清晰</li>
+</ul>
+</div>
+
+<div class="card" style="border-color: var(--orange);">
+<h3 style="color: var(--orange);">阻止更多团队采用的三件事</h3>
+<ol>
+  <li><strong>启动成本高</strong>：部署好之后面对空面板，不知道第一个监控怎么建、建什么。5 种类型的选择本身就是认知负担。</li>
+  <li><strong>模板不可发现</strong>：有人写好了一个"登录 → 查订单"模板，别人不知道、找不到、无法复用。</li>
+  <li><strong>文档散落</strong>：架构、API、DSL 各一篇，但缺少一条从"我刚部署完"到"第一个监控在跑并且钉钉收到了通知"的直线。</li>
+</ol>
+</div>
+
+
+
+<h2>二、三条核心建议</h2>
+
+<div class="card-grid">
+<div class="card"><h3>🔧 建议一：一键导入</h3><p>降低"第一个监控"从 30 分钟到 1 分钟。新用户部署完打开面板，按钮点一下就有一条监控在跑。</p></div>
+<div class="card"><h3>📦 建议二：监控模板库</h3><p>把常见场景做成可复用的 JSON 模板，用户从下拉列表选场景 → 填参数 → 上线。</p></div>
+<div class="card"><h3>📖 建议三：五分钟上手文档</h3><p>一条直线：部署 → 登录 → 导入模板 → 看钉钉通知。不需要读完全部设计文档。</p></div>
+</div>
+
+
+
+<h2>三、建议一：一键导入（最优先 ⭐）</h2>
+
+<h3>问题</h3>
+<p>右面板空着，用户必须从零理解 HTTP/TCP/DB/Python/TEMPLATE 分别填什么、断言的 Field/Operator/Expected 怎么配、JSON 配置的字段名是什么。这 30 分钟里绝大多数人会放弃。</p>
+
+<h3>解决</h3>
+<p>在面板左侧任务列表加一个<strong>"导入"下拉按钮</strong>，选场景 → 弹窗确认参数 → 直接创建好一个可运行的监控。</p>
+
+<h3>预置的一键导入场景</h3>
+<table>
+<tr><th>场景</th><th>类型</th><th>填什么</th><th>覆盖率</th></tr>
+<tr><td>🧪 本地 API 健康检查</td><td>HTTP</td><td>输入 URL</td><td>99%</td></tr>
+<tr><td>🗄️ Redis 端口探测</td><td>TCP</td><td>host:port</td><td>80%</td></tr>
+<tr><td>🐬 MySQL 端口探测</td><td>TCP</td><td>host:port</td><td>80%</td></tr>
+<tr><td>🔄 登录 → 查用户信息</td><td>TEMPLATE</td><td>API 地址 + 用户名/密码</td><td>70%</td></tr>
+<tr><td>🔑 证书过期检查</td><td>Python</td><td>域名</td><td>60%</td></tr>
+<tr><td>📊 数据库行数检查</td><td>DB</td><td>连接串 + 表名 + 预期行数</td><td>50%</td></tr>
+<tr><td>🔗 外部服务可达</td><td>TCP</td><td>百度/微信/钉钉的 host:443</td><td>90%</td></tr>
+<tr><td>🕐 慢任务监控</td><td>Python</td><td>脚本路径</td><td>40%</td></tr>
+</table>
+
+<h3>前端实现（伪代码）</h3>
+<div class="preview">// Task.vue 新增
+import { quickImportPresets } from './presets'
+
+&lt;el-dropdown @command="quickImport"&gt;
+  &lt;el-button&gt;⚡ 一键导入&lt;/el-button&gt;
+  &lt;el-dropdown-menu&gt;
+    &lt;el-dropdown-item command="http_health"&gt;API 健康检查&lt;/el-dropdown-item&gt;
+    &lt;el-dropdown-item command="redis_port"&gt;Redis 端口探测&lt;/el-dropdown-item&gt;
+    &lt;el-dropdown-item command="mysql_port"&gt;MySQL 端口探测&lt;/el-dropdown-item&gt;
+    ...
+  &lt;/el-dropdown-menu&gt;
+&lt;/el-dropdown&gt;
+
+function quickImport(presetKey) {
+  const preset = presets[presetKey]
+  // 弹窗让用户填 1-3 个参数（如 URL、host:port）
+  // 填完后直接调用 POST /api/monitor 创建
+  // 自动跳转到该监控的详情
+}</div>
+
+<h3>预设数据格式</h3>
+<div class="preview">// presets.js — 纯前端文件，不依赖后端
+export const presets = {
+  http_health: {
+    label: 'API 健康检查',
+    targetType: 'HTTP',
+    fields: [
+      { key: 'url', label: 'API 地址', placeholder: 'https://api.example.com/health' },
+    ],
+    build(params) {
+      return {
+        Name: `${params.url} 健康检查`,
+        TargetType: 'HTTP',
+        TargetConfig: JSON.stringify({
+          Url: params.url, Method: 'Get', TimeoutSeconds: 10
+        }),
+        Assertions: [buildAssertion('HTTP', 'StatusCode', 'Equal', '200')],
+        AutoDailyEnabled: true,
+        AutoDailyTime: '09:00'
+      }
+    }
+  },
+  // ... 其他预设
+}</div>
+
+
+
+<h2>四、建议二：监控模板库</h2>
+
+<h3>问题</h3>
+<p>团队里张三写了一个"订单对账"的 TEMPLATE 模板写得很好，李四想要但不知道去哪找。模板散落在每个人的浏览器 localStorage 或脑子里。</p>
+
+<h3>解决</h3>
+<p>在 <code>/examples/</code> 目录（已存在！）结构化，每个模板一个文件夹，配 README。前端加一个"模板市场"面板直接列出这些模板，点一下就导入。</p>
+
+<h3>模板目录结构</h3>
+<div class="preview">examples/
+├── api-healthcheck/          ← 每个模板一个文件夹
+│   ├── monitor.json          ← POST /api/monitor 的完整 DTO
+│   ├── README.md             ← 中文说明：适用场景、参数说明、截图
+│   └── screenshot.png        ← 执行成功的截图
+├── redis-port-check/
+├── mysql-port-check/
+├── login-check-userinfo/     ← TEMPLATE DSL 示例
+│   ├── monitor.json
+│   ├── dsl-template.json     ← DSL 模板 JSON
+│   └── README.md
+├── cert-expiry-check/        ← Python 示例
+├── db-rowcount-check/
+├── dingtalk-external-reachable/
+└── slow-task-monitor/</div>
+
+<h3>前端模板市场面板</h3>
+<div class="preview">&lt;!-- TemplateMarket.vue — 新页面 --&gt;
+&lt;el-card v-for="tpl in templates" :key="tpl.id"&gt;
+  &lt;h3&gt;{{ tpl.title }}&lt;/h3&gt;
+  &lt;p&gt;{{ tpl.description }}&lt;/p&gt;
+  &lt;el-tag&gt;{{ tpl.type }}&lt;/el-tag&gt;
+  &lt;el-tag&gt;{{ tpl.difficulty }}&lt;/el-tag&gt;
+  &lt;el-button @click="importTemplate(tpl)"&gt;导入此模板&lt;/el-button&gt;
+&lt;/el-card&gt;</div>
+
+<p><strong>关键设计原则：</strong></p>
+<ul>
+  <li>模板是静态 JSON/JS 文件，随前端打包，不依赖后端 API。</li>
+  <li>模板 <code>monitor.json</code> 直接是 API 接受的 DTO，导入就是 <code>POST /api/monitor</code>。</li>
+  <li>参数化：模板中用 <code>%HOST%</code>、<code>%PORT%</code> 占位符，导入时弹窗让用户替换。</li>
+</ul>
+
+
+
+<h2>五、建议三：五分钟上手文档</h2>
+
+<h3>当前文档问题</h3>
+<p>你写了 <code>架构详解</code>、<code>数据流详解</code>、<code>API 参考</code>、<code>DSL 模板引擎</code> 等，这是设计文档，不是新用户引导。新用户需要的不是理解 13 个项目之间的依赖关系，而是：</p>
+
+<ol>
+  <li>部署起来</li>
+  <li>看到第一个绿灯</li>
+  <li>收到第一条钉钉通知</li>
+  <li>知道下一步建什么</li>
+</ol>
+
+<h3>建议：写一篇「五分钟上手」替换根 README</h3>
+<div class="preview"># AutoTest — 自动化监控平台
+
+> 定时检测 HTTP/TCP/DB/业务流程，失败钉钉通知 + AI 诊断。一行命令部署。
+
+## 快速开始
+
+### 1. 部署（1 分钟）
+cp .env.example .env
+# 编辑 .env 填 AUTOTEST_JWT_SIGNING_KEY 和 SQL 密码
+docker compose up -d
+
+### 2. 登录并创建第一个监控（1 分钟）
+打开 http://你的服务器IP
+默认账号 admin / 你设的密码
+点击"一键导入" → 选"API 健康检查" → 填你的 API 地址 → 确定
+
+### 3. 收到钉钉通知（2 分钟）
+编辑 docker-compose.yml 里 Outbox__Webhook__Url 改成你的钉钉机器人地址
+手动执行一次刚才创建的监控
+群里应该收到一张卡片
+
+### 4. 下一步
+浏览"模板市场"看更多监控模板
+读 docs/ 了解 DSM 模板引擎（多步骤业务流程监控）
+
+## 常见监控场景（点一下就导入）
+| 我要 | 用 |
+|------|----|
+| API 掉线就通知 | HTTP 健康检查 |
+| Redis/MySQL 不通就告警 | TCP 端口探测 |
+| 订单数异常再通知 | DB 行数检查 |
+| 登录→查订单→验金额一条链路 | TEMPLATE 模板 |
+| 证书还有 7 天过期 | Python 证书检查 |
+</div>
+
+
+
+<h2>六、实施优先级与时间线</h2>
+
+<div class="roadmap">
+  <div class="phase"><div class="num">第1周</div><p>预置 8 个一键导入场景<br>前端「导入」按钮<br>五分钟上手文档</p></div>
+  <div class="phase"><div class="num">第2周</div><p>模板市场页面<br>模板参数化（占位符）<br>运行截图 + README</p></div>
+  <div class="phase"><div class="num">第3-4周</div><p>团队内部试用<br>收集问题<br>补充更多模板</p></div>
+  <div class="phase"><div class="num">第5-8周</div><p>README 英文版<br>Docker Hub 镜像<br>发布到 V2EX/掘金</p></div>
+</div>
+
+<div class="card-grid" style="margin-top:24px;">
+<div class="card"><h3><span class="tag red">P0</span> 第一周必须做</h3>
+<ul>
+  <li>8 个一键导入预设（presets.js）</li>
+  <li>Task.vue 的"导入"下拉按钮</li>
+  <li>根 README 改写为五分钟上手风</li>
+  <li>4 个最常用模板的 monitor.json</li>
+</ul>
+</div>
+<div class="card"><h3><span class="tag orange">P1</span> 第二周做完</h3>
+<ul>
+  <li>TemplateMarket.vue 页面</li>
+  <li>占位符参数化 &lt;input&gt; 替换</li>
+  <li>每个模板的 README + 截图</li>
+  <li>文档里补 Docker Compose 故障排查</li>
+</ul>
+</div>
+<div class="card"><h3><span class="tag green">P2</span> 持续迭代</h3>
+<ul>
+  <li>Docker Hub 发布镜像（免 git clone）</li>
+  <li>社区贡献模板的 PR 流程</li>
+  <li>钉钉群模板分享（导出/导入 JSON）</li>
+  <li>监控结果分享链接（"帮我看一下这个报错"）</li>
+</ul>
+</div>
+</div>
+
+
+
+<h2>七、为什么这些比"增强 AI"重要</h2>
+
+<div class="card">
+<p><strong>AI 解决的是"失败后怎么更快定位问题"——这是日活用户的需求。</strong></p>
+<p style="margin-top:12px;">一键导入和模板市场解决的是<strong>"怎么让人先用起来"——这是获取日活用户的前提。</strong></p>
+<p style="margin-top:8px;">你的 AI 已经够用了（失败时自动诊断 + 推送卡片）。现在的问题是：<strong>知道这个工具的人太少，知道的人里因为"不知道第一个监控建什么"而放弃的太多。</strong></p>
+<p style="margin-top:12px;"><span class="highlight">一键导入 + 模板库 → 日活增加 5 倍的价值 >> 把 AI 诊断准确率从 85% 提到 90% 的价值。</span></p>
+</div>
+
+
+
+<h2>八、推广渠道建议</h2>
+
+<table>
+<tr><th>渠道</th><th>讲什么</th><th>目标</th></tr>
+<tr><td>V2EX / 掘金</td><td>"我花两个月写了一个自动化监控平台"——讲动机、讲坑、截图多放</td><td>获取前 100 个 Star</td></tr>
+<tr><td>GitHub README</td><td>GIF 动图：部署 → 一键导入 → 钉钉通知（20 秒内展示完）</td><td>访客 5 秒内理解项目做什么</td></tr>
+<tr><td>钉钉开发者社区</td><td>"用钉钉机器人做业务监控"——以钉钉用户视角切入</td><td>钉钉生态曝光</td></tr>
+<tr><td>Docker Hub</td><td>发布镜像，README 写 "docker compose up" 一行启动</td><td>降低部署门槛</td></tr>
+<tr><td>朋友圈/技术群</td><td>"你们团队用什么做 API 监控？"——引发讨论而非硬推广</td><td>种子用户</td></tr>
+</table>
+
+
+
+<h2>九、一句话总结</h2>
+
+<div class="card hero">
+<p style="font-size: 1.2em; text-align: center; margin: 0;">
+<strong>不是多做功能，是把已有的磨到"一个陌生人 5 分钟就能跑出第一条通知"。</strong><br>
+<span style="color: #565f89;">做到这一点，就从一个"看着很厉害的项目"变成了一个"团队真的会用的工具"。</span>
+</p>
+</div>
+
+<p class="footnote" style="text-align:center; margin-top:40px;">AutoTest · 2026-05-10 · 实事求是</p>
+</div>
+</body>
+</html>

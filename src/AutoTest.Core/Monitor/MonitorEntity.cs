@@ -68,7 +68,7 @@ namespace AutoTest.Core
 
         public IReadOnlyCollection<AssertionRule> Assertions => _assertions;
 
-        public bool IsTemplate { get; private set; }
+        public bool IsTemplate => Target != null && Target.Type == "TEMPLATE";
 
         public string? TemplateVariablesJson { get; private set; }
 
@@ -118,9 +118,8 @@ namespace AutoTest.Core
         /// <summary>
         /// 设置模板配置（同时将目标设置为模板模式）。
         /// </summary>
-        public void SetTemplateConfig(bool isTemplate, string? templateVariablesJson)
+        public void SetTemplateVariables(string? templateVariablesJson)
         {
-            IsTemplate = isTemplate;
             TemplateVariablesJson = templateVariablesJson;
         }
 

@@ -94,7 +94,7 @@ public class MonitorService : IMonitorService
                 dto.MaxRuns,
                 dto.ExecutedCount);
             if (dto.IsTemplate)
-                monitorEntity.SetTemplateConfig(true, dto.TemplateVariablesJson);
+                monitorEntity.SetTemplateVariables(dto.TemplateVariablesJson);
             foreach (var assertion in assertions)
                 monitorEntity.AddAssertion(assertion);
             await _unitOfWork.ExecuteAsync(async tx =>
@@ -176,7 +176,7 @@ public class MonitorService : IMonitorService
 
                 existing.Update(dto.Name, targetBuilder.Map(dto.TargetConfig), dto.IsEnabled);
                 if (dto.IsTemplate)
-                    existing.SetTemplateConfig(true, dto.TemplateVariablesJson);
+                    existing.SetTemplateVariables(dto.TemplateVariablesJson);
                 var autoDailyEnabled = dto.AutoDailyEnabled;
                 if (dto.MaxRuns != null && existing.ExecutedCount >= dto.MaxRuns.Value)
                     autoDailyEnabled = false;

@@ -1,591 +1,47 @@
-<template>
-  <div class="page-container">
-    <div class="toolbar">
-      <div class="toolbar-left">
-        <el-input v-model="keyword" placeholder="搜索任务名称" style="width: 260px" clearable>
-          <template #prefix>
-            <el-icon><Search /></el-icon>
-          </template>
-        </el-input>
-      </div>
-      <div class="toolbar-right">
-        <el-button :icon="'Refresh'" @click="refresh">刷新列表</el-button>
-        <el-button type="primary" :icon="'Plus'" @click="openCreate">创建任务</el-button>
-      </div>
-    </div>
-
-    <el-row :gutter="20">
-      <el-col :span="10">
-        <el-card shadow="never" class="list-card">
-          <template #header>
-            <div class="card-header">
-              <span>任务列表（调度控制）</span>
-              <div class="list-actions">
-                <el-tag size="small" type="info">{{ filtered.length }} 个</el-tag>
-                <el-button
-                  size="small"
-                  type="danger"
-                  plain
-                  :disabled="selectedRows.length === 0"
-                  :loading="deleting"
-                  @click="removeSelected"
-                >
-                  删除选中
-                </el-button>
-                <el-button
-                  size="small"
-                  type="danger"
-                  :disabled="filtered.length === 0"
-                  :loading="deleting"
-                  @click="removeAll"
-                >
-                  一键删除
-                </el-button>
-              </div>
-            </div>
-          </template>
-
-          <el-table
-            :data="filtered"
-            size="small"
-            v-loading="loading"
-            highlight-current-row
-            @row-click="selectRow"
-            @selection-change="onSelectionChange"
-            :row-key="row => row.id"
-          >
-            <el-table-column type="selection" width="46" />
-            <el-table-column prop="name" label="任务" min-width="140" show-overflow-tooltip />
-            <el-table-column prop="targetType" label="类型" width="80">
-              <template #default="{ row }">
-                <el-tag size="small" effect="plain">{{ row.targetType }}</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column label="状态" width="90" align="center">
-              <template #default="{ row }">
-                <el-tag size="small" :type="statusInfo(row.status).type">
-                  {{ statusInfo(row.status).text }}
-                </el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column label="每日执行" width="90" align="center">
-              <template #default="{ row }">
-                <el-tag size="small" :type="row.autoDailyEnabled ? 'success' : 'info'">
-                  {{ row.autoDailyEnabled ? '是' : '否' }}
-                </el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column prop="autoDailyTime" label="执行时间" width="90" align="center" />
-            <el-table-column label="次数" width="110" align="center">
-              <template #default="{ row }">
-                <span class="muted">{{ row.executedCount }}</span>
-                <span class="muted"> / </span>
-                <span class="muted">{{ row.maxRuns ?? '∞' }}</span>
-              </template>
-            </el-table-column>
-            <el-table-column label="暂停/恢复" width="120" align="center">
-              <template #default="{ row }">
-                <el-switch
-                  :model-value="row.isEnabled"
-                  :loading="row.__toggling"
-                  @change="val => toggleEnabled(row, val)"
-                />
-              </template>
-            </el-table-column>
-            <el-table-column label="执行" width="90" align="center">
-              <template #default="{ row }">
-                <el-button size="small" type="primary" link :disabled="isRunningStatus(row.status)" @click.stop="runOnce(row)">
-                  {{ isRunningStatus(row.status) ? '运行中' : '执行' }}
-                </el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-card>
-      </el-col>
-
-      <el-col :span="14">
-        <el-card shadow="never" class="detail-card">
-          <template #header>
-            <div class="card-header">
-              <span class="detail-title">{{ form.id ? '编辑任务：' + (form.name || '') : '创建任务' }}</span>
-              <div class="actions">
-                <el-button type="primary" :icon="'Select'" :loading="saving" @click="save">保存</el-button>
-                <el-button type="danger" :icon="'Delete'" :disabled="!form.id" :loading="saving" @click="remove">删除</el-button>
-              </div>
-            </div>
-          </template>
-
-          <el-form label-width="110px" label-position="left">
-            <el-form-item label="任务 ID" v-if="form.id">
-              <el-input v-model="form.id" readonly disabled />
-            </el-form-item>
-            <el-form-item label="任务名称" required>
-              <el-input v-model="form.name" placeholder="例如：登录接口巡检" />
-            </el-form-item>
-            <el-form-item label="目标类型">
-              <el-radio-group v-model="form.targetType" @change="fillTemplate">
-                <el-radio-button label="HTTP">HTTP / API</el-radio-button>
-                <el-radio-button label="TCP">TCP</el-radio-button>
-                <el-radio-button label="PYTHON">Python 脚本</el-radio-button>
-                <el-radio-button label="TEMPLATE">模板</el-radio-button>
-              </el-radio-group>
-            </el-form-item>
-            <el-form-item label="暂停/恢复">
-              <el-switch v-model="form.isEnabled" />
-            </el-form-item>
-
-            <el-form-item label="自动执行">
-              <el-switch v-model="form.autoDailyEnabled" />
-              <span class="muted" style="margin-left: 10px">启用后由 Hangfire 按时间重复执行</span>
-            </el-form-item>
-            <el-form-item label="执行时间" v-if="form.autoDailyEnabled">
-              <el-time-picker
-                v-model="form.autoDailyTime"
-                format="HH:mm"
-                value-format="HH:mm"
-                placeholder="选择时间"
-                style="width: 160px"
-              />
-              <span class="muted" style="margin-left: 10px">每天执行一次</span>
-            </el-form-item>
-            <el-form-item label="执行次数上限（自动累计）" v-if="form.autoDailyEnabled">
-              <el-input-number v-model="form.maxRuns" :min="0" :step="1" />
-              <span class="muted" style="margin-left: 10px">0 表示无限；达到上限后将停止后续每日执行</span>
-              <span class="muted" style="margin-left: 14px">已执行：{{ form.executedCount }}</span>
-            </el-form-item>
-
-            <el-divider />
-
-            <el-form-item label="HTTP 配置" v-if="form.targetType === 'HTTP'">
-              <el-collapse v-model="httpPanels">
-                <el-collapse-item title="基础" name="base">
-                  <div class="kv-grid">
-                    <div class="kv-item kv-span2">
-                      <div class="kv-label">Url</div>
-                      <el-input v-model="httpConfig.url" placeholder="https://example.com" />
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">Method</div>
-                      <el-select v-model="httpConfig.method" style="width: 100%">
-                        <el-option label="Get" value="Get" />
-                        <el-option label="Post" value="Post" />
-                        <el-option label="Put" value="Put" />
-                        <el-option label="Delete" value="Delete" />
-                      </el-select>
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">Timeout(s)</div>
-                      <el-input-number v-model="httpConfig.timeout" :min="1" :max="300" :step="1" style="width: 100%" />
-                    </div>
-                  </div>
-                </el-collapse-item>
-
-                <el-collapse-item title="Headers" name="headers">
-                  <div class="kv-list">
-                    <div v-for="(h, idx) in httpConfig.headers" :key="idx" class="kv-row">
-                      <el-input v-model="h.key" placeholder="Header Key" />
-                      <el-input v-model="h.value" placeholder="Value (可用逗号分隔多个)" />
-                      <el-button type="danger" :icon="'Delete'" plain @click="removeKv(httpConfig.headers, idx)" />
-                    </div>
-                    <el-button type="primary" plain :icon="'Plus'" @click="addKv(httpConfig.headers)">新增 Header</el-button>
-                  </div>
-                </el-collapse-item>
-
-                <el-collapse-item title="Query" name="query">
-                  <div class="kv-list">
-                    <div v-for="(q, idx) in httpConfig.query" :key="idx" class="kv-row">
-                      <el-input v-model="q.key" placeholder="Query Key" />
-                      <el-input v-model="q.value" placeholder="Value" />
-                      <el-button type="danger" :icon="'Delete'" plain @click="removeKv(httpConfig.query, idx)" />
-                    </div>
-                    <el-button type="primary" plain :icon="'Plus'" @click="addKv(httpConfig.query)">新增 Query</el-button>
-                  </div>
-                </el-collapse-item>
-
-                <el-collapse-item title="Body" name="body">
-                  <div class="kv-grid">
-                    <div class="kv-item">
-                      <div class="kv-label">BodyType</div>
-                      <el-select v-model="httpConfig.bodyType" style="width: 100%">
-                        <el-option label="Json" value="Json" />
-                        <el-option label="FormUrlEncoded" value="FormUrlEncoded" />
-                        <el-option label="Raw" value="Raw" />
-                      </el-select>
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">ContentType</div>
-                      <el-input v-model="httpConfig.bodyContentType" placeholder="application/json" />
-                    </div>
-                  </div>
-
-                  <div v-if="httpConfig.bodyType === 'FormUrlEncoded'" class="kv-list" style="margin-top: 12px">
-                    <div v-for="(f, idx) in httpConfig.formFields" :key="idx" class="kv-row">
-                      <el-input v-model="f.key" placeholder="Field" />
-                      <el-input v-model="f.value" placeholder="Value" />
-                      <el-button type="danger" :icon="'Delete'" plain @click="removeKv(httpConfig.formFields, idx)" />
-                    </div>
-                    <el-button type="primary" plain :icon="'Plus'" @click="addKv(httpConfig.formFields)">新增字段</el-button>
-                  </div>
-
-                  <div v-else class="kv-item kv-span2" style="margin-top: 12px">
-                    <div class="kv-label">Value</div>
-                    <el-input v-model="httpConfig.bodyText" type="textarea" :rows="8" placeholder="可为空" />
-                  </div>
-                </el-collapse-item>
-
-                <el-collapse-item title="认证" name="auth">
-                  <div class="kv-grid">
-                    <div class="kv-item">
-                      <div class="kv-label">AuthType</div>
-                      <el-select v-model="httpConfig.authType" style="width: 100%">
-                        <el-option label="None" value="None" />
-                        <el-option label="Bearer" value="Bearer" />
-                        <el-option label="Basic" value="Basic" />
-                        <el-option label="ApiKeyHeader (X-Api-Key)" value="ApiKeyHeader" />
-                      </el-select>
-                    </div>
-
-                    <div v-if="httpConfig.authType === 'Bearer' || httpConfig.authType === 'ApiKeyHeader'" class="kv-item">
-                      <div class="kv-label">Token</div>
-                      <el-input v-model="httpConfig.authToken" placeholder="token" />
-                    </div>
-
-                    <div v-if="httpConfig.authType === 'Basic'" class="kv-item">
-                      <div class="kv-label">Username</div>
-                      <el-input v-model="httpConfig.authUsername" placeholder="username" />
-                    </div>
-                    <div v-if="httpConfig.authType === 'Basic'" class="kv-item">
-                      <div class="kv-label">Password</div>
-                      <el-input v-model="httpConfig.authPassword" type="password" show-password placeholder="password" />
-                    </div>
-                  </div>
-                </el-collapse-item>
-
-                <el-collapse-item title="高级" name="advanced">
-                  <div class="kv-grid">
-                    <div class="kv-item">
-                      <div class="kv-label">UseCookies</div>
-                      <el-switch v-model="httpConfig.useCookies" />
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">AllowAutoRedirect</div>
-                      <el-switch v-model="httpConfig.allowAutoRedirect" />
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">MaxRedirects</div>
-                      <el-input-number v-model="httpConfig.maxRedirects" :min="0" :max="50" :step="1" style="width: 100%" />
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">IgnoreSslErrors</div>
-                      <el-switch v-model="httpConfig.ignoreSslErrors" />
-                    </div>
-
-                    <div class="kv-item kv-span2">
-                      <div class="kv-label">ProxyUrl</div>
-                      <el-input v-model="httpConfig.proxyUrl" placeholder="http://127.0.0.1:7890" />
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">ProxyUser</div>
-                      <el-input v-model="httpConfig.proxyUser" placeholder="user" />
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">ProxyPass</div>
-                      <el-input v-model="httpConfig.proxyPass" type="password" show-password placeholder="pass" />
-                    </div>
-
-                    <div class="kv-item">
-                      <div class="kv-label">EnableRetry</div>
-                      <el-switch v-model="httpConfig.enableRetry" />
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">RetryCount</div>
-                      <el-input-number v-model="httpConfig.retryCount" :min="1" :max="20" :step="1" style="width: 100%" :disabled="!httpConfig.enableRetry" />
-                    </div>
-                    <div class="kv-item">
-                      <div class="kv-label">RetryDelayMs</div>
-                      <el-input-number v-model="httpConfig.retryDelayMs" :min="0" :max="60000" :step="100" style="width: 100%" :disabled="!httpConfig.enableRetry" />
-                    </div>
-
-                    <div class="kv-item">
-                      <div class="kv-label">EnableRateLimit</div>
-                      <el-switch v-model="httpConfig.enableRateLimit" />
-                    </div>
-                  </div>
-                </el-collapse-item>
-              </el-collapse>
-            </el-form-item>
-
-            <el-form-item label="TCP 配置" v-if="form.targetType === 'TCP'">
-              <div class="kv-grid">
-                <div class="kv-item">
-                  <div class="kv-label">Host</div>
-                  <el-input v-model="tcpConfig.host" placeholder="127.0.0.1" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">Port</div>
-                  <el-input-number v-model="tcpConfig.port" :min="1" :max="65535" :step="1" style="width: 100%" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">Timeout(s)</div>
-                  <el-input-number v-model="tcpConfig.timeout" :min="1" :max="300" :step="1" style="width: 100%" />
-                </div>
-                <div class="kv-item kv-span2">
-                  <div class="kv-label">Messages（每行一条，可选）</div>
-                  <el-input v-model="tcpConfig.messagesText" type="textarea" :rows="6" placeholder="例如：PING" />
-                </div>
-                <div class="kv-item kv-span2">
-                  <div class="kv-label">响应包含（可选）</div>
-                  <el-input v-model="tcpConfig.responseContains" placeholder="例如：PONG" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">延迟要求小于(ms)（可选）</div>
-                  <el-input-number v-model="tcpConfig.latencyLessThan" :min="0" :step="100" style="width: 100%" placeholder="例如：500" />
-                </div>
-              </div>
-            </el-form-item>
-            <el-form-item label="Python 配置" v-if="form.targetType === 'PYTHON'">
-              <div class="kv-grid">
-                <div class="kv-item kv-span2">
-                  <div class="kv-label">ScriptPath</div>
-                  <el-input v-model="pythonConfig.scriptPath" placeholder="例如：scripts/check.py" />
-                </div>
-                <div class="kv-item kv-span2">
-                  <div class="kv-label">选择脚本文件</div>
-                  <div class="file-row">
-                    <input ref="pythonFileInput" class="hidden-file" type="file" accept=".py,text/x-python" @change="onPythonFileSelected" />
-                    <el-button size="small" type="primary" plain @click="choosePythonFile">选择文件</el-button>
-                    <span class="muted" v-if="pythonConfig.scriptFileName">{{ pythonConfig.scriptFileName }}</span>
-                    <el-button v-if="pythonConfig.scriptContent" size="small" type="danger" plain @click="clearPythonFile">清除</el-button>
-                  </div>
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">PythonExecutable</div>
-                  <el-input v-model="pythonConfig.pythonExecutable" placeholder="python / python3 / venv\\Scripts\\python.exe" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">Timeout(s)</div>
-                  <el-input-number v-model="pythonConfig.timeoutSeconds" :min="1" :max="3600" :step="1" style="width: 100%" />
-                </div>
-                <div class="kv-item kv-span2">
-                  <div class="kv-label">WorkingDirectory（可选）</div>
-                  <el-input v-model="pythonConfig.workingDirectory" placeholder="例如：D:\\work\\scripts" />
-                </div>
-                <div class="kv-item kv-span2">
-                  <div class="kv-label">Args（每行一个参数）</div>
-                  <el-input v-model="pythonConfig.argsText" type="textarea" :rows="5" placeholder="例如：--env\nprod" />
-                </div>
-
-                <div class="kv-item">
-                  <div class="kv-label">EnableRetry</div>
-                  <el-switch v-model="pythonConfig.enableRetry" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">RetryCount</div>
-                  <el-input-number v-model="pythonConfig.retryCount" :min="0" :max="20" :step="1" style="width: 100%" :disabled="!pythonConfig.enableRetry" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">RetryDelayMs</div>
-                  <el-input-number v-model="pythonConfig.retryDelayMs" :min="0" :max="60000" :step="100" style="width: 100%" :disabled="!pythonConfig.enableRetry" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">EnableRateLimit</div>
-                  <el-switch v-model="pythonConfig.enableRateLimit" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">MaxConcurrency</div>
-                  <el-input-number v-model="pythonConfig.maxConcurrency" :min="1" :max="50" :step="1" style="width: 100%" :disabled="!pythonConfig.enableRateLimit" />
-                </div>
-                <div class="kv-item">
-                  <div class="kv-label">SuccessExitCodes</div>
-                  <el-input v-model="pythonConfig.successExitCodesText" placeholder="例如：0,2" />
-                </div>
-                <div class="kv-item kv-span2">
-                  <div class="kv-label">StdOut Contains（可选）</div>
-                  <el-input v-model="pythonConfig.stdOutContains" placeholder="例如：OK" />
-                </div>
-                <div class="kv-item kv-span2">
-                  <div class="kv-label">StdErr Contains（可选）</div>
-                  <el-input v-model="pythonConfig.stdErrContains" placeholder="例如：Traceback" />
-                </div>
-              </div>
-
-              <div class="kv-list" style="margin-top: 10px">
-                <div class="kv-label">Env（可选）</div>
-                <div v-for="(h, idx) in pythonConfig.env" :key="idx" class="kv-row">
-                  <el-input v-model="h.key" placeholder="KEY" />
-                  <el-input v-model="h.value" placeholder="VALUE" />
-                  <el-button type="danger" :icon="'Delete'" plain @click="removeKv(pythonConfig.env, idx)" />
-                </div>
-                <el-button type="primary" plain :icon="'Plus'" @click="addKv(pythonConfig.env)">新增 Env</el-button>
-              </div>
-            </el-form-item>
-            <el-form-item label="模板配置" v-if="form.targetType === 'TEMPLATE'">
-              <div style="width: 100%;">
-                <div class="file-row" style="margin-bottom: 12px;">
-                  <input ref="templateFileInput" class="hidden-file" type="file" accept=".json" @change="handleTemplateFileImport" />
-                  <el-button size="small" type="primary" plain @click="chooseTemplateFile">导入JSON文件</el-button>
-                  <el-button v-if="templateConfig.dslJson" size="small" type="danger" plain @click="clearTemplateFile">清除</el-button>
-                </div>
-                <div class="kv-label">DSL 定义（JSON）</div>
-                <el-input
-                  v-model="templateConfig.dslJson"
-                  type="textarea"
-                  :rows="14"
-                  placeholder="导入 JSON 文件或在此编辑 DSL 定义"
-                  class="code-input"
-                />
-                <div class="kv-label" style="margin-top: 12px;">模板变量（JSON 键值对，可选）</div>
-                <el-input
-                  v-model="templateConfig.variablesJson"
-                  type="textarea"
-                  :rows="4"
-                  placeholder='{"host": "https://example.com"}'
-                  class="code-input"
-                  style="margin-top: 4px;"
-                />
-              </div>
-            </el-form-item>
-            <el-form-item label="HTTP 校验" v-if="form.targetType === 'HTTP'">
-              <el-input v-model="form.assertExpected" placeholder="期望 StatusCode，例如 200；留空不创建断言" style="width: 320px" />
-            </el-form-item>
-
-            <el-divider />
-
-            <div class="execute-bar">
-              <el-button type="success" :icon="'VideoPlay'" :disabled="!form.id" :loading="running" @click="runOnce()">
-                执行任务
-              </el-button>
-              <el-button :icon="'RefreshRight'" :disabled="!form.id" :loading="running" @click="loadLastSummary">
-                刷新上次结果
-              </el-button>
-            </div>
-
-            <div v-if="lastSummary" class="summary">
-              <el-descriptions :column="2" border size="small">
-                <el-descriptions-item label="开始时间">{{ formatTime(lastSummary.startedAt) }}</el-descriptions-item>
-                <el-descriptions-item label="结束时间">{{ lastSummary.finishedAt ? formatTime(lastSummary.finishedAt) : '-' }}</el-descriptions-item>
-                <el-descriptions-item label="执行结果">
-                  <el-tag :type="lastSummary.isExecutionSuccess ? 'success' : 'danger'">
-                    {{ lastSummary.isExecutionSuccess ? '成功' : '失败' }}
-                  </el-tag>
-                </el-descriptions-item>
-                <el-descriptions-item label="耗时">
-                  {{ lastSummary.elapsedMs != null ? `${lastSummary.elapsedMs} ms` : '-' }}
-                </el-descriptions-item>
-                <el-descriptions-item label="状态码" v-if="form.targetType === 'HTTP'">
-                  {{ lastSummary.statusCode != null ? lastSummary.statusCode : '-' }}
-                </el-descriptions-item>
-                <el-descriptions-item label="已连接" v-if="form.targetType === 'TCP'">
-                  <el-tag :type="lastSummary.connected ? 'success' : 'danger'" size="small">
-                    {{ lastSummary.connected ? '是' : '否' }}
-                  </el-tag>
-                </el-descriptions-item>
-                <el-descriptions-item label="响应内容" v-if="form.targetType === 'TCP'" :span="2">
-                  <div style="max-height: 100px; overflow: auto; white-space: pre-wrap;" class="muted">
-                    {{ lastSummary.response || '-' }}
-                  </div>
-                </el-descriptions-item>
-                <el-descriptions-item label="ExitCode" v-if="form.targetType === 'PYTHON'">
-                  {{ lastSummary.exitCode != null ? lastSummary.exitCode : '-' }}
-                </el-descriptions-item>
-                <el-descriptions-item label="TimedOut" v-if="form.targetType === 'PYTHON'">
-                  {{ lastSummary.timedOut ? '是' : '否' }}
-                </el-descriptions-item>
-                <el-descriptions-item label="错误信息">
-                  <span class="muted">{{ lastSummary.errorMessage || '-' }}</span>
-                </el-descriptions-item>
-              </el-descriptions>
-            </div>
-          </el-form>
-        </el-card>
-      </el-col>
-    </el-row>
-  </div>
-</template>
-
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { ref, computed, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
+import { Search, Plus, Delete, VideoPlay, Download } from '@element-plus/icons-vue'
 import { MonitorsApi } from '../api/monitors'
 import { ensureMonitorHubStarted, getMonitorHubConnection } from '../realtime/monitorHub'
+import TargetHttpForm from '../components/targets/TargetHttpForm.vue'
+import TargetTcpForm from '../components/targets/TargetTcpForm.vue'
+import TargetDbForm from '../components/targets/TargetDbForm.vue'
+import TargetPythonForm from '../components/targets/TargetPythonForm.vue'
+import TargetTemplateForm from '../components/targets/TargetTemplateForm.vue'
+import AssertionEditor from '../components/AssertionEditor.vue'
+import { presets } from './presets'
+import QuickImportDialog from './QuickImportDialog.vue'
 
-const loading = ref(false)
-const saving = ref(false)
-const running = ref(false)
-const deleting = ref(false)
-const keyword = ref('')
-
+// ── State ──
 const monitors = ref([])
-const selectedRows = ref([])
-const lastSummary = ref(null)
-const httpPanels = ref(['base', 'headers', 'query', 'body', 'auth', 'advanced'])
+const keyword = ref('')
+const saving = ref(false)
+const debugVisible = ref(false)
+const debugEntry = ref(null)
 
-const form = ref({
-  id: '',
-  name: '',
-  targetType: 'HTTP',
-  isEnabled: true,
-  assertExpected: '200',
-  autoDailyEnabled: false,
-  autoDailyTime: '09:00',
-  maxRuns: 0,
-  executedCount: 0
-})
+const form = ref({ id: '', name: '', targetType: 'HTTP', isEnabled: true, assertExpected: '200', autoDailyEnabled: false, autoDailyTime: '09:00', maxRuns: 0, executedCount: 0 })
 
-const httpConfig = ref({
-  url: 'https://example.com',
-  method: 'Get',
-  timeout: 10,
-  headers: [{ key: '', value: '' }],
-  query: [{ key: '', value: '' }],
-  authType: 'None',
-  authToken: '',
-  authUsername: '',
-  authPassword: '',
-  useCookies: false,
-  allowAutoRedirect: true,
-  maxRedirects: 5,
-  ignoreSslErrors: false,
-  proxyUrl: '',
-  proxyUser: '',
-  proxyPass: '',
-  enableRetry: false,
-  retryCount: 1,
-  retryDelayMs: 200,
-  enableRateLimit: false,
-  bodyType: 'Json',
-  bodyContentType: 'application/json',
-  bodyText: '',
-  formFields: [{ key: '', value: '' }]
-})
+const httpConfig = ref({ url: 'https://example.com', method: 'Get', timeout: 10, headers: [{ key: '', value: '' }], query: [{ key: '', value: '' }], authType: 'None', authToken: '', authUsername: '', authPassword: '', useCookies: false, allowAutoRedirect: false, maxRedirects: 5, ignoreSslErrors: false, proxyUrl: '', proxyUser: '', proxyPass: '', enableRetry: false, retryCount: 1, retryDelayMs: 200, enableRateLimit: false, bodyType: 'Json', bodyContentType: 'application/json', bodyText: '', formFields: [{ key: '', value: '' }] })
+const tcpConfig = ref({ host: '127.0.0.1', port: 80, timeout: 5, useTls: false, ignoreSslErrors: false, connectTimeoutMs: 15000, readTimeoutMs: 30000, writeTimeoutMs: 10000, enableRetry: false, retryCount: 2, retryDelayMs: 500, messagesText: '', responseContains: '', latencyLessThan: null })
+const dbConfig = ref({ dbType: 'sqlserver', commandType: 'Query', timeoutSeconds: 30, enableRetry: false, retryCount: 2, retryDelayMs: 500, connectionString: '', sql: '' })
+const pythonConfig = ref({ scriptPath: '', scriptContent: '', scriptFileName: '', pythonExecutable: 'python', timeoutSeconds: 60, workingDirectory: '', argsText: '', enableRetry: false, retryCount: 0, retryDelayMs: 1000, enableRateLimit: false, maxConcurrency: 1, env: [{ key: '', value: '' }], successExitCodesText: '0', stdOutContains: '', stdErrContains: '' })
+const templateConfig = ref({ dslJson: '', variablesJson: '' })
+const formAssertions = ref([])
+const targetFormRef = ref(null)
 
-const tcpConfig = ref({
-  host: '127.0.0.1',
-  port: 80,
-  timeout: 5,
-  messagesText: '',
-  responseContains: '',
-  latencyLessThan: null
-})
+const targetConfigs = { HTTP: httpConfig, TCP: tcpConfig, DB: dbConfig, PYTHON: pythonConfig, TEMPLATE: templateConfig }
+const targetConfig = computed(() => targetConfigs[form.value.targetType] || httpConfig)
+function getTargetForm() { return targetFormRef.value }
 
-const pythonConfig = ref({
-  scriptPath: '',
-  scriptContent: '',
-  scriptFileName: '',
-  pythonExecutable: 'python',
-  timeoutSeconds: 60,
-  workingDirectory: '',
-  argsText: '',
-  enableRetry: false,
-  retryCount: 0,
-  retryDelayMs: 1000,
-  enableRateLimit: false,
-  maxConcurrency: 1,
-  env: [{ key: '', value: '' }],
-  successExitCodesText: '0',
-  stdOutContains: '',
-  stdErrContains: ''
-})
+// ── Helpers ──
+function safeJsonParse(s) { try { return JSON.parse(s) } catch { return null } }
+
+const targetTypeTag = (t) => ({ HTTP: 'success', TCP: 'warning', DB: '', PYTHON: 'danger', TEMPLATE: 'primary' }[t] || 'info')
+const targetTypeIcon = (t) => {
+  const map = { HTTP: 'Monitor', TCP: 'Connection', DB: 'Coin', PYTHON: 'Document', TEMPLATE: 'SetUp' }
+  return map[t] || 'InfoFilled'
+}
 
 const filtered = computed(() => {
   const k = String(keyword.value || '').trim().toLowerCase()
@@ -593,1048 +49,553 @@ const filtered = computed(() => {
   return (monitors.value || []).filter(x => String(x.name || '').toLowerCase().includes(k))
 })
 
-const pythonFileInput = ref(null)
-const templateFileInput = ref(null)
-
-const templateConfig = ref({
-  dslJson: '',
-  variablesJson: ''
-})
-
-function isValidJson(str) {
-  if (!str || !str.trim()) return false
-  try { JSON.parse(str); return true } catch { return false }
+async function loadMonitors() {
+  try { monitors.value = await MonitorsApi.list() || [] } catch { /* ignore */ }
 }
 
-function handleTemplateFileImport(e) {
-  const file = e?.target?.files?.[0]
-  if (!file) return
-  const reader = new FileReader()
-  reader.onload = (ev) => {
-    const content = ev.target?.result
-    if (typeof content !== 'string') { ElMessage.warning('无法读取文件'); return }
-    if (!isValidJson(content)) { ElMessage.warning('文件内容不是有效的 JSON 格式'); return }
-    templateConfig.value.dslJson = content
-    const ph = new Set()
-    const regex = /\{\{(\w+)\}\}/g
-    let m
-    while ((m = regex.exec(content)) !== null) ph.add(m[1])
-    if (ph.size > 0) {
-      const vars = {}
-      for (const p of ph) vars[p] = ''
-      templateConfig.value.variablesJson = JSON.stringify(vars, null, 2)
-    } else {
-      templateConfig.value.variablesJson = ''
-    }
-    ElMessage.success(`已导入: ${file.name}`)
-  }
-  reader.readAsText(file)
-  try { e.target.value = '' } catch { }
-}
-
-function chooseTemplateFile() {
-  templateFileInput.value?.click?.()
-}
-
-function clearTemplateFile() {
-  templateConfig.value = { dslJson: '', variablesJson: '' }
-}
-
-function choosePythonFile() {
-  pythonFileInput.value?.click?.()
-}
-
-async function onPythonFileSelected(e) {
-  const file = e?.target?.files?.[0]
-  if (!file) return
-  try {
-    const text = await file.text()
-    pythonConfig.value.scriptContent = text
-    pythonConfig.value.scriptFileName = file.name || ''
-    if (!String(pythonConfig.value.scriptPath || '').trim())
-      pythonConfig.value.scriptPath = pythonConfig.value.scriptFileName || 'inline.py'
-  } catch (err) {
-    ElMessage.error(err?.message || '读取脚本文件失败')
-  } finally {
-    try { e.target.value = '' } catch { }
-  }
-}
-
-function clearPythonFile() {
-  pythonConfig.value.scriptContent = ''
-  pythonConfig.value.scriptFileName = ''
-}
-
-function onSelectionChange(rows) {
-  selectedRows.value = Array.isArray(rows) ? rows : []
-}
-
-async function removeSelected() {
-  const ids = selectedRows.value.map(x => x?.id).filter(Boolean)
-  if (ids.length === 0) return
-  try {
-    await ElMessageBox.confirm(`确定删除选中的 ${ids.length} 个任务吗？`, '确认删除', {
-      confirmButtonText: '删除',
-      cancelButtonText: '取消',
-      type: 'warning'
-    })
-  } catch {
-    return
-  }
-
-  deleting.value = true
-  try {
-    for (const id of ids) await MonitorsApi.remove(id)
-    ElMessage.success('已删除')
-    if (ids.some(x => String(x) === String(form.value.id))) clearForm()
-    selectedRows.value = []
-    await refresh()
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    deleting.value = false
-  }
-}
-
-async function removeAll() {
-  const ids = (filtered.value || []).map(x => x?.id).filter(Boolean)
-  if (ids.length === 0) return
-  try {
-    await ElMessageBox.confirm(`确定一键删除 ${ids.length} 个任务吗？`, '确认删除', {
-      confirmButtonText: '删除',
-      cancelButtonText: '取消',
-      type: 'warning'
-    })
-  } catch {
-    return
-  }
-
-  deleting.value = true
-  try {
-    for (const id of ids) await MonitorsApi.remove(id)
-    ElMessage.success('已删除')
-    clearForm()
-    selectedRows.value = []
-    await refresh()
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    deleting.value = false
-  }
-}
-
-function statusInfo(status) {
-  const s = Number(status)
-  if (s === 0) return { text: '等待中', type: 'info' }
-  if (s === 1) return { text: '运行中', type: 'warning' }
-  if (s === 2) return { text: '成功', type: 'success' }
-  if (s === 3) return { text: '失败', type: 'danger' }
-  if (s === 4) return { text: '超时', type: 'warning' }
-  if (s === 5) return { text: '已取消', type: 'info' }
-  return { text: '未知', type: 'info' }
-}
-
-function isRunningStatus(status) {
-  return Number(status) === 1
-}
-
-function setRowStatus(monitorId, status) {
-  const idx = (monitors.value || []).findIndex(x => String(x.id) === String(monitorId))
-  if (idx >= 0) monitors.value[idx].status = status
-}
-
-const currentMonitorStatus = computed(() => {
-  const id = form.value.id
-  if (!id) return null
-  const row = (monitors.value || []).find(x => String(x.id) === String(id))
-  return row?.status ?? null
-})
-
-function httpTargetTemplate() {
-  return {
-    Url: 'https://example.com',
-    Method: 'Get',
-    Body: null,
-    Headers: {},
-    Query: {},
-    Timeout: 10,
-    AuthType: 'None',
-    AuthToken: '',
-    AuthUsername: '',
-    AuthPassword: '',
-    UseCookies: false,
-    AllowAutoRedirect: true,
-    MaxRedirects: 5,
-    IgnoreSslErrors: false,
-    ProxyUrl: '',
-    ProxyUser: '',
-    ProxyPass: '',
-    EnableRetry: false,
-    RetryCount: 1,
-    RetryDelayMs: 200,
-    EnableRateLimit: false
-  }
-}
-
-function tcpTargetTemplate() {
-  return { Host: '127.0.0.1', Port: 80, Timeout: 5 }
-}
-
-function pythonTargetTemplate() {
-  return {
-    ScriptPath: '',
-    ScriptContent: null,
-    Args: [],
-    WorkingDirectory: null,
-    PythonExecutable: 'python',
-    TimeoutSeconds: 60,
-    EnableRetry: false,
-    RetryCount: 0,
-    RetryDelayMs: 1000,
-    EnableRateLimit: false,
-    MaxConcurrency: 1,
-    Env: null,
-    SuccessExitCodes: [0]
-  }
-}
-
+// ── Form actions ──
 function fillTemplate() {
-  if (form.value.targetType === 'HTTP') {
-    httpConfig.value = {
-      url: 'https://example.com',
-      method: 'Get',
-      timeout: 10,
-      headers: [{ key: '', value: '' }],
-      query: [{ key: '', value: '' }],
-      authType: 'None',
-      authToken: '',
-      authUsername: '',
-      authPassword: '',
-      useCookies: false,
-      allowAutoRedirect: true,
-      maxRedirects: 5,
-      ignoreSslErrors: false,
-      proxyUrl: '',
-      proxyUser: '',
-      proxyPass: '',
-      enableRetry: false,
-      retryCount: 1,
-      retryDelayMs: 200,
-      enableRateLimit: false,
-      bodyType: 'Json',
-      bodyContentType: 'application/json',
-      bodyText: '',
-      formFields: [{ key: '', value: '' }]
-    }
-  } else if (form.value.targetType === 'TCP') {
-    tcpConfig.value = { host: '127.0.0.1', port: 80, timeout: 5, messagesText: '', responseContains: '', latencyLessThan: null }
-  } else if (form.value.targetType === 'PYTHON') {
-    pythonConfig.value = {
-      scriptPath: '',
-      scriptContent: '',
-      scriptFileName: '',
-      pythonExecutable: 'python',
-      timeoutSeconds: 60,
-      workingDirectory: '',
-      argsText: '',
-      enableRetry: false,
-      retryCount: 0,
-      retryDelayMs: 1000,
-      enableRateLimit: false,
-      maxConcurrency: 1,
-      env: [{ key: '', value: '' }],
-      successExitCodesText: '0',
-      stdOutContains: '',
-      stdErrContains: ''
-    }
-  } else if (form.value.targetType === 'TEMPLATE') {
-    templateConfig.value = { dslJson: '{\n  "steps": [\n    {\n      "name": "checkHealth",\n      "type": "http",\n      "input": {\n        "url": "{{host}}/api/health",\n        "method": "Get",\n        "timeout": 15\n      },\n      "assertions": [\n        { "field": "StatusCode", "operator": "Equal", "expected": "200" }\n      ]\n    }\n  ]\n}', variablesJson: '' }
-  }
+  const f = getTargetForm()
+  if (f?.reset) f.reset()
 }
 
-function clearForm() {
-  form.value = {
-    id: '',
-    name: '',
-    targetType: 'HTTP',
-    isEnabled: true,
-    assertExpected: '200',
-    autoDailyEnabled: false,
-    autoDailyTime: '09:00',
-    maxRuns: 0,
-    executedCount: 0
-  }
-  httpConfig.value = {
-    url: 'https://example.com',
-    method: 'Get',
-    timeout: 10,
-    headers: [{ key: '', value: '' }],
-    query: [{ key: '', value: '' }],
-    authType: 'None',
-    authToken: '',
-    authUsername: '',
-    authPassword: '',
-    useCookies: false,
-    allowAutoRedirect: true,
-    maxRedirects: 5,
-    ignoreSslErrors: false,
-    proxyUrl: '',
-    proxyUser: '',
-    proxyPass: '',
-    enableRetry: false,
-    retryCount: 1,
-    retryDelayMs: 200,
-    enableRateLimit: false,
-    bodyType: 'Json',
-    bodyContentType: 'application/json',
-    bodyText: '',
-    formFields: [{ key: '', value: '' }]
-  }
-  tcpConfig.value = { host: '127.0.0.1', port: 80, timeout: 5, messagesText: '', responseContains: '', latencyLessThan: null }
-  pythonConfig.value = {
-    scriptPath: '',
-    scriptContent: '',
-    scriptFileName: '',
-    pythonExecutable: 'python',
-    timeoutSeconds: 60,
-    workingDirectory: '',
-    argsText: '',
-    enableRetry: false,
-    retryCount: 0,
-    retryDelayMs: 1000,
-    enableRateLimit: false,
-    maxConcurrency: 1,
-    env: [{ key: '', value: '' }],
-    successExitCodesText: '0',
-    stdOutContains: '',
-    stdErrContains: ''
-  }
-  templateConfig.value = { dslJson: '', variablesJson: '' }
-  lastSummary.value = null
+function createNew() {
+  form.value = { id: '', name: '', targetType: 'HTTP', isEnabled: true, assertExpected: '200', autoDailyEnabled: false, autoDailyTime: '09:00', maxRuns: 0, executedCount: 0 }
+  formAssertions.value = []
+  nextTick(() => { const f = getTargetForm(); if (f?.reset) f.reset() })
 }
 
-function addKv(arr) {
-  arr.push({ key: '', value: '' })
+// ── Quick import dialog ──
+const importDialogVisible = ref(false)
+const importPresetKey = ref('')
+
+function quickImport(presetKey) {
+  importPresetKey.value = presetKey
+  importDialogVisible.value = true
 }
 
-function removeKv(arr, idx) {
-  arr.splice(idx, 1)
-  if (arr.length === 0) arr.push({ key: '', value: '' })
+function onImportDone() {
+  importDialogVisible.value = false
+  loadMonitors()
 }
 
-function formatTime(s) {
-  try {
-    return new Date(s).toLocaleString()
-  } catch {
-    return String(s || '')
-  }
-}
-
-async function refresh() {
-  loading.value = true
-  try {
-    const rows = await MonitorsApi.list()
-    monitors.value = (rows || []).map(x => ({
-      id: x.id || x.Id,
-      name: x.name || x.Name,
-      targetType: x.targetType || x.TargetType,
-      status: x.status ?? x.Status,
-      isEnabled: x.isEnabled ?? x.IsEnabled,
-      autoDailyEnabled: x.autoDailyEnabled ?? x.AutoDailyEnabled,
-      autoDailyTime: x.autoDailyTime ?? x.AutoDailyTime,
-      maxRuns: x.maxRuns ?? x.MaxRuns,
-      executedCount: x.executedCount ?? x.ExecutedCount
-    }))
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    loading.value = false
-  }
-}
-
-async function selectRow(row) {
-  if (!row?.id) return
-  loading.value = true
+async function editRow(row) {
   try {
     const m = await MonitorsApi.get(row.id)
     form.value.id = m.id || m.Id
     form.value.name = m.name || m.Name
-    form.value.targetType = m.targetType || m.TargetType || m.target?.type || 'HTTP'
+    form.value.targetType = m.targetType || m.TargetType || 'HTTP'
     form.value.isEnabled = !!m.isEnabled
     form.value.autoDailyEnabled = m.autoDailyEnabled ?? m.AutoDailyEnabled ?? false
     form.value.autoDailyTime = m.autoDailyTime ?? m.AutoDailyTime ?? '09:00'
     form.value.maxRuns = m.maxRuns ?? m.MaxRuns ?? 0
     form.value.executedCount = m.executedCount ?? m.ExecutedCount ?? 0
+    const savedAssertions = m.assertions || m.Assertions || []
+
+    if (form.value.targetType === 'HTTP') {
+      const httpAssertion = savedAssertions.find(a => {
+        if ((a.type || a.Type) !== 'HTTP') return false
+        const ac = safeJsonParse(a.configJson || a.ConfigJson)
+        return ac && (ac.Field || ac.field) === 'StatusCode'
+      })
+      if (httpAssertion) {
+        const ac = safeJsonParse(httpAssertion.configJson || httpAssertion.ConfigJson)
+        form.value.assertExpected = (ac.Expected ?? ac.expected ?? '200').toString()
+      } else {
+        form.value.assertExpected = '200'
+      }
+    } else {
+      form.value.assertExpected = '200'
+    }
+
+    formAssertions.value = savedAssertions.map(a => {
+      const ac = safeJsonParse(a.configJson || a.ConfigJson) || {}
+      return {
+        id: a.id || a.Id,
+        type: a.type || a.Type,
+        field: ac.Field || ac.field || '',
+        operator: ac.Operator || ac.operator || 'Equal',
+        expected: (ac.Expected ?? ac.expected ?? '').toString(),
+        headerKey: ac.HeaderKey || ac.headerKey || ''
+      }
+    })
 
     const cfgText = m.targetConfig || m.TargetConfig
     const cfg = cfgText ? safeJsonParse(cfgText) : (m.target || {})
 
-    if (form.value.targetType === 'HTTP') {
-      const t = cfg || {}
-      httpConfig.value.url = t.Url ?? t.url ?? ''
-      httpConfig.value.method = t.Method ?? t.method ?? 'Get'
-      httpConfig.value.timeout = t.Timeout ?? t.timeout ?? 10
-
-      const headersObj = t.Headers ?? t.headers
-      httpConfig.value.headers = headersObj
-        ? Object.entries(headersObj).map(([k, v]) => ({
-          key: k,
-          value: Array.isArray(v) ? v.join(',') : String(v ?? '')
-        }))
-        : [{ key: '', value: '' }]
-      if (httpConfig.value.headers.length === 0) httpConfig.value.headers = [{ key: '', value: '' }]
-
-      const queryObj = t.Query ?? t.query
-      httpConfig.value.query = queryObj
-        ? Object.entries(queryObj).map(([k, v]) => ({ key: k, value: String(v ?? '') }))
-        : [{ key: '', value: '' }]
-      if (httpConfig.value.query.length === 0) httpConfig.value.query = [{ key: '', value: '' }]
-
-      httpConfig.value.authType = t.AuthType ?? t.authType ?? 'None'
-      httpConfig.value.authToken = t.AuthToken ?? t.authToken ?? ''
-      httpConfig.value.authUsername = t.AuthUsername ?? t.authUsername ?? ''
-      httpConfig.value.authPassword = t.AuthPassword ?? t.authPassword ?? ''
-
-      httpConfig.value.useCookies = t.UseCookies ?? t.useCookies ?? false
-      httpConfig.value.allowAutoRedirect = t.AllowAutoRedirect ?? t.allowAutoRedirect ?? true
-      httpConfig.value.maxRedirects = t.MaxRedirects ?? t.maxRedirects ?? 5
-      httpConfig.value.ignoreSslErrors = t.IgnoreSslErrors ?? t.ignoreSslErrors ?? false
-
-      httpConfig.value.proxyUrl = t.ProxyUrl ?? t.proxyUrl ?? ''
-      httpConfig.value.proxyUser = t.ProxyUser ?? t.proxyUser ?? ''
-      httpConfig.value.proxyPass = t.ProxyPass ?? t.proxyPass ?? ''
-
-      httpConfig.value.enableRetry = t.EnableRetry ?? t.enableRetry ?? false
-      httpConfig.value.retryCount = t.RetryCount ?? t.retryCount ?? 1
-      httpConfig.value.retryDelayMs = t.RetryDelayMs ?? t.retryDelayMs ?? 200
-      httpConfig.value.enableRateLimit = t.EnableRateLimit ?? t.enableRateLimit ?? false
-
-      const body = t.Body ?? t.body
-      if (body?.Type || body?.type) {
-        httpConfig.value.bodyType = body.Type ?? body.type ?? 'Json'
-        httpConfig.value.bodyContentType = body.ContentType ?? body.contentType ?? 'application/json'
-
-        if (httpConfig.value.bodyType === 'FormUrlEncoded') {
-          const val = body.Value ?? body.value
-          if (val && typeof val === 'object') {
-            httpConfig.value.formFields = Object.entries(val).map(([k, v]) => ({ key: k, value: String(v ?? '') }))
-          } else {
-            httpConfig.value.formFields = [{ key: '', value: '' }]
-          }
-          if (httpConfig.value.formFields.length === 0) httpConfig.value.formFields = [{ key: '', value: '' }]
-          httpConfig.value.bodyText = ''
-        } else {
-          const val = body.Value ?? body.value
-          httpConfig.value.bodyText = val == null ? '' : (typeof val === 'object' ? JSON.stringify(val, null, 2) : String(val))
-          httpConfig.value.formFields = [{ key: '', value: '' }]
-        }
-      } else {
-        httpConfig.value.bodyType = 'Json'
-        httpConfig.value.bodyContentType = 'application/json'
-        httpConfig.value.bodyText = ''
-        httpConfig.value.formFields = [{ key: '', value: '' }]
-      }
-    } else if (form.value.targetType === 'TCP') {
-      const t = cfg || {}
-      tcpConfig.value.host = t.Host ?? t.host ?? '127.0.0.1'
-      tcpConfig.value.port = t.Port ?? t.port ?? 80
-      tcpConfig.value.timeout = t.Timeout ?? t.timeout ?? 5
-      const msgs = t.Messages ?? t.messages
-      if (Array.isArray(msgs)) tcpConfig.value.messagesText = msgs.join('\n')
-      else tcpConfig.value.messagesText = ''
-      
-      tcpConfig.value.responseContains = ''
-      tcpConfig.value.latencyLessThan = null
-      const tcpAssertions = m.assertions || m.Assertions || []
-      for (const a of tcpAssertions) {
-        if ((a.type || a.Type) !== 'TCP') continue
-        const cfgText = a.configJson || a.ConfigJson
-        const cfg = safeJsonParse(cfgText)
-        if (!cfg) continue
-        const field = cfg.Field || cfg.field
-        const op = cfg.Operator || cfg.operator
-        const exp = cfg.Expected || cfg.expected
-        
-        if (field === 'Response' && op === 'Contains') {
-          tcpConfig.value.responseContains = exp
-        } else if (field === 'LatencyMs' && op === 'LessThan') {
-          tcpConfig.value.latencyLessThan = Number(exp)
-        }
-      }
-    } else if (form.value.targetType === 'PYTHON') {
-      const t = cfg || {}
-      pythonConfig.value.scriptPath = t.ScriptPath ?? t.scriptPath ?? ''
-      pythonConfig.value.scriptContent = t.ScriptContent ?? t.scriptContent ?? ''
-      pythonConfig.value.scriptFileName = pythonConfig.value.scriptContent ? (pythonConfig.value.scriptPath || 'inline.py') : ''
-      pythonConfig.value.pythonExecutable = t.PythonExecutable ?? t.pythonExecutable ?? 'python'
-      pythonConfig.value.timeoutSeconds = t.TimeoutSeconds ?? t.timeoutSeconds ?? 60
-      pythonConfig.value.workingDirectory = t.WorkingDirectory ?? t.workingDirectory ?? ''
-      const args = t.Args ?? t.args
-      if (Array.isArray(args)) pythonConfig.value.argsText = args.map(x => String(x)).join('\n')
-      else pythonConfig.value.argsText = ''
-      pythonConfig.value.enableRetry = t.EnableRetry ?? t.enableRetry ?? false
-      pythonConfig.value.retryCount = t.RetryCount ?? t.retryCount ?? 0
-      pythonConfig.value.retryDelayMs = t.RetryDelayMs ?? t.retryDelayMs ?? 1000
-      pythonConfig.value.enableRateLimit = t.EnableRateLimit ?? t.enableRateLimit ?? false
-      pythonConfig.value.maxConcurrency = t.MaxConcurrency ?? t.maxConcurrency ?? 1
-      const env = t.Env ?? t.env
-      pythonConfig.value.env = env && typeof env === 'object'
-        ? Object.entries(env).map(([k, v]) => ({ key: k, value: String(v ?? '') }))
-        : [{ key: '', value: '' }]
-      if (pythonConfig.value.env.length === 0) pythonConfig.value.env = [{ key: '', value: '' }]
-      const codes = t.SuccessExitCodes ?? t.successExitCodes
-      pythonConfig.value.successExitCodesText = Array.isArray(codes) ? codes.join(',') : '0'
-      pythonConfig.value.stdOutContains = ''
-      pythonConfig.value.stdErrContains = ''
-    } else if (form.value.targetType === 'TEMPLATE') {
-      templateConfig.value.dslJson = cfgText || ''
-      templateConfig.value.variablesJson = m.templateVariablesJson || m.TemplateVariablesJson || ''
+    await nextTick()
+    const f = getTargetForm()
+    if (f?.loadFrom) {
+      if (form.value.targetType === 'TEMPLATE') f.loadFrom(cfgText, m)
+      else f.loadFrom(cfg, m)
     }
-    lastSummary.value = null
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    loading.value = false
-  }
-}
-
-function buildDto() {
-  const name = String(form.value.name || '').trim()
-  if (!name) throw new Error('名称不能为空')
-
-  let targetConfigObj = {}
-  if (form.value.targetType === 'HTTP') {
-    const url = String(httpConfig.value.url || '').trim()
-    if (!url) throw new Error('Url 不能为空')
-
-    const headers = {}
-    for (const item of httpConfig.value.headers || []) {
-      const k = String(item.key || '').trim()
-      if (!k) continue
-      const values = String(item.value || '')
-        .split(',')
-        .map(x => x.trim())
-        .filter(Boolean)
-      if (values.length === 0) continue
-      headers[k] = values
-    }
-
-    const query = {}
-    for (const item of httpConfig.value.query || []) {
-      const k = String(item.key || '').trim()
-      if (!k) continue
-      query[k] = String(item.value ?? '')
-    }
-
-    let body = null
-    const bodyType = String(httpConfig.value.bodyType || 'Json')
-    const bodyContentType = String(httpConfig.value.bodyContentType || '').trim()
-
-    if (bodyType === 'FormUrlEncoded') {
-      const dict = {}
-      for (const item of httpConfig.value.formFields || []) {
-        const k = String(item.key || '').trim()
-        if (!k) continue
-        dict[k] = String(item.value ?? '')
-      }
-      if (Object.keys(dict).length > 0) {
-        body = { Type: 'FormUrlEncoded', ContentType: bodyContentType || 'application/x-www-form-urlencoded', Value: dict }
-      }
-    } else if (bodyType === 'Raw') {
-      const raw = String(httpConfig.value.bodyText || '')
-      if (raw.trim()) body = { Type: 'Raw', ContentType: bodyContentType || 'text/plain', Value: raw }
-    } else {
-      const raw = String(httpConfig.value.bodyText || '')
-      if (raw.trim()) {
-        let parsed = raw
-        try {
-          parsed = JSON.parse(raw)
-        } catch {
-        }
-        body = { Type: 'Json', ContentType: bodyContentType || 'application/json', Value: parsed }
-      }
-    }
-
-    targetConfigObj = {
-      ...httpTargetTemplate(),
-      Url: url,
-      Method: String(httpConfig.value.method || 'Get'),
-      Timeout: Number(httpConfig.value.timeout || 10),
-      Headers: headers,
-      Query: query,
-      AuthType: String(httpConfig.value.authType || 'None'),
-      AuthToken: String(httpConfig.value.authToken || ''),
-      AuthUsername: String(httpConfig.value.authUsername || ''),
-      AuthPassword: String(httpConfig.value.authPassword || ''),
-      UseCookies: !!httpConfig.value.useCookies,
-      AllowAutoRedirect: !!httpConfig.value.allowAutoRedirect,
-      MaxRedirects: Number(httpConfig.value.maxRedirects || 5),
-      IgnoreSslErrors: !!httpConfig.value.ignoreSslErrors,
-      ProxyUrl: String(httpConfig.value.proxyUrl || ''),
-      ProxyUser: String(httpConfig.value.proxyUser || ''),
-      ProxyPass: String(httpConfig.value.proxyPass || ''),
-      EnableRetry: !!httpConfig.value.enableRetry,
-      RetryCount: Number(httpConfig.value.retryCount || 1),
-      RetryDelayMs: Number(httpConfig.value.retryDelayMs || 200),
-      EnableRateLimit: !!httpConfig.value.enableRateLimit,
-      Body: body
-    }
-  } else if (form.value.targetType === 'TCP') {
-    const host = String(tcpConfig.value.host || '').trim()
-    if (!host) throw new Error('Host 不能为空')
-
-    const messages = String(tcpConfig.value.messagesText || '')
-      .split('\n')
-      .map(x => x.trim())
-      .filter(Boolean)
-
-    targetConfigObj = {
-      ...tcpTargetTemplate(),
-      Host: host,
-      Port: Number(tcpConfig.value.port || 80),
-      Timeout: Number(tcpConfig.value.timeout || 5),
-      Messages: messages
-    }
-  } else if (form.value.targetType === 'PYTHON') {
-    const scriptContent = String(pythonConfig.value.scriptContent || '')
-    const scriptPathRaw = String(pythonConfig.value.scriptPath || '').trim()
-    if (!scriptPathRaw && !scriptContent.trim()) throw new Error('ScriptPath 不能为空')
-    const scriptPath = scriptPathRaw || String(pythonConfig.value.scriptFileName || '').trim() || 'inline.py'
-
-    const args = String(pythonConfig.value.argsText || '')
-      .split('\n')
-      .map(x => x.trim())
-      .filter(Boolean)
-
-    const envDict = {}
-    for (const item of pythonConfig.value.env || []) {
-      const k = String(item.key || '').trim()
-      if (!k) continue
-      envDict[k] = String(item.value ?? '')
-    }
-
-    const codes = String(pythonConfig.value.successExitCodesText || '')
-      .split(',')
-      .map(x => x.trim())
-      .filter(Boolean)
-      .map(x => Number.parseInt(x, 10))
-      .filter(x => Number.isFinite(x))
-
-    targetConfigObj = {
-      ...pythonTargetTemplate(),
-      ScriptPath: scriptPath,
-      ScriptContent: scriptContent.trim() ? scriptContent : null,
-      Args: args,
-      WorkingDirectory: String(pythonConfig.value.workingDirectory || '').trim() || null,
-      PythonExecutable: String(pythonConfig.value.pythonExecutable || 'python').trim() || 'python',
-      TimeoutSeconds: Number(pythonConfig.value.timeoutSeconds || 60),
-      EnableRetry: !!pythonConfig.value.enableRetry,
-      RetryCount: Number(pythonConfig.value.retryCount || 0),
-      RetryDelayMs: Number(pythonConfig.value.retryDelayMs || 1000),
-      EnableRateLimit: !!pythonConfig.value.enableRateLimit,
-      MaxConcurrency: Number(pythonConfig.value.maxConcurrency || 1),
-      Env: Object.keys(envDict).length ? envDict : null,
-      SuccessExitCodes: codes.length ? codes : [0]
-    }
-  } else if (form.value.targetType === 'TEMPLATE') {
-    const dsl = String(templateConfig.value.dslJson || '').trim()
-    if (!dsl) throw new Error('DSL 定义不能为空')
-    if (!isValidJson(dsl)) throw new Error('DSL 定义不是有效的 JSON 格式')
-    const vars = String(templateConfig.value.variablesJson || '').trim()
-    if (vars && !isValidJson(vars)) throw new Error('模板变量不是有效的 JSON 格式')
-    targetConfigObj = { __raw: dsl }
-  } else {
-    throw new Error('不支持的目标类型')
-  }
-
-  const targetConfigText = form.value.targetType === 'TEMPLATE'
-    ? String(templateConfig.value.dslJson || '').trim()
-    : JSON.stringify(targetConfigObj)
-
-  const assertions = []
-  const expected = String(form.value.assertExpected || '').trim()
-  if (expected && form.value.targetType === 'HTTP') {
-    const id = crypto.randomUUID()
-    assertions.push({
-      Id: id,
-      Type: 'HTTP',
-      ConfigJson: JSON.stringify({
-        Id: id,
-        Field: 'StatusCode',
-        HeaderKey: '',
-        Expected: expected,
-        Operator: 'Equal'
-      })
-    })
-  }
-  if (form.value.targetType === 'TCP') {
-    const responseContains = String(tcpConfig.value.responseContains || '').trim()
-    if (responseContains) {
-      const id = crypto.randomUUID()
-      assertions.push({
-        Id: id,
-        Type: 'TCP',
-        ConfigJson: JSON.stringify({
-          Id: id,
-          Field: 'Response',
-          Operator: 'Contains',
-          Expected: responseContains
-        })
-      })
-    }
-    const latencyLessThan = tcpConfig.value.latencyLessThan
-    if (latencyLessThan !== null && latencyLessThan !== undefined && latencyLessThan !== '') {
-      const id = crypto.randomUUID()
-      assertions.push({
-        Id: id,
-        Type: 'TCP',
-        ConfigJson: JSON.stringify({
-          Id: id,
-          Field: 'LatencyMs',
-          Operator: 'LessThan',
-          Expected: String(latencyLessThan)
-        })
-      })
-    }
-  }
-  if (form.value.targetType === 'PYTHON') {
-    const outContains = String(pythonConfig.value.stdOutContains || '').trim()
-    if (outContains) {
-      const id = crypto.randomUUID()
-      assertions.push({
-        Id: id,
-        Type: 'PYTHON',
-        ConfigJson: JSON.stringify({
-          Id: id,
-          Field: 'StdOut',
-          Operator: 'Contains',
-          Expected: outContains
-        })
-      })
-    }
-    const errContains = String(pythonConfig.value.stdErrContains || '').trim()
-    if (errContains) {
-      const id = crypto.randomUUID()
-      assertions.push({
-        Id: id,
-        Type: 'PYTHON',
-        ConfigJson: JSON.stringify({
-          Id: id,
-          Field: 'StdErr',
-          Operator: 'Contains',
-          Expected: errContains
-        })
-      })
-    }
-  }
-
-  return {
-    Name: name,
-    TargetType: form.value.targetType,
-    TargetConfig: targetConfigText,
-    IsEnabled: !!form.value.isEnabled,
-    IsTemplate: form.value.targetType === 'TEMPLATE',
-    TemplateVariablesJson: form.value.targetType === 'TEMPLATE' ? (String(templateConfig.value.variablesJson || '').trim() || null) : null,
-    Assertions: assertions,
-    AutoDailyEnabled: !!form.value.autoDailyEnabled,
-    AutoDailyTime: form.value.autoDailyEnabled ? String(form.value.autoDailyTime || '').trim() : null,
-    MaxRuns: form.value.autoDailyEnabled ? (Number(form.value.maxRuns || 0) > 0 ? Number(form.value.maxRuns) : null) : null,
-    ExecutedCount: Number(form.value.executedCount || 0)
-  }
+  } catch (e) { ElMessage.error('加载失败: ' + (e.message || e)) }
 }
 
 async function save() {
-  saving.value = true
+  debugEntry.value = null
   try {
-    const dto = buildDto()
-    if (!form.value.id) {
-      const id = await MonitorsApi.create(dto)
-      form.value.id = String(id)
-      ElMessage.success('创建成功')
-    } else {
-      await MonitorsApi.update(form.value.id, dto)
-      ElMessage.success('更新成功')
+    const f = getTargetForm()
+    const err = f?.validate ? f.validate() : null
+    if (err) { ElMessage.warning(err); return }
+
+    saving.value = true
+    const targetObj = f.buildTargetConfig()
+    const targetText = form.value.targetType === 'TEMPLATE'
+      ? (f.buildTargetConfigText ? f.buildTargetConfigText() : JSON.stringify(targetObj))
+      : JSON.stringify(targetObj)
+
+    const assertions = formAssertions.value
+      .filter(a => a.field && a.expected !== undefined && a.expected !== '')
+      .map(a => ({
+        Id: a.id || crypto.randomUUID(),
+        Type: a.type || form.value.targetType,
+        ConfigJson: JSON.stringify({ Id: a.id || crypto.randomUUID(), Field: a.field, Operator: a.operator || 'Equal', Expected: String(a.expected), HeaderKey: a.headerKey || '' })
+      }))
+    // Also collect assertions from target form (e.g. TCP/Python embedded assertions)
+    if (f?.buildAssertions) {
+      for (const a of f.buildAssertions()) {
+        const alreadyIn = assertions.some(e => {
+          try { const ac = JSON.parse(e.ConfigJson); return ac.Field === a.field } catch { return false }
+        })
+        if (!alreadyIn) {
+          const id = crypto.randomUUID()
+          assertions.push({ Id: id, Type: form.value.targetType, ConfigJson: JSON.stringify({ Id: id, ...a }) })
+        }
+      }
     }
-    await refresh()
+
+    const dto = {
+      ...(form.value.id ? { Id: form.value.id } : {}),
+      Name: form.value.name, TargetType: form.value.targetType,
+      TargetConfig: targetText, IsEnabled: form.value.isEnabled,
+      AutoDailyEnabled: form.value.autoDailyEnabled, AutoDailyTime: form.value.autoDailyTime || null,
+      MaxRuns: form.value.maxRuns > 0 ? form.value.maxRuns : null, ExecutedCount: form.value.executedCount,
+      IsTemplate: form.value.targetType === 'TEMPLATE',
+      TemplateVariablesJson: form.value.targetType === 'TEMPLATE' ? ((templateConfig.value.variablesJson || '').trim() || null) : null,
+      Assertions: assertions
+    }
+
+    const method = form.value.id ? 'PUT' : 'POST'
+    const url = form.value.id ? `/api/monitor/${form.value.id}` : '/api/monitor'
+
+    let res
+    if (form.value.id) res = await MonitorsApi.update(form.value.id, dto)
+    else res = await MonitorsApi.create(dto)
+
+    debugEntry.value = { time: new Date().toLocaleTimeString(), method, url, request: dto, response: res, ok: true }
+    if (!debugVisible.value) debugVisible.value = true
+
+    ElMessage.success(form.value.id ? '已更新' : '已创建')
+    createNew()
+    await loadMonitors()
   } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    saving.value = false
+    debugEntry.value = {
+      time: new Date().toLocaleTimeString(),
+      method: form.value.id ? 'PUT' : 'POST',
+      url: form.value.id ? `/api/monitor/${form.value.id}` : '/api/monitor',
+      request: null, // 会在下面重新构建
+      error: {
+        message: e.message || String(e),
+        status: e.status,
+        data: e.data,
+        headers: e.headers,
+        config: e.config
+      },
+      ok: false
+    }
+    // 如果请求体已经构建完成，也记录下来
+    try {
+      const f2 = getTargetForm()
+      if (f2?.buildTargetConfig) {
+        const to = f2.buildTargetConfig()
+        const tt = form.value.targetType === 'TEMPLATE'
+          ? (f2.buildTargetConfigText ? f2.buildTargetConfigText() : JSON.stringify(to))
+          : JSON.stringify(to)
+        debugEntry.value.request = {
+          Id: form.value.id || null, Name: form.value.name, TargetType: form.value.targetType,
+          TargetConfig: tt, IsEnabled: form.value.isEnabled,
+          AutoDailyEnabled: form.value.autoDailyEnabled, AutoDailyTime: form.value.autoDailyTime || null,
+          MaxRuns: form.value.maxRuns > 0 ? form.value.maxRuns : null,
+          TemplateVariablesJson: form.value.targetType === 'TEMPLATE' ? ((templateConfig.value.variablesJson || '').trim() || null) : null,
+        }
+      }
+    } catch { /* ignore */ }
+    if (!debugVisible.value) debugVisible.value = true
+    ElMessage.error('保存失败: ' + (e.message || e))
   }
+  finally { saving.value = false }
 }
 
-async function remove() {
-  if (!form.value.id) return
+async function runMonitor(id) {
+  try { await MonitorsApi.run(id); ElMessage.success('已触发执行'); await loadMonitors() }
+  catch (e) { ElMessage.error('执行失败: ' + (e.message || e)) }
+}
+
+async function removeMonitor(id) {
   try {
-    await ElMessageBox.confirm('确认删除该任务？', '提示', { type: 'warning' })
-  } catch {
-    return
-  }
-  saving.value = true
-  try {
-    await MonitorsApi.remove(form.value.id)
+    await ElMessageBox.confirm('确定要删除此监控任务吗？此操作不可恢复。', '确认删除', { confirmButtonText: '删除', cancelButtonText: '取消', type: 'warning' })
+    await MonitorsApi.remove(id)
     ElMessage.success('已删除')
-    clearForm()
-    await refresh()
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    saving.value = false
-  }
+    if (form.value.id === id) createNew()
+    await loadMonitors()
+  } catch { /* cancelled */ }
 }
 
-async function toggleEnabled(row, isEnabled) {
-  if (!row?.id) return
-  row.__toggling = true
-  try {
-    await MonitorsApi.setEnabled(row.id, isEnabled)
-    row.isEnabled = !!isEnabled
-    if (form.value.id && String(form.value.id) === String(row.id)) {
-      form.value.isEnabled = !!isEnabled
-    }
-    ElMessage.success(isEnabled ? '已恢复' : '已暂停')
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-    await refresh()
-  } finally {
-    row.__toggling = false
-  }
+async function toggleEnabled(row) {
+  try { await MonitorsApi.setEnabled(row.id, row.isEnabled); await loadMonitors() }
+  catch (e) { ElMessage.error('操作失败: ' + (e.message || e)) }
 }
 
-function openCreate() {
-  clearForm()
+// ── Status ──
+const statusInfo = (s) => {
+  const map = { 0: ['等待中','info'], 1: ['运行中','warning'], 2: ['成功','success'], 3: ['失败','danger'], 4: ['超时','warning'], 5: ['已取消','info'] }
+  const [text, type] = map[Number(s)] || ['未知','info']
+  return { text, type }
 }
 
-function safeJsonParse(s) {
-  try {
-    return JSON.parse(String(s || ''))
-  } catch {
-    return null
-  }
-}
-
-async function loadLastSummary() {
-  if (!form.value.id) return
-  running.value = true
-  try {
-    const res = await MonitorsApi.latestExecution(form.value.id)
-    const record = res?.record
-    const payload = safeJsonParse(record?.resultJson)
-    lastSummary.value = {
-      startedAt: record?.startedAt,
-      finishedAt: record?.finishedAt,
-      isExecutionSuccess: !!record?.isExecutionSuccess,
-      errorMessage: record?.errorMessage || payload?.ErrorMessage || '',
-      statusCode: payload?.StatusCode ?? payload?.statusCode,
-      elapsedMs: payload?.ElapsedMilliseconds ?? payload?.elapsedMilliseconds ?? payload?.ElapsedMs ?? payload?.elapsedMs,
-      connected: payload?.Connected ?? payload?.connected,
-      response: payload?.Response ?? payload?.response,
-      exitCode: payload?.ExitCode ?? payload?.exitCode,
-      timedOut: !!(payload?.TimedOut ?? payload?.timedOut)
-    }
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    running.value = false
-  }
-}
-
-async function runOnce(row) {
-  const id = row?.id || form.value.id
-  if (!id) return
-  if (isRunningStatus(row?.status ?? currentMonitorStatus.value)) {
-    ElMessage.warning('任务正在运行中')
-    return
-  }
-  running.value = true
-  try {
-    await MonitorsApi.run(id)
-    setRowStatus(id, 1)
-    ElMessage.success('已触发执行')
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    running.value = false
-  }
-}
-
+// ── SignalR ──
 let hubConn = null
-function onMonitorUpdated(payload) {
-  const mid = payload?.monitorId
-  if (!mid) return
-
-  if (payload.status === 'running') {
-    setRowStatus(mid, 1)
-    if (form.value.id && String(form.value.id) === String(mid)) ElMessage.info('开始执行…')
-    return
-  }
-
-  if (payload.status === 'finished') {
-    const recordStatus = payload?.record?.status ?? payload?.record?.Status
-    if (recordStatus != null) setRowStatus(mid, recordStatus)
-    if (form.value.id && String(form.value.id) === String(mid)) {
-      loadLastSummary()
-      ElMessage.success('执行完成')
-    }
-    return
-  }
+function onMonitorUpdated(p) {
+  if (!p?.monitorId) return
+  const idx = (monitors.value || []).findIndex(x => String(x.id) === String(p.monitorId))
+  if (idx < 0) return
+  if (p.status === 'running') { monitors.value[idx].status = 1; return }
+  if (p.status === 'finished') { monitors.value[idx].status = p?.record?.status ?? p?.record?.Status; return }
 }
 
 onMounted(async () => {
-  clearForm()
-  await refresh()
+  await loadMonitors()
   try {
     hubConn = await ensureMonitorHubStarted()
     hubConn.off('monitorUpdated', onMonitorUpdated)
     hubConn.on('monitorUpdated', onMonitorUpdated)
-  } catch (e) {
-    ElMessage.warning(e.message || String(e))
-  }
+  } catch { /* ignore */ }
 })
 
 onBeforeUnmount(() => {
-  try {
-    const c = hubConn || getMonitorHubConnection()
-    c.off('monitorUpdated', onMonitorUpdated)
-  } catch {
-  }
+  try { (hubConn || getMonitorHubConnection()).off('monitorUpdated', onMonitorUpdated) } catch { /* ignore */ }
 })
+
+// ── Batch ops ──
+const selectedIds = ref(new Set())
+const batchRunning = ref(false)
+
+function toggleSelect(id) {
+  const next = new Set(selectedIds.value)
+  next.has(id) ? next.delete(id) : next.add(id)
+  selectedIds.value = next
+}
+function toggleSelectAll() {
+  const all = new Set(filtered.value.map(x => x.id))
+  selectedIds.value = selectedIds.value.size === all.size ? new Set() : all
+}
+const selectAll = computed(() => filtered.value.length > 0 && selectedIds.value.size === filtered.value.length)
+const selectedCount = computed(() => selectedIds.value.size)
+
+async function batchRun() {
+  if (selectedIds.value.size === 0) return
+  batchRunning.value = true
+  try {
+    const ids = [...selectedIds.value]
+    for (const id of ids) {
+      try { await MonitorsApi.run(id) } catch { /* continue */ }
+    }
+    ElMessage.success(`已触发 ${ids.length} 个任务`)
+    selectedIds.value = new Set()
+    await loadMonitors()
+  } catch { /* ignore */ }
+  finally { batchRunning.value = false }
+}
+
+async function batchDelete() {
+  if (selectedIds.value.size === 0) return
+  try {
+    await ElMessageBox.confirm(
+      `确定要删除选中的 ${selectedIds.value.size} 个任务吗？此操作不可恢复。`,
+      '批量删除',
+      { confirmButtonText: '全部删除', cancelButtonText: '取消', type: 'warning' }
+    )
+    const ids = [...selectedIds.value]
+    for (const id of ids) {
+      try { await MonitorsApi.remove(id) } catch { /* continue */ }
+    }
+    ElMessage.success(`已删除 ${ids.length} 个任务`)
+    if (form.value.id && ids.includes(form.value.id)) createNew()
+    selectedIds.value = new Set()
+    await loadMonitors()
+  } catch { /* cancelled */ }
+}
+
 </script>
 
+<template>
+  <div class="task-page">
+    <!-- ====== 左侧列表 ====== -->
+    <aside class="task-sidebar">
+      <div class="sidebar-head">
+        <template v-if="selectedCount > 0">
+          <span class="selected-hint">已选 {{ selectedCount }} 个</span>
+          <el-button type="primary" :icon="VideoPlay" :loading="batchRunning" @click="batchRun">执行</el-button>
+          <el-button type="danger" :icon="Delete" @click="batchDelete">删除</el-button>
+          <el-button @click="selectedIds = new Set()">取消</el-button>
+        </template>
+        <template v-else>
+          <el-input v-model="keyword" placeholder="搜索任务..." :prefix-icon="Search" clearable size="large" />
+          <el-dropdown @command="quickImport" style="margin-right:8px">
+            <el-button :icon="Download" size="large">导入</el-button>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="http_health">{{ presets.http_health.label }}</el-dropdown-item>
+                <el-dropdown-item command="redis_port">{{ presets.redis_port.label }}</el-dropdown-item>
+                <el-dropdown-item command="mysql_port">{{ presets.mysql_port.label }}</el-dropdown-item>
+                <el-dropdown-item command="external_reachable">{{ presets.external_reachable.label }}</el-dropdown-item>
+                <el-dropdown-item divided command="login_check_userinfo">{{ presets.login_check_userinfo.label }}</el-dropdown-item>
+                <el-dropdown-item command="cert_expiry">{{ presets.cert_expiry.label }}</el-dropdown-item>
+                <el-dropdown-item command="db_rowcount">{{ presets.db_rowcount.label }}</el-dropdown-item>
+                <el-dropdown-item command="slow_task">{{ presets.slow_task.label }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+          <el-button type="primary" :icon="Plus" size="large" @click="createNew">新建</el-button>
+        </template>
+      </div>
+      <div class="sidebar-list">
+        <div v-if="selectedCount > 0" class="select-bar">
+          <el-checkbox :model-value="selectAll" @change="toggleSelectAll" :indeterminate="selectedCount > 0 && !selectAll">全选</el-checkbox>
+        </div>
+        <div v-if="filtered.length === 0" class="empty-state">
+          <el-empty description="暂无任务" :image-size="80" />
+        </div>
+        <div
+          v-for="m in filtered" :key="m.id"
+          class="task-card"
+          :class="{ active: form.id === m.id }"
+        >
+          <div class="card-top">
+            <el-checkbox :model-value="selectedIds.has(m.id)" @click.stop @change="toggleSelect(m.id)" />
+            <span class="card-name" @click="editRow(m)">{{ m.name }}</span>
+            <el-tag :type="statusInfo(m.status).type" size="small" effect="dark">
+              {{ statusInfo(m.status).text }}
+            </el-tag>
+            <el-tag :type="targetTypeTag(m.targetType)" size="small" effect="plain">{{ m.targetType }}</el-tag>
+          </div>
+          <div class="card-actions">
+            <el-switch :model-value="m.isEnabled" size="small" @click.stop @change="toggleEnabled(m)" />
+            <el-button size="small" text type="primary" @click.stop="runMonitor(m.id)" :icon="VideoPlay">执行</el-button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====== 右侧表单 ====== -->
+    <main class="task-editor" v-if="form.targetType">
+      <header class="editor-head">
+        <h2>{{ form.id ? '编辑任务' : '新建任务' }}</h2>
+        <el-tag v-if="form.id" :type="targetTypeTag(form.targetType)" effect="dark">{{ form.targetType }}</el-tag>
+      </header>
+
+      <div class="editor-body">
+        <!-- 基本信息 -->
+        <section class="form-section">
+          <h3 class="section-title">基本信息</h3>
+          <div class="form-row">
+            <label class="form-label">任务名称</label>
+            <el-input v-model="form.name" placeholder="例如：登录接口检测" />
+          </div>
+          <div class="form-row inline">
+            <label class="form-label">目标类型</label>
+            <el-radio-group v-model="form.targetType" @change="fillTemplate" size="small">
+              <el-radio-button value="HTTP">HTTP</el-radio-button>
+              <el-radio-button value="TCP">TCP</el-radio-button>
+              <el-radio-button value="DB">DB</el-radio-button>
+              <el-radio-button value="PYTHON">Python</el-radio-button>
+              <el-radio-button value="TEMPLATE">模板</el-radio-button>
+            </el-radio-group>
+          </div>
+          <div class="form-row inline">
+            <label class="form-label">启用</label>
+            <el-switch v-model="form.isEnabled" />
+          </div>
+        </section>
+
+        <!-- 目标配置 -->
+        <section class="form-section">
+          <h3 class="section-title">目标配置</h3>
+          <TargetHttpForm v-if="form.targetType === 'HTTP'" ref="targetFormRef" :config="httpConfig" />
+          <TargetTcpForm v-if="form.targetType === 'TCP'" ref="targetFormRef" :config="tcpConfig" />
+          <TargetDbForm v-if="form.targetType === 'DB'" ref="targetFormRef" :config="dbConfig" />
+          <TargetPythonForm v-if="form.targetType === 'PYTHON'" ref="targetFormRef" :config="pythonConfig" />
+          <TargetTemplateForm v-if="form.targetType === 'TEMPLATE'" ref="targetFormRef" :config="templateConfig" />
+        </section>
+
+        <!-- 断言 -->
+        <section class="form-section" v-if="form.targetType !== 'TEMPLATE'">
+          <h3 class="section-title">断言</h3>
+          <AssertionEditor
+            :target-type="form.targetType"
+            v-model="formAssertions"
+          />
+        </section>
+
+        <!-- 调度 -->
+        <section class="form-section">
+          <h3 class="section-title">调度</h3>
+          <div class="form-row inline">
+            <label class="form-label">每日自动执行</label>
+            <el-switch v-model="form.autoDailyEnabled" />
+            <el-time-select
+              v-if="form.autoDailyEnabled"
+              v-model="form.autoDailyTime"
+              placeholder="09:00"
+              start="00:00" step="00:30" end="23:30"
+              style="width:140px"
+            />
+          </div>
+          <div class="form-row inline">
+            <label class="form-label">最大执行次数</label>
+            <el-input-number v-model="form.maxRuns" :min="0" :step="1" placeholder="0=不限" style="width:160px" />
+            <span class="hint">已执行 {{ form.executedCount }} 次</span>
+          </div>
+        </section>
+      </div>
+
+      <!-- 调试面板 -->
+      <section v-if="debugVisible && debugEntry" class="debug-panel">
+        <div class="debug-head">
+          <span class="debug-dot" :class="{ ok: debugEntry.ok, err: !debugEntry.ok }"></span>
+          <span>{{ debugEntry.method }} {{ debugEntry.url }}</span>
+          <span v-if="!debugEntry.ok && debugEntry.error?.status" class="debug-status">HTTP {{ debugEntry.error.status }}</span>
+          <span class="debug-time">{{ debugEntry.time }}</span>
+          <el-button size="small" text @click="debugVisible = false">收起</el-button>
+        </div>
+        <div class="debug-body">
+          <details open>
+            <summary>请求体</summary>
+            <pre class="debug-json">{{ JSON.stringify(debugEntry.request, null, 2) }}</pre>
+          </details>
+          <details v-if="debugEntry.ok" open>
+            <summary>响应 (成功)</summary>
+            <pre class="debug-json">{{ JSON.stringify(debugEntry.response, null, 2) }}</pre>
+          </details>
+          <details v-if="!debugEntry.ok" open>
+            <summary>错误详情</summary>
+            <pre class="debug-json">{{ JSON.stringify(debugEntry.error, null, 2) }}</pre>
+          </details>
+        </div>
+      </section>
+
+      <!-- 操作栏 -->
+      <footer class="editor-foot">
+        <el-button type="primary" size="large" @click="save" :loading="saving" :icon="Plus">
+          {{ form.id ? '保存修改' : '创建任务' }}
+        </el-button>
+        <el-button v-if="form.id" size="large" type="danger" :icon="Delete" @click="removeMonitor(form.id)" plain>
+          删除任务
+        </el-button>
+        <el-button v-if="!debugVisible" size="small" text type="info" @click="debugVisible = true">调试</el-button>
+      </footer>
+    </main>
+
+    <QuickImportDialog
+      :visible="importDialogVisible"
+      :preset-key="importPresetKey"
+      @close="importDialogVisible = false"
+      @done="onImportDone"
+    />
+  </div>
+</template>
+
 <style scoped>
-.page-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.task-page { display: flex; height: calc(100vh - 80px); background: #f5f7fa; }
+
+/* ── Sidebar ── */
+.task-sidebar {
+  width: 380px; min-width: 280px; background: #fff;
+  border-right: 1px solid #ebeef5; display: flex; flex-direction: column;
+}
+.sidebar-head {
+  display: flex; gap: 10px; padding: 16px;
+  border-bottom: 1px solid #ebeef5; background: #fafbfc;
+}
+.sidebar-list { flex: 1; overflow-y: auto; padding: 8px 12px; }
+.empty-state { padding-top: 60px; }
+.selected-hint { font-size: 14px; font-weight: 600; color: #409eff; white-space: nowrap; }
+.select-bar { padding: 6px 16px; border-bottom: 1px solid #ebeef5; }
+
+.task-card {
+  padding: 14px 16px; margin-bottom: 6px; border-radius: 8px;
+  border: 1px solid transparent; cursor: pointer;
+  transition: all .15s;
+}
+.task-card:hover { background: #f0f5ff; border-color: #c6d8ff; }
+.task-card.active { background: #e8f0ff; border-color: #91b5ff; }
+.card-top { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.card-name { font-size: 14px; font-weight: 500; color: #303133; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; cursor: pointer; }
+.card-actions { display: flex; justify-content: space-between; align-items: center; }
+
+/* ── Editor ── */
+.task-editor { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.editor-head {
+  display: flex; align-items: center; gap: 12px; padding: 16px 24px;
+  background: #fff; border-bottom: 1px solid #ebeef5;
+}
+.editor-head h2 { margin: 0; font-size: 18px; font-weight: 600; }
+.editor-body { flex: 1; overflow-y: auto; padding: 24px; }
+
+.form-section {
+  background: #fff; border-radius: 10px; padding: 20px 24px;
+  margin-bottom: 16px; border: 1px solid #ebeef5;
+}
+.section-title { margin: 0 0 16px; font-size: 15px; font-weight: 600; color: #303133; }
+.form-row { margin-bottom: 14px; }
+.form-row.inline { display: flex; align-items: center; gap: 12px; }
+.form-label { display: block; margin-bottom: 6px; font-size: 13px; color: #606266; font-weight: 500; }
+.inline .form-label { margin-bottom: 0; min-width: 100px; }
+.hint { font-size: 12px; color: #909399; }
+
+.editor-foot {
+  display: flex; gap: 12px; padding: 16px 24px;
+  background: #fff; border-top: 1px solid #ebeef5;
 }
 
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-}
+/* ── Override target form internals ── */
+:deep(.kv-grid) { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; width: 100%; }
+:deep(.kv-span2) { grid-column: span 2; }
+:deep(.kv-item) { display: flex; flex-direction: column; gap: 4px; }
+:deep(.kv-label) { font-size: 12px; color: #909399; margin-bottom: 2px; }
+:deep(.kv-list) { display: flex; flex-direction: column; gap: 6px; }
+:deep(.kv-row) { display: flex; gap: 8px; align-items: center; }
+:deep(.file-row) { display: flex; gap: 8px; align-items: center; }
+:deep(.hidden-file) { display: none; }
+:deep(.muted) { color: #909399; font-size: 12px; }
+:deep(.code-input textarea) { font-family: 'Consolas', 'Courier New', monospace; font-size: 13px; }
 
-.toolbar-left,
-.toolbar-right {
-  display: flex;
-  gap: 12px;
-  align-items: center;
+/* ── Debug panel ── */
+.debug-panel {
+  margin: 0 24px; background: #1e1e2e; border-radius: 8px;
+  border: 1px solid #45475a; overflow: hidden;
 }
-
-.list-card,
-.detail-card {
-  border-radius: 8px;
-  height: calc(100vh - 160px);
-  display: flex;
-  flex-direction: column;
+.debug-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 14px; background: #181825; font-size: 13px;
+  color: #cdd6f4; font-family: 'Consolas', 'Courier New', monospace;
 }
-
-.list-card :deep(.el-card__body),
-.detail-card :deep(.el-card__body) {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
+.debug-dot { width: 8px; height: 8px; border-radius: 50%; }
+.debug-dot.ok { background: #a6e3a1; }
+.debug-dot.err { background: #f38ba8; }
+.debug-status { color: #f38ba8; font-weight: 600; }
+.debug-time { margin-left: auto; color: #6c7086; font-size: 12px; }
+.debug-body { padding: 8px 14px 12px; max-height: 360px; overflow-y: auto; }
+.debug-body details { margin-bottom: 6px; }
+.debug-body summary {
+  font-size: 13px; font-weight: 500; color: #a6adc8; cursor: pointer;
+  padding: 4px 0; user-select: none;
 }
-
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 600;
-}
-
-.detail-title {
-  font-size: 16px;
-  color: #303133;
-}
-
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-.list-actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.hidden-file {
-  display: none;
-}
-
-.code-input :deep(.el-textarea__inner) {
-  font-family: 'Cascadia Code', 'Fira Code', 'JetBrains Mono', 'Consolas', monospace;
-  font-size: 13px;
-  line-height: 1.6;
-  tab-size: 2;
-}
-
-.file-row {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.execute-bar {
-  display: flex;
-  gap: 12px;
-}
-
-.summary {
-  margin-top: 14px;
-}
-
-.muted {
-  color: #909399;
-}
-
-.kv-grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.kv-item {
-  background: #f8f9fa;
-  border: 1px solid #ebeef5;
-  border-radius: 8px;
-  padding: 12px;
-}
-
-.kv-span2 {
-  grid-column: span 2;
-}
-
-.kv-label {
-  font-size: 12px;
-  color: #909399;
-  margin-bottom: 8px;
-}
-
-.kv-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.kv-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr auto;
-  gap: 10px;
-  align-items: center;
-}
-
-.code-editor :deep(textarea) {
-  font-family: Consolas, Monaco, monospace;
-  font-size: 13px;
-  background-color: #f8f9fa;
-  color: #333;
+.debug-json {
+  margin: 4px 0; padding: 10px 14px; background: #11111b;
+  border-radius: 6px; font-size: 12px; line-height: 1.5;
+  color: #cdd6f4; white-space: pre-wrap; word-break: break-all;
+  max-height: 240px; overflow: auto;
 }
 </style>

@@ -15,6 +15,12 @@ namespace AutoTest.Core.AI
         public Guid ExecutionId { get; set; }
         public string? TraceId { get; set; }
         public List<AssertionSummary>? FailedAssertions { get; set; }
+
+        /// <summary>目标类型：HTTP/TCP/DB/PYTHON/TEMPLATE</summary>
+        public string? TargetType { get; set; }
+
+        /// <summary>目标配置摘要（截取关键字段）</summary>
+        public string? TargetSummary { get; set; }
     }
 
     public class AssertionSummary

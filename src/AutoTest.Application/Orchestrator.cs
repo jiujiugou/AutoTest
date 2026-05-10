@@ -125,7 +125,7 @@ public class Orchestrator : IOrchestrator
                 finishedAt,
                 null,
                 false,
-                ex // ✅ 异常统一走这里
+                ex
             );
 
             var outbox = BuildOutbox(payload, finishedAt);
@@ -190,7 +190,10 @@ public class Orchestrator : IOrchestrator
                 Type = ex.GetType().Name,
                 Message = ex.Message,
                 StackTrace = ex.StackTrace
-            }
+            },
+
+            TargetType = monitor.Target.Type,
+            TargetConfig = monitor.Target.ToJson()
         };
     }
 

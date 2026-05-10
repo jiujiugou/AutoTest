@@ -24,6 +24,10 @@ internal class DslParser : IDslParser
         if (resolved.TryGetProperty("parallel", out var parallel))
             dag.ParallelGroups = ParseParallelGroups(parallel);
 
+        // 构建统一有序 Items 列表（步骤在前，并行组在后，保持向后兼容）
+        dag.Items.AddRange(dag.Steps);
+        dag.Items.AddRange(dag.ParallelGroups);
+
         if (resolved.TryGetProperty("timeout", out var timeout))
             dag.GlobalTimeout = TimeSpan.FromSeconds(timeout.GetInt32());
 

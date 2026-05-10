@@ -83,6 +83,7 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddHostedService<AiWorker>();
         services.AddScoped<ITargetMap, HttpTargetMap>();
         services.AddScoped<ITargetMap, TcpTargetMap>();
+        services.AddScoped<ITargetMap, DbTargetMap>();
         services.AddScoped<ITargetMap, PythonTargetMap>();
         services.AddScoped<ITargetMap, TemplateTargetMap>();
         services.AddScoped<IAssertionMap, HttpAssertionMap>();
@@ -109,7 +110,6 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddScoped<IVariableResolver, VariableResolver>();
         services.AddScoped<IResponseValueExtractor, ResponseValueExtractor>();
         services.AddScoped<IAiTaskService, AiTaskService>();
-        services.AddHostedService<AiWorker>();
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssemblies(

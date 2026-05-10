@@ -1,0 +1,16 @@
+{
+  "Name": "%TABLENAME% 行数检查(>=%MINROWS%)",
+  "TargetType": "DB",
+  "TargetConfig": "{\"ConnectionString\":\"%CONNSTR%\",\"Sql\":\"SELECT COUNT(1) FROM %TABLENAME%\",\"DbType\":\"SqlServer\",\"CommandType\":\"Query\",\"TimeoutSeconds\":30}",
+  "IsEnabled": true,
+  "AutoDailyEnabled": true,
+  "AutoDailyTime": "09:00",
+  "IsTemplate": false,
+  "Assertions": [
+    {
+      "Id": "00000000-0000-0000-0000-000000000001",
+      "Type": "DB",
+      "ConfigJson": "{\"Id\":\"00000000-0000-0000-0000-000000000001\",\"Field\":\"Scalar\",\"Operator\":\"GreaterOrEqual\",\"Expected\":\"%MINROWS%\"}"
+    }
+  ]
+}

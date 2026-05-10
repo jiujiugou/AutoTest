@@ -5,6 +5,8 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
+namespace AutoTest.AI;
+
 public class ArkAiClient : IAiClient
 {
     private readonly HttpClient _httpClient;

@@ -4,6 +4,7 @@ using AutoTest.Assertion;
 using AutoTest.Assertion.Db;
 using AutoTest.Assertions;
 using AutoTest.Assertions.Http;
+using AutoTest.AI;
 using AutoTest.Core.AI;
 using AutoTest.Dsl;
 using AutoTest.Execution;
@@ -31,6 +32,12 @@ using Microsoft.IdentityModel.Tokens;
 using OpenAI.Chat;
 using System.Data;
 using System.Text;
+using Dapper;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using System.Text.Json;
+using System.Threading.RateLimiting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -104,10 +111,14 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                      ?? builder.Configuration["Jwt:Key"];
     options.TokenValidationParameters = new TokenValidationParameters
     {
-        ValidateIssuer = false,
-        ValidateAudience = false,
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["Jwt:Issuer"] ?? "AutoTest",
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["Jwt:Audience"] ?? "AutoTest",
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey))
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(signingKey)),
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.FromMinutes(1)
     };
 
     options.Events = new JwtBearerEvents
@@ -144,6 +155,44 @@ builder.Services.AddSingleton<ITokenIssuer>(sp => sp.GetRequiredService<JwtToken
 builder.Services.AddDapperAuth();
 builder.Services.AddRbac();
 builder.Services.AddHttpClient<IAiClient, ArkAiClient>();
+
+builder.Services.AddRateLimiter(options =>
+{
+    options.RejectionStatusCode = 429;
+    options.AddFixedWindowLimiter("login", o =>
+    {
+        o.PermitLimit = 5;
+        o.Window = TimeSpan.FromMinutes(1);
+        o.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        o.QueueLimit = 0;
+    });
+    options.AddFixedWindowLimiter("api", o =>
+    {
+        o.PermitLimit = 100;
+        o.Window = TimeSpan.FromMinutes(1);
+        o.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+        o.QueueLimit = 10;
+    });
+});
+
+var cs = builder.Configuration.GetConnectionString("DefaultConnection")!;
+var redisConn = builder.Configuration["Redis:ConnectionString"] ?? "localhost:6379";
+builder.Services.AddHealthChecks()
+    .AddCheck("self", () => HealthCheckResult.Healthy("process alive"), tags: new[] { "live" })
+    .AddCheck<AutoTest.Webapi.HealthChecks.WorkflowSchedulerHealthCheck>("workflow_scheduler", tags: new[] { "ready" })
+    .AddCheck<AutoTest.Webapi.HealthChecks.PythonRuntimeHealthCheck>("python_runtime", tags: new[] { "ready" })
+    .AddSqlServer(
+        connectionString: cs,
+        healthQuery: "SELECT 1",
+        name: "sqlserver",
+        failureStatus: HealthStatus.Unhealthy,
+        tags: new[] { "ready" })
+    .AddRedis(
+        redisConnectionString: redisConn,
+        name: "redis",
+        failureStatus: HealthStatus.Unhealthy,
+        tags: new[] { "ready" });
+
 var app = builder.Build();
 
 SignalRLogSink.ServiceProvider = app.Services;
@@ -166,6 +215,16 @@ app.UseStaticFiles();
 
 // 使用端点路由（虽然 .NET 6+ 默认隐式使用，但为了中间件顺序清晰，显式调用更好）
 app.UseRouting();
+
+app.UseExceptionHandler(app => app.Run(async ctx =>
+{
+    ctx.Response.StatusCode = 500;
+    ctx.Response.ContentType = "application/json";
+    var traceId = ctx.TraceIdentifier;
+    await ctx.Response.WriteAsync($"{{\"error\":\"internal_error\",\"traceId\":\"{traceId}\"}}");
+}));
+
+app.UseRateLimiter();
 
 // UseWebSockets 必须放在鉴权和路由之前/之间，绝不能放在最后！
 app.UseWebSockets();
@@ -208,5 +267,47 @@ using (var scope = app.Services.CreateScope())
         }
     }
 }
+app.MapGet("/health", async (IDbConnection db) =>
+{
+    try
+    {
+        await db.QueryAsync("SELECT 1");
+        return Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow });
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem($"Database connectivity failure: {ex.Message}", statusCode: 503);
+    }
+});
+
+app.MapHealthChecks("/health/live", new HealthCheckOptions
+{
+    Predicate = r => r.Tags.Contains("live")
+});
+
+app.MapHealthChecks("/health/ready", new HealthCheckOptions
+{
+    Predicate = _ => true,
+    ResponseWriter = async (context, report) =>
+    {
+        var json = JsonSerializer.Serialize(new
+        {
+            status = report.Status.ToString(),
+            duration = report.TotalDuration.TotalMilliseconds,
+            entries = report.Entries.Select(e => new
+            {
+                name = e.Key,
+                status = e.Value.Status.ToString(),
+                duration = e.Value.Duration.TotalMilliseconds,
+                description = e.Value.Description,
+                error = e.Value.Exception?.Message
+            })
+        }, new JsonSerializerOptions { WriteIndented = false });
+
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = report.Status == HealthStatus.Healthy ? 200 : 503;
+        await context.Response.WriteAsync(json);
+    }
+});
 
 app.Run();

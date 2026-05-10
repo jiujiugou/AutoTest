@@ -36,9 +36,9 @@ public class HttpExecutionEngine : IExecutionEngine
     {
         if (target.EnableRateLimit)
         {
+            var max = target.MaxConcurrency <= 0 ? 1 : target.MaxConcurrency;
             var semaphore = _semaphorePool.GetOrAdd(
-                target.MaxConcurrency,
-                _ => new SemaphoreSlim(target.MaxConcurrency));
+                max, _ => new SemaphoreSlim(max));
             await semaphore.WaitAsync();
         }
 

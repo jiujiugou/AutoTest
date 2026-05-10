@@ -1,0 +1,16 @@
+{
+  "Name": "%SERVICENAME% %HOST%:%PORT% 可达性",
+  "TargetType": "TCP",
+  "TargetConfig": "{\"Host\":\"%HOST%\",\"Port\":%PORT%,\"TimeoutSeconds\":5,\"UseTls\":true,\"ConnectTimeoutMs\":15000,\"ReadTimeoutMs\":30000,\"WriteTimeoutMs\":10000}",
+  "IsEnabled": true,
+  "AutoDailyEnabled": true,
+  "AutoDailyTime": "09:00",
+  "IsTemplate": false,
+  "Assertions": [
+    {
+      "Id": "00000000-0000-0000-0000-000000000001",
+      "Type": "TCP",
+      "ConfigJson": "{\"Id\":\"00000000-0000-0000-0000-000000000001\",\"Field\":\"Connected\",\"Operator\":\"Equal\",\"Expected\":\"True\"}"
+    }
+  ]
+}

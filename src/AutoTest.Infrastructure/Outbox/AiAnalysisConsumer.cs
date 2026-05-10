@@ -1,6 +1,7 @@
 using AutoTest.Application;
 using AutoTest.Core.AI;
 using AutoTest.Core.Outbox;
+using AutoTest.Infrastructure.AI;
 using EventCommons;
 using MediatR;
 using Microsoft.Extensions.Logging;
@@ -39,7 +40,9 @@ namespace AutoTest.Infrastructure.Outbox
                 {
                     Target = a.Target,
                     Message = a.Message
-                })
+                }),
+                TargetType = payload?.TargetType,
+                TargetSummary = TargetSummaryBuilder.Build(payload?.TargetType, payload?.TargetConfig)
             };
             try
             {

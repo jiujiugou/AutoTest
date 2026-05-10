@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace AutoTest.Dsl;
 
@@ -17,6 +18,9 @@ internal static class DslSchemaValidator
             throw new InvalidOperationException("DSL 必须包含 'steps' 字段");
 
         ValidateStepsArray(steps);
+
+        if (root.TryGetProperty("parallel", out var parallel))
+            ValidateParallelGroups(parallel);
     }
 
     private static void ValidateStepsArray(JsonElement steps)
@@ -76,6 +80,39 @@ internal static class DslSchemaValidator
             }
 
             i++;
+        }
+    }
+
+    private static void ValidateParallelGroups(JsonElement parallel)
+    {
+        if (parallel.ValueKind != JsonValueKind.Array)
+            throw new InvalidOperationException("顶级 'parallel' 字段必须是数组");
+
+        int gi = 0;
+        foreach (var group in parallel.EnumerateArray())
+        {
+            var path = $"parallel[{gi}]";
+
+            if (!group.TryGetProperty("steps", out var gSteps))
+                throw new InvalidOperationException($"{path} 缺少必填字段 'steps'");
+
+            if (group.TryGetProperty("mode", out var modeEl))
+            {
+                var mode = modeEl.GetString();
+                if (mode != "all" && mode != "any")
+                    throw new InvalidOperationException($"{path}.mode 无效: '{mode}'，允许的值: all/any");
+            }
+
+            if (group.TryGetProperty("timeout", out var timeoutEl))
+            {
+                var timeout = timeoutEl.GetString() ?? "";
+                if (!Regex.IsMatch(timeout, @"^\d+s$"))
+                    throw new InvalidOperationException($"{path}.timeout 格式无效: '{timeout}'，期望格式如 '30s'");
+            }
+
+            ValidateStepsArray(gSteps);
+
+            gi++;
         }
     }
 }

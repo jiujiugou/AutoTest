@@ -1,5 +1,10 @@
 import axios from 'axios'
 
+function tryParseJson(v) {
+  if (typeof v !== 'string') return v
+  try { return JSON.parse(v) } catch { return v }
+}
+
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL || '',
   timeout: 60000
@@ -86,14 +91,21 @@ api.interceptors.response.use(
       return Promise.reject(new Error('网络错误，请检查后端'))
     }
 
-    // ⚠️ 其他错误
-    const msg =
-      err.response?.data?.message ||
-      err.response?.data?.text ||
+    // ⚠️ 其他错误 —— 保留完整响应体便于调试
+    const data = err.response?.data
+    const detail = new Error(
+      data?.message ||
+      data?.title ||
+      data?.detail ||
+      data?.text ||
       err.message ||
       '请求失败'
-
-    return Promise.reject(new Error(msg))
+    )
+    detail.status = err.response?.status
+    detail.data = data
+    detail.headers = err.response?.headers
+    detail.config = { url: err.config?.url, method: err.config?.method, data: tryParseJson(err.config?.data) }
+    return Promise.reject(detail)
   }
 )
 

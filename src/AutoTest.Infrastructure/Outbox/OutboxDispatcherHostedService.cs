@@ -40,6 +40,7 @@ public sealed class OutboxDispatcherHostedService : BackgroundService
     /// - 避免多实例重复处理
     /// </summary>
     private readonly string _lockedBy;
+    private DateTime _lastCleanupAt = DateTime.MinValue;
 
     /// <summary>
     /// 构造函数
@@ -89,6 +90,24 @@ public sealed class OutboxDispatcherHostedService : BackgroundService
             {
                 // 捕获所有异常，避免后台任务崩溃
                 _logger.LogError(ex, "Outbox webhook dispatcher error");
+            }
+
+            if ((DateTime.UtcNow - _lastCleanupAt).TotalHours >= 1)
+            {
+                try
+                {
+                    using var cleanupScope = _scopeFactory.CreateScope();
+                    var repo = cleanupScope.ServiceProvider.GetRequiredService<AutoTest.Core.Abstraction.IOutboxRepository>();
+                    var cutoff = DateTime.UtcNow.AddDays(-_options.DeadLetterRetentionDays);
+                    var deleted = await repo.DeleteExpiredDeadLettersAsync(cutoff, stoppingToken);
+                    if (deleted > 0)
+                        _logger.LogInformation("Cleaned up {Count} expired dead letter messages", deleted);
+                    _lastCleanupAt = DateTime.UtcNow;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Dead letter cleanup failed");
+                }
             }
 
             try
@@ -145,12 +164,20 @@ public sealed class OutboxDispatcherHostedService : BackgroundService
             }
             catch (Exception ex)
             {
-                var next = ComputeNextAttempt(msg.Attempts, DateTime.UtcNow);
-
-                await outboxRepository.MarkFailedAsync(
-                    msg.Id, _lockedBy, ex.ToString(), next, cancellationToken);
-
-                _logger.LogWarning(ex, "Dispatch failed {Id}", msg.Id);
+                if (msg.Attempts >= _options.MaxRetryCount)
+                {
+                    await outboxRepository.MarkDeadLetterAsync(
+                        msg.Id, _lockedBy, ex.ToString(), cancellationToken);
+                    _logger.LogWarning(ex, "Message {Id} moved to DeadLetter after {Attempts} attempts",
+                        msg.Id, msg.Attempts);
+                }
+                else
+                {
+                    var next = ComputeNextAttempt(msg.Attempts, DateTime.UtcNow);
+                    await outboxRepository.MarkFailedAsync(
+                        msg.Id, _lockedBy, ex.ToString(), next, cancellationToken);
+                    _logger.LogWarning(ex, "Dispatch failed {Id}", msg.Id);
+                }
             }
             finally
             {

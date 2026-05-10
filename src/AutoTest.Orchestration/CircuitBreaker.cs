@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 
 namespace AutoTest.Orchestration;
 
-internal class CircuitBreaker
+public class CircuitBreaker
 {
     private readonly ConcurrentDictionary<string, CircuitState> _states = new();
 

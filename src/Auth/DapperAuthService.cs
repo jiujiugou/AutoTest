@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Data;
 using System.Security.Cryptography;
 using Auth.RBAC;
@@ -15,6 +16,10 @@ public sealed class DapperAuthService : IAuthService
     private readonly IPasswordHasher _passwordHasher;
     private readonly ITokenIssuer _tokenIssuer;
     private readonly IDbConnection _db;
+
+    private static readonly ConcurrentDictionary<string, (int Attempts, DateTime LockedUntil)> _failedLogins = new();
+    private const int MaxFailedAttempts = 5;
+    private const int LockoutMinutes = 15;
 
     /// <summary>
     /// 构造
@@ -65,12 +70,28 @@ public sealed class DapperAuthService : IAuthService
     /// <inheritdoc />
     public async Task<LoginResult> LoginAsync(string username, string password, CancellationToken cancellationToken)
     {
+        // Check account lockout
+        var key = username.ToLowerInvariant();
+        if (_failedLogins.TryGetValue(key, out var entry))
+        {
+            if (entry.LockedUntil > DateTime.UtcNow)
+                return null; // Still locked — don't leak whether the account exists
+            if (entry.LockedUntil <= DateTime.UtcNow)
+                _failedLogins.TryRemove(key, out _);
+        }
+
         var user = await _store.GetByUsernameAsync(username, cancellationToken);
         if (user == null || !user.IsActive)
             return null;
 
         if (!_passwordHasher.Verify(password, user.PasswordHash))
+        {
+            TrackFailedLogin(key);
             return null;
+        }
+
+        // Successful login — clear failed attempts
+        _failedLogins.TryRemove(key, out _);
 
         var permissions = await GetEffectivePermissionsAsync(user, cancellationToken);
         var accessToken = _tokenIssuer.GenerateAccessToken(user.Username, user.Role, permissions);
@@ -86,6 +107,19 @@ public sealed class DapperAuthService : IAuthService
                 Permissions = permissions.ToList()
             }
         };
+    }
+
+    private static void TrackFailedLogin(string key)
+    {
+        _failedLogins.AddOrUpdate(key,
+            _ => (1, DateTime.UtcNow.AddMinutes(LockoutMinutes)),
+            (_, existing) =>
+            {
+                var newAttempts = existing.Attempts + 1;
+                if (newAttempts >= MaxFailedAttempts)
+                    return (newAttempts, DateTime.UtcNow.AddMinutes(LockoutMinutes));
+                return (newAttempts, existing.LockedUntil);
+            });
     }
 
     /// <inheritdoc />

@@ -34,4 +34,17 @@ public interface IOutboxRepository
     /// 标记消息发送失败，并设置下一次重试时间。
     /// </summary>
     Task MarkFailedAsync(Guid id, string lockedBy, string error, DateTime nextAttemptAt, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 标记消息为死信（超过最大重试次数，不再重试）。
+    /// </summary>
+    Task MarkDeadLetterAsync(Guid id, string lockedBy, string error, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// 删除过期的死信消息。
+    /// </summary>
+    /// <param name="cutoff">截止时间（早于此时间的死信将被删除）。</param>
+    /// <param name="cancellationToken">取消令牌。</param>
+    /// <returns>删除条数。</returns>
+    Task<int> DeleteExpiredDeadLettersAsync(DateTime cutoff, CancellationToken cancellationToken);
 }

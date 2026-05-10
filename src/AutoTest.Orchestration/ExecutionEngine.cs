@@ -11,20 +11,22 @@ public class ExecutionEngine
     private readonly IVariableResolver _variableResolver;
     private readonly IDistributedLock _distributedLock;
     private readonly IProgressStore _progressStore;
-    private readonly CircuitBreaker _circuitBreaker = new();
+    private readonly CircuitBreaker _circuitBreaker;
 
     public ExecutionEngine(
         IStepExecutorResolver executorResolver,
         IResponseValueExtractor extractor,
         IVariableResolver variableResolver,
         IDistributedLock distributedLock,
-        IProgressStore progressStore)
+        IProgressStore progressStore,
+        CircuitBreaker circuitBreaker)
     {
         _executorResolver = executorResolver;
         _extractor = extractor;
         _variableResolver = variableResolver;
         _distributedLock = distributedLock;
         _progressStore = progressStore;
+        _circuitBreaker = circuitBreaker;
     }
 
     public async Task<DslRuntimeContext> ExecuteAsync(StepSequence dag, Dictionary<string, string> initialVariables)
@@ -43,20 +45,23 @@ public class ExecutionEngine
 
         try
         {
-            for (int i = ctx.CurrentStepIndex; i < dag.Steps.Count; i++)
+            for (int i = ctx.CurrentStepIndex; i < dag.Items.Count; i++)
             {
                 if (ctx.IsTerminated || ctx.CancellationToken.IsCancellationRequested)
                     break;
 
                 ctx.CurrentStepIndex = i;
-                await ExecuteSingleStep(ctx, dag.Steps[i]);
-                await _progressStore.SaveAsync(ctx);
-            }
 
-            foreach (var group in dag.ParallelGroups)
-            {
-                if (ctx.IsTerminated) break;
-                await ExecuteParallelGroup(ctx, group);
+                switch (dag.Items[i])
+                {
+                    case StepDefinition step:
+                        await ExecuteSingleStep(ctx, step);
+                        break;
+                    case ParallelGroup group:
+                        await ExecuteParallelGroup(ctx, group);
+                        break;
+                }
+
                 await _progressStore.SaveAsync(ctx);
             }
         }
@@ -151,9 +156,28 @@ public class ExecutionEngine
             }
         }
 
-        if (step.Assertions?.Count > 0 && !EvaluateAssertions(result, step.Assertions))
+        if (step.Assertions?.Count > 0)
         {
-            ApplyFailureStrategy(ctx, step.OnFailure);
+            var assertionResults = EvaluateAssertions(result, step.Assertions);
+            var record = ctx.CompletedSteps.Last();
+            // StepExecutionRecord 是 init-only，需要替换
+            ctx.CompletedSteps[^1] = new StepExecutionRecord
+            {
+                StepName = record.StepName,
+                Type = record.Type,
+                IsSuccess = record.IsSuccess,
+                StatusCode = record.StatusCode,
+                ElapsedMs = record.ElapsedMs,
+                Attempts = record.Attempts,
+                ErrorMessage = record.ErrorMessage,
+                Body = record.Body,
+                Headers = record.Headers,
+                Assertions = assertionResults,
+                ExecutedAt = record.ExecutedAt
+            };
+
+            if (!assertionResults.TrueForAll(a => a.Passed))
+                ApplyFailureStrategy(ctx, step.OnFailure);
         }
     }
 
@@ -163,7 +187,9 @@ public class ExecutionEngine
         if (group.Timeout != null)
             cts.CancelAfter(group.Timeout.Value);
 
-        var tasks = group.Steps.Select(step => ExecuteSingleStepInGroup(ctx, step, cts.Token));
+        var originalKeys = new HashSet<string>(ctx.Variables.Keys);
+
+        var tasks = group.Steps.Select(step => ExecuteSingleStepInGroup(ctx, step, cts.Token, originalKeys));
         var results = await Task.WhenAll(tasks);
 
         var successCount = results.Count(r => r);
@@ -171,7 +197,7 @@ public class ExecutionEngine
             ctx.IsTerminated = true;
     }
 
-    private async Task<bool> ExecuteSingleStepInGroup(DslRuntimeContext ctx, StepDefinition step, CancellationToken ct)
+    private async Task<bool> ExecuteSingleStepInGroup(DslRuntimeContext ctx, StepDefinition step, CancellationToken ct, HashSet<string> originalKeys)
     {
         if (ctx.IsTerminated) return false;
         var localCtx = new DslRuntimeContext
@@ -184,7 +210,12 @@ public class ExecutionEngine
         lock (ctx.Variables)
         {
             foreach (var kv in localCtx.Variables)
+            {
+                if (!originalKeys.Contains(kv.Key) && ctx.Variables.ContainsKey(kv.Key))
+                    throw new InvalidOperationException(
+                        $"并行步骤变量冲突: '{kv.Key}' 被多个并行步骤同时提取。请为不同并行步骤使用不同的 extract name。");
                 ctx.Variables[kv.Key] = kv.Value;
+            }
         }
         lock (ctx.CompletedSteps)
         {
@@ -193,9 +224,9 @@ public class ExecutionEngine
         return localCtx.CompletedSteps.LastOrDefault()?.IsSuccess ?? false;
     }
 
-    private static bool EvaluateAssertions(StepResult result, List<AssertionDef> assertions)
+    private static List<StepAssertionResult> EvaluateAssertions(StepResult result, List<AssertionDef> assertions)
     {
-        return assertions.All(a =>
+        return assertions.Select(a =>
         {
             var actual = a.Field.ToLowerInvariant() switch
             {
@@ -208,9 +239,7 @@ public class ExecutionEngine
                 _ => null
             };
 
-            if (actual == null) return false;
-
-            return a.Operator.ToLowerInvariant() switch
+            var passed = actual != null && a.Operator.ToLowerInvariant() switch
             {
                 "equal" => string.Equals(actual, a.Expected, StringComparison.OrdinalIgnoreCase),
                 "contains" => actual.Contains(a.Expected, StringComparison.OrdinalIgnoreCase),
@@ -219,7 +248,16 @@ public class ExecutionEngine
                 "greaterthan" => double.TryParse(actual, out var an2) && double.TryParse(a.Expected, out var en2) && an2 > en2,
                 _ => false
             };
-        });
+
+            return new StepAssertionResult
+            {
+                Field = a.Field,
+                Operator = a.Operator,
+                Expected = a.Expected,
+                Actual = actual,
+                Passed = passed
+            };
+        }).ToList();
     }
 
     private static void ApplyFailureStrategy(DslRuntimeContext ctx, FailureStrategy strategy)

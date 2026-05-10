@@ -1,5 +1,7 @@
 using System.Diagnostics;
+using System.Net.Security;
 using System.Net.Sockets;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using AutoTest.Core;
 using AutoTest.Core.Execution;
@@ -11,106 +13,157 @@ namespace AutoTest.Execution.Tcp;
 public class TcpExecutionEngine : IExecutionEngine
 {
     private readonly ILogger<TcpExecutionEngine>? _logger;
+
     public TcpExecutionEngine(ILogger<TcpExecutionEngine>? logger = null)
     {
         _logger = logger;
     }
-    public bool CanExecute(MonitorTarget target)
-    {
-        return target is TcpTarget;
-    }
+
+    public bool CanExecute(MonitorTarget target) => target is TcpTarget;
 
     public Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
     {
-        if (target is not TcpTarget tcpTarget)
-            throw new ArgumentException("Invalid target type. Expected TcpTarget.", nameof(target));
-        return ExecuteAsync(tcpTarget);
+        if (target is not TcpTarget tcp)
+            throw new ArgumentException("Expected TcpTarget", nameof(target));
+        return ExecuteAsync(tcp);
     }
+
     public async Task<ExecutionResult> ExecuteAsync(TcpTarget target)
     {
+        var sw = Stopwatch.StartNew();
+        double connectLatency = 0;
+        var responses = new List<string>();
         bool connected = false;
-        string response = "";
-        double latencyMs = 0;
-        bool sequenceCorrect = true;
-        string errorMessage = "";
-
-        var sw = new Stopwatch();
-        sw.Start();
 
         try
         {
-            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(target.Timeout > 0 ? target.Timeout : 30));
-            using var client = new TcpClient();
-
-            _logger?.LogInformation("Connecting to {Host}:{Port}...", target.Host, target.Port);
-
-            // Measure connection time
-            var connectSw = Stopwatch.StartNew();
-            await client.ConnectAsync(target.Host, target.Port, cts.Token);
-            connectSw.Stop();
-
+            (TcpClient client, Stream stream, double connMs) = await ConnectWithRetryAsync(target);
+            using var _ = client;
+            using var __ = stream;
             connected = true;
-            latencyMs = connectSw.Elapsed.TotalMilliseconds; // Base latency is connection time
+            connectLatency = connMs;
 
-            if (target.Messages != null && target.Messages.Count > 0)
+            if (target.Messages.Count > 0)
             {
-                var stream = client.GetStream();
-                var receivedParts = new List<string>();
-
                 foreach (var msg in target.Messages)
                 {
                     var data = Encoding.UTF8.GetBytes(msg);
-                    var msgSw = Stopwatch.StartNew();
 
-                    await stream.WriteAsync(data, cts.Token);
-                    await stream.FlushAsync(cts.Token);
-
-                    var buffer = new byte[4096];
-                    // Wait for at least some response data
-                    int bytesRead = await stream.ReadAsync(buffer, cts.Token);
-                    msgSw.Stop();
-
-                    // Update latency to be the average or just the last message latency
-                    latencyMs = msgSw.Elapsed.TotalMilliseconds;
-
-                    string received = Encoding.UTF8.GetString(buffer.AsSpan(0, bytesRead));
-                    response += received;
-                    receivedParts.Add(received);
-                }
-
-                for (int i = 0; i < target.Messages.Count; i++)
-                {
-                    if (i >= receivedParts.Count || !receivedParts[i].Contains(target.Messages[i]))
+                    using (var cts = new CancellationTokenSource(target.WriteTimeoutMs))
                     {
-                        sequenceCorrect = false;
-                        break;
+                        await stream.WriteAsync(data, cts.Token);
+                        await stream.FlushAsync(cts.Token);
                     }
+
+                    var resp = await ReadToEndAsync(stream, target.ReadTimeoutMs);
+                    responses.Add(Encoding.UTF8.GetString(resp));
                 }
             }
-        }
-        catch (OperationCanceledException)
-        {
-            errorMessage = $"TCP Execution timed out after {target.Timeout} seconds.";
-            _logger?.LogWarning("TCP execution timed out for {Host}:{Port}", target.Host, target.Port);
+
+            sw.Stop();
+            return new TcpExecutionResult(
+                connected: true,
+                response: string.Join("\n", responses),
+                latencyMs: sw.Elapsed.TotalMilliseconds,
+                connectLatencyMs: connectLatency,
+                success: true,
+                responses: responses,
+                message: "");
         }
         catch (Exception ex)
         {
-            errorMessage = ex.Message;
-            _logger?.LogError(ex, "TCP execution failed for {Host}:{Port}", target.Host, target.Port);
-        }
-        finally
-        {
             sw.Stop();
+            _logger?.LogError(ex, "TCP {Host}:{Port} failed", target.Host, target.Port);
+            return new TcpExecutionResult(
+                connected: connected,
+                response: string.Join("\n", responses),
+                latencyMs: sw.Elapsed.TotalMilliseconds,
+                connectLatencyMs: connectLatency,
+                success: false,
+                responses: responses,
+                message: ex.Message);
+        }
+    }
+
+    private async Task<(TcpClient Client, Stream Stream, double ConnectLatency)> ConnectWithRetryAsync(TcpTarget t)
+    {
+        var maxAttempts = t.EnableRetry ? t.RetryCount + 1 : 1;
+        Exception? lastEx = null;
+
+        for (int attempt = 1; attempt <= maxAttempts; attempt++)
+        {
+            try
+            {
+                var connectSw = Stopwatch.StartNew();
+                var client = new TcpClient();
+
+                using (var cts = new CancellationTokenSource(t.ConnectTimeoutMs))
+                {
+                    await client.ConnectAsync(t.Host, t.Port, cts.Token);
+                }
+
+                Stream stream = client.GetStream();
+
+                if (t.UseTls)
+                {
+                    var ssl = new SslStream(stream, leaveInnerStreamOpen: false,
+                        userCertificateValidationCallback:
+                            t.IgnoreSslErrors ? (_, _, _, _) => true : null!);
+
+                    using (var cts = new CancellationTokenSource(t.ConnectTimeoutMs))
+                    {
+                        await ssl.AuthenticateAsClientAsync(new SslClientAuthenticationOptions
+                        {
+                            TargetHost = t.Host,
+                            CertificateRevocationCheckMode = t.IgnoreSslErrors
+                                ? X509RevocationMode.NoCheck
+                                : X509RevocationMode.Online
+                        }, cts.Token);
+                    }
+
+                    connectSw.Stop();
+                    _logger?.LogDebug("TLS handshake OK {Host}:{Port}", t.Host, t.Port);
+                    return (client, ssl, connectSw.Elapsed.TotalMilliseconds);
+                }
+
+                connectSw.Stop();
+                _logger?.LogDebug("TCP connected {Host}:{Port}", t.Host, t.Port);
+                return (client, stream, connectSw.Elapsed.TotalMilliseconds);
+            }
+            catch (Exception ex) when (attempt < maxAttempts)
+            {
+                lastEx = ex;
+                _logger?.LogWarning(ex, "TCP attempt {Attempt}/{Max} failed {Host}:{Port}",
+                    attempt, maxAttempts, t.Host, t.Port);
+                await Task.Delay(t.RetryDelayMs);
+            }
         }
 
-        var result = new TcpExecutionResult(
-            connected: connected,
-            response: response,
-            latencyMs: latencyMs,
-            success: connected && string.IsNullOrEmpty(errorMessage),
-            sequenceCorrect: sequenceCorrect,
-            message: errorMessage
-        );
-        return result;
+        throw lastEx!;
+    }
+
+    private static async Task<byte[]> ReadToEndAsync(Stream stream, int timeoutMs)
+    {
+        using var ms = new MemoryStream();
+        var buffer = new byte[8192];
+        using var cts = new CancellationTokenSource(timeoutMs);
+
+        while (true)
+        {
+            int n;
+            try
+            {
+                n = await stream.ReadAsync(buffer, cts.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                break;
+            }
+
+            if (n == 0) break;
+            ms.Write(buffer, 0, n);
+        }
+
+        return ms.ToArray();
     }
 }

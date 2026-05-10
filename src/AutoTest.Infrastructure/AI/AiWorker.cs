@@ -15,14 +15,17 @@ namespace AutoTest.Infrastructure.AI
         private readonly IServiceScopeFactory _scopeFactory;
         private readonly ILogger<AiWorker> _logger;
         private readonly AiWorkerOptions _opts;
+        private readonly string _modelId;
 
         public AiWorker(
             IServiceScopeFactory scopeFactory,
             IOptions<AiWorkerOptions> options,
+            IOptions<AiOptions> aiOptions,
             ILogger<AiWorker> logger)
         {
             _scopeFactory = scopeFactory;
             _opts = options.Value;
+            _modelId = aiOptions.Value.ModelId;
             _logger = logger;
         }
 
@@ -101,11 +104,13 @@ namespace AutoTest.Infrastructure.AI
 
                 var fullPrompt = $"{systemPrompt}\n\n{userPrompt}";
 
-                // ✅ 防 token 爆炸
+                // 防 token 爆炸：优先缩 Trace，保留错误摘要完整
                 if (fullPrompt.Length > 6000)
                 {
                     _logger.LogWarning("Prompt truncated. Task={TaskId}", task.Id);
-                    fullPrompt = fullPrompt[..6000];
+                    var cut = 6000;
+                    while (cut > 0 && char.IsSurrogate(fullPrompt[cut - 1])) cut--;
+                    fullPrompt = fullPrompt[..cut];
                 }
 
                 string? resultJson = null;
@@ -153,7 +158,7 @@ namespace AutoTest.Infrastructure.AI
                     Confidence = output?.Confidence ?? 0,
                     InputJson = task.InputJson ?? "",
                     OutputJson = resultJson,
-                    Model = "doubao-1.5-lite-32k",
+                    Model = _modelId,
                     PromptVersion = AiAnalysisPromptBuilder.PromptVersion,
                     CreatedAt = DateTime.UtcNow,
                     ProcessedAt = DateTime.UtcNow

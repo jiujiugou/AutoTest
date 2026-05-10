@@ -26,7 +26,13 @@ namespace AutoTest.Core.Outbox
 
         public List<AssertionResult>? Assertions { get; init; }
 
-        public int Attempts { get; init; } // 可选（未来用）
+        public int Attempts { get; init; }
+
+        /// <summary>目标类型：HTTP/TCP/DB/PYTHON/TEMPLATE</summary>
+        public string? TargetType { get; init; }
+
+        /// <summary>目标配置 JSON</summary>
+        public string? TargetConfig { get; init; }
     }
     public class ExceptionInfo
     {

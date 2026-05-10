@@ -1091,7 +1091,6 @@
         "dependencies": {
           "AutoTest.Core": "1.0.0",
           "CacheCommons": "1.0.0",
-          "EventCommons": "1.0.0",
           "Microsoft.Extensions.Hosting": "10.0.5",
           "Microsoft.Extensions.Http": "10.0.2",
           "Microsoft.Extensions.Logging": "10.0.5"
@@ -1151,17 +1150,6 @@
         },
         "runtime": {
           "CacheCommons.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
-      },
-      "EventCommons/1.0.0": {
-        "dependencies": {
-          "Microsoft.Extensions.DependencyInjection": "10.0.5"
-        },
-        "runtime": {
-          "EventCommons.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
@@ -1763,11 +1751,6 @@
       "sha512": ""
     },
     "CacheCommons/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "EventCommons/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

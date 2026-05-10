@@ -1,6 +1,4 @@
 namespace AutoTest.Execution.Db
 {
-    internal interface IDbExecutionResult
-    {
-    }
+    // Moved to AutoTest.Core.Execution.IDbExecutionResult
 }

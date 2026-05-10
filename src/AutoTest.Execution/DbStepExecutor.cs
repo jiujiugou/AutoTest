@@ -9,10 +9,10 @@ namespace AutoTest.Execution;
 
 internal class DbStepExecutor : IStepExecutor
 {
-    public string Type => "db";
-    private readonly IExecutionEngine _engine;
+    public string Type => "DB";
+    private readonly DbExecutionEngine _engine;
 
-    public DbStepExecutor(IExecutionEngine engine) => _engine = engine;
+    public DbStepExecutor(DbExecutionEngine engine) => _engine = engine;
 
     public async Task<StepResult> ExecuteAsync(JsonElement input, CancellationToken ct)
     {

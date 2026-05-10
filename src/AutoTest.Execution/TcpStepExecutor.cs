@@ -10,9 +10,9 @@ namespace AutoTest.Execution;
 internal class TcpStepExecutor : IStepExecutor
 {
     public string Type => "tcp";
-    private readonly IExecutionEngine _engine;
+    private readonly TcpExecutionEngine _engine;
 
-    public TcpStepExecutor(IExecutionEngine engine) => _engine = engine;
+    public TcpStepExecutor(TcpExecutionEngine engine) => _engine = engine;
 
     public async Task<StepResult> ExecuteAsync(JsonElement input, CancellationToken ct)
     {

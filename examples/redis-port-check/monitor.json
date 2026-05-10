@@ -1,0 +1,26 @@
+{
+  "Name": "Redis %HOST%:%PORT% 端口探测",
+  "TargetType": "TCP",
+  "TargetConfig": "{\"Host\":\"%HOST%\",\"Port\":%PORT%,\"TimeoutSeconds\":5,\"UseTls\":false,\"ConnectTimeoutMs\":15000,\"ReadTimeoutMs\":30000,\"WriteTimeoutMs\":10000}",
+  "IsEnabled": true,
+  "AutoDailyEnabled": true,
+  "AutoDailyTime": "09:00",
+  "IsTemplate": false,
+  "Assertions": [
+    {
+      "Id": "00000000-0000-0000-0000-000000000001",
+      "Type": "TCP",
+      "ConfigJson": "{\"Id\":\"00000000-0000-0000-0000-000000000001\",\"Field\":\"Connected\",\"Operator\":\"Equal\",\"Expected\":\"True\"}"
+    },
+    {
+      "Id": "00000000-0000-0000-0000-000000000002",
+      "Type": "TCP",
+      "ConfigJson": "{\"Id\":\"00000000-0000-0000-0000-000000000002\",\"Field\":\"Response\",\"Operator\":\"Contains\",\"Expected\":\"PONG\"}"
+    },
+    {
+      "Id": "00000000-0000-0000-0000-000000000003",
+      "Type": "TCP",
+      "ConfigJson": "{\"Id\":\"00000000-0000-0000-0000-000000000003\",\"Field\":\"LatencyMs\",\"Operator\":\"LessThan\",\"Expected\":\"100\"}"
+    }
+  ]
+}

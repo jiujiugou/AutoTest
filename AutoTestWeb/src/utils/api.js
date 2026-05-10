@@ -33,7 +33,30 @@ export function tcpTargetTemplate() {
     type: 'TCP',
     host: '127.0.0.1',
     port: 80,
-    timeoutMs: 3000
+    timeout: 5,
+    messages: [],
+    useTls: false,
+    ignoreSslErrors: false,
+    connectTimeoutMs: 0,
+    readTimeoutMs: 0,
+    writeTimeoutMs: 0,
+    enableRetry: false,
+    retryCount: 2,
+    retryDelayMs: 500
+  };
+}
+
+export function dbTargetTemplate() {
+  return {
+    type: 'DB',
+    connectionString: '',
+    sql: '',
+    dbType: 'sqlserver',
+    commandType: 'Query',
+    timeoutSeconds: 30,
+    enableRetry: false,
+    retryCount: 2,
+    retryDelayMs: 500
   };
 }
 

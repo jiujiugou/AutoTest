@@ -10,9 +10,9 @@ namespace AutoTest.Execution;
 internal class PythonStepExecutor : IStepExecutor
 {
     public string Type => "python";
-    private readonly IExecutionEngine _engine;
+    private readonly PythonExecutionEngine _engine;
 
-    public PythonStepExecutor(IExecutionEngine engine) => _engine = engine;
+    public PythonStepExecutor(PythonExecutionEngine engine) => _engine = engine;
 
     public async Task<StepResult> ExecuteAsync(JsonElement input, CancellationToken ct)
     {
@@ -22,11 +22,12 @@ internal class PythonStepExecutor : IStepExecutor
         })!;
 
         var result = await _engine.ExecuteAsync(target);
+        var pyResult = result as PythonExecutionResult;
         return new StepResult
         {
-            StatusCode = result.IsExecutionSuccess ? 1 : 0,
-            Body = result.ErrorMessage,
-            ElapsedMs = 0,
+            StatusCode = result.IsExecutionSuccess ? (pyResult?.ExitCode ?? 0) : 0,
+            Body = pyResult?.StdOut ?? result.ErrorMessage,
+            ElapsedMs = pyResult?.ElapsedMs ?? 0,
             IsSuccess = result.IsExecutionSuccess,
             ErrorMessage = result.ErrorMessage
         };

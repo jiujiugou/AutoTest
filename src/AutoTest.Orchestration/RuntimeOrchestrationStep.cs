@@ -41,11 +41,24 @@ public class RuntimeOrchestrationStep : IPipelineStep
         context.Items[typeof(DslExecutionResult).FullName!] = dslResult;
 
         var finalStep = execCtx.CompletedSteps.LastOrDefault();
+
+        var stepAssertions = execCtx.CompletedSteps
+            .Where(s => s.Assertions?.Count > 0)
+            .SelectMany(s => s.Assertions!.Select(a => new Core.Assertion.AssertionResult(
+                Guid.NewGuid(),
+                $"{s.StepName}.{a.Field}",
+                a.Passed,
+                a.Actual,
+                a.Expected,
+                a.Passed ? null : $"{a.Field}: expected {a.Expected}, actual {a.Actual ?? "null"}"
+            )))
+            .ToList();
+
         context.Result = new Core.Dsl.DslExecutionResultWrapper(
             finalStep?.IsSuccess ?? false,
             finalStep?.ErrorMessage)
         {
-            Assertions = new List<Core.Assertion.AssertionResult>()
+            Assertions = stepAssertions
         };
 
         await next();

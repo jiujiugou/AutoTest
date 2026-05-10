@@ -1,6 +1,4 @@
-using System.Text.Json;
 using AutoTest.Application;
-using AutoTest.Application.Dto;
 using AutoTest.Core;
 using AutoTest.Core.Target.Template;
 
@@ -12,11 +10,7 @@ public sealed class TemplateTargetMap : ITargetMap
 
     public MonitorTarget Map(string json)
     {
-        var dto = JsonSerializer.Deserialize<TemplateTargetDto>(json, new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        })!;
-
-        return new TemplateTarget(dto.DslJson);
+        // TargetConfig 就是原始 DSL JSON，直接传入
+        return new TemplateTarget(json);
     }
 }

@@ -36,14 +36,8 @@
           <el-icon><Document /></el-icon>
           <template #title>系统日志</template>
         </el-menu-item>
-        <el-menu-item v-if="hasPerm('ui.menu.settings')" index="/setting">
-          <el-icon><Setting /></el-icon>
-          <template #title>系统设置</template>
-        </el-menu-item>
-        <el-menu-item v-if="hasPerm('ui.menu.ai')" index="/ai">
-          <el-icon><ChatDotRound /></el-icon>
-          <template #title>AI 助手</template>
-        </el-menu-item>
+
+
       </el-menu>
     </el-aside>
 
@@ -94,7 +88,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   DataBoard, Monitor, Operation, User,
-  Document, Setting, ChatDotRound,
+  Document,
   Fold, Expand, ArrowDown
 } from '@element-plus/icons-vue'
 
@@ -120,9 +114,9 @@ const routeNameMap = {
   '/monitor': '监控观测',
   '/task': '任务调度',
   '/log': '系统日志',
-  '/setting': '系统设置',
+
   '/person': '个人中心',
-  '/ai': 'AI 助手',
+
   '/RbacAdmin': '权限管理'
 }
 

@@ -1,6 +1,7 @@
 using AutoTest.Core;
 using AutoTest.Core.Assertion;
 using AutoTest.Core.Execution;
+using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Assertion.Python
 {
@@ -10,13 +11,17 @@ namespace AutoTest.Assertion.Python
         private readonly string _field;
         private readonly AssertionOperator _operator;
         private readonly string _expected;
+        private readonly ILogger<PythonAssertion>? _logger;
 
-        public PythonAssertion(Guid id, string field, string op, string expected)
+        public PythonAssertion(Guid id, string field, string op, string expected, ILogger<PythonAssertion>? logger = null)
         {
             Id = id;
             _field = field ?? string.Empty;
             _expected = expected ?? string.Empty;
-            _operator = Enum.TryParse<AssertionOperator>(op, true, out var parsed) ? parsed : AssertionOperator.Equal;
+            _logger = logger;
+            if (!Enum.TryParse<AssertionOperator>(op, true, out var parsed))
+                throw new ArgumentException($"无效的断言操作符: '{op}'");
+            _operator = parsed;
         }
 
         public Task<AssertionResult> EvaluateAsync(ExecutionResult executionResult)
@@ -47,6 +52,10 @@ namespace AutoTest.Assertion.Python
             }
 
             var success = Evaluate(actual, _expected, _operator);
+            if (success)
+                _logger?.LogInformation("Assertion passed: {Field} {Operator} {Expected}", _field, _operator, _expected);
+            else
+                _logger?.LogWarning("Assertion failed: actual={Actual}, expected={Expected}", actual, _expected);
             return Task.FromResult(new AssertionResult(
                 Id,
                 _field,

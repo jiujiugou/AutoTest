@@ -15,11 +15,11 @@ public class DbExecutionEngineTests
         var engine = new DbExecutionEngine(NullLogger<DbExecutionEngine>.Instance);
 
         var target = new DbTarget(
-            sqlstring: "Server=127.0.0.1;Connection Timeout=1;",
+            connectionString: "Server=127.0.0.1;Connection Timeout=1;",
             sql: "select 1",
-            dbtype: "sqlserver",
+            dbType: "sqlserver",
             rows: 0,
-            effectedrows: 0,
+            affectedRows: 0,
             commandType: SqlCommandType.Query);
 
         engine.CanExecute(target).Should().BeTrue();
@@ -37,21 +37,21 @@ public class DbExecutionEngineTests
     }
 
     [Fact]
-    public async Task ExecuteAsync_ShouldThrow_NotSupported_WhenDbTypeUnknown()
+    public async Task ExecuteAsync_ShouldReturnFailure_WhenDbTypeUnknown()
     {
         var engine = new DbExecutionEngine(NullLogger<DbExecutionEngine>.Instance);
 
         var target = new DbTarget(
-            sqlstring: "Server=127.0.0.1;Connection Timeout=1;",
+            connectionString: "Server=127.0.0.1;Connection Timeout=1;",
             sql: "select 1",
-            dbtype: "sqlite",
+            dbType: "sqlite",
             rows: 0,
-            effectedrows: 0,
+            affectedRows: 0,
             commandType: SqlCommandType.Query);
 
-        var act = async () => await engine.ExecuteAsync(target);
-        await act.Should().ThrowAsync<NotSupportedException>()
-            .WithMessage("*不支持的数据库类型*");
+        var r = await engine.ExecuteAsync(target);
+        r.IsExecutionSuccess.Should().BeFalse();
+        r.ErrorMessage.Should().Contain("不支持的数据库类型");
     }
 
     [Fact]
@@ -60,11 +60,11 @@ public class DbExecutionEngineTests
         var engine = new DbExecutionEngine(NullLogger<DbExecutionEngine>.Instance);
 
         var target = new DbTarget(
-            sqlstring: "Server=127.0.0.1,65000;Database=master;User Id=sa;Password=Password!123;TrustServerCertificate=True;Connect Timeout=1;",
+            connectionString: "Server=127.0.0.1,65000;Database=master;User Id=sa;Password=Password!123;TrustServerCertificate=True;Connect Timeout=1;",
             sql: "select 1",
-            dbtype: "sqlserver",
+            dbType: "sqlserver",
             rows: 0,
-            effectedrows: 0,
+            affectedRows: 0,
             commandType: SqlCommandType.Query);
 
         var r = await engine.ExecuteAsync(target);
@@ -78,11 +78,11 @@ public class DbExecutionEngineTests
         var engine = new DbExecutionEngine(NullLogger<DbExecutionEngine>.Instance);
 
         var target = new DbTarget(
-            sqlstring: "Server=127.0.0.1;Port=65000;Uid=root;Pwd=x;Database=mysql;ConnectionTimeout=1;Default Command Timeout=1;",
+            connectionString: "Server=127.0.0.1;Port=65000;Uid=root;Pwd=x;Database=mysql;ConnectionTimeout=1;Default Command Timeout=1;",
             sql: "select 1",
-            dbtype: "mysql",
+            dbType: "mysql",
             rows: 0,
-            effectedrows: 0,
+            affectedRows: 0,
             commandType: SqlCommandType.Query);
 
         var r = await engine.ExecuteAsync(target);
@@ -96,11 +96,11 @@ public class DbExecutionEngineTests
         var engine = new DbExecutionEngine(NullLogger<DbExecutionEngine>.Instance);
 
         var target = new DbTarget(
-            sqlstring: "Host=127.0.0.1;Port=65000;Username=x;Password=x;Database=postgres;Timeout=1;Command Timeout=1;",
+            connectionString: "Host=127.0.0.1;Port=65000;Username=x;Password=x;Database=postgres;Timeout=1;Command Timeout=1;",
             sql: "select 1",
-            dbtype: "postgresql",
+            dbType: "postgresql",
             rows: 0,
-            effectedrows: 0,
+            affectedRows: 0,
             commandType: SqlCommandType.Query);
 
         var r = await engine.ExecuteAsync(target);

@@ -20,5 +20,9 @@ public enum OutboxStatus
     /// <summary>
     /// 发送失败（可重试）。
     /// </summary>
-    Failed = 3
+    Failed = 3,
+    /// <summary>
+    /// 死信（超过最大重试次数，不再重试）。
+    /// </summary>
+    DeadLetter = 4
 }

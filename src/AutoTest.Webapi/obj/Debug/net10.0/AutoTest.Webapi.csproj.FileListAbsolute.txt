@@ -887,3 +887,5 @@ D:\AutoTest\src\AutoTest.Webapi\obj\Debug\net10.0\refint\AutoTest.Webapi.dll
 D:\AutoTest\src\AutoTest.Webapi\obj\Debug\net10.0\AutoTest.Webapi.pdb
 D:\AutoTest\src\AutoTest.Webapi\obj\Debug\net10.0\AutoTest.Webapi.genruntimeconfig.cache
 D:\AutoTest\src\AutoTest.Webapi\obj\Debug\net10.0\ref\AutoTest.Webapi.dll
+D:\AutoTest\src\AutoTest.Webapi\bin\Debug\net10.0\HealthChecks.Redis.dll
+D:\AutoTest\src\AutoTest.Webapi\bin\Debug\net10.0\HealthChecks.SqlServer.dll

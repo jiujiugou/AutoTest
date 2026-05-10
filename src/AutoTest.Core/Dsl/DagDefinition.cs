@@ -5,13 +5,16 @@ namespace AutoTest.Core.Dsl;
 public class StepSequence
 {
     public string Id { get; set; } = string.Empty;
+    public List<SequenceItem> Items { get; set; } = new();
     public List<StepDefinition> Steps { get; set; } = new();
     public List<ParallelGroup> ParallelGroups { get; set; } = new();
     public TimeSpan? GlobalTimeout { get; set; }
     public FailureStrategy DefaultFailureStrategy { get; set; } = FailureStrategy.Stop;
 }
 
-public class StepDefinition
+public abstract class SequenceItem { }
+
+public class StepDefinition : SequenceItem
 {
     public string Name { get; set; } = "";
     public string Type { get; set; } = "";
@@ -23,7 +26,7 @@ public class StepDefinition
     public List<AssertionDef>? Assertions { get; set; }
 }
 
-public class ParallelGroup
+public class ParallelGroup : SequenceItem
 {
     public string Name { get; set; } = "";
     public List<StepDefinition> Steps { get; set; } = new();

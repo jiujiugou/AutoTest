@@ -1,329 +1,78 @@
-<template>
-  <div class="page-container">
-    <div class="toolbar">
-      <div class="toolbar-left">
-        <el-input v-model="keyword" placeholder="搜索监控" style="width: 260px" clearable>
-          <template #prefix>
-            <el-icon><Search /></el-icon>
-          </template>
-        </el-input>
-      </div>
-      <div class="toolbar-right">
-        <el-button :icon="'Refresh'" @click="refresh">刷新</el-button>
-      </div>
-    </div>
-
-    <el-row :gutter="20">
-      <el-col :span="8">
-        <el-card shadow="never" class="list-card">
-          <template #header>
-            <div class="card-header">
-              <span>监控列表（观测）</span>
-              <el-tag size="small" type="info">{{ filtered.length }} 个</el-tag>
-            </div>
-          </template>
-          <el-table
-            :data="filtered"
-            size="small"
-            v-loading="loading"
-            highlight-current-row
-            @row-click="selectRow"
-          >
-            <el-table-column prop="name" label="监控" min-width="140" show-overflow-tooltip />
-            <el-table-column prop="targetType" label="类型" width="80">
-              <template #default="{ row }">
-                <el-tag size="small" effect="plain">{{ row.targetType }}</el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column label="状态" width="90" align="center">
-              <template #default="{ row }">
-                <el-tag size="small" :type="statusInfo(row.status).type">
-                  {{ statusInfo(row.status).text }}
-                </el-tag>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-card>
-      </el-col>
-
-      <el-col :span="16">
-        <el-card shadow="never" class="detail-card">
-          <template #header>
-            <div class="card-header">
-              <span class="detail-title">{{ selected ? selected.name : '请选择一个监控' }}</span>
-              <div class="actions">
-                <el-button :disabled="!selected" :loading="loadingDetail" :icon="'RefreshRight'" @click="loadDetail">
-                  刷新数据
-                </el-button>
-              </div>
-            </div>
-          </template>
-
-          <div v-if="!selected" class="empty">
-            <el-empty description="请选择左侧监控，查看执行记录与指标" />
-          </div>
-
-          <div v-else class="content">
-            <el-row :gutter="16" class="kpi-row">
-              <el-col :span="4">
-                <el-card shadow="hover" class="kpi-card">
-                  <div class="kpi-title">总执行次数</div>
-                  <el-statistic :value="overall.total" />
-                </el-card>
-              </el-col>
-              <el-col :span="4">
-                <el-card shadow="hover" class="kpi-card">
-                  <div class="kpi-title">成功率</div>
-                  <el-statistic :value="overall.successRate" :precision="1" suffix="%" />
-                </el-card>
-              </el-col>
-              <el-col :span="4">
-                <el-card shadow="hover" class="kpi-card">
-                  <div class="kpi-title">失败率</div>
-                  <el-statistic :value="overall.failRate" :precision="1" suffix="%" />
-                </el-card>
-              </el-col>
-              <el-col :span="4">
-                <el-card shadow="hover" class="kpi-card">
-                  <div class="kpi-title">最后执行</div>
-                  <div class="kpi-value">{{ overall.lastStartedAt ? formatTime(overall.lastStartedAt) : '-' }}</div>
-                </el-card>
-              </el-col>
-              <el-col :span="4">
-                <el-card shadow="hover" class="kpi-card">
-                  <div class="kpi-title">平均响应</div>
-                  <el-statistic :value="kpiWindow.avgMs" suffix=" ms" />
-                </el-card>
-              </el-col>
-              <el-col :span="4">
-                <el-card shadow="hover" class="kpi-card">
-                  <div class="kpi-title">P95 响应</div>
-                  <el-statistic :value="kpiWindow.p95Ms" suffix=" ms" />
-                </el-card>
-              </el-col>
-            </el-row>
-
-            <el-row :gutter="16" class="grid-row">
-              <el-col :span="12">
-                <el-card shadow="never" class="panel">
-                  <template #header>
-                    <div class="panel-header">错误分析（499 / 4xx / 5xx）</div>
-                  </template>
-                  <div class="error-grid">
-                    <div class="error-item">
-                      <div class="label">499</div>
-                      <div class="value danger">{{ errorAgg.c499 }}</div>
-                    </div>
-                    <div class="error-item">
-                      <div class="label">4xx</div>
-                      <div class="value warning">{{ errorAgg.c4xx }}</div>
-                    </div>
-                    <div class="error-item">
-                      <div class="label">5xx</div>
-                      <div class="value danger">{{ errorAgg.c5xx }}</div>
-                    </div>
-                    <div class="error-item">
-                      <div class="label">其他失败</div>
-                      <div class="value">{{ errorAgg.otherFail }}</div>
-                    </div>
-                  </div>
-                </el-card>
-              </el-col>
-
-              <el-col :span="12">
-                <el-card shadow="never" class="panel">
-                  <template #header>
-                    <div class="panel-header">失败原因 TOP</div>
-                  </template>
-                  <el-empty v-if="topErrors.length === 0" description="暂无失败记录" />
-                  <el-table v-else :data="topErrors" size="small" stripe border style="width: 100%">
-                    <el-table-column prop="errorMessage" label="错误原因" show-overflow-tooltip />
-                    <el-table-column prop="count" label="次数" width="90" align="center" />
-                    <el-table-column prop="lastOccurredAt" label="最近发生" width="180">
-                      <template #default="{ row }">{{ formatTime(row.lastOccurredAt) }}</template>
-                    </el-table-column>
-                  </el-table>
-                </el-card>
-              </el-col>
-            </el-row>
-
-            <el-card shadow="never" class="panel" style="margin-top: 16px">
-              <template #header>
-                <div class="panel-header">执行记录</div>
-              </template>
-              <el-table :data="records" stripe border size="small" v-loading="loadingDetail" style="width: 100%">
-                <el-table-column prop="startedAt" label="开始时间" width="180">
-                  <template #default="{ row }">{{ formatTime(row.startedAt) }}</template>
-                </el-table-column>
-                <el-table-column prop="finishedAt" label="结束时间" width="180">
-                  <template #default="{ row }">{{ row.finishedAt ? formatTime(row.finishedAt) : '-' }}</template>
-                </el-table-column>
-                <el-table-column label="耗时" width="110" align="center">
-                  <template #default="{ row }">{{ durationText(row) }}</template>
-                </el-table-column>
-                <el-table-column label="结果" width="90" align="center">
-                  <template #default="{ row }">
-                    <el-tag :type="row.isExecutionSuccess ? 'success' : 'danger'" size="small">
-                      {{ row.isExecutionSuccess ? '成功' : '失败' }}
-                    </el-tag>
-                  </template>
-                </el-table-column>
-                <el-table-column label="状态码" width="90" align="center">
-                  <template #default="{ row }">{{ row.__statusCode ?? '-' }}</template>
-                </el-table-column>
-                <el-table-column label="响应时间" width="110" align="center">
-                  <template #default="{ row }">{{ row.__elapsedMs != null ? `${row.__elapsedMs}ms` : '-' }}</template>
-                </el-table-column>
-                <el-table-column prop="errorMessage" label="错误信息" show-overflow-tooltip />
-                <el-table-column label="AI 分析" width="80" align="center">
-                  <template #default="{ row }">
-                    <el-button
-                      v-if="!row.isExecutionSuccess"
-                      size="small"
-                      type="warning"
-                      plain
-                      @click="showAiAnalysis(row)"
-                    >分析</el-button>
-                  </template>
-                </el-table-column>
-              </el-table>
-            </el-card>
-          </div>
-        </el-card>
-      </el-col>
-    </el-row>
-
-    <el-drawer
-      v-model="analysisDrawerVisible"
-      title="AI 分析结果"
-      size="500px"
-      direction="rtl"
-    >
-      <template v-if="analysisLoading">
-        <div style="text-align:center;padding:40px">
-          <el-skeleton :rows="6" animated />
-        </div>
-      </template>
-      <template v-else-if="analysisError">
-        <el-empty description="暂无 AI 分析结果" />
-        <p style="color:#999;font-size:13px;text-align:center">分析任务可能正在排队，请稍后重试</p>
-      </template>
-      <template v-else-if="analysisData">
-        <div class="analysis-detail">
-          <div class="analysis-section">
-            <span class="label">严重级别</span>
-            <el-tag :type="severityTagType(analysisData.severity)" size="default">
-              {{ severityLabel(analysisData.severity) }}
-            </el-tag>
-            <el-tag type="info" size="default" style="margin-left:8px">
-              置信度 {{ (analysisData.confidence * 100).toFixed(0) }}%
-            </el-tag>
-            <el-tag v-if="analysisData.type" type="info" size="default" style="margin-left:8px">
-              {{ analysisData.type }}
-            </el-tag>
-          </div>
-          <div class="analysis-section">
-            <span class="label">问题分类</span>
-            <span>{{ analysisData.category || '未分类' }}</span>
-          </div>
-          <div class="analysis-section">
-            <span class="label">摘要</span>
-            <p>{{ analysisData.summary }}</p>
-          </div>
-          <div class="analysis-section">
-            <span class="label">根因分析</span>
-            <div class="code-block">{{ analysisData.rootCause }}</div>
-          </div>
-          <div class="analysis-section">
-            <span class="label">修复建议</span>
-            <div class="code-block suggestion">{{ analysisData.suggestion }}</div>
-          </div>
-          <div class="analysis-section">
-            <span class="label">分析时间</span>
-            <span>{{ formatTime(analysisData.createdAt) }}</span>
-          </div>
-        </div>
-      </template>
-    </el-drawer>
-  </div>
-</template>
-
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { Search, Refresh, VideoPlay, InfoFilled } from '@element-plus/icons-vue'
 import { MonitorsApi } from '../api/monitors'
 import { ensureMonitorHubStarted, getMonitorHubConnection } from '../realtime/monitorHub'
 
+// ── State ──
 const loading = ref(false)
 const loadingDetail = ref(false)
 const keyword = ref('')
-
 const monitors = ref([])
 const selected = ref(null)
 const records = ref([])
 const runtimeStats = ref(null)
 const topErrors = ref([])
+let hubConn = null
 
+// ── Analysis drawer ──
+const analysisDrawer = ref(false)
+const analysisLoading = ref(false)
+const analysisError = ref(false)
+const analysisData = ref(null)
+
+// ── Computed ──
 const filtered = computed(() => {
   const k = String(keyword.value || '').trim().toLowerCase()
   if (!k) return monitors.value
   return (monitors.value || []).filter(x => String(x.name || '').toLowerCase().includes(k))
 })
 
-function statusInfo(status) {
-  const s = Number(status)
-  if (s === 0) return { text: '等待中', type: 'info' }
-  if (s === 1) return { text: '运行中', type: 'warning' }
-  if (s === 2) return { text: '成功', type: 'success' }
-  if (s === 3) return { text: '失败', type: 'danger' }
-  if (s === 4) return { text: '超时', type: 'warning' }
-  if (s === 5) return { text: '已取消', type: 'info' }
-  return { text: '未知', type: 'info' }
+const statusInfo = (s) => {
+  const map = { 0: ['等待中','info'], 1: ['运行中','warning'], 2: ['成功','success'], 3: ['失败','danger'], 4: ['超时','warning'], 5: ['已取消','info'] }
+  const [text, type] = map[Number(s)] || ['未知','info']
+  return { text, type }
 }
 
-function setRowStatus(monitorId, status) {
-  const idx = (monitors.value || []).findIndex(x => String(x.id) === String(monitorId))
-  if (idx >= 0) monitors.value[idx].status = status
-}
-
-function formatTime(s) {
-  try {
-    return new Date(s).toLocaleString()
-  } catch {
-    return String(s || '')
+const overall = computed(() => {
+  const s = runtimeStats.value
+  if (!s) return { total: 0, successRate: 0, failRate: 0 }
+  const total = Number(s.total || 0)
+  const success = Number(s.success || 0)
+  const fail = Number(s.fail || 0)
+  return {
+    total,
+    successRate: total > 0 ? Math.round(success / total * 100) : 0,
+    failRate: total > 0 ? Math.round(fail / total * 100) : 0
   }
+})
+
+// ── Helpers ──
+function formatTime(s) { try { return new Date(s).toLocaleString() } catch { return String(s || '') } }
+function duration(r) {
+  if (!r?.startedAt || !r?.finishedAt) return '-'
+  const ms = new Date(r.finishedAt) - new Date(r.startedAt)
+  return ms < 1000 ? `${ms}ms` : `${Math.round(ms / 1000)}s`
+}
+function safeJsonParse(s) { try { return JSON.parse(String(s || '')) } catch { return null } }
+function parseMeta(r) {
+  const p = safeJsonParse(r?.resultJson)
+  return { statusCode: p?.StatusCode ?? p?.statusCode, elapsedMs: p?.ElapsedMilliseconds ?? p?.elapsedMilliseconds }
 }
 
-function safeJsonParse(s) {
-  try {
-    return JSON.parse(String(s || ''))
-  } catch {
-    return null
-  }
-}
-
-function parseExecutionMeta(record) {
-  const payload = safeJsonParse(record?.resultJson)
-  const statusCode = payload?.StatusCode ?? payload?.statusCode
-  const elapsedMs = payload?.ElapsedMilliseconds ?? payload?.elapsedMilliseconds
-  return { statusCode, elapsedMs }
-}
-
+// ── Data ──
 async function refresh() {
   loading.value = true
   try {
     const rows = await MonitorsApi.list()
     monitors.value = (rows || []).map(x => ({
-      id: x.id || x.Id,
-      name: x.name || x.Name,
-      targetType: x.targetType || x.TargetType,
-      status: x.status ?? x.Status
+      id: x.id || x.Id, name: x.name || x.Name,
+      targetType: x.targetType || x.TargetType, status: x.status ?? x.Status,
+      isEnabled: x.isEnabled
     }))
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    loading.value = false
-  }
+  } catch { /* ignore */ }
+  finally { loading.value = false }
 }
 
 async function selectRow(row) {
@@ -341,144 +90,43 @@ async function loadDetail() {
       MonitorsApi.runtimeStats(selected.value.id, 10)
     ])
     records.value = (rows || []).map(r => {
-      const meta = parseExecutionMeta(r)
+      const meta = parseMeta(r)
       return { ...r, __statusCode: meta.statusCode, __elapsedMs: meta.elapsedMs }
     })
     runtimeStats.value = statsResp?.stats || null
     topErrors.value = statsResp?.topErrors || []
-  } catch (e) {
-    ElMessage.error(e.message || String(e))
-  } finally {
-    loadingDetail.value = false
-  }
+  } catch { /* ignore */ }
+  finally { loadingDetail.value = false }
 }
 
-function durationText(row) {
-  const s = row?.startedAt
-  const f = row?.finishedAt
-  if (!s || !f) return '-'
-  const ms = new Date(f).getTime() - new Date(s).getTime()
-  if (!Number.isFinite(ms) || ms < 0) return '-'
-  if (ms < 1000) return `${ms}ms`
-  const sec = Math.round(ms / 1000)
-  return `${sec}s`
-}
-
-const overall = computed(() => {
-  const s = runtimeStats.value
-  if (!s) return { total: 0, successRate: 0, failRate: 0, lastStartedAt: null }
-  const total = Number(s.total || 0)
-  const success = Number(s.success || 0)
-  const fail = Number(s.fail || 0)
-  const successRate = total > 0 ? (success / total) * 100 : 0
-  const failRate = total > 0 ? (fail / total) * 100 : 0
-  return { total, successRate, failRate, lastStartedAt: s.lastStartedAt || null }
-})
-
-const kpiWindow = computed(() => {
-  const arr = records.value || []
-  if (arr.length === 0) return { avgMs: 0, p95Ms: 0 }
-
-  const ms = arr.map(x => x.__elapsedMs).filter(x => Number.isFinite(x) && x >= 0)
-  const avgMs = ms.length ? Math.round(ms.reduce((a, b) => a + b, 0) / ms.length) : 0
-  const p95Ms = (() => {
-    if (ms.length === 0) return 0
-    const sorted = [...ms].sort((a, b) => a - b)
-    const idx = Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95) - 1)
-    return sorted[Math.max(0, idx)]
-  })()
-
-  return { avgMs, p95Ms }
-})
-
-const errorAgg = computed(() => {
-  const arr = records.value || []
-  let c499 = 0
-  let c4xx = 0
-  let c5xx = 0
-  let otherFail = 0
-
-  for (const r of arr) {
-    if (r.isExecutionSuccess) continue
-    const sc = r.__statusCode
-    if (sc === 499) c499++
-    else if (typeof sc === 'number' && sc >= 500) c5xx++
-    else if (typeof sc === 'number' && sc >= 400) c4xx++
-    else otherFail++
-  }
-
-  return { c499, c4xx, c5xx, otherFail }
-})
-
- 
-
-let hubConn = null
-
-const analysisDrawerVisible = ref(false)
-const analysisLoading = ref(false)
-const analysisError = ref(false)
-const analysisData = ref(null)
-
-async function showAiAnalysis(record) {
-  analysisDrawerVisible.value = true
+// ── AI ──
+async function showAnalysis(record) {
+  analysisDrawer.value = true
   analysisLoading.value = true
   analysisError.value = false
   analysisData.value = null
-
   try {
     const res = await MonitorsApi.executionAnalysis(record.id)
-
-    if (res && res.summary) {
-      analysisData.value = res
-    } else {
-      analysisError.value = true
-    }
-  } catch (e) {
-    console.error(e)
-    analysisError.value = true
-  } finally {
-    analysisLoading.value = false
-  }
+    if (res?.summary) analysisData.value = res
+    else analysisError.value = true
+  } catch { analysisError.value = true }
+  finally { analysisLoading.value = false }
 }
 
-function severityTagType(severity) {
-  const map = { critical: 'danger', high: 'warning', medium: 'warning', low: 'info' }
-  return map[severity] || 'info'
+// ── SignalR ──
+function setRowStatus(mid, status) {
+  const idx = (monitors.value || []).findIndex(x => String(x.id) === String(mid))
+  if (idx >= 0) monitors.value[idx].status = status
 }
 
-function severityLabel(severity) {
-  const map = { critical: '严重', high: '高', medium: '中', low: '低' }
-  return map[severity] || severity || '未知'
-}
-
-function onMonitorUpdated(payload) {
-  const mid = payload?.monitorId
-  if (!mid) return
-
-  if (selected.value?.id && String(selected.value.id) === String(mid)) {
-    if (payload.status === 'running') {
-      setRowStatus(mid, 1)
-      ElMessage.info('开始执行…')
-      return
-    }
-    if (payload.status === 'finished') {
-      const recordStatus = payload?.record?.status ?? payload?.record?.Status
-      if (recordStatus != null) setRowStatus(mid, recordStatus)
-      loadDetail()
-      ElMessage.success('执行完成')
-      return
-    }
+function onMonitorUpdated(p) {
+  if (!p?.monitorId) return
+  if (selected.value?.id && String(selected.value.id) === String(p.monitorId)) {
+    if (p.status === 'running') { setRowStatus(p.monitorId, 1); ElMessage.info('开始执行...'); return }
+    if (p.status === 'finished') { setRowStatus(p.monitorId, p?.record?.status ?? p?.record?.Status); loadDetail(); ElMessage.success('执行完成'); return }
   }
-
-  if (payload.status === 'running') {
-    setRowStatus(mid, 1)
-    return
-  }
-  if (payload.status === 'finished') {
-    const recordStatus = payload?.record?.status ?? payload?.record?.Status
-    if (recordStatus != null) setRowStatus(mid, recordStatus)
-    return
-  }
+  if (p.status === 'running') { setRowStatus(p.monitorId, 1); return }
+  if (p.status === 'finished') { setRowStatus(p.monitorId, p?.record?.status ?? p?.record?.Status) }
 }
 
 onMounted(async () => {
@@ -487,207 +135,189 @@ onMounted(async () => {
     hubConn = await ensureMonitorHubStarted()
     hubConn.off('monitorUpdated', onMonitorUpdated)
     hubConn.on('monitorUpdated', onMonitorUpdated)
-  } catch (e) {
-    ElMessage.warning(e.message || String(e))
-  }
+  } catch { /* ignore */ }
 })
 
 onBeforeUnmount(() => {
-  try {
-    const c = hubConn || getMonitorHubConnection()
-    c.off('monitorUpdated', onMonitorUpdated)
-  } catch {
-  }
+  try { (hubConn || getMonitorHubConnection()).off('monitorUpdated', onMonitorUpdated) } catch { /* ignore */ }
 })
 </script>
 
+<template>
+  <div class="monitor-page">
+    <!-- ====== 左侧列表 ====== -->
+    <aside class="sidebar">
+      <div class="sidebar-head">
+        <el-input v-model="keyword" placeholder="搜索..." :prefix-icon="Search" clearable size="large" />
+        <el-button :icon="Refresh" size="large" @click="refresh" :loading="loading">刷新</el-button>
+      </div>
+      <div class="sidebar-list">
+        <div v-if="filtered.length === 0" class="empty"><el-empty description="暂无监控" :image-size="80" /></div>
+        <div
+          v-for="m in filtered" :key="m.id"
+          class="monitor-card" :class="{ active: selected?.id === m.id }"
+          @click="selectRow(m)"
+        >
+          <div class="card-top">
+            <span class="card-name">{{ m.name }}</span>
+            <el-tag :type="statusInfo(m.status).type" size="small" effect="dark">
+              {{ statusInfo(m.status).text }}
+            </el-tag>
+          </div>
+          <div class="card-meta">
+            <el-tag size="small" effect="plain">{{ m.targetType }}</el-tag>
+            <span class="dot" v-if="m.isEnabled === false">已暂停</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ====== 右侧详情 ====== -->
+    <main class="detail" v-if="selected">
+      <header class="detail-head">
+        <h2>{{ selected.name }}</h2>
+        <el-tag :type="statusInfo(selected.status).type" effect="dark">{{ statusInfo(selected.status).text }}</el-tag>
+        <el-button :icon="Refresh" size="small" @click="loadDetail" :loading="loadingDetail">刷新</el-button>
+      </header>
+
+      <div class="detail-body">
+        <!-- KPI 卡片 -->
+        <section class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-num">{{ overall.total }}</div>
+            <div class="kpi-label">总执行</div>
+          </div>
+          <div class="kpi-card success">
+            <div class="kpi-num">{{ overall.successRate }}%</div>
+            <div class="kpi-label">成功率</div>
+          </div>
+          <div class="kpi-card danger">
+            <div class="kpi-num">{{ overall.failRate }}%</div>
+            <div class="kpi-label">失败率</div>
+          </div>
+          <div class="kpi-card" v-if="topErrors.length">
+            <div class="kpi-num">{{ topErrors.length }}</div>
+            <div class="kpi-label">Top 错误</div>
+          </div>
+        </section>
+
+        <!-- 执行记录 -->
+        <section class="section">
+          <h3 class="section-title">执行记录</h3>
+          <el-table :data="records" size="small" v-loading="loadingDetail" empty-text="暂无记录" max-height="320">
+            <el-table-column label="时间" width="160">
+              <template #default="{ row }">{{ formatTime(row.startedAt) }}</template>
+            </el-table-column>
+            <el-table-column label="结果" width="80">
+              <template #default="{ row }">
+                <el-tag size="small" :type="row.isExecutionSuccess ? 'success' : 'danger'">
+                  {{ row.isExecutionSuccess ? '通过' : '失败' }}
+                </el-tag>
+              </template>
+            </el-table-column>
+            <el-table-column label="耗时" width="80">
+              <template #default="{ row }">{{ duration(row) }}</template>
+            </el-table-column>
+            <el-table-column label="错误" min-width="200" show-overflow-tooltip>
+              <template #default="{ row }">{{ row.errorMessage || '-' }}</template>
+            </el-table-column>
+            <el-table-column label="AI" width="70" align="center">
+              <template #default="{ row }">
+                <el-button v-if="!row.isExecutionSuccess" size="small" type="warning" text :icon="InfoFilled" @click="showAnalysis(row)">分析</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </section>
+
+        <!-- Top 错误 -->
+        <section class="section" v-if="topErrors.length">
+          <h3 class="section-title">Top 错误</h3>
+          <div class="error-grid">
+            <div v-for="e in topErrors.slice(0, 6)" :key="e.errorMessage" class="error-item">
+              <div class="err-count">{{ e.count }}</div>
+              <div class="err-msg">{{ e.errorMessage || '未知错误' }}</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- 空状态 -->
+    <main class="detail empty-detail" v-else>
+      <el-empty description="选择左侧监控查看详情" :image-size="120" />
+    </main>
+
+    <!-- AI 分析抽屉 -->
+    <el-drawer v-model="analysisDrawer" title="AI 故障分析" size="480px" direction="rtl">
+      <template v-if="analysisLoading"><el-skeleton :rows="6" animated /></template>
+      <template v-else-if="analysisError"><el-empty description="暂无分析结果" /></template>
+      <template v-else-if="analysisData">
+        <div class="analysis">
+          <div class="analysis-tags">
+            <el-tag :type="{ critical:'danger', high:'warning', medium:'warning', low:'info' }[analysisData.severity] || 'info'">
+              {{ { critical:'严重', high:'高', medium:'中', low:'低' }[analysisData.severity] || analysisData.severity }}
+            </el-tag>
+            <el-tag type="info">置信度 {{ (analysisData.confidence * 100).toFixed(0) }}%</el-tag>
+            <el-tag v-if="analysisData.type" type="info">{{ analysisData.type }}</el-tag>
+          </div>
+          <div class="analysis-field"><span>分类</span> {{ analysisData.category || '未分类' }}</div>
+          <div class="analysis-field"><span>摘要</span> {{ analysisData.summary }}</div>
+          <div class="analysis-field"><span>根因</span><pre>{{ analysisData.rootCause }}</pre></div>
+          <div class="analysis-field"><span>建议</span><pre class="suggestion">{{ analysisData.suggestion }}</pre></div>
+          <div class="analysis-field"><span>时间</span> {{ formatTime(analysisData.createdAt) }}</div>
+        </div>
+      </template>
+    </el-drawer>
+  </div>
+</template>
+
 <style scoped>
-.page-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+.monitor-page { display: flex; height: calc(100vh - 80px); background: #f5f7fa; }
 
-.toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #fff;
-  padding: 12px 20px;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
-}
+/* ── Sidebar ── */
+.sidebar { width: 370px; min-width: 260px; background: #fff; border-right: 1px solid #ebeef5; display: flex; flex-direction: column; }
+.sidebar-head { display: flex; gap: 10px; padding: 16px; border-bottom: 1px solid #ebeef5; background: #fafbfc; }
+.sidebar-list { flex: 1; overflow-y: auto; padding: 8px 12px; }
+.empty { padding-top: 60px; }
 
-.toolbar-left,
-.toolbar-right {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
+.monitor-card { padding: 14px 16px; margin-bottom: 6px; border-radius: 8px; border: 1px solid transparent; cursor: pointer; transition: all .15s; }
+.monitor-card:hover { background: #f0f5ff; border-color: #c6d8ff; }
+.monitor-card.active { background: #e8f0ff; border-color: #91b5ff; }
+.card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.card-name { font-size: 14px; font-weight: 500; color: #303133; flex: 1; margin-right: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card-meta { display: flex; align-items: center; gap: 8px; }
+.dot { font-size: 12px; color: #909399; }
 
-.list-card,
-.detail-card {
-  border-radius: 8px;
-  height: calc(100vh - 160px);
-  display: flex;
-  flex-direction: column;
-}
+/* ── Detail ── */
+.detail { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.detail-head { display: flex; align-items: center; gap: 12px; padding: 16px 24px; background: #fff; border-bottom: 1px solid #ebeef5; }
+.detail-head h2 { margin: 0; font-size: 18px; font-weight: 600; }
+.detail-body { flex: 1; overflow-y: auto; padding: 24px; }
+.empty-detail { display: flex; align-items: center; justify-content: center; }
 
-.list-card :deep(.el-card__body),
-.detail-card :deep(.el-card__body) {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px;
-}
+/* ── KPI cards ── */
+.kpi-row { display: flex; gap: 12px; margin-bottom: 20px; }
+.kpi-card { flex: 1; background: #fff; border: 1px solid #ebeef5; border-radius: 10px; padding: 16px; text-align: center; }
+.kpi-card.success { border-left: 3px solid #67c23a; }
+.kpi-card.danger { border-left: 3px solid #f56c6c; }
+.kpi-num { font-size: 24px; font-weight: 700; color: #303133; }
+.kpi-label { font-size: 12px; color: #909399; margin-top: 4px; }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: 600;
-}
+/* ── Sections ── */
+.section { background: #fff; border: 1px solid #ebeef5; border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; }
+.section-title { margin: 0 0 16px; font-size: 15px; font-weight: 600; color: #303133; }
 
-.detail-title {
-  font-size: 16px;
-  color: #303133;
-}
+/* ── Error grid ── */
+.error-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.error-item { background: #fafafa; border: 1px solid #ebeef5; border-radius: 8px; padding: 12px; }
+.err-count { font-size: 20px; font-weight: 700; color: #f56c6c; }
+.err-msg { font-size: 13px; color: #606266; margin-top: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.actions {
-  display: flex;
-  gap: 10px;
-}
-
-.empty {
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.analysis-detail {
-  padding: 0 8px;
-}
-
-.analysis-section {
-  margin-bottom: 20px;
-}
-
-.analysis-section .label {
-  display: block;
-  font-size: 13px;
-  color: #909399;
-  margin-bottom: 6px;
-  font-weight: 500;
-}
-
-.analysis-section p {
-  margin: 0;
-  line-height: 1.6;
-  color: #303133;
-}
-
-.code-block {
-  background: #f5f7fa;
-  border: 1px solid #e4e7ed;
-  border-radius: 6px;
-  padding: 12px 16px;
-  font-size: 14px;
-  line-height: 1.7;
-  white-space: pre-wrap;
-  word-break: break-word;
-  color: #303133;
-}
-
-.code-block.suggestion {
-  border-left: 3px solid #e6a23c;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-}
-
-.kpi-row {
-  margin-bottom: 16px;
-}
-
-.kpi-card {
-  border: none;
-  border-radius: 8px;
-}
-
-.kpi-title {
-  font-size: 13px;
-  color: #909399;
-  margin-bottom: 8px;
-}
-
-.kpi-value {
-  font-size: 14px;
-  font-weight: 600;
-  color: #303133;
-}
-
-.panel {
-  border-radius: 8px;
-  border: 1px solid #ebeef5;
-  background: #fff;
-}
-
-.panel-header {
-  font-size: 14px;
-  font-weight: 600;
-  color: #606266;
-}
-
-.grid-row {
-  margin-top: 6px;
-}
-
-.error-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.error-item {
-  background: #f8f9fa;
-  border: 1px solid #ebeef5;
-  border-radius: 8px;
-  padding: 12px;
-}
-
-.error-item .label {
-  font-size: 12px;
-  color: #909399;
-}
-
-.error-item .value {
-  margin-top: 6px;
-  font-size: 22px;
-  font-weight: 700;
-  color: #303133;
-}
-
-.warning {
-  color: #e6a23c;
-}
-
-.danger {
-  color: #f56c6c;
-}
-
-.alert-line {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.alert-msg {
-  font-size: 13px;
-  color: #303133;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+/* ── AI drawer ── */
+.analysis { padding: 0 8px; }
+.analysis-tags { display: flex; gap: 8px; margin-bottom: 20px; }
+.analysis-field { margin-bottom: 18px; }
+.analysis-field > span { display: block; font-size: 13px; color: #909399; margin-bottom: 6px; font-weight: 500; }
+.analysis-field pre { margin: 0; background: #f5f7fa; border: 1px solid #e4e7ed; border-radius: 6px; padding: 12px 16px; font-size: 14px; line-height: 1.7; white-space: pre-wrap; word-break: break-word; }
+.analysis-field pre.suggestion { border-left: 3px solid #e6a23c; }
 </style>

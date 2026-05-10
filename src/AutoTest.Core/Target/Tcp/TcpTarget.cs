@@ -4,57 +4,54 @@ using AutoTest.Core.Assertion;
 
 namespace AutoTest.Core.Target;
 
-/// <summary>
-/// TCP 监控目标：描述一次 TCP 连接与消息交互的配置。
-/// </summary>
 public class TcpTarget : MonitorTarget
 {
-    /// <summary>
-    /// 目标主机名或 IP。
-    /// </summary>
     public string Host { get; private set; } = null!;
-
-    /// <summary>
-    /// 目标端口。
-    /// </summary>
     public int Port { get; private set; }
-
-    /// <summary>
-    /// 超时时间（秒）。
-    /// </summary>
-    public int Timeout { get; private set; }
-
-    /// <summary>
-    /// 待发送的消息序列。
-    /// </summary>
-    public List<string> Messages { get; private set; } = new List<string>();
-
-    /// <summary>
-    /// 断言结果（用于与执行结果结构保持一致）。
-    /// </summary>
+    public int Timeout { get; private set; } = 30;
+    public List<string> Messages { get; private set; } = new();
     public List<AssertionResult>? Assertions { get; private set; }
 
-    /// <summary>
-    /// 创建 TCP 监控目标。
-    /// </summary>
-    public TcpTarget(string host, int port, int timeout = 30, List<string>? messages = null)
+    public bool UseTls { get; private set; }
+    public bool IgnoreSslErrors { get; private set; }
+    public int ConnectTimeoutMs { get; private set; } = 15000;
+    public int ReadTimeoutMs { get; private set; } = 30000;
+    public int WriteTimeoutMs { get; private set; } = 10000;
+    public bool EnableRetry { get; private set; }
+    public int RetryCount { get; private set; } = 2;
+    public int RetryDelayMs { get; private set; } = 500;
+
+    [JsonConstructor]
+    public TcpTarget(
+        string host,
+        int port,
+        int timeout = 30,
+        List<string>? messages = null,
+        bool useTls = false,
+        bool ignoreSslErrors = false,
+        int connectTimeoutMs = 0,
+        int readTimeoutMs = 0,
+        int writeTimeoutMs = 0,
+        bool enableRetry = false,
+        int retryCount = 2,
+        int retryDelayMs = 500)
     {
         Host = host;
         Port = port;
         Timeout = timeout;
-        if (messages != null)
-        {
-            Messages = messages;
-        }
+        if (messages != null) Messages = messages;
+        UseTls = useTls;
+        IgnoreSslErrors = ignoreSslErrors;
+        var fallbackMs = timeout * 1000;
+        ConnectTimeoutMs = connectTimeoutMs > 0 ? connectTimeoutMs : fallbackMs;
+        ReadTimeoutMs = readTimeoutMs > 0 ? readTimeoutMs : fallbackMs;
+        WriteTimeoutMs = writeTimeoutMs > 0 ? writeTimeoutMs : fallbackMs;
+        EnableRetry = enableRetry;
+        RetryCount = retryCount;
+        RetryDelayMs = retryDelayMs;
     }
+
     public override string Type => "TCP";
 
-    /// <summary>
-    /// 将目标配置序列化为 JSON，用于数据库存储。
-    /// </summary>
-    public override string ToJson()
-    {
-        return JsonSerializer.Serialize(this);
-    }
-
+    public override string ToJson() => JsonSerializer.Serialize(this);
 }

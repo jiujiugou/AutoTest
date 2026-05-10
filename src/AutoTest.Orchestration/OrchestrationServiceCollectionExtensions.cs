@@ -9,6 +9,7 @@ public static class OrchestrationServiceCollectionExtensions
 {
     public static IServiceCollection AddAutoTestOrchestration(this IServiceCollection services,string redisConnectionString)
     {
+        services.AddSingleton<CircuitBreaker>();
         services.AddScoped<ExecutionEngine>();
         services.AddScoped<IPipelineStep, RuntimeOrchestrationStep>();
         services.AddScoped<IProgressStore, RedisProgressStore>();

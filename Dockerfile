@@ -9,9 +9,11 @@ COPY src/AutoTest.Infrastructure/AutoTest.Infrastructure.csproj src/AutoTest.Inf
 COPY src/AutoTest.Execution/AutoTest.Execution.csproj src/AutoTest.Execution/
 COPY src/AutoTest.Assertions/AutoTest.Assertions.csproj src/AutoTest.Assertions/
 COPY src/AutoTest.Migrations/AutoTest.Migrations.csproj src/AutoTest.Migrations/
+COPY src/AutoTest.Dsl/AutoTest.Dsl.csproj src/AutoTest.Dsl/
+COPY src/AutoTest.Orchestration/AutoTest.Orchestration.csproj src/AutoTest.Orchestration/
 COPY src/Auth/Auth.csproj src/Auth/
 COPY src/common/CacheCommons/CacheCommons.csproj src/common/CacheCommons/
-COPY src/common/EventCommons/EventCommons.csproj src/common/EventCommons/
+COPY src/common/LockCommons/LockCommons.csproj src/common/LockCommons/
 
 RUN dotnet restore src/AutoTest.Webapi/AutoTest.Webapi.csproj
 
