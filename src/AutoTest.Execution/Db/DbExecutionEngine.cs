@@ -22,7 +22,7 @@ public class DbExecutionEngine : IExecutionEngine
 
     public bool CanExecute(MonitorTarget target) => target is DbTarget;
 
-    public async Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
+    public async Task<ExecutionResult> ExecuteAsync(MonitorTarget target, CancellationToken ct = default)
     {
         if (target is not DbTarget db)
             throw new InvalidOperationException("Expected DbTarget");
@@ -36,8 +36,9 @@ public class DbExecutionEngine : IExecutionEngine
         {
             try
             {
-                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(db.TimeoutSeconds));
-                var result = await ExecuteOnceAsync(db, cts.Token);
+                using var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+                timeoutCts.CancelAfter(TimeSpan.FromSeconds(db.TimeoutSeconds));
+                var result = await ExecuteOnceAsync(db, timeoutCts.Token);
                 _logger.LogInformation("DB success: {Elapsed}ms", result.ElapsedMilliseconds);
                 return result;
             }
@@ -48,7 +49,7 @@ public class DbExecutionEngine : IExecutionEngine
                 {
                     _logger.LogWarning(ex, "DB attempt {Attempt}/{Max} failed, retrying in {Delay}ms",
                         attempt, maxAttempts, db.RetryDelayMs);
-                    await Task.Delay(db.RetryDelayMs);
+                    await Task.Delay(db.RetryDelayMs, ct);
                     continue;
                 }
                 break;

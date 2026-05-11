@@ -67,7 +67,7 @@ public class WorkflowExecutionStep : IPipelineStep
         var stepAssertions = execCtx.CompletedSteps
             .Where(s => s.Assertions?.Count > 0)
             .SelectMany(s => s.Assertions!.Select(a => new Core.Assertion.AssertionResult(
-                Guid.NewGuid(),
+                null, // 模板内联断言无对应 Assertion 表记录，Fk 为 null
                 $"{s.StepName}.{a.Field}",
                 a.Passed,
                 a.Actual,
@@ -76,10 +76,16 @@ public class WorkflowExecutionStep : IPipelineStep
             )))
             .ToList();
 
-        var finalStep = execCtx.CompletedSteps.LastOrDefault();
-        context.Result = new DslExecutionResultWrapper(
-            finalStep?.IsSuccess ?? false,
-            finalStep?.ErrorMessage)
+        // 任意步骤失败 → 整体失败，聚合失败步骤信息
+        var allPassed = execCtx.CompletedSteps.Count > 0
+            && execCtx.CompletedSteps.All(s => s.IsSuccess);
+        var failedSteps = execCtx.CompletedSteps.Where(s => !s.IsSuccess).ToList();
+        var errorMessage = failedSteps.Count > 0
+            ? string.Join("; ", failedSteps.Select(s =>
+                $"[{s.StepName}] {(string.IsNullOrEmpty(s.ErrorMessage) ? "断言失败" : s.ErrorMessage)}"))
+            : null;
+
+        context.Result = new DslExecutionResultWrapper(allPassed, errorMessage)
         {
             Assertions = stepAssertions
         };

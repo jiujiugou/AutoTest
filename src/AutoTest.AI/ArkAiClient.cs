@@ -1,5 +1,5 @@
 ﻿using AutoTest.Core.AI;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Headers;
 using System.Text;
@@ -10,13 +10,13 @@ namespace AutoTest.AI;
 public class ArkAiClient : IAiClient
 {
     private readonly HttpClient _httpClient;
-    private readonly IConfiguration _config;
+    private readonly AiOptions _options;
     private readonly ILogger<ArkAiClient> _logger;
 
-    public ArkAiClient(HttpClient httpClient, IConfiguration config, ILogger<ArkAiClient> logger)
+    public ArkAiClient(HttpClient httpClient, IOptions<AiOptions> options, ILogger<ArkAiClient> logger)
     {
         _httpClient = httpClient;
-        _config = config;
+        _options = options.Value;
         _logger = logger;
 
         _httpClient.Timeout = TimeSpan.FromSeconds(30);
@@ -24,13 +24,18 @@ public class ArkAiClient : IAiClient
 
     public async Task<string> AnalyzeAsync(string prompt, CancellationToken ct = default)
     {
-        var endpoint = _config["AI:Endpoint"];
-        var apiKey = _config["AI:ApiKey"];
-        var model = _config["AI:ModelId"];
+        var endpoint = _options.Endpoint;
+        var apiKey = _options.ApiKey;
+        var model = _options.ModelId;
+
+        if (string.IsNullOrWhiteSpace(endpoint) || string.IsNullOrWhiteSpace(apiKey) || string.IsNullOrWhiteSpace(model))
+            throw new InvalidOperationException("AI 配置不完整：请检查 AI:Endpoint, AI:ApiKey, AI:ModelId");
 
         var requestBody = new
         {
             model,
+            temperature = _options.Temperature,
+            max_tokens = _options.MaxTokens,
             messages = new[]
             {
                 new { role = "user", content = prompt }
@@ -70,7 +75,7 @@ public class ArkAiClient : IAiClient
 
                 return result ?? "";
             }
-            catch (Exception ex)
+            catch (Exception ex) when (ex is not OperationCanceledException)
             {
                 _logger.LogWarning(ex, "AI调用异常，第{Retry}次重试", i + 1);
 

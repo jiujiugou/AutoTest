@@ -10,7 +10,7 @@ namespace AutoTest.Core.Assertion;
 /// <param name="Expected">期望值（字符串形式，便于持久化）。</param>
 /// <param name="Message">额外信息（失败原因、提示等）。</param>
 public record AssertionResult(
-    Guid AssertionId,
+    Guid? AssertionId,
     string Target,
     bool IsSuccess,
     string? Actual,

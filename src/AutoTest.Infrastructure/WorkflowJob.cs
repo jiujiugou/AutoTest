@@ -1,4 +1,5 @@
 using AutoTest.Application;
+using AutoTest.Core;
 using AutoTest.Core.Abstraction;
 using AutoTest.Core.Execution;
 using Hangfire;
@@ -60,6 +61,7 @@ namespace AutoTest.Infrastructure
                 var monitorService = scope.ServiceProvider.GetRequiredService<IMonitorService>();
                 var executionRecordRepository = scope.ServiceProvider.GetRequiredService<IExecutionRecordRepository>();
                 var workflowScheduler = scope.ServiceProvider.GetRequiredService<IWorkflowScheduler>();
+                var unitOfWork = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
                 var monitor = await monitorRepository.GetByIdAsync(monitorId);
                 if (monitor == null)
@@ -76,9 +78,8 @@ namespace AutoTest.Infrastructure
                     return;
                 }
 
-                monitor = await monitorRepository.GetByIdAsync(monitorId);
-                if (monitor == null)
-                    return;
+                // 同步本地对象状态：TryStartExecutionAsync 已在 DB 中将 Monitor 标为 Running
+                monitor.MarkRunning();
 
                 await PublishAsync(userId, new { monitorId, status = "running", executionId = start.ExecutionId });
 
@@ -125,6 +126,28 @@ namespace AutoTest.Infrastructure
                 catch (Exception ex)
                 {
                     _logger.LogError(ex, "Error executing monitor: {Id}", monitorId);
+                    // 兜底：确保 Monitor 状态不会卡在 Running
+                    try
+                    {
+                        monitor.ForceFailed();
+                        await unitOfWork.ExecuteAsync(async tx =>
+                        {
+                            await monitorRepository.UpdateAsync(monitor, tx);
+                            await executionRecordRepository.UpdateCompletionAsync(
+                                start.ExecutionId,
+                                (int)MonitorStatus.Failed,
+                                DateTime.UtcNow,
+                                false,
+                                ex.Message,
+                                "Exception",
+                                "{\"reason\":\"orchestrator_failure\"}",
+                                tx);
+                        });
+                    }
+                    catch (Exception fallbackEx)
+                    {
+                        _logger.LogError(fallbackEx, "Failed to mark monitor {Id} as Failed after orchestrator error", monitorId);
+                    }
                 }
                 finally
                 {

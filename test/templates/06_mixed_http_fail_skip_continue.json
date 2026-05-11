@@ -1,0 +1,45 @@
+{
+  "steps": [
+    {
+      "name": "healthyCheck",
+      "type": "http",
+      "input": {
+        "url": "https://www.baidu.com",
+        "method": "Get",
+        "timeout": 10
+      },
+      "assertions": [
+        { "field": "StatusCode", "operator": "Equal", "expected": "200" }
+      ],
+      "timeout": "15s"
+    },
+    {
+      "name": "badHostWillFail",
+      "type": "http",
+      "input": {
+        "url": "https://not.exist.example.invalid",
+        "method": "Get",
+        "timeout": 3
+      },
+      "assertions": [
+        { "field": "StatusCode", "operator": "Equal", "expected": "200" }
+      ],
+      "timeout": "5s",
+      "onFailure": "skip"
+    },
+    {
+      "name": "finalCheck",
+      "type": "http",
+      "input": {
+        "url": "https://www.baidu.com",
+        "method": "Get",
+        "timeout": 10
+      },
+      "assertions": [
+        { "field": "StatusCode", "operator": "Equal", "expected": "200" },
+        { "field": "Body", "operator": "Contains", "expected": "baidu" }
+      ],
+      "timeout": "15s"
+    }
+  ]
+}

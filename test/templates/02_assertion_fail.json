@@ -1,0 +1,18 @@
+{
+  "steps": [
+    {
+      "name": "expect404ButGet200",
+      "type": "http",
+      "input": {
+        "url": "https://www.baidu.com",
+        "method": "Get",
+        "timeout": 10
+      },
+      "assertions": [
+        { "field": "StatusCode", "operator": "Equal", "expected": "404" }
+      ],
+      "timeout": "15s",
+      "onFailure": "skip"
+    }
+  ]
+}

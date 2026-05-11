@@ -44,23 +44,15 @@ namespace AutoTest.Infrastructure.Outbox
                 TargetType = payload?.TargetType,
                 TargetSummary = TargetSummaryBuilder.Build(payload?.TargetType, payload?.TargetConfig)
             };
-            try
+            _logger.LogInformation("Enqueuing AI analysis task for OutboxMessageId: {OutboxMessageId}", notification.OutboxMessageId);
+            await _aiTaskService.EnqueueAsync(new AiTask
             {
-                _logger.LogInformation("Enqueuing AI analysis task for OutboxMessageId: {OutboxMessageId}", notification.OutboxMessageId);
-                await _aiTaskService.EnqueueAsync(new AiTask
-                {
-                    TaskType = "MonitorExecutionFailed",
-                    BizId = notification.OutboxMessageId,
-                    InputJson = JsonSerializer.Serialize(input),
-                    Status = "Pending",
-                    CreatedAt = DateTime.UtcNow
-                }, ct);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception (you can use your preferred logging framework)
-                _logger.LogError(ex, "Failed to enqueue AI analysis task");
-            }
+                TaskType = "MonitorExecutionFailed",
+                BizId = notification.OutboxMessageId,
+                InputJson = JsonSerializer.Serialize(input),
+                Status = "Pending",
+                CreatedAt = DateTime.UtcNow
+            }, ct);
         }
     }
 }

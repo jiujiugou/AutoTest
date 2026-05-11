@@ -25,7 +25,7 @@ namespace AutoTest.Execution.Python
 
         public bool CanExecute(MonitorTarget target) => target is PythonTarget;
 
-        public async Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
+        public async Task<ExecutionResult> ExecuteAsync(MonitorTarget target, CancellationToken ct = default)
         {
             if (target is not PythonTarget pyTarget)
                 throw new ArgumentException("Target 必须是 PythonTarget", nameof(target));
@@ -36,7 +36,7 @@ namespace AutoTest.Execution.Python
                 var key = $"{pyTarget.PythonExecutable}|{GetScriptIdentity(pyTarget)}|{max}";
                 var semaphore = _semaphores.GetOrAdd(key, _ => new SemaphoreSlim(max, max));
                 _logger.LogDebug($"等待并发信号量 (MaxConcurrency={max})");
-                await semaphore.WaitAsync();
+                await semaphore.WaitAsync(ct);
                 _logger.LogDebug("获得并发信号量");
             }
 
@@ -49,7 +49,7 @@ namespace AutoTest.Execution.Python
                     try
                     {
                         _logger.LogInformation($"开始执行 Python 脚本 [{pyTarget.ScriptPath}], 第 {attempt} 次尝试");
-                        var result = await RunProcessAsync(pyTarget);
+                        var result = await RunProcessAsync(pyTarget, ct);
                         _logger.LogInformation($"Python 脚本 [{pyTarget.ScriptPath}] 执行完成, ExitCode={result.ExitCode}");
                         if (!result.IsExecutionSuccess)
                             _logger.LogWarning($"Python 脚本执行失败: {result.ErrorMessage}");
@@ -58,7 +58,7 @@ namespace AutoTest.Execution.Python
                     catch (Exception ex) when (pyTarget.EnableRetry && attempt <= pyTarget.RetryCount)
                     {
                         _logger.LogWarning(ex, $"Python 脚本 [{pyTarget.ScriptPath}] 执行失败，第 {attempt} 次重试");
-                        await Task.Delay(pyTarget.RetryDelayMs);
+                        await Task.Delay(pyTarget.RetryDelayMs, ct);
                     }
                     catch (Exception ex)
                     {
@@ -80,7 +80,7 @@ namespace AutoTest.Execution.Python
             }
         }
 
-        private async Task<PythonExecutionResult> RunProcessAsync(PythonTarget pyTarget)
+        private async Task<PythonExecutionResult> RunProcessAsync(PythonTarget pyTarget, CancellationToken ct = default)
         {
             var stopwatch = Stopwatch.StartNew();
             var tempScriptPath = (string?)null;

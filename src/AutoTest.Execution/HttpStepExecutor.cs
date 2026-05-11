@@ -24,7 +24,7 @@ internal class HttpStepExecutor : IStepExecutor
             PropertyNameCaseInsensitive = true
         })!;
 
-        var result = await _engine.ExecuteAsync(target);
+        var result = await _engine.ExecuteAsync(target, ct);
 
         if (result is HttpExecutionResult httpResult)
         {

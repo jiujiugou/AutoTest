@@ -25,39 +25,43 @@ public class HttpExecutionEngine : IExecutionEngine
 
     public bool CanExecute(MonitorTarget target) => target is HttpTarget;
 
-    public Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
+    public Task<ExecutionResult> ExecuteAsync(MonitorTarget target, CancellationToken ct = default)
     {
         if (target is not HttpTarget httpTarget)
             throw new ArgumentException("目标类型不正确", nameof(target));
-        return ExecuteAsync(httpTarget);
+        return ExecuteAsync(httpTarget, ct);
     }
 
-    public async Task<ExecutionResult> ExecuteAsync(HttpTarget target)
+    public async Task<ExecutionResult> ExecuteAsync(HttpTarget target, CancellationToken ct = default)
     {
         if (target.EnableRateLimit)
         {
             var max = target.MaxConcurrency <= 0 ? 1 : target.MaxConcurrency;
             var semaphore = _semaphorePool.GetOrAdd(
                 max, _ => new SemaphoreSlim(max));
-            await semaphore.WaitAsync();
+            await semaphore.WaitAsync(ct);
         }
 
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            for (int i = 0; i <= target.RetryCount; i++)
+            var maxAttempts = target.EnableRetry ? target.RetryCount + 1 : 1;
+            for (int i = 0; i < maxAttempts; i++)
             {
+                ct.ThrowIfCancellationRequested();
                 try
                 {
                     _logger.LogInformation("HTTP 请求开始 [{i}/{max}]: {Method} {Url}",
-                        i + 1, target.RetryCount + 1, target.Method, target.Url);
+                        i + 1, maxAttempts, target.Method, target.Url);
 
                     var client = await _httpClient.GetOrCreateClient(target);
 
+                    using var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(ct);
+                    timeoutCts.CancelAfter(TimeSpan.FromSeconds(target.Timeout));
+
                     var request = client.Request(target.Url)
                         .SetQueryParams(target.Query ?? new Dictionary<string, string>())
-                        .AllowAnyHttpStatus()
-                        .WithTimeout(TimeSpan.FromSeconds(target.Timeout));
+                        .AllowAnyHttpStatus();
 
                     if (target.Headers != null)
                         request = request.WithHeaders(target.Headers);
@@ -65,7 +69,8 @@ public class HttpExecutionEngine : IExecutionEngine
                     var content = BuildHttpContent(target.Body);
                     var method = new HttpMethod(target.Method.ToString().ToUpper());
 
-                    var response = await request.SendAsync(method, content, HttpCompletionOption.ResponseContentRead);
+                    var response = await request.SendAsync(method, content,
+                        HttpCompletionOption.ResponseContentRead, timeoutCts.Token);
 
                     var body = await response.GetStringAsync();
                     var elapsedMs = stopwatch.ElapsedMilliseconds;
@@ -90,37 +95,40 @@ public class HttpExecutionEngine : IExecutionEngine
                         elapsedMs
                     );
                 }
-                catch (OperationCanceledException) when (!(i == target.RetryCount))
+                catch (OperationCanceledException) when (!ct.IsCancellationRequested && target.EnableRetry && i < maxAttempts - 1)
                 {
                     _logger.LogWarning("HTTP 请求超时 [{i}/{max}]: {Url}，将在 {Delay}ms 后重试",
-                        i + 1, target.RetryCount + 1, target.Url, target.RetryDelayMs);
-                    await Task.Delay(target.RetryDelayMs);
+                        i + 1, maxAttempts, target.Url, target.RetryDelayMs);
+                    await Task.Delay(target.RetryDelayMs, ct);
                 }
-                catch (HttpRequestException hrex) when (!(i == target.RetryCount))
+                catch (HttpRequestException hrex) when (target.EnableRetry && i < maxAttempts - 1)
                 {
                     _logger.LogWarning(hrex, "HTTP 网络异常 [{i}/{max}]: {Url}，将在 {Delay}ms 后重试",
-                        i + 1, target.RetryCount + 1, target.Url, target.RetryDelayMs);
-                    await Task.Delay(target.RetryDelayMs);
+                        i + 1, maxAttempts, target.Url, target.RetryDelayMs);
+                    await Task.Delay(target.RetryDelayMs, ct);
                 }
                 catch (FlurlHttpException fex)
                 {
                     var elapsedMs = stopwatch.ElapsedMilliseconds;
                     _logger.LogError(fex, "HTTP 请求失败 [{i}/{max}]: {Url}，耗时 {Elapsed}ms",
-                        i + 1, target.RetryCount + 1, target.Url, elapsedMs);
+                        i + 1, maxAttempts, target.Url, elapsedMs);
 
-                    if (!target.EnableRetry || i == target.RetryCount)
+                    if (!target.EnableRetry || i >= maxAttempts - 1)
                     {
                         var status = fex.Call?.Response?.StatusCode ?? 0;
                         var content = await fex.GetResponseStringAsync();
                         return new HttpExecutionResult((int)status, content, false, "请求失败");
                     }
-                    else
-                    {
-                        _logger.LogInformation("将在 {Delay}ms 后重试...", target.RetryDelayMs);
-                        await Task.Delay(target.RetryDelayMs);
-                    }
+
+                    _logger.LogInformation("将在 {Delay}ms 后重试...", target.RetryDelayMs);
+                    await Task.Delay(target.RetryDelayMs, ct);
                 }
             }
+        }
+        catch (OperationCanceledException) when (ct.IsCancellationRequested)
+        {
+            _logger.LogWarning("HTTP 请求被取消: {Url}", target.Url);
+            return new HttpExecutionResult(0, null, false, "请求被取消");
         }
         catch (OperationCanceledException) when (!Debugger.IsAttached)
         {

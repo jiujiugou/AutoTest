@@ -17,5 +17,10 @@ namespace AutoTest.Core.Repositories
         /// 按监控任务 ID 获取分析结果列表（最近 N 条）
         /// </summary>
         Task<List<AIAnalysis>> GetByMonitorIdAsync(Guid monitorId, int take = 20);
+
+        /// <summary>
+        /// 检查执行记录是否有处理中的 AI 分析任务
+        /// </summary>
+        Task<bool> HasPendingAnalysisAsync(Guid executionRecordId);
     }
 }

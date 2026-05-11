@@ -21,14 +21,14 @@ public class TcpExecutionEngine : IExecutionEngine
 
     public bool CanExecute(MonitorTarget target) => target is TcpTarget;
 
-    public Task<ExecutionResult> ExecuteAsync(MonitorTarget target)
+    public Task<ExecutionResult> ExecuteAsync(MonitorTarget target, CancellationToken ct = default)
     {
         if (target is not TcpTarget tcp)
             throw new ArgumentException("Expected TcpTarget", nameof(target));
-        return ExecuteAsync(tcp);
+        return ExecuteAsync(tcp, ct);
     }
 
-    public async Task<ExecutionResult> ExecuteAsync(TcpTarget target)
+    public async Task<ExecutionResult> ExecuteAsync(TcpTarget target, CancellationToken ct = default)
     {
         var sw = Stopwatch.StartNew();
         double connectLatency = 0;
@@ -37,7 +37,7 @@ public class TcpExecutionEngine : IExecutionEngine
 
         try
         {
-            (TcpClient client, Stream stream, double connMs) = await ConnectWithRetryAsync(target);
+            (TcpClient client, Stream stream, double connMs) = await ConnectWithRetryAsync(target, ct);
             using var _ = client;
             using var __ = stream;
             connected = true;
@@ -85,21 +85,23 @@ public class TcpExecutionEngine : IExecutionEngine
         }
     }
 
-    private async Task<(TcpClient Client, Stream Stream, double ConnectLatency)> ConnectWithRetryAsync(TcpTarget t)
+    private async Task<(TcpClient Client, Stream Stream, double ConnectLatency)> ConnectWithRetryAsync(TcpTarget t, CancellationToken ct = default)
     {
         var maxAttempts = t.EnableRetry ? t.RetryCount + 1 : 1;
         Exception? lastEx = null;
 
         for (int attempt = 1; attempt <= maxAttempts; attempt++)
         {
+            ct.ThrowIfCancellationRequested();
             try
             {
                 var connectSw = Stopwatch.StartNew();
                 var client = new TcpClient();
 
-                using (var cts = new CancellationTokenSource(t.ConnectTimeoutMs))
+                using (var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(ct))
                 {
-                    await client.ConnectAsync(t.Host, t.Port, cts.Token);
+                    timeoutCts.CancelAfter(t.ConnectTimeoutMs);
+                    await client.ConnectAsync(t.Host, t.Port, timeoutCts.Token);
                 }
 
                 Stream stream = client.GetStream();
@@ -110,15 +112,16 @@ public class TcpExecutionEngine : IExecutionEngine
                         userCertificateValidationCallback:
                             t.IgnoreSslErrors ? (_, _, _, _) => true : null!);
 
-                    using (var cts = new CancellationTokenSource(t.ConnectTimeoutMs))
+                    using (var timeoutCts = CancellationTokenSource.CreateLinkedTokenSource(ct))
                     {
+                        timeoutCts.CancelAfter(t.ConnectTimeoutMs);
                         await ssl.AuthenticateAsClientAsync(new SslClientAuthenticationOptions
                         {
                             TargetHost = t.Host,
                             CertificateRevocationCheckMode = t.IgnoreSslErrors
                                 ? X509RevocationMode.NoCheck
                                 : X509RevocationMode.Online
-                        }, cts.Token);
+                        }, timeoutCts.Token);
                     }
 
                     connectSw.Stop();
@@ -135,7 +138,7 @@ public class TcpExecutionEngine : IExecutionEngine
                 lastEx = ex;
                 _logger?.LogWarning(ex, "TCP attempt {Attempt}/{Max} failed {Host}:{Port}",
                     attempt, maxAttempts, t.Host, t.Port);
-                await Task.Delay(t.RetryDelayMs);
+                await Task.Delay(t.RetryDelayMs, ct);
             }
         }
 

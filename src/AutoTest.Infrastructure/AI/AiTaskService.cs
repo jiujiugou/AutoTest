@@ -26,6 +26,13 @@ namespace AutoTest.Infrastructure.AI
         // =========================
         public async Task EnqueueAsync(AiTask task, CancellationToken ct = default)
         {
+            // 幂等检查：同一 BizId 不重复入队
+            var existing = await _connection.QueryFirstOrDefaultAsync<Guid?>(
+                "SELECT Id FROM AiTask WHERE BizId = @BizId",
+                new { task.BizId });
+            if (existing.HasValue)
+                return;
+
             task.Id = Guid.NewGuid();
             task.Status = "Pending";
             task.Attempts = 0;
@@ -53,23 +60,26 @@ namespace AutoTest.Infrastructure.AI
             var ids = (await _connection.QueryAsync<Guid>("""
     SELECT Id FROM AiTask
     WHERE Status = 'Pending' AND NextRunAt <= @Now
+    ORDER BY NextRunAt
     """, new { Now = now })).Take(batchSize).ToList();
 
             if (ids.Count == 0)
                 return new List<AiTask>();
 
+            // 乐观锁：只抢 Status = 'Pending' 的，防止多 Worker 抢同一任务
             await _connection.ExecuteAsync("""
     UPDATE AiTask
     SET Status = 'Processing', LockedBy = @Worker, LockedAt = @Now
-    WHERE Id IN @Ids
+    WHERE Id IN @Ids AND Status = 'Pending'
     """, new { Ids = ids, Worker = workerId, Now = now });
 
+            // 回查真正抢到的行
             var result = await _connection.QueryAsync<AiTask>("""
     SELECT Id, TaskType, BizId, InputJson, OutputJson, Attempts, Status,
            NextRunAt, LockedBy, LockedAt, Error, CreatedAt
     FROM AiTask
-    WHERE Id IN @Ids
-    """, new { Ids = ids });
+    WHERE Id IN @Ids AND Status = 'Processing' AND LockedBy = @Worker
+    """, new { Ids = ids, Worker = workerId });
 
             return result.ToList();
         }

@@ -82,8 +82,7 @@ public class MonitorController : ControllerBase
     public async Task<IActionResult> Add([FromBody] MonitorDto dto)
     {
         var id = await _monitorService.AddAsync(dto);
-        var sch = await _monitorService.GetScheduleAsync(id);
-        await ApplyScheduleAsync(id, dto.IsEnabled, sch.AutoDailyEnabled, sch.AutoDailyTime);
+        await ApplyScheduleAsync(id, dto.IsEnabled, dto.AutoDailyEnabled, dto.AutoDailyTime);
         return Ok(id);
     }
 
@@ -175,9 +174,15 @@ public class MonitorController : ControllerBase
     {
         var analysis = await _analysisRepository.GetByExecutionRecordIdAsync(executionId);
         if (analysis == null)
-            return NotFound(new { message = "暂无 AI 分析结果" });
+        {
+            var pending = await _analysisRepository.HasPendingAnalysisAsync(executionId);
+            if (pending)
+                return Accepted(new { status = "pending", message = "AI 分析处理中，请稍后刷新" });
+            return NotFound(new { status = "none", message = "暂无 AI 分析结果" });
+        }
         return Ok(new
         {
+            status = "completed",
             analysis.Id,
             analysis.Type,
             analysis.Severity,

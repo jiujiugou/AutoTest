@@ -58,7 +58,7 @@ public static class AddInfrastructureServiceCollectionExtensions
             {
                 config.UseSqlServerStorage(hangfireConnection, new SqlServerStorageOptions
                 {
-                    QueuePollInterval = TimeSpan.FromSeconds(1),
+                    QueuePollInterval = TimeSpan.FromSeconds(5),
                     PrepareSchemaIfNecessary = true,
                     UseRecommendedIsolationLevel = true,
                     DisableGlobalLocks = true

@@ -45,14 +45,12 @@ public class Orchestrator : IOrchestrator
 
             var isAssertionSuccess = result.Assertions.All(r => r.IsSuccess);
             var success = result.IsExecutionSuccess && isAssertionSuccess;
+            var finishedAt = DateTime.UtcNow;
 
-            // ✅ 统一状态设置
             if (success)
                 monitor.MarkSuccess();
             else
                 monitor.MarkFailed();
-
-            var finishedAt = DateTime.UtcNow;
 
             if (success)
             {
@@ -85,7 +83,7 @@ public class Orchestrator : IOrchestrator
                 finishedAt,
                 result,
                 isAssertionSuccess,
-                null // 无异常
+                null
             );
 
             var outbox = BuildOutbox(payload, finishedAt);
@@ -115,8 +113,6 @@ public class Orchestrator : IOrchestrator
         }
         catch (Exception ex)
         {
-            monitor.MarkFailed();
-
             var finishedAt = DateTime.UtcNow;
 
             var payload = BuildFailurePayload(
@@ -130,6 +126,9 @@ public class Orchestrator : IOrchestrator
             );
 
             var outbox = BuildOutbox(payload, finishedAt);
+
+            // ForceFailed 绕开状态检查，避免 try 块中 MarkXxx 已改变状态导致 Invalid state transition
+            monitor.ForceFailed();
 
             await _unitOfWork.ExecuteAsync(async tx =>
             {

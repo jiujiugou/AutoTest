@@ -80,6 +80,9 @@ public class TestPlanService : ITestPlanService
     /// <summary>
     /// 执行计划内所有监控，同一批次共享一个 PlanRunId。
     /// </summary>
+    private static readonly SemaphoreSlim _planConcurrencyLimiter = new(
+        Math.Max(1, Environment.ProcessorCount));
+
     public async Task<Guid> ExecutePlanAsync(Guid planId, string? lockedBy = null)
     {
         var plan = await _repository.GetByIdAsync(planId)
@@ -91,9 +94,10 @@ public class TestPlanService : ITestPlanService
         _logger.LogInformation("Executing TestPlan {PlanId}, PlanRunId {PlanRunId}, {Count} monitors",
             planId, planRunId, plan.MonitorIds.Count);
 
-        foreach (var monitorId in plan.MonitorIds)
+        var tasks = plan.MonitorIds.Select(monitorId => Task.Run(async () =>
         {
             var idempotencyKey = $"plan:{planRunId:N}:{monitorId:N}";
+            await _planConcurrencyLimiter.WaitAsync();
             try
             {
                 var (started, executionId, startedAtUtc) =
@@ -102,14 +106,14 @@ public class TestPlanService : ITestPlanService
                 if (!started)
                 {
                     _logger.LogWarning("Monitor {MonitorId} skipped (duplicate)", monitorId);
-                    continue;
+                    return;
                 }
 
                 var monitor = await _monitorService.GetByIdAsync(monitorId);
                 if (monitor == null)
                 {
                     _logger.LogWarning("Monitor {MonitorId} not found during plan execution", monitorId);
-                    continue;
+                    return;
                 }
 
                 await _orchestrator.TryExecuteAsync(monitor, executionId, startedAtUtc, lockedBy);
@@ -118,7 +122,13 @@ public class TestPlanService : ITestPlanService
             {
                 _logger.LogError(ex, "Monitor {MonitorId} failed in plan {PlanRunId}", monitorId, planRunId);
             }
-        }
+            finally
+            {
+                _planConcurrencyLimiter.Release();
+            }
+        }));
+
+        await Task.WhenAll(tasks);
 
         _logger.LogInformation("TestPlan {PlanId} execution complete, PlanRunId {PlanRunId}", planId, planRunId);
         return planRunId;

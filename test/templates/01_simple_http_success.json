@@ -1,0 +1,17 @@
+{
+  "steps": [
+    {
+      "name": "baiduHealth",
+      "type": "http",
+      "input": {
+        "url": "https://www.baidu.com",
+        "method": "Get",
+        "timeout": 10
+      },
+      "assertions": [
+        { "field": "StatusCode", "operator": "Equal", "expected": "200" }
+      ],
+      "timeout": "15s"
+    }
+  ]
+}

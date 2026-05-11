@@ -44,6 +44,7 @@ namespace AutoTest.Core.Outbox
     {
         Execution,
         Assertion,
-        Exception
+        Exception,
+        Timeout
     }
 }

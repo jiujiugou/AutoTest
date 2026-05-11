@@ -1,8 +1,12 @@
 using System.Data;
+using System.Text.Json;
 using AutoTest.Application;
 using AutoTest.Core;
+using AutoTest.Core.Outbox;
 using AutoTest.Core.Abstraction;
+using AutoTest.Infrastructure.Hubs;
 using Dapper;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -55,40 +59,31 @@ public sealed class ExecutionWatchdogHostedService : BackgroundService
         var conn = scope.ServiceProvider.GetRequiredService<IDbConnection>();
         var uow = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
         var execRepo = scope.ServiceProvider.GetRequiredService<IExecutionRecordRepository>();
+        var outboxRepo = scope.ServiceProvider.GetRequiredService<IOutboxRepository>();
+        var hub = scope.ServiceProvider.GetRequiredService<IHubContext<MonitorHub>>();
 
         var now = DateTime.UtcNow;
         var staleHeartbeatAtUtc = now.AddMinutes(-2);
-        var staleStartedAtUtc = now.AddMinutes(-15);
+        var staleStartedAtUtc = now.AddMinutes(-2);
 
-        var isSqlServer = conn is Microsoft.Data.SqlClient.SqlConnection;
-        var selectSql = isSqlServer
-            ? """
-              SELECT TOP (50)
-                  Id,
-                  MonitorId
-              FROM ExecutionRecord
-              WHERE Status = @Running
-                AND FinishedAt IS NULL
-                AND (
-                     (HeartbeatAtUtc IS NOT NULL AND HeartbeatAtUtc <= @StaleHeartbeatAtUtc)
-                  OR (HeartbeatAtUtc IS NULL AND StartedAt <= @StaleStartedAtUtc)
-                )
-              ORDER BY StartedAt ASC
-              """
-            : """
-              SELECT
-                  Id,
-                  MonitorId
-              FROM ExecutionRecord
-              WHERE Status = @Running
-                AND FinishedAt IS NULL
-                AND (
-                     (HeartbeatAtUtc IS NOT NULL AND HeartbeatAtUtc <= @StaleHeartbeatAtUtc)
-                  OR (HeartbeatAtUtc IS NULL AND StartedAt <= @StaleStartedAtUtc)
-                )
-              ORDER BY StartedAt ASC
-              LIMIT 50
-              """;
+        const string selectSql = """
+            SELECT TOP (50)
+                r.Id AS ExecutionId,
+                r.MonitorId,
+                r.StartedAt,
+                m.Name AS MonitorName,
+                m.TargetType,
+                m.TargetConfig
+            FROM ExecutionRecord r
+            INNER JOIN Monitor m ON m.Id = r.MonitorId
+            WHERE r.Status = @Running
+              AND r.FinishedAt IS NULL
+              AND (
+                   (r.HeartbeatAtUtc IS NOT NULL AND r.HeartbeatAtUtc <= @StaleHeartbeatAtUtc)
+                OR (r.HeartbeatAtUtc IS NULL     AND r.StartedAt      <= @StaleStartedAtUtc)
+              )
+            ORDER BY r.StartedAt ASC
+            """;
 
         var candidates = (await conn.QueryAsync<StaleExecutionRow>(selectSql, new
         {
@@ -107,42 +102,93 @@ public sealed class ExecutionWatchdogHostedService : BackgroundService
 
             try
             {
+                var finishedAt = DateTime.UtcNow;
+
                 await uow.ExecuteAsync(async tx =>
                 {
+                    // 1. 更新执行记录
                     await execRepo.UpdateCompletionAsync(
-                        row.Id,
+                        row.ExecutionId,
                         (int)MonitorStatus.Timeout,
-                        now,
+                        finishedAt,
                         false,
-                        "Execution watchdog timeout",
+                        "Execution watchdog timeout: no heartbeat for 2 minutes",
                         "Timeout",
                         "{\"reason\":\"stale\"}",
                         tx);
 
-                    await conn.ExecuteAsync(
-                        """
+                    // 2. 更新 Monitor 状态（仅当仍是 Running 时）
+                    await conn.ExecuteAsync("""
                         UPDATE Monitor
-                        SET Status = @Timeout,
-                            LastRunTime = @Now
-                        WHERE Id = @Id
-                          AND Status = @Running
+                        SET Status = @Timeout, LastRunTime = @Now
+                        WHERE Id = @Id AND Status = @Running
                         """,
                         new
                         {
                             Id = row.MonitorId,
                             Timeout = (int)MonitorStatus.Timeout,
                             Running = (int)MonitorStatus.Running,
-                            Now = now
-                        },
-                        tx);
+                            Now = finishedAt
+                        }, tx);
+
+                    // 3. 写入 OutboxMessage，触发 AI 分析
+                    var payload = new MonitorExecutionFailedPayload
+                    {
+                        MonitorId = row.MonitorId,
+                        MonitorName = row.MonitorName,
+                        ExecutionId = row.ExecutionId,
+                        StartedAt = row.StartedAt,
+                        FinishedAt = finishedAt,
+                        FailureType = FailureType.Timeout,
+                        IsExecutionSuccess = false,
+                        IsAssertionSuccess = false,
+                        ErrorMessage = "Execution watchdog timeout: no heartbeat for 2 minutes",
+                        TargetType = row.TargetType,
+                        TargetConfig = row.TargetConfig
+                    };
+
+                    var outbox = new OutboxMessage
+                    {
+                        Id = Guid.NewGuid(),
+                        Type = "monitor.execution.failed",
+                        PayloadJson = JsonSerializer.Serialize(payload),
+                        OccurredAt = finishedAt,
+                        Status = OutboxStatus.Pending,
+                        Attempts = 0
+                    };
+
+                    await outboxRepo.AddAsync(outbox, tx);
                 });
+
+                // 4. SignalR 推送（事务外，推送失败不影响状态更新）
+                try
+                {
+                    await hub.Clients
+                        .Group(MonitorHub.GroupNames.Role("admin"))
+                        .SendAsync("monitorUpdated", new
+                        {
+                            monitorId = row.MonitorId,
+                            status = "timeout",
+                            executionId = row.ExecutionId
+                        });
+                }
+                catch (Exception pushEx)
+                {
+                    _logger.LogWarning(pushEx, "Failed to push watchdog notification for {ExecutionId}", row.ExecutionId);
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "Failed to mark stale execution {ExecutionId} as timeout", row.Id);
+                _logger.LogWarning(ex, "Failed to mark stale execution {ExecutionId} as timeout", row.ExecutionId);
             }
         }
     }
 
-    private sealed record StaleExecutionRow(Guid Id, Guid MonitorId);
+    private sealed record StaleExecutionRow(
+        Guid ExecutionId,
+        Guid MonitorId,
+        DateTime StartedAt,
+        string MonitorName,
+        string? TargetType,
+        string? TargetConfig);
 }

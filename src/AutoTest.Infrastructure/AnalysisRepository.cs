@@ -61,5 +61,20 @@ namespace AutoTest.Infrastructure
                 sql, new { MonitorId = monitorId, Take = take });
             return rows.ToList();
         }
+
+        public async Task<bool> HasPendingAnalysisAsync(Guid executionRecordId)
+        {
+            const string sql = """
+        SELECT COUNT(1)
+        FROM AiTask
+        WHERE InputJson LIKE @TraceIdPattern
+          AND Status IN ('Pending', 'Processing')
+        """;
+            var count = await _connection.ExecuteScalarAsync<int>(sql, new
+            {
+                TraceIdPattern = $"%\"TraceId\":\"{executionRecordId}\"%"
+            });
+            return count > 0;
+        }
     }
 }

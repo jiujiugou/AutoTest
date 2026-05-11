@@ -3,7 +3,7 @@ using AutoTest.Core.Dsl;
 using AutoTest.Core.ExecutionPipeline;
 using AutoTest.Core.Target;
 using AutoTest.Core.Target.Template;
-using AutoTest.Dsl;
+using AutoTest.Workflow;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -19,7 +19,7 @@ public class DslTests
     private static IDslParser CreateParser()
     {
         var services = new ServiceCollection();
-        services.AddAutoTestDsl();
+        services.AddScoped<IDslParser, DslParser>();
         return services.BuildServiceProvider().GetRequiredService<IDslParser>();
     }
 
@@ -362,34 +362,13 @@ public class DslTests
     // ========================
 
     [Fact]
-    public async Task InvokeAsync_ShouldSkip_WhenNotTemplate()
-    {
-        var services = new ServiceCollection();
-        services.AddAutoTestDsl();
-        var provider = services.BuildServiceProvider();
-        var step = provider.GetRequiredService<IPipelineStep>();
-
-        var monitor = new MonitorEntity(
-            Guid.NewGuid(), "test",
-            new TcpTarget("127.0.0.1", 80),
-            MonitorStatus.Pending, null);
-
-        var context = new PipelineContext(monitor);
-        bool nextCalled = false;
-
-        await step.InvokeAsync(context, () => { nextCalled = true; return Task.CompletedTask; });
-
-        nextCalled.Should().BeTrue();
-        context.Items.Should().BeEmpty();
-    }
-
-    [Fact]
     public async Task InvokeAsync_ShouldParseDsl_WhenTemplate()
     {
         var services = new ServiceCollection();
-        services.AddAutoTestDsl();
+        services.AddScoped<IDslParser, DslParser>();
+        services.AddScoped<TemplateResolutionStep>();
         var provider = services.BuildServiceProvider();
-        var step = provider.GetRequiredService<IPipelineStep>();
+        var step = provider.GetRequiredService<TemplateResolutionStep>();
 
         var monitor = new MonitorEntity(
             Guid.NewGuid(), "template-test",

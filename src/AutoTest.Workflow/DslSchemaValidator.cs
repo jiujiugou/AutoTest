@@ -17,12 +17,16 @@ public static class DslSchemaValidator
         if (root.ValueKind != JsonValueKind.Object)
             throw new InvalidOperationException("DSL 根节点必须是一个 JSON 对象");
 
-        if (!root.TryGetProperty("steps", out var steps))
-            throw new InvalidOperationException("DSL 必须包含 'steps' 字段");
+        var hasSteps = root.TryGetProperty("steps", out var steps);
+        var hasParallel = root.TryGetProperty("parallel", out var parallel);
 
-        ValidateStepsArray(steps);
+        if (!hasSteps && !hasParallel)
+            throw new InvalidOperationException("DSL 必须包含 'steps' 或 'parallel' 字段");
 
-        if (root.TryGetProperty("parallel", out var parallel))
+        if (hasSteps)
+            ValidateStepsArray(steps);
+
+        if (hasParallel)
             ValidateParallelGroups(parallel);
     }
 

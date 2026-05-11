@@ -1,0 +1,35 @@
+{
+  "parallel": [
+    {
+      "name": "concurrentHealthChecks",
+      "mode": "all",
+      "timeout": "20s",
+      "steps": [
+        {
+          "name": "baidu",
+          "type": "http",
+          "input": {
+            "url": "https://www.baidu.com",
+            "method": "Get",
+            "timeout": 10
+          },
+          "assertions": [
+            { "field": "StatusCode", "operator": "Equal", "expected": "200" }
+          ]
+        },
+        {
+          "name": "bing",
+          "type": "http",
+          "input": {
+            "url": "https://www.bing.com",
+            "method": "Get",
+            "timeout": 10
+          },
+          "assertions": [
+            { "field": "StatusCode", "operator": "Equal", "expected": "200" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -65,9 +65,12 @@ builder.Services.AddHostedService<DatabaseWarmupHostedService>();
 
 builder.Services.AddScoped<IDbConnection>(_ =>
 {
-    var provider = builder.Configuration["Database:Provider"] ?? "SqlServer";
     var cs = builder.Configuration.GetConnectionString("DefaultConnection");
-    return new SqlConnection(cs);
+    var csb = new SqlConnectionStringBuilder(cs)
+    {
+        MinPoolSize = 5
+    };
+    return new SqlConnection(csb.ConnectionString);
 });
 
 //修改 1：修复跨域配置，支持 SignalR 的 Credentials 要求

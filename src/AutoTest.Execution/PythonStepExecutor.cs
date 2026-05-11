@@ -24,7 +24,7 @@ internal class PythonStepExecutor : IStepExecutor
             PropertyNameCaseInsensitive = true
         })!;
 
-        var result = await _engine.ExecuteAsync(target);
+        var result = await _engine.ExecuteAsync(target, ct);
         var pyResult = result as PythonExecutionResult;
         return new StepResult
         {

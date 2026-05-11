@@ -183,6 +183,24 @@ namespace AutoTest.Core
             Status = MonitorStatus.Failed;
         }
 
+        /// <summary>
+        /// 恢复/兜底标记失败：不检查当前状态，直接置为 Failed。
+        /// 仅用于异常恢复场景，正常流程请使用 <see cref="MarkFailed"/>。
+        /// </summary>
+        public void ForceFailed()
+        {
+            Status = MonitorStatus.Failed;
+        }
+
+        /// <summary>
+        /// 恢复/兜底标记成功：不检查当前状态，直接置为 Success。
+        /// 仅用于异常恢复场景，正常流程请使用 <see cref="MarkSuccess"/>。
+        /// </summary>
+        public void ForceSuccess()
+        {
+            Status = MonitorStatus.Success;
+        }
+
         public void Enable() => IsEnabled = true;
         public void Disable() => IsEnabled = false;
 

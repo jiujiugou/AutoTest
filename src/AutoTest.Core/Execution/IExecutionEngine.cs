@@ -17,6 +17,7 @@ public interface IExecutionEngine
     /// 执行指定目标并返回执行结果。
     /// </summary>
     /// <param name="target">要执行的监控目标。</param>
+    /// <param name="ct">取消令牌。</param>
     /// <returns>执行结果（包含执行成功与否、错误信息以及后续断言结果等）。</returns>
-    Task<ExecutionResult> ExecuteAsync(MonitorTarget target);
+    Task<ExecutionResult> ExecuteAsync(MonitorTarget target, CancellationToken ct = default);
 }

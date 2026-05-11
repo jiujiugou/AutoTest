@@ -109,19 +109,46 @@ internal static class TargetSummaryBuilder
     {
         try
         {
-            var steps = r.TryGetProperty("steps", out var st) ? st.GetArrayLength() : 0;
-            var parallel = r.TryGetProperty("parallel", out var pa) ? pa.GetArrayLength() : 0;
-            var types = new List<string>();
-            if (r.TryGetProperty("steps", out var st2))
-                foreach (var step in st2.EnumerateArray())
-                    if (step.TryGetProperty("type", out var t))
-                        types.Add(t.GetString() ?? "?");
+            var lines = new List<string>();
 
-            return Join(
-                $"Template: {steps} steps",
-                types.Count > 0 ? $"Types: [{string.Join(", ", types)}]" : null,
-                parallel > 0 ? $"Parallel: {parallel} groups" : null
-            );
+            if (r.TryGetProperty("steps", out var steps))
+            {
+                int i = 1;
+                foreach (var step in steps.EnumerateArray())
+                {
+                    var name = S(step, "name") ?? $"step{i}";
+                    var type = S(step, "type") ?? "?";
+                    var input = step.TryGetProperty("input", out var inp) ? inp : default;
+                    var timeout = S(step, "timeout");
+
+                    var detail = type.ToUpperInvariant() switch
+                    {
+                        "HTTP" => $"HTTP {S(input, "Method") ?? "GET"} {S(input, "Url") ?? "?"}",
+                        "TCP" => $"TCP {S(input, "Host") ?? "?"}:{I(input, "Port")}",
+                        "DB" => $"DB {S(input, "DbType") ?? "?"} {S(input, "CommandType") ?? "Query"}",
+                        "PYTHON" => $"Python {S(input, "ScriptPath") ?? "inline"}",
+                        _ => type
+                    };
+
+                    lines.Add($"  Step.{i} [{name}] {detail}{(timeout != null ? $" timeout={timeout}" : "")}");
+                    i++;
+                }
+            }
+
+            if (r.TryGetProperty("parallel", out var parallel))
+            {
+                int gi = 1;
+                foreach (var group in parallel.EnumerateArray())
+                {
+                    var gname = S(group, "name") ?? $"group{gi}";
+                    var mode = S(group, "mode") ?? "all";
+                    var gsteps = group.TryGetProperty("steps", out var gs) ? gs.GetArrayLength() : 0;
+                    lines.Add($"  Parallel.{gi} [{gname}] mode={mode} {gsteps} steps");
+                    gi++;
+                }
+            }
+
+            return lines.Count > 0 ? string.Join("\n", lines) : "Template";
         }
         catch { return "Template"; }
     }

@@ -2,6 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\AutoTest.Core\AutoTest.Core.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Application\AutoTest.Application.csproj" />
+    <ProjectReference Include="..\..\src\AutoTest.Workflow\AutoTest.Workflow.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Execution\AutoTest.Execution.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Assertions\AutoTest.Assertions.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Webapi\AutoTest.Webapi.csproj" />
