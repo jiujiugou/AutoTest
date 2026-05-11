@@ -41,7 +41,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                                 IsExecutionSuccess,
                                 ErrorMessage,
                                 ResultType,
-                                ResultJson
+                                ResultJson,
+                                PlanRunId
                             )
                             VALUES(
                                 @Id,
@@ -52,7 +53,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                                 @IsExecutionSuccess,
                                 @ErrorMessage,
                                 @ResultType,
-                                @ResultJson
+                                @ResultJson,
+                                @PlanRunId
                             )
                             """;
 
@@ -66,7 +68,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
             record.IsExecutionSuccess,
             record.ErrorMessage,
             record.ResultType,
-            record.ResultJson
+            record.ResultJson,
+            record.PlanRunId
         }, tx);
     }
 
@@ -77,7 +80,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
         string? idempotencyKey,
         string lockedBy,
         DateTime heartbeatAtUtc,
-        IDbTransaction tx)
+        IDbTransaction tx,
+        Guid? planRunId = null)
     {
         const string insertSql = """
                                  INSERT INTO ExecutionRecord(
@@ -92,7 +96,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                                      ResultJson,
                                      IdempotencyKey,
                                      LockedBy,
-                                     HeartbeatAtUtc
+                                     HeartbeatAtUtc,
+                                     PlanRunId
                                  )
                                  VALUES(
                                      @Id,
@@ -106,7 +111,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                                      @ResultJson,
                                      @IdempotencyKey,
                                      @LockedBy,
-                                     @HeartbeatAtUtc
+                                     @HeartbeatAtUtc,
+                                     @PlanRunId
                                  )
                                  """;
 
@@ -122,7 +128,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                 ResultJson = "{}",
                 IdempotencyKey = idempotencyKey,
                 LockedBy = lockedBy,
-                HeartbeatAtUtc = heartbeatAtUtc
+                HeartbeatAtUtc = heartbeatAtUtc,
+                PlanRunId = planRunId
             }, tx);
 
             return affected == 1;
@@ -272,7 +279,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                   IsExecutionSuccess,
                   ErrorMessage,
                   ResultType,
-                  ResultJson
+                  ResultJson,
+                  PlanRunId
               FROM ExecutionRecord
               WHERE MonitorId = @MonitorId
               ORDER BY StartedAt DESC
@@ -287,7 +295,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                   IsExecutionSuccess,
                   ErrorMessage,
                   ResultType,
-                  ResultJson
+                  ResultJson,
+                  PlanRunId
               FROM ExecutionRecord
               WHERE MonitorId = @MonitorId
               ORDER BY StartedAt DESC
@@ -317,7 +326,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                   IsExecutionSuccess,
                   ErrorMessage,
                   ResultType,
-                  ResultJson
+                  ResultJson,
+                  PlanRunId
               FROM ExecutionRecord
               WHERE MonitorId = @MonitorId
               ORDER BY StartedAt DESC
@@ -332,7 +342,8 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
                   IsExecutionSuccess,
                   ErrorMessage,
                   ResultType,
-                  ResultJson
+                  ResultJson,
+                  PlanRunId
               FROM ExecutionRecord
               WHERE MonitorId = @MonitorId
               ORDER BY StartedAt DESC
@@ -390,6 +401,28 @@ public class ExecutionRecordRepository : IExecutionRecordRepository
             row.Fail,
             row.FirstStartedAt,
             row.LastStartedAt);
+    }
+
+    public async Task<IEnumerable<ExecutionRecord>> GetByPlanRunIdAsync(Guid planRunId)
+    {
+        const string sql = """
+                           SELECT
+                               Id,
+                               MonitorId,
+                               Status,
+                               StartedAt,
+                               FinishedAt,
+                               IsExecutionSuccess,
+                               ErrorMessage,
+                               ResultType,
+                               ResultJson,
+                               PlanRunId
+                           FROM ExecutionRecord
+                           WHERE PlanRunId = @PlanRunId
+                           ORDER BY StartedAt ASC
+                           """;
+
+        return await _dbConnection.QueryAsync<ExecutionRecord>(sql, new { PlanRunId = planRunId });
     }
 
     /// <summary>

@@ -32,7 +32,8 @@ public class Orchestrator : IOrchestrator
         MonitorEntity monitor,
         Guid executionId,
         DateTime startedAtUtc,
-        string lockedBy)
+        string lockedBy,
+        Guid? planRunId = null)
     {
         var context = new PipelineContext(monitor);
 

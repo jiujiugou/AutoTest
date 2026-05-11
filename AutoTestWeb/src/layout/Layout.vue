@@ -28,6 +28,10 @@
           <el-icon><Operation /></el-icon>
           <template #title>任务调度</template>
         </el-menu-item>
+        <el-menu-item v-if="hasPerm('ui.menu.testplan')" index="/testplan">
+          <el-icon><Collection /></el-icon>
+          <template #title>测试计划</template>
+        </el-menu-item>
         <el-menu-item v-if="hasPerm('ui.menu.rbac')" index="/RbacAdmin">
           <el-icon><User /></el-icon>
           <template #title>权限管理</template>
@@ -88,7 +92,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   DataBoard, Monitor, Operation, User,
-  Document,
+  Document, Collection,
   Fold, Expand, ArrowDown
 } from '@element-plus/icons-vue'
 
@@ -113,6 +117,7 @@ const routeNameMap = {
   '/dashboard': '仪表盘',
   '/monitor': '监控观测',
   '/task': '任务调度',
+  '/testplan': '测试计划',
   '/log': '系统日志',
 
   '/person': '个人中心',

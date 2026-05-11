@@ -4,7 +4,10 @@ using System.Text.RegularExpressions;
 
 namespace AutoTest.Infrastructure;
 
-internal class ResponseValueExtractor : IResponseValueExtractor
+/// <summary>
+/// 从步骤响应中按规则提取变量值，支持 Body（JsonPath/Regex/Plain）和 Header 两种来源。
+/// </summary>
+public class ResponseValueExtractor : IResponseValueExtractor
 {
     public Task<Dictionary<string, string>> ExtractAsync(
         string body,

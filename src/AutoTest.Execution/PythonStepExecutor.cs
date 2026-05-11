@@ -7,6 +7,9 @@ using AutoTest.Execution.Python;
 
 namespace AutoTest.Execution;
 
+/// <summary>
+/// Python 步骤执行器：将 DSL input 反序列化为 <see cref="PythonTarget"/>，委托 <see cref="PythonExecutionEngine"/> 执行。
+/// </summary>
 internal class PythonStepExecutor : IStepExecutor
 {
     public string Type => "python";

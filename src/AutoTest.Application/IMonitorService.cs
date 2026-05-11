@@ -82,5 +82,5 @@ public interface IMonitorService
     /// <summary>
     /// 尝试启动一次执行（幂等）：如果幂等键已存在则返回 Started=false；否则将 Monitor 标记为 Running 并创建 Running 的执行记录。
     /// </summary>
-    Task<(bool Started, Guid ExecutionId, DateTime StartedAtUtc)> TryStartExecutionAsync(Guid monitorId, string? idempotencyKey, string lockedBy);
+    Task<(bool Started, Guid ExecutionId, DateTime StartedAtUtc)> TryStartExecutionAsync(Guid monitorId, string? idempotencyKey, string lockedBy, Guid? planRunId = null);
 }

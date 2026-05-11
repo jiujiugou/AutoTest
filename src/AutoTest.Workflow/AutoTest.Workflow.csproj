@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>AutoTest.Workflow</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AutoTest.Core\AutoTest.Core.csproj" />
+    <ProjectReference Include="..\AutoTest.Assertions\AutoTest.Assertions.csproj" />
+    <ProjectReference Include="..\AutoTest.Execution\AutoTest.Execution.csproj" />
+    <ProjectReference Include="..\common\LockCommons\LockCommons.csproj" />
+  </ItemGroup>
+</Project>

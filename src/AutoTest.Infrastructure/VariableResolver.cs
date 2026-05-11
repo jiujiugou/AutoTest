@@ -3,7 +3,11 @@ using AutoTest.Core.Dsl;
 
 namespace AutoTest.Infrastructure;
 
-internal class VariableResolver : IVariableResolver
+/// <summary>
+/// 正则变量替换实现：将 <c>{{name}}</c> 或 <c>{{name:default}}</c> 替换为实际值。
+/// 无默认值的缺失变量直接抛异常，避免静默通过。
+/// </summary>
+public class VariableResolver : IVariableResolver
 {
     private static readonly System.Text.RegularExpressions.Regex VarPattern =
         new(@"\{\{(\w+)(?::([^}]*))?\}\}", System.Text.RegularExpressions.RegexOptions.Compiled);

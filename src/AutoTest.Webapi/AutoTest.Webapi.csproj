@@ -31,8 +31,7 @@
     <ProjectReference Include="..\common\CacheCommons\CacheCommons.csproj" />
     <ProjectReference Include="..\AutoTest.Execution\AutoTest.Execution.csproj" />
     <ProjectReference Include="..\AutoTest.Assertions\AutoTest.Assertions.csproj" />
-    <ProjectReference Include="..\AutoTest.Dsl\AutoTest.Dsl.csproj" />
-    <ProjectReference Include="..\AutoTest.Orchestration\AutoTest.Orchestration.csproj" />
+    <ProjectReference Include="..\AutoTest.Workflow\AutoTest.Workflow.csproj" />
     <ProjectReference Include="..\common\LockCommons\LockCommons.csproj" />
   </ItemGroup>
 </Project>

@@ -19,7 +19,7 @@ using LockCommons;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
-using AutoTest.Orchestration;
+using AutoTest.Workflow;
 namespace AutoTest.Infrastructure;
 
 /// <summary>
@@ -73,6 +73,7 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddTransient<WorkflowJob>();
         services.AddScoped<IMonitorRepository, MonitorRepository>();
         services.AddScoped<IExecutionRecordRepository, ExecutionRecordRepository>();
+        services.AddScoped<ITestPlanRepository, TestPlanRepository>();
         services.AddScoped<IOutboxRepository, DapperOutboxRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IDashboardService, DashboardService>();
@@ -106,7 +107,7 @@ public static class AddInfrastructureServiceCollectionExtensions
 
         var redisConnection = configuration["Redis:ConnectionString"] ?? "localhost:6379";
         services.AddRedisLock(redisConnection);
-        services.AddAutoTestOrchestration(redisConnection);
+        services.AddAutoTestWorkflow(redisConnection);
         services.AddScoped<IVariableResolver, VariableResolver>();
         services.AddScoped<IResponseValueExtractor, ResponseValueExtractor>();
         services.AddScoped<IAiTaskService, AiTaskService>();

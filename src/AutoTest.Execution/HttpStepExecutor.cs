@@ -7,6 +7,9 @@ using AutoTest.Execution.Http;
 
 namespace AutoTest.Execution;
 
+/// <summary>
+/// HTTP 步骤执行器：将 DSL input 反序列化为 <see cref="HttpTarget"/>，委托 <see cref="HttpExecutionEngine"/> 执行。
+/// </summary>
 internal class HttpStepExecutor : IStepExecutor
 {
     public string Type => "http";

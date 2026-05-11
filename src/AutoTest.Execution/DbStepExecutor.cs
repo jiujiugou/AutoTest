@@ -7,6 +7,9 @@ using AutoTest.Execution.Db;
 
 namespace AutoTest.Execution;
 
+/// <summary>
+/// DB 步骤执行器：将 DSL input 反序列化为 <see cref="DbTarget"/>，委托 <see cref="DbExecutionEngine"/> 执行。
+/// </summary>
 internal class DbStepExecutor : IStepExecutor
 {
     public string Type => "DB";

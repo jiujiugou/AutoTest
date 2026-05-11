@@ -36,7 +36,7 @@ public interface IExecutionRecordRepository
     Task AddAsync(ExecutionRecord record, IDbTransaction? tx = null);
 
     /// <summary>
-    /// 尝试以幂等键创建一条“运行中”的执行记录。
+    /// 尝试以幂等键创建一条”运行中”的执行记录。
     /// </summary>
     Task<bool> TryAddRunningAsync(
         Guid executionId,
@@ -45,7 +45,8 @@ public interface IExecutionRecordRepository
         string? idempotencyKey,
         string lockedBy,
         DateTime heartbeatAtUtc,
-        IDbTransaction tx);
+        IDbTransaction tx,
+        Guid? planRunId = null);
 
     /// <summary>
     /// 获取指定幂等键对应的执行记录 ID。
@@ -99,5 +100,10 @@ public interface IExecutionRecordRepository
     /// 获取某个监控任务最常见的错误信息统计（Top N）。
     /// </summary>
     Task<IEnumerable<MonitorErrorStat>> GetTopErrorStatsAsync(Guid monitorId, int take = 10);
+
+    /// <summary>
+    /// 获取某次测试计划执行批次下的所有执行记录。
+    /// </summary>
+    Task<IEnumerable<ExecutionRecord>> GetByPlanRunIdAsync(Guid planRunId);
 }
 

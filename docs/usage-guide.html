@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>使用指南 — AutoTest 文档</title><style>
+:root{--bg:#fff;--text:#1a1a2e;--t2:#555;--cbg:#f5f5f5;--bd:#e0e0e0;--ac:#2563eb;--al:#eff6ff;--ts:#f9fafb}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--text:#c9d1d9;--t2:#8b949e;--cbg:#161b22;--bd:#30363d;--ac:#58a6ff;--al:#1c2533;--ts:#161b22}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;max-width:960px;margin:0 auto;padding:2rem 1.5rem 6rem}
+nav{margin-bottom:2rem}nav a{color:var(--ac);text-decoration:none}nav a:hover{text-decoration:underline}
+h1{font-size:2rem;margin:2rem 0 1rem;border-bottom:2px solid var(--bd);padding-bottom:.5rem}
+h2{font-size:1.5rem;margin:2rem 0 .75rem}
+h3{font-size:1.15rem;margin:1.5rem 0 .5rem}
+h4{font-size:1rem;margin:1.25rem 0 .3rem;color:var(--t2)}
+p{margin:.75rem 0}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+th,td{border:1px solid var(--bd);padding:.5rem .75rem;text-align:left}
+th{background:var(--al);font-weight:600}
+tr:nth-child(even) td{background:var(--ts)}
+code{font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace;background:var(--cbg);padding:.15em .4em;border-radius:3px;font-size:.88em}
+pre{background:var(--cbg);border:1px solid var(--bd);border-radius:6px;padding:1rem;overflow-x:auto;margin:1rem 0;font-size:.85rem;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{border-left:4px solid var(--ac);padding:.5rem 1rem;margin:1rem 0;background:var(--al);color:var(--t2)}
+ul,ol{margin:.5rem 0 .5rem 1.5rem}li{margin:.25rem 0}
+hr{border:none;border-top:1px solid var(--bd);margin:2rem 0}
+a{color:var(--ac)}strong{font-weight:600}
+.diagram{background:var(--cbg);border:1px solid var(--bd);border-radius:6px;padding:1rem;font-family:monospace;font-size:.82rem;line-height:1.4;overflow-x:auto;margin:1rem 0;white-space:pre}
+.toc{background:var(--al);border-radius:6px;padding:1rem 1.5rem;margin:1rem 0}
+.toc ul{margin-left:1rem}
+.back-link{display:inline-block;margin-bottom:1rem;color:var(--t2);font-size:.9rem}
+.index-card{border:1px solid var(--bd);border-radius:8px;padding:1.25rem;margin:.75rem 0;transition:border-color .2s}
+.index-card:hover{border-color:var(--ac)}
+.index-card h3{margin:0 0 .3rem;font-size:1.1rem}
+.index-card p{margin:0;color:var(--t2);font-size:.9rem}
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--bd);text-align:center;color:var(--t2);font-size:.85rem}
+</style></head>
+<body><nav><a href="index.html">文档首页</a></nav><a class="back-link" href="index.html">← 返回文档首页</a><h1>使用指南</h1>
+<h2>部署</h2>
+<h3>Docker 部署（推荐）</h3>
+<pre><code class="language-bash">cp .env.example .env
+# 编辑 .env: AUTOTEST_JWT_SIGNING_KEY (≥32字符), 数据库密码
+docker compose up -d
+# 访问 http://localhost
+</code></pre>
+<p>首次启动自动运行数据库迁移。默认管理员账号 <code>admin</code>，密码在 .env 中配置。</p>
+<h3>开发环境</h3>
+<pre><code class="language-bash"># 后端
+cd src/AutoTest.Webapi
+dotnet run
+# API 运行在 http://localhost:5033
+
+# 前端
+cd AutoTestWeb
+npm install &amp;&amp; npm run dev
+# 前端运行在 http://localhost:5173
+</code></pre>
+<hr />
+<h2>CLI 工具</h2>
+<h3>安装</h3>
+<pre><code class="language-bash">dotnet build src/AutoTest.Cli -c Release
+# 可执行文件: src/AutoTest.Cli/bin/Release/net10.0/autotest
+</code></pre>
+<h3>命令</h3>
+<h4><code>autotest run</code> — 直接执行 DSL 文件</h4>
+<pre><code class="language-bash"># 基础用法
+autotest run ./workflow.dsl.json
+
+# 传入变量
+autotest run ./workflow.dsl.json --var baseUrl=https://api.example.com --var token=abc123
+
+# JSON 输出（CI 友好）
+autotest run ./workflow.dsl.json --json
+
+# 自定义超时
+autotest run ./workflow.dsl.json --timeout 120
+
+# 退出码: 0=全部通过, 1=存在失败, 2=执行异常
+</code></pre>
+<h4><code>autotest monitor run</code> — 执行已持久化监控</h4>
+<pre><code class="language-bash">autotest monitor run &lt;monitor-guid&gt;
+autotest monitor run &lt;monitor-guid&gt; --json
+</code></pre>
+<h4><code>autotest monitor list</code> — 列出监控</h4>
+<pre><code class="language-bash">autotest monitor list
+autotest monitor list --json
+autotest monitor list --take 20
+</code></pre>
+<h3>CI/CD 集成</h3>
+<p>GitHub Actions：</p>
+<pre><code class="language-yaml">- run: dotnet run --project src/AutoTest.Cli -- run ./tests/workflows/smoke.dsl.json --json
+</code></pre>
+<p>完整示例见 <a href="../.github/workflows/autotest.yml">.github/workflows/autotest.yml</a>。</p>
+<hr />
+<h2>API 参考</h2>
+<p>所有接口需 JWT Bearer Token。权限格式：<code>perm:resource.action</code>。</p>
+<h3>Monitor — <code>/api/monitor</code></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路由</th>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/list</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>监控列表</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/{id}</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>单个详情</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/</code></td>
+<td><code>perm:api.monitor.create</code></td>
+<td>创建</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><code>/{id}</code></td>
+<td><code>perm:api.monitor.update</code></td>
+<td>更新</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/{id}</code></td>
+<td><code>perm:api.monitor.delete</code></td>
+<td>删除</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/{id}/run</code></td>
+<td><code>perm:api.monitor.run</code></td>
+<td>立即执行</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/{id}/executions</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>执行记录</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/{id}/executions/latest</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>最新记录</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/executions/{execId}/assertions</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>断言结果</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/{id}/runtime-stats</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>运行统计 + TopN 错误</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/executions/{execId}/analysis</code></td>
+<td><code>perm:api.analysis.read</code></td>
+<td>AI 分析</td>
+</tr>
+</tbody>
+</table>
+<h3>TestPlan — <code>/api/testplan</code></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路由</th>
+<th>权限</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/list</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>计划列表</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/{id}</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>计划详情</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/</code></td>
+<td><code>perm:api.monitor.create</code></td>
+<td>创建计划</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><code>/{id}</code></td>
+<td><code>perm:api.monitor.update</code></td>
+<td>更新计划</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/{id}</code></td>
+<td><code>perm:api.monitor.delete</code></td>
+<td>删除计划</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/{id}/run</code></td>
+<td><code>perm:api.monitor.run</code></td>
+<td>执行计划，返回 <code>{ planRunId }</code></td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/{id}/report?planRunId=</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>执行报告 (JSON)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/{id}/report/html?planRunId=</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>执行报告 (HTML)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/{id}/runs</code></td>
+<td><code>perm:api.monitor.view</code></td>
+<td>历史执行批次</td>
+</tr>
+</tbody>
+</table>
+<h3>Auth — <code>/api/auth</code></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路由</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/login</code></td>
+<td>登录，返回 accessToken + refreshToken</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/refresh</code></td>
+<td>刷新 accessToken（轮换 refreshToken）</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/logout</code></td>
+<td>注销</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/bootstrap</code></td>
+<td>首次启动创建管理员</td>
+</tr>
+</tbody>
+</table>
+<h3>Dashboard — <code>/api/dashboard</code></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路由</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/?range=24h</code></td>
+<td>概览统计（慢请求/失败/最近）</td>
+</tr>
+</tbody>
+</table>
+<h3>Logs — <code>/api/logs</code></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路由</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/</code></td>
+<td>查询日志（按级别/时间/关键字过滤）</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/</code></td>
+<td>清除日志</td>
+</tr>
+</tbody>
+</table>
+<h3>RBAC — <code>/api/rbac</code></h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>路由</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/roles</code></td>
+<td>角色列表</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/permissions</code></td>
+<td>权限列表</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/roles/{roleId}/permissions</code></td>
+<td>角色的权限</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><code>/roles/{roleId}/permissions</code></td>
+<td>设置角色权限</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/users</code></td>
+<td>用户列表</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/users/{userId}/role</code></td>
+<td>用户的角色</td>
+</tr>
+<tr>
+<td>PUT</td>
+<td><code>/users/{userId}/role</code></td>
+<td>设置用户角色</td>
+</tr>
+</tbody>
+</table>
+<h3>创建监控 DTO 示例</h3>
+<pre><code class="language-json">{
+  &quot;Name&quot;: &quot;百度健康检查&quot;,
+  &quot;TargetType&quot;: &quot;HTTP&quot;,
+  &quot;TargetConfig&quot;: &quot;{\&quot;Url\&quot;:\&quot;https://www.baidu.com\&quot;,\&quot;Method\&quot;:\&quot;Get\&quot;,\&quot;TimeoutSeconds\&quot;:10}&quot;,
+  &quot;IsEnabled&quot;: true,
+  &quot;AutoDailyEnabled&quot;: true,
+  &quot;AutoDailyTime&quot;: &quot;09:00&quot;,
+  &quot;Assertions&quot;: [
+    { &quot;Id&quot;: &quot;guid&quot;, &quot;Type&quot;: &quot;HTTP&quot;, &quot;ConfigJson&quot;: &quot;{\&quot;Field\&quot;:\&quot;StatusCode\&quot;,\&quot;Operator\&quot;:\&quot;Equal\&quot;,\&quot;Expected\&quot;:200}&quot; }
+  ]
+}
+</code></pre>
+<h3>创建测试计划 DTO 示例</h3>
+<pre><code class="language-json">{
+  &quot;Name&quot;: &quot;核心服务体检&quot;,
+  &quot;Description&quot;: &quot;每天早上检查核心 API + 数据库&quot;,
+  &quot;MonitorIds&quot;: [&quot;guid1&quot;, &quot;guid2&quot;]
+}
+</code></pre>
+<h3>实时推送 — SignalR</h3>
+<table>
+<thead>
+<tr>
+<th>Hub</th>
+<th>路由</th>
+<th>事件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MonitorHub</td>
+<td><code>/hubs/monitor</code></td>
+<td><code>monitorUpdated</code>（监控状态变更）</td>
+</tr>
+<tr>
+<td>LogHub</td>
+<td><code>/hubs/log</code></td>
+<td>日志流推送</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>DSL 模板语法</h2>
+<h3>基本结构</h3>
+<pre><code class="language-json">{
+  &quot;steps&quot;: [
+    {
+      &quot;name&quot;: &quot;步骤名&quot;,
+      &quot;type&quot;: &quot;http&quot;,
+      &quot;input&quot;: { &quot;url&quot;: &quot;{{baseUrl}}/api&quot;, &quot;method&quot;: &quot;Get&quot;, &quot;timeout&quot;: 10 },
+      &quot;extract&quot;: [{ &quot;name&quot;: &quot;token&quot;, &quot;source&quot;: &quot;Body&quot;, &quot;method&quot;: &quot;JsonPath&quot;, &quot;expression&quot;: &quot;$.token&quot; }],
+      &quot;assertions&quot;: [{ &quot;field&quot;: &quot;StatusCode&quot;, &quot;operator&quot;: &quot;Equal&quot;, &quot;expected&quot;: &quot;200&quot; }],
+      &quot;retry&quot;: { &quot;count&quot;: 2, &quot;delayMs&quot;: 1000, &quot;backoff&quot;: &quot;exponential&quot; },
+      &quot;timeout&quot;: &quot;30s&quot;,
+      &quot;onFailure&quot;: &quot;stop&quot;
+    }
+  ],
+  &quot;parallel&quot;: [
+    {
+      &quot;name&quot;: &quot;并行组&quot;,
+      &quot;mode&quot;: &quot;all&quot;,
+      &quot;steps&quot;: [ /* 步骤定义同上 */ ]
+    }
+  ],
+  &quot;timeout&quot;: 60
+}
+</code></pre>
+<h3>变量语法</h3>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>{{var}}</code></td>
+<td>必须由 TemplateVariablesJson 或 --var 提供</td>
+</tr>
+<tr>
+<td><code>{{var:default}}</code></td>
+<td>未提供时使用默认值</td>
+</tr>
+</tbody>
+</table>
+<p>变量来源：
+- 创建监控时 <code>TemplateVariablesJson</code> 字段
+- CLI: <code>--var key=value</code>
+- 运行时：上一步 <code>extract</code> 提取的值</p>
+<h3>步骤类型</h3>
+<h4>HTTP</h4>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;http&quot;,
+  &quot;input&quot;: {
+    &quot;url&quot;: &quot;...&quot;, &quot;method&quot;: &quot;Get|Post|Put|Delete&quot;,
+    &quot;body&quot;: { &quot;type&quot;: &quot;Json|FormUrlEncoded|Raw&quot;, &quot;value&quot;: {} },
+    &quot;headers&quot;: {}, &quot;query&quot;: {},
+    &quot;timeout&quot;: 10
+  }
+}
+</code></pre>
+<h4>TCP</h4>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;tcp&quot;,
+  &quot;input&quot;: {
+    &quot;host&quot;: &quot;...&quot;, &quot;port&quot;: 6379,
+    &quot;useTls&quot;: false, &quot;ignoreSslErrors&quot;: false,
+    &quot;messages&quot;: [&quot;PING&quot;],
+    &quot;connectTimeoutMs&quot;: 15000
+  }
+}
+</code></pre>
+<h4>DB</h4>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;db&quot;,
+  &quot;input&quot;: {
+    &quot;dbType&quot;: &quot;sqlserver|mysql|postgresql&quot;,
+    &quot;connectionString&quot;: &quot;...&quot;,
+    &quot;sql&quot;: &quot;SELECT COUNT(*) FROM Orders WHERE Status = 'Pending'&quot;,
+    &quot;commandType&quot;: &quot;Query|NonQuery|Scalar&quot;,
+    &quot;timeoutSeconds&quot;: 30
+  }
+}
+</code></pre>
+<h4>Python</h4>
+<pre><code class="language-json">{
+  &quot;type&quot;: &quot;python&quot;,
+  &quot;input&quot;: {
+    &quot;scriptContent&quot;: &quot;import sys; sys.exit(0)&quot;,
+    &quot;timeoutSeconds&quot;: 60,
+    &quot;successExitCodes&quot;: [0]
+  }
+}
+</code></pre>
+<h3>断言字段</h3>
+<table>
+<thead>
+<tr>
+<th>步骤类型</th>
+<th>可用字段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP</td>
+<td><code>StatusCode</code>, <code>Body</code>, <code>ResponseTime</code>, <code>Elapsed</code>, <code>Header</code> + HeaderKey</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td><code>Body</code>, <code>Elapsed</code></td>
+</tr>
+<tr>
+<td>DB</td>
+<td><code>Scalar</code>, <code>Body</code>, <code>Elapsed</code></td>
+</tr>
+<tr>
+<td>Python</td>
+<td><code>Body</code>, <code>Elapsed</code></td>
+</tr>
+</tbody>
+</table>
+<p>运算符：<code>Equal</code>, <code>NotEquals</code>, <code>Contains</code>, <code>LessThan</code>, <code>GreaterThan</code></p>
+<h3>提取方法</h3>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JsonPath</td>
+<td>JSON 路径提取</td>
+<td><code>$.data.token</code></td>
+</tr>
+<tr>
+<td>Regex</td>
+<td>正则捕获组</td>
+<td><code>token:(\w+)</code></td>
+</tr>
+<tr>
+<td>Plain</td>
+<td>原始文本</td>
+<td>整个响应体</td>
+</tr>
+</tbody>
+</table>
+<p>提取的变量在后续步骤中用 <code>{{变量名}}</code> 引用。冲突检测：如果上一步已有同名变量，需使用 <code>{{步骤名.变量名}}</code> 引用。</p>
+<h3>失败策略</h3>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stop</code></td>
+<td>终止整个 DAG</td>
+</tr>
+<tr>
+<td><code>skip</code></td>
+<td>跳过当前步骤，继续执行</td>
+</tr>
+<tr>
+<td><code>ignore</code></td>
+<td>标记失败但不影响后续</td>
+</tr>
+</tbody>
+</table>
+<h3>并行组模式</h3>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>all</code></td>
+<td>全部成功才算通过</td>
+</tr>
+<tr>
+<td><code>any</code></td>
+<td>任一成功即通过</td>
+</tr>
+</tbody>
+</table>
+<h3>断路保护</h3>
+<ul>
+<li>键 = <code>{步骤类型}:{输入JSON}</code></li>
+<li>阈值：5 次失败 / 60 秒窗口</li>
+<li>触发后直接跳过该步骤</li>
+<li>CLI 环境：作用域为单次执行</li>
+</ul>
+<hr />
+<h2>配置参考</h2>
+<h3>appsettings.json</h3>
+<pre><code class="language-json">{
+  &quot;Database&quot;: {
+    &quot;Provider&quot;: &quot;SqlServer&quot;,
+    &quot;ConnectionString&quot;: &quot;Server=localhost;Database=AutoTest;...&quot;
+  },
+  &quot;ConnectionStrings&quot;: {
+    &quot;HangfireConnection&quot;: &quot;...&quot;
+  },
+  &quot;Redis&quot;: { &quot;ConnectionString&quot;: &quot;localhost:6379&quot; },
+  &quot;AI&quot;: {
+    &quot;Endpoint&quot;: &quot;https://...&quot;,
+    &quot;ApiKey&quot;: &quot;...&quot;,
+    &quot;Model&quot;: &quot;doubao-pro-32k&quot;,
+    &quot;Worker&quot;: {
+      &quot;PollIntervalMs&quot;: 1000,
+      &quot;BatchSize&quot;: 10,
+      &quot;MaxConcurrency&quot;: 4,
+      &quot;MaxRetryCount&quot;: 3
+    }
+  },
+  &quot;Outbox&quot;: {
+    &quot;PollIntervalMs&quot;: 1000,
+    &quot;BatchSize&quot;: 20,
+    &quot;LockSeconds&quot;: 60,
+    &quot;Webhook&quot;: { &quot;Url&quot;: &quot;钉钉机器人地址&quot;, &quot;Secret&quot;: &quot;签名密钥&quot; }
+  },
+  &quot;Jwt&quot;: {
+    &quot;Secret&quot;: &quot;至少32字符的密钥&quot;,
+    &quot;Issuer&quot;: &quot;AutoTest&quot;,
+    &quot;AccessTokenExpirationHours&quot;: 8
+  }
+}
+</code></pre>
+<h3>Docker Compose 环境变量</h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AUTOTEST_DB_CONNECTION</code></td>
+<td>数据库连接字符串</td>
+</tr>
+<tr>
+<td><code>AUTOTEST_REDIS_CONNECTION</code></td>
+<td>Redis 连接字符串</td>
+</tr>
+<tr>
+<td><code>AUTOTEST_JWT_SIGNING_KEY</code></td>
+<td>JWT 签名密钥（≥32字符）</td>
+</tr>
+<tr>
+<td><code>AUTOTEST_AI_ENDPOINT</code></td>
+<td>AI API 地址</td>
+</tr>
+<tr>
+<td><code>AUTOTEST_AI_APIKEY</code></td>
+<td>AI API 密钥</td>
+</tr>
+<tr>
+<td><code>AUTOTEST_OUTBOX_WEBHOOK_URL</code></td>
+<td>钉钉机器人 Webhook URL</td>
+</tr>
+</tbody>
+</table><footer>AutoTest 文档 · 最后更新 2026-05-11</footer></body></html>

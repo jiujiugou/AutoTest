@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>数据库设计 — AutoTest 文档</title><style>
+:root{--bg:#fff;--text:#1a1a2e;--t2:#555;--cbg:#f5f5f5;--bd:#e0e0e0;--ac:#2563eb;--al:#eff6ff;--ts:#f9fafb}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--text:#c9d1d9;--t2:#8b949e;--cbg:#161b22;--bd:#30363d;--ac:#58a6ff;--al:#1c2533;--ts:#161b22}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;max-width:960px;margin:0 auto;padding:2rem 1.5rem 6rem}
+nav{margin-bottom:2rem}nav a{color:var(--ac);text-decoration:none}nav a:hover{text-decoration:underline}
+h1{font-size:2rem;margin:2rem 0 1rem;border-bottom:2px solid var(--bd);padding-bottom:.5rem}
+h2{font-size:1.5rem;margin:2rem 0 .75rem}
+h3{font-size:1.15rem;margin:1.5rem 0 .5rem}
+h4{font-size:1rem;margin:1.25rem 0 .3rem;color:var(--t2)}
+p{margin:.75rem 0}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+th,td{border:1px solid var(--bd);padding:.5rem .75rem;text-align:left}
+th{background:var(--al);font-weight:600}
+tr:nth-child(even) td{background:var(--ts)}
+code{font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace;background:var(--cbg);padding:.15em .4em;border-radius:3px;font-size:.88em}
+pre{background:var(--cbg);border:1px solid var(--bd);border-radius:6px;padding:1rem;overflow-x:auto;margin:1rem 0;font-size:.85rem;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{border-left:4px solid var(--ac);padding:.5rem 1rem;margin:1rem 0;background:var(--al);color:var(--t2)}
+ul,ol{margin:.5rem 0 .5rem 1.5rem}li{margin:.25rem 0}
+hr{border:none;border-top:1px solid var(--bd);margin:2rem 0}
+a{color:var(--ac)}strong{font-weight:600}
+.diagram{background:var(--cbg);border:1px solid var(--bd);border-radius:6px;padding:1rem;font-family:monospace;font-size:.82rem;line-height:1.4;overflow-x:auto;margin:1rem 0;white-space:pre}
+.toc{background:var(--al);border-radius:6px;padding:1rem 1.5rem;margin:1rem 0}
+.toc ul{margin-left:1rem}
+.back-link{display:inline-block;margin-bottom:1rem;color:var(--t2);font-size:.9rem}
+.index-card{border:1px solid var(--bd);border-radius:8px;padding:1.25rem;margin:.75rem 0;transition:border-color .2s}
+.index-card:hover{border-color:var(--ac)}
+.index-card h3{margin:0 0 .3rem;font-size:1.1rem}
+.index-card p{margin:0;color:var(--t2);font-size:.9rem}
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--bd);text-align:center;color:var(--t2);font-size:.85rem}
+</style></head>
+<body><nav><a href="index.html">文档首页</a></nav><a class="back-link" href="index.html">← 返回文档首页</a><h1>数据库设计</h1>
+<h2>Monitor — 监控任务</h2>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>Guid PK</td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>nvarchar(200)</td>
+<td>任务名称</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>int</td>
+<td>0=Pending, 1=Running, 2=Success, 3=Failed, 4=Timeout, 5=Canceled</td>
+</tr>
+<tr>
+<td>LastRunTime</td>
+<td>datetime2?</td>
+<td>最近执行时间</td>
+</tr>
+<tr>
+<td>IsEnabled</td>
+<td>bit</td>
+<td>是否启用</td>
+</tr>
+<tr>
+<td>TargetType</td>
+<td>varchar(50)</td>
+<td>HTTP / TCP / DB / PYTHON / TEMPLATE</td>
+</tr>
+<tr>
+<td>TargetConfig</td>
+<td>nvarchar(max)</td>
+<td>目标配置 JSON</td>
+</tr>
+<tr>
+<td>AutoDailyEnabled</td>
+<td>bit</td>
+<td>每日自动执行</td>
+</tr>
+<tr>
+<td>AutoDailyTime</td>
+<td>varchar(10)?</td>
+<td>执行时间 HH:mm</td>
+</tr>
+<tr>
+<td>MaxRuns</td>
+<td>int?</td>
+<td>最大执行次数</td>
+</tr>
+<tr>
+<td>ExecutedCount</td>
+<td>int</td>
+<td>已执行次数，默认 0</td>
+</tr>
+<tr>
+<td>TemplateVariablesJson</td>
+<td>nvarchar(max)?</td>
+<td>模板变量 JSON</td>
+</tr>
+<tr>
+<td>CreatedAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>索引：<code>TargetType</code>, <code>CreatedAt DESC</code></p>
+<p><code>MonitorEntity.IsTemplate</code> 是计算属性 <code>=&gt; Target?.Type == "TEMPLATE"</code>，不依赖 DB 列。</p>
+<hr />
+<h2>Assertion — 断言规则</h2>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>Guid PK</td>
+<td></td>
+</tr>
+<tr>
+<td>MonitorId</td>
+<td>Guid FK → Monitor</td>
+<td></td>
+</tr>
+<tr>
+<td>Type</td>
+<td>varchar(50)</td>
+<td>HTTP / TCP / DB / PYTHON</td>
+</tr>
+<tr>
+<td>ConfigJson</td>
+<td>nvarchar(max)</td>
+<td>断言配置 JSON</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>AssertionResult — 断言执行结果</h2>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>Guid PK</td>
+<td></td>
+</tr>
+<tr>
+<td>AssertionId</td>
+<td>Guid FK → Assertion CASCADE</td>
+<td></td>
+</tr>
+<tr>
+<td>ExecutionId</td>
+<td>Guid FK?</td>
+<td></td>
+</tr>
+<tr>
+<td>Target</td>
+<td>varchar(50)</td>
+<td>断言目标字段</td>
+</tr>
+<tr>
+<td>IsSuccess</td>
+<td>bit</td>
+<td>是否通过</td>
+</tr>
+<tr>
+<td>Actual</td>
+<td>nvarchar(max)?</td>
+<td>实际值</td>
+</tr>
+<tr>
+<td>Expected</td>
+<td>nvarchar(max)?</td>
+<td>期望值</td>
+</tr>
+<tr>
+<td>Message</td>
+<td>nvarchar(max)?</td>
+<td>失败原因</td>
+</tr>
+<tr>
+<td>Timestamp</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>索引：<code>ExecutionId</code>, <code>Timestamp</code></p>
+<hr />
+<h2>ExecutionRecord — 执行记录</h2>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>Guid PK</td>
+<td></td>
+</tr>
+<tr>
+<td>MonitorId</td>
+<td>Guid FK → Monitor</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>int</td>
+<td>执行状态</td>
+</tr>
+<tr>
+<td>StartedAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+<tr>
+<td>FinishedAt</td>
+<td>datetime2?</td>
+<td></td>
+</tr>
+<tr>
+<td>IsExecutionSuccess</td>
+<td>bit?</td>
+<td>执行阶段是否成功（不含断言）</td>
+</tr>
+<tr>
+<td>ErrorMessage</td>
+<td>nvarchar(max)?</td>
+<td>错误信息</td>
+</tr>
+<tr>
+<td>ResultType</td>
+<td>varchar(50)?</td>
+<td>结果类型</td>
+</tr>
+<tr>
+<td>ResultJson</td>
+<td>nvarchar(max)?</td>
+<td>结果 JSON</td>
+</tr>
+<tr>
+<td>IdempotencyKey</td>
+<td>nvarchar(200)?</td>
+<td>幂等键，唯一过滤索引</td>
+</tr>
+<tr>
+<td>LockedBy</td>
+<td>nvarchar(200)?</td>
+<td>执行者标识</td>
+</tr>
+<tr>
+<td>HeartbeatAtUtc</td>
+<td>datetime2?</td>
+<td>心跳时间</td>
+</tr>
+<tr>
+<td>PlanRunId</td>
+<td>uniqueidentifier?</td>
+<td>测试计划批次 ID</td>
+</tr>
+</tbody>
+</table>
+<p>索引：<code>HeartbeatAtUtc</code>（看门狗用），<code>PlanRunId</code>（报告查询）</p>
+<hr />
+<h2>TestPlan — 测试计划</h2>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>Guid PK</td>
+<td></td>
+</tr>
+<tr>
+<td>Name</td>
+<td>nvarchar(200)</td>
+<td>计划名称</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>nvarchar(2000)?</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>MonitorIdsJson</td>
+<td>nvarchar(max)</td>
+<td>监控 ID 数组 JSON，如 <code>["guid1","guid2"]</code></td>
+</tr>
+<tr>
+<td>CreatedAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+<tr>
+<td>UpdatedAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>索引：<code>CreatedAt DESC</code></p>
+<hr />
+<h2>OutboxMessage — 事务发件箱</h2>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>Guid PK</td>
+<td></td>
+</tr>
+<tr>
+<td>Type</td>
+<td>varchar(200)</td>
+<td>事件类型</td>
+</tr>
+<tr>
+<td>PayloadJson</td>
+<td>nvarchar(max)</td>
+<td>负载 JSON</td>
+</tr>
+<tr>
+<td>OccurredAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+<tr>
+<td>Status</td>
+<td>int</td>
+<td>Pending/Processing/Sent/Failed/DeadLetter</td>
+</tr>
+<tr>
+<td>Attempts</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>NextAttemptAt</td>
+<td>datetime2?</td>
+<td>重试时间</td>
+</tr>
+<tr>
+<td>LockedUntil</td>
+<td>datetime2?</td>
+<td>分布式锁过期</td>
+</tr>
+<tr>
+<td>LockedBy</td>
+<td>nvarchar(200)?</td>
+<td>锁持有者</td>
+</tr>
+<tr>
+<td>LastError</td>
+<td>nvarchar(max)?</td>
+<td>错误详情</td>
+</tr>
+<tr>
+<td>SentAt</td>
+<td>datetime2?</td>
+<td>发送时间</td>
+</tr>
+</tbody>
+</table>
+<p>索引：<code>Status</code>, <code>NextAttemptAt</code>, <code>LockedUntil</code>, <code>OccurredAt</code></p>
+<hr />
+<h2>AIAnalysis — AI 分析结果</h2>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>Guid PK</td>
+<td></td>
+</tr>
+<tr>
+<td>OutboxMessageId</td>
+<td>Guid?</td>
+<td>关联 Outbox</td>
+</tr>
+<tr>
+<td>ExecutionRecordId</td>
+<td>Guid?</td>
+<td>关联执行记录</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>varchar(100)</td>
+<td>TestFailure/ApiError/PerformanceIssue/SecurityIssue/Unknown</td>
+</tr>
+<tr>
+<td>Severity</td>
+<td>varchar(50)</td>
+<td>low/medium/high/critical</td>
+</tr>
+<tr>
+<td>Category</td>
+<td>varchar(200)</td>
+<td>自由分类</td>
+</tr>
+<tr>
+<td>Summary</td>
+<td>nvarchar(max)</td>
+<td>摘要</td>
+</tr>
+<tr>
+<td>RootCause</td>
+<td>nvarchar(max)</td>
+<td>根因</td>
+</tr>
+<tr>
+<td>Suggestion</td>
+<td>nvarchar(max)</td>
+<td>建议</td>
+</tr>
+<tr>
+<td>Confidence</td>
+<td>float</td>
+<td>置信度</td>
+</tr>
+<tr>
+<td>InputJson</td>
+<td>nvarchar(max)</td>
+<td>输入 Prompt</td>
+</tr>
+<tr>
+<td>OutputJson</td>
+<td>nvarchar(max)</td>
+<td>原始输出</td>
+</tr>
+<tr>
+<td>Model</td>
+<td>varchar(200)</td>
+<td>模型名</td>
+</tr>
+<tr>
+<td>CreatedAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>索引：<code>OutboxMessageId</code>, <code>ExecutionRecordId</code>, <code>CreatedAt</code></p>
+<hr />
+<h2>AiTask — AI 任务队列</h2>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>Guid PK</td>
+<td></td>
+</tr>
+<tr>
+<td>TaskType</td>
+<td>varchar(100)</td>
+<td>MonitorExecutionFailed</td>
+</tr>
+<tr>
+<td>BizId</td>
+<td>varchar(200)</td>
+<td>业务 ID</td>
+</tr>
+<tr>
+<td>InputJson</td>
+<td>nvarchar(max)</td>
+<td>任务输入</td>
+</tr>
+<tr>
+<td>OutputJson</td>
+<td>nvarchar(max)?</td>
+<td>任务输出</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>int</td>
+<td>Pending/Processing/Completed/Failed/DeadLetter</td>
+</tr>
+<tr>
+<td>Attempts</td>
+<td>int</td>
+<td></td>
+</tr>
+<tr>
+<td>NextRunAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+<tr>
+<td>LockedBy</td>
+<td>nvarchar(200)?</td>
+<td></td>
+</tr>
+<tr>
+<td>LockedAt</td>
+<td>datetime2?</td>
+<td></td>
+</tr>
+<tr>
+<td>Error</td>
+<td>nvarchar(max)?</td>
+<td></td>
+</tr>
+<tr>
+<td>CreatedAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>索引：<code>Status</code>, <code>NextRunAt</code></p>
+<hr />
+<h2>认证相关</h2>
+<h3>Users</h3>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>int PK 自增</td>
+<td></td>
+</tr>
+<tr>
+<td>Username</td>
+<td>nvarchar(100) 唯一</td>
+<td></td>
+</tr>
+<tr>
+<td>PasswordHash</td>
+<td>nvarchar(500)</td>
+<td>pbkdf2_sha256 格式</td>
+</tr>
+<tr>
+<td>IsActive</td>
+<td>bit</td>
+<td></td>
+</tr>
+<tr>
+<td>CreatedAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+<tr>
+<td>LastLoginAt</td>
+<td>datetime2?</td>
+<td></td>
+</tr>
+<tr>
+<td>IsDeleted</td>
+<td>bit</td>
+<td>软删除</td>
+</tr>
+</tbody>
+</table>
+<h3>RefreshTokens</h3>
+<table>
+<thead>
+<tr>
+<th>列</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Id</td>
+<td>int PK 自增</td>
+<td></td>
+</tr>
+<tr>
+<td>UserId</td>
+<td>int FK → Users</td>
+<td></td>
+</tr>
+<tr>
+<td>Token</td>
+<td>nvarchar(500) 唯一</td>
+<td></td>
+</tr>
+<tr>
+<td>ExpireAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+<tr>
+<td>Revoked</td>
+<td>bit</td>
+<td></td>
+</tr>
+<tr>
+<td>CreatedAt</td>
+<td>datetime2</td>
+<td></td>
+</tr>
+<tr>
+<td>ReplacedByToken</td>
+<td>nvarchar(500)?</td>
+<td>轮换链</td>
+</tr>
+</tbody>
+</table>
+<h3>Roles / Permissions / UserRoles / RolePermissions</h3>
+<p>标准 RBAC 多对多关系表。Permissions.Code 格式为 <code>perm:resource.action</code>。</p>
+<hr />
+<h2>迁移列表</h2>
+<table>
+<thead>
+<tr>
+<th>编号</th>
+<th>迁移</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init</td>
+<td>InitMonitorTable</td>
+<td>Monitor 表</td>
+</tr>
+<tr>
+<td>Init</td>
+<td>InitAssertionTable</td>
+<td>Assertion 表</td>
+</tr>
+<tr>
+<td>Init</td>
+<td>InitExecutionRecordTable</td>
+<td>ExecutionRecord 表</td>
+</tr>
+<tr>
+<td>Init</td>
+<td>InitAssertionResultTable</td>
+<td>AssertionResult 表</td>
+</tr>
+<tr>
+<td>-</td>
+<td>CreateRefreshTokensTable</td>
+<td>认证</td>
+</tr>
+<tr>
+<td>-</td>
+<td>CreateOutboxTable</td>
+<td>OutboxMessage 表</td>
+</tr>
+<tr>
+<td>-</td>
+<td>AddMonitorScheduleColumns</td>
+<td>AutoDaily 调度字段</td>
+</tr>
+<tr>
+<td>-</td>
+<td>AddExecutionRecordRuntimeColumns</td>
+<td>IdempotencyKey/LockedBy/HeartbeatAtUtc</td>
+</tr>
+<tr>
+<td>-</td>
+<td>AddSqlServerPerformanceIndexes</td>
+<td>性能索引</td>
+</tr>
+<tr>
+<td>-</td>
+<td>CreateAIAnalysisTable</td>
+<td>AI 分析</td>
+</tr>
+<tr>
+<td>-</td>
+<td>CreateAiTaskTable</td>
+<td>AI 任务队列</td>
+</tr>
+<tr>
+<td>-</td>
+<td>AddMonitorTemplateFields</td>
+<td>TemplateVariablesJson</td>
+</tr>
+<tr>
+<td>-</td>
+<td>AddExecutionRecordIdToAIAnalysis</td>
+<td>AIAnalysis.ExecutionRecordId FK</td>
+</tr>
+<tr>
+<td>-</td>
+<td>DropMonitorIsTemplateColumn</td>
+<td>删除废弃的 IsTemplate DB 列</td>
+</tr>
+<tr>
+<td>-</td>
+<td>CreateTestPlanTable</td>
+<td>TestPlan 表</td>
+</tr>
+<tr>
+<td>-</td>
+<td>AddPlanRunIdToExecutionRecord</td>
+<td>ExecutionRecord.PlanRunId 列</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>ER 关系</h2>
+<pre><code>Monitor 1──N Assertion
+Monitor 1──N ExecutionRecord
+ExecutionRecord 1──N AssertionResult
+ExecutionRecord 1──0..1 AIAnalysis
+TestPlan.N MonitorIds → Monitor.Ids (JSON数组, 非FK)
+OutboxMessage 1──0..1 AIAnalysis
+User 1──N RefreshToken
+User N──M Role
+Role N──M Permission
+</code></pre><footer>AutoTest 文档 · 最后更新 2026-05-11</footer></body></html>

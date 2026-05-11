@@ -1,0 +1,11 @@
+# AutoTest GitLab CI 集成示例
+# 将此文件复制为 .gitlab-ci.yml 或在现有 pipeline 中引用
+
+autotest:
+  image: mcr.microsoft.com/dotnet/sdk:10.0
+  stage: test
+  script:
+    - dotnet build src/AutoTest.Cli/AutoTest.Cli.csproj -c Release
+    - dotnet run --project src/AutoTest.Cli -- run ./tests/workflows/smoke.dsl.json --json
+  variables:
+    AUTO_TEST_BASE_URL: $AUTO_TEST_BASE_URL

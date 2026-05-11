@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>架构详解 — AutoTest 文档</title><style>
+:root{--bg:#fff;--text:#1a1a2e;--t2:#555;--cbg:#f5f5f5;--bd:#e0e0e0;--ac:#2563eb;--al:#eff6ff;--ts:#f9fafb}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--text:#c9d1d9;--t2:#8b949e;--cbg:#161b22;--bd:#30363d;--ac:#58a6ff;--al:#1c2533;--ts:#161b22}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;max-width:960px;margin:0 auto;padding:2rem 1.5rem 6rem}
+nav{margin-bottom:2rem}nav a{color:var(--ac);text-decoration:none}nav a:hover{text-decoration:underline}
+h1{font-size:2rem;margin:2rem 0 1rem;border-bottom:2px solid var(--bd);padding-bottom:.5rem}
+h2{font-size:1.5rem;margin:2rem 0 .75rem}
+h3{font-size:1.15rem;margin:1.5rem 0 .5rem}
+h4{font-size:1rem;margin:1.25rem 0 .3rem;color:var(--t2)}
+p{margin:.75rem 0}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+th,td{border:1px solid var(--bd);padding:.5rem .75rem;text-align:left}
+th{background:var(--al);font-weight:600}
+tr:nth-child(even) td{background:var(--ts)}
+code{font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace;background:var(--cbg);padding:.15em .4em;border-radius:3px;font-size:.88em}
+pre{background:var(--cbg);border:1px solid var(--bd);border-radius:6px;padding:1rem;overflow-x:auto;margin:1rem 0;font-size:.85rem;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{border-left:4px solid var(--ac);padding:.5rem 1rem;margin:1rem 0;background:var(--al);color:var(--t2)}
+ul,ol{margin:.5rem 0 .5rem 1.5rem}li{margin:.25rem 0}
+hr{border:none;border-top:1px solid var(--bd);margin:2rem 0}
+a{color:var(--ac)}strong{font-weight:600}
+.diagram{background:var(--cbg);border:1px solid var(--bd);border-radius:6px;padding:1rem;font-family:monospace;font-size:.82rem;line-height:1.4;overflow-x:auto;margin:1rem 0;white-space:pre}
+.toc{background:var(--al);border-radius:6px;padding:1rem 1.5rem;margin:1rem 0}
+.toc ul{margin-left:1rem}
+.back-link{display:inline-block;margin-bottom:1rem;color:var(--t2);font-size:.9rem}
+.index-card{border:1px solid var(--bd);border-radius:8px;padding:1.25rem;margin:.75rem 0;transition:border-color .2s}
+.index-card:hover{border-color:var(--ac)}
+.index-card h3{margin:0 0 .3rem;font-size:1.1rem}
+.index-card p{margin:0;color:var(--t2);font-size:.9rem}
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--bd);text-align:center;color:var(--t2);font-size:.85rem}
+</style></head>
+<body><nav><a href="index.html">文档首页</a></nav><a class="back-link" href="index.html">← 返回文档首页</a><h1>架构详解</h1>
+<h2>分层架构</h2>
+<pre><code>&lt;div class=&quot;diagram&quot;&gt;┌────────────────────────────────────────────────────┐
+│                AutoTest.Webapi                     │
+│      Controller / SignalR Hub / 中间件              │
+├────────────────────────────────────────────────────┤
+│            AutoTest.Infrastructure                 │
+│  仓储(Dapper) / HostedService / Outbox / AI / 日志   │
+├────────────────────────────────────────────────────┤
+│            AutoTest.Application                    │
+│  Orchestrator / MonitorService / Pipeline / DTO    │
+├────────────────────────────────────────────────────┤
+│  AutoTest.    AutoTest.     AutoTest.              │
+│  Execution    Assertions    Workflow               │
+├────────────────────────────────────────────────────┤
+│                AutoTest.Core                       │
+│     实体 / 接口 / 枚举 / DTO / 领域事件              │
+└────────────────────────────────────────────────────┘&lt;/div&gt;
+</code></pre>
+<h2>各层职责</h2>
+<h3>Core — 领域层</h3>
+<p>纯 C# 类型，零外部依赖。定义：</p>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>聚合根</td>
+<td><code>MonitorEntity</code>（监控任务 + 状态机）、<code>ExecutionRecord</code>（执行记录 + 幂等键 + 心跳）、<code>TestPlanEntity</code>（测试计划）</td>
+</tr>
+<tr>
+<td>目标</td>
+<td><code>HttpTarget</code> / <code>TcpTarget</code> / <code>DbTarget</code> / <code>PythonTarget</code> / <code>TemplateTarget</code></td>
+</tr>
+<tr>
+<td>结果</td>
+<td><code>ExecutionResult</code>（执行结果基类）、<code>AssertionResult</code>（断言结果）</td>
+</tr>
+<tr>
+<td>DSL</td>
+<td><code>StepSequence</code>（DAG）、<code>StepDefinition</code>、<code>ParallelGroup</code>、<code>DslPipelineContext</code>、<code>DslRuntimeContext</code></td>
+</tr>
+<tr>
+<td>事件</td>
+<td><code>MonitorExecutionFailedPayload</code>（失败事件）</td>
+</tr>
+<tr>
+<td>仓储接口</td>
+<td><code>IMonitorRepository</code> / <code>IExecutionRecordRepository</code> / <code>IOutboxRepository</code> / <code>ITestPlanRepository</code></td>
+</tr>
+<tr>
+<td>管线</td>
+<td><code>IPipeline</code> / <code>IPipelineStep</code> / <code>PipelineContext</code></td>
+</tr>
+<tr>
+<td>执行</td>
+<td><code>IExecutionEngine</code> / <code>IOrchestrator</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Application — 应用层</h3>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Orchestrator</code></td>
+<td>执行主流程：管线 → 断言 → 落库 → Outbox</td>
+</tr>
+<tr>
+<td><code>MonitorService</code></td>
+<td>监控 CRUD、执行调度、缓存管理</td>
+</tr>
+<tr>
+<td><code>TestPlanService</code></td>
+<td>测试计划 CRUD、批量执行</td>
+</tr>
+<tr>
+<td><code>TestReportService</code></td>
+<td>计划执行报告聚合</td>
+</tr>
+<tr>
+<td><code>Pipeline</code></td>
+<td>管线实现，按反向顺序执行 IPipelineStep</td>
+</tr>
+<tr>
+<td><code>PipelineSelector</code></td>
+<td>根据 <code>Monitor.IsTemplate</code> 选择 DefaultPipeline 或 TemplatePipeline</td>
+</tr>
+<tr>
+<td><code>ExecutionStep</code></td>
+<td>解析执行引擎并执行目标（Template 跳过）</td>
+</tr>
+<tr>
+<td><code>AssertionStep</code></td>
+<td>运行断言规则</td>
+</tr>
+<tr>
+<td><code>ExecutionEngineResolver</code></td>
+<td>根据 Target.Type 选择 IExecutionEngine</td>
+</tr>
+<tr>
+<td><code>WorkflowJob</code></td>
+<td>Hangfire 作业：分布式锁 + 心跳 + Orchestrator</td>
+</tr>
+</tbody>
+</table>
+<h3>Execution — 执行引擎</h3>
+<table>
+<thead>
+<tr>
+<th>引擎</th>
+<th>技术</th>
+<th>关键特性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HttpExecutionEngine</code></td>
+<td>Flurl.Http</td>
+<td>认证(Bearer/Basic/ApiKey)、代理、SSL 忽略、重试、限速</td>
+</tr>
+<tr>
+<td><code>TcpExecutionEngine</code></td>
+<td>TcpClient + SslStream</td>
+<td>TLS、消息收发、连接延迟</td>
+</tr>
+<tr>
+<td><code>DbExecutionEngine</code></td>
+<td>ADO.NET</td>
+<td>SqlServer/MySQL/PostgreSQL、Query/NonQuery/Scalar</td>
+</tr>
+<tr>
+<td><code>PythonExecutionEngine</code></td>
+<td>Process</td>
+<td>脚本/文件执行、超时终止、进程树清理</td>
+</tr>
+</tbody>
+</table>
+<p>每种引擎同时实现 <code>IExecutionEngine</code>（管线用）和 DSL 步骤执行器 <code>IStepExecutor</code>（模板用）。</p>
+<h3>Workflow — DSL 解析与运行时</h3>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DslParser</code></td>
+<td>JSON → StepSequence，<code>{{var}}</code> 和 <code>{{var:default}}</code> 变量替换</td>
+</tr>
+<tr>
+<td><code>DslSchemaValidator</code></td>
+<td>校验 steps/parallel 结构合法性</td>
+</tr>
+<tr>
+<td><code>TemplateResolutionStep</code></td>
+<td>管线步骤：解析模板 DSL，写入 DslPipelineContext</td>
+</tr>
+<tr>
+<td><code>WorkflowExecutionStep</code></td>
+<td>核心执行引擎：顺序步骤 + 并行组 + 断路器 + 变量提取 + 断言 + 断点续跑</td>
+</tr>
+<tr>
+<td><code>CircuitBreaker</code></td>
+<td>断路器：每目标键，5 次失败 / 60s 窗口</td>
+</tr>
+<tr>
+<td><code>RedisProgressStore</code></td>
+<td>进度持久化：Redis，6h TTL，支持崩溃恢复</td>
+</tr>
+</tbody>
+</table>
+<h3>Infrastructure — 基础设施</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MonitorRepository</code></td>
+<td>Dapper，TargetConfig JSON ↔ MonitorTarget 反序列化</td>
+</tr>
+<tr>
+<td><code>ExecutionRecordRepository</code></td>
+<td>执行记录 CRUD + 统计 + TopN 错误</td>
+</tr>
+<tr>
+<td><code>TestPlanRepository</code></td>
+<td>测试计划 CRUD（MonitorIds JSON 存储）</td>
+</tr>
+<tr>
+<td><code>DapperOutboxRepository</code></td>
+<td>Outbox 消息写入/锁定/标记</td>
+</tr>
+<tr>
+<td><code>AiTaskService</code></td>
+<td>AI 任务队列（乐观锁批处理）</td>
+</tr>
+<tr>
+<td><code>OutboxDispatcherHostedService</code></td>
+<td>后台轮询 Outbox → MediatR 分发</td>
+</tr>
+<tr>
+<td><code>AiWorker</code></td>
+<td>后台轮询 AiTask → LLM 调用 → 存储</td>
+</tr>
+<tr>
+<td><code>ExecutionWatchdogHostedService</code></td>
+<td>检测僵死执行（心跳超时 2min / 总时长 15min）</td>
+</tr>
+<tr>
+<td><code>HangfireWorkflowScheduler</code></td>
+<td>Hangfire 调度封装</td>
+</tr>
+<tr>
+<td><code>MonitorHub / LogHub</code></td>
+<td>SignalR 实时推送</td>
+</tr>
+</tbody>
+</table>
+<h3>CLI — 命令行工具</h3>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Program.cs</code></td>
+<td>入口 + 路由分发</td>
+</tr>
+<tr>
+<td><code>DslRunner</code></td>
+<td>直接执行 DSL JSON 文件，绕过 DB/Orchestrator，走 TemplatePipeline</td>
+</tr>
+<tr>
+<td><code>RunCommand</code></td>
+<td><code>autotest run &lt;file&gt;</code> — 本地执行 DSL，支持 --json / --var</td>
+</tr>
+<tr>
+<td><code>MonitorRunCommand</code></td>
+<td><code>autotest monitor run &lt;id&gt;</code> — 执行已持久化监控</td>
+</tr>
+<tr>
+<td><code>MonitorListCommand</code></td>
+<td><code>autotest monitor list</code> — 列出监控</td>
+</tr>
+<tr>
+<td><code>NullProgressStore</code></td>
+<td>CLI 环境 IProgressStore 空实现</td>
+</tr>
+<tr>
+<td><code>InProcessLock</code></td>
+<td>CLI 环境 IDistributedLock 进程内实现</td>
+</tr>
+<tr>
+<td><code>NullOutboxRepository</code></td>
+<td>CLI 环境 Outbox 空实现</td>
+</tr>
+</tbody>
+</table>
+<h3>Auth — 认证授权</h3>
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>JwtTokenIssuer</code></td>
+<td>JWT 签发（sub/role/perm，8h 过期）</td>
+</tr>
+<tr>
+<td><code>DapperAuthService</code></td>
+<td>登录/刷新/注销，PBKDF2 密码验证</td>
+</tr>
+<tr>
+<td><code>Pbkdf2PasswordHasher</code></td>
+<td>PBKDF2-SHA256, 150k 迭代, 16B 盐</td>
+</tr>
+<tr>
+<td><code>DapperPermissionStore</code></td>
+<td>RBAC 权限查询，MemoryCache 缓存 5min</td>
+</tr>
+<tr>
+<td><code>PermissionAuthorizationHandler</code></td>
+<td>ASP.NET Core 策略授权（<code>perm:xxx</code> 格式）</td>
+</tr>
+</tbody>
+</table>
+<h2>公共组件</h2>
+<h3>CacheCommons</h3>
+<ul>
+<li><code>MemoryCacheService</code> — 防击穿（每 key 一个 SemaphoreSlim），防穿透（缓存空值），TTL 随机抖动</li>
+</ul>
+<h3>LockCommons</h3>
+<ul>
+<li><code>RedisLock</code> — SET NX EX + 自动续期（TTL/2 间隔）+ Lua 安全释放</li>
+</ul>
+<hr />
+<h2>核心数据流</h2>
+<h3>普通监控执行</h3>
+<pre><code>Hangfire / 手动触发
+  → WorkflowJob: RedisLock → 幂等检查 → 心跳
+  → Orchestrator.TryExecuteAsync
+      → DefaultPipeline
+          → ExecutionStep: IExecutionEngine.ExecuteAsync(target)
+          → AssertionStep: AssertionEngine.EvaluateAsync
+      → 成功: MarkSuccess + 落库
+      → 失败: MarkFailed + 落库 + Outbox(AI分析+钉钉通知)
+</code></pre>
+<h3>DSL 模板执行</h3>
+<pre><code>TemplatePipeline:
+  TemplateResolutionStep → WorkflowExecutionStep
+      → DAG 遍历 Items:
+          → StepDefinition: 断路器 → 变量解析 → 执行 → 变量提取 → 断言
+          → ParallelGroup: 并行步骤（上下文隔离 + 合并冲突检测）
+          → 每步后 SaveProgress → Redis（断点续跑）
+      → DslExecutionResultWrapper → 汇总断言
+</code></pre>
+<h3>CLI <code>autotest run</code>（无 DB）</h3>
+<pre><code>DSL JSON 文件 + --var 参数
+  → DslSchemaValidator.Validate
+  → IDslParser.ParseAsync → StepSequence (DAG)
+  → 构造临时 MonitorEntity (Type=&quot;TEMPLATE&quot;, 不持久化)
+  → PipelineContext.Items 注入 DslPipelineContext
+  → IPipeline.ExecuteAsync → TemplatePipeline
+      → InProcessLock (单进程) + NullProgressStore (无持久化)
+  → 格式化输出 → 退出码 0/1/2
+</code></pre>
+<h3>测试计划执行</h3>
+<pre><code>POST /api/testplan/{id}/run
+  → TestPlanService.ExecutePlanAsync: 生成 PlanRunId
+  → foreach MonitorId:
+      → IMonitorService.TryStartExecutionAsync (planRunId 传入)
+      → IOrchestrator.TryExecuteAsync
+  → 每条的 ExecutionRecord.PlanRunId = planRunId
+  → GET /api/testplan/{id}/report?planRunId= → 聚合报告
+</code></pre>
+<h3>AI 分析触发</h3>
+<pre><code>Orchestrator 失败路径 → BuildOutbox(MonitorExecutionFailedPayload)
+  → 同一事务内保存
+  ↓
+OutboxDispatcherHostedService → 轮询领取 → MediatR.Publish
+  ↓
+AiAnalysisConsumer → TargetSummaryBuilder → 构建 Prompt
+  → LLM 调用 → 存储 AIAnalysis → 钉钉 Webhook 通知
+</code></pre><footer>AutoTest 文档 · 最后更新 2026-05-11</footer></body></html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AutoTest — 自动化监控与集成测试平台 — AutoTest 文档</title><style>
+:root{--bg:#fff;--text:#1a1a2e;--t2:#555;--cbg:#f5f5f5;--bd:#e0e0e0;--ac:#2563eb;--al:#eff6ff;--ts:#f9fafb}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--text:#c9d1d9;--t2:#8b949e;--cbg:#161b22;--bd:#30363d;--ac:#58a6ff;--al:#1c2533;--ts:#161b22}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.7;max-width:960px;margin:0 auto;padding:2rem 1.5rem 6rem}
+nav{margin-bottom:2rem}nav a{color:var(--ac);text-decoration:none}nav a:hover{text-decoration:underline}
+h1{font-size:2rem;margin:2rem 0 1rem;border-bottom:2px solid var(--bd);padding-bottom:.5rem}
+h2{font-size:1.5rem;margin:2rem 0 .75rem}
+h3{font-size:1.15rem;margin:1.5rem 0 .5rem}
+h4{font-size:1rem;margin:1.25rem 0 .3rem;color:var(--t2)}
+p{margin:.75rem 0}
+table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.9rem}
+th,td{border:1px solid var(--bd);padding:.5rem .75rem;text-align:left}
+th{background:var(--al);font-weight:600}
+tr:nth-child(even) td{background:var(--ts)}
+code{font-family:'JetBrains Mono','Fira Code','Cascadia Code',monospace;background:var(--cbg);padding:.15em .4em;border-radius:3px;font-size:.88em}
+pre{background:var(--cbg);border:1px solid var(--bd);border-radius:6px;padding:1rem;overflow-x:auto;margin:1rem 0;font-size:.85rem;line-height:1.5}
+pre code{background:none;padding:0}
+blockquote{border-left:4px solid var(--ac);padding:.5rem 1rem;margin:1rem 0;background:var(--al);color:var(--t2)}
+ul,ol{margin:.5rem 0 .5rem 1.5rem}li{margin:.25rem 0}
+hr{border:none;border-top:1px solid var(--bd);margin:2rem 0}
+a{color:var(--ac)}strong{font-weight:600}
+.diagram{background:var(--cbg);border:1px solid var(--bd);border-radius:6px;padding:1rem;font-family:monospace;font-size:.82rem;line-height:1.4;overflow-x:auto;margin:1rem 0;white-space:pre}
+.toc{background:var(--al);border-radius:6px;padding:1rem 1.5rem;margin:1rem 0}
+.toc ul{margin-left:1rem}
+.back-link{display:inline-block;margin-bottom:1rem;color:var(--t2);font-size:.9rem}
+.index-card{border:1px solid var(--bd);border-radius:8px;padding:1.25rem;margin:.75rem 0;transition:border-color .2s}
+.index-card:hover{border-color:var(--ac)}
+.index-card h3{margin:0 0 .3rem;font-size:1.1rem}
+.index-card p{margin:0;color:var(--t2);font-size:.9rem}
+footer{margin-top:4rem;padding-top:1.5rem;border-top:1px solid var(--bd);text-align:center;color:var(--t2);font-size:.85rem}
+</style></head>
+<body><nav><a href="index.html">文档首页</a></nav><a class="back-link" href="index.html">← 返回文档首页</a><h1>AutoTest — 自动化监控与集成测试平台</h1>
+<blockquote>
+<p>一行命令部署，五分钟上线，失败钉钉通知 + AI 诊断。支持 CI/微服务集成测试与运维巡检。</p>
+</blockquote>
+<h2>它能做什么</h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>能力</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP</td>
+<td>API 接口健康检查</td>
+<td>每 5 分钟请求 <code>/health</code>，非 200 告警</td>
+</tr>
+<tr>
+<td>TCP</td>
+<td>端口可达性探测</td>
+<td>Redis 6379、MySQL 3306 连不上通知</td>
+</tr>
+<tr>
+<td>DB</td>
+<td>数据库数据校验</td>
+<td>订单表行数异常、超时工单告警</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>自定义脚本执行</td>
+<td>SSL 证书过期检查、定时任务监控</td>
+</tr>
+<tr>
+<td>DSL 模板</td>
+<td>多步骤业务流程</td>
+<td>登录 → 查订单 → 验金额，整条链路验证</td>
+</tr>
+</tbody>
+</table>
+<h2>核心特性</h2>
+<ul>
+<li><strong>DSL 多步工作流引擎</strong> — JSON 定义步骤编排，支持顺序/并行、变量传递、重试、断路保护</li>
+<li><strong>多协议断言</strong> — 状态码 / 响应体 / 耗时 / 行数 / 退出码 / Header</li>
+<li><strong>失败 → AI 分析闭环</strong> — 执行失败自动触发 LLM 根因分析 + 钉钉通知</li>
+<li><strong>测试计划</strong> — 多个监控归组批量执行，自动生成通过率报告</li>
+<li><strong>CLI 工具</strong> — <code>autotest run file.dsl.json</code> 本地执行，退出码对接 CI/CD</li>
+<li><strong>RBAC 权限</strong> — JWT + 基于策略的权限控制</li>
+<li><strong>实时推送</strong> — SignalR 推送监控状态变更</li>
+</ul>
+<h2>快速开始</h2>
+<pre><code class="language-bash"># 1. 部署
+cp .env.example .env
+# 编辑 .env 填 AUTOTEST_JWT_SIGNING_KEY 和数据库密码
+docker compose up -d
+
+# 2. 打开浏览器 → 登录 → 一键导入模板 → 创建第一个监控
+# 3. 配置钉钉 webhook → 失败自动通知
+</code></pre>
+<p>CLI 模式（无需部署服务端）：</p>
+<pre><code class="language-bash">dotnet run --project src/AutoTest.Cli -- run ./tests/workflows/smoke.dsl.json
+# 退出码 0 = 全部通过, 1 = 存在失败, 2 = 执行异常
+</code></pre>
+<h2>技术栈</h2>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>技术</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>运行时</td>
+<td>.NET 10</td>
+</tr>
+<tr>
+<td>数据库</td>
+<td>SQL Server / SQLite（Dapper）</td>
+</tr>
+<tr>
+<td>缓存 &amp; 锁</td>
+<td>Redis</td>
+</tr>
+<tr>
+<td>调度</td>
+<td>Hangfire</td>
+</tr>
+<tr>
+<td>实时推送</td>
+<td>SignalR</td>
+</tr>
+<tr>
+<td>日志</td>
+<td>Serilog → Elasticsearch</td>
+</tr>
+<tr>
+<td>AI</td>
+<td>OpenAI 兼容 API</td>
+</tr>
+<tr>
+<td>迁移</td>
+<td>FluentMigrator</td>
+</tr>
+<tr>
+<td>前端</td>
+<td>Vue 3 + Element Plus + Axios</td>
+</tr>
+<tr>
+<td>认证</td>
+<td>JWT + PBKDF2-SHA256 + RBAC</td>
+</tr>
+</tbody>
+</table>
+<h2>项目结构</h2>
+<pre><code>src/
+&lt;div class=&quot;diagram&quot;&gt;├── AutoTest.Core/           领域模型、接口、枚举
+├── AutoTest.Application/    应用服务、编排器、Pipeline、DTO
+├── AutoTest.Execution/      HTTP/TCP/DB/Python 执行引擎 + DSL 步骤执行器
+├── AutoTest.Assertions/     断言评估器
+├── AutoTest.Workflow/       DSL 解析、Schema 校验、DAG 执行、断路、进度持久化
+├── AutoTest.Infrastructure/ 仓储(Dapper)、HostedService、Outbox、SignalR
+├── AutoTest.Migrations/     FluentMigrator 迁移
+├── AutoTest.Webapi/         ASP.NET Core 主机、Controller
+├── AutoTest.Cli/            命令行工具（本地 DSL 执行、CI/CD 集成）
+├── Auth/                    JWT 签发/验证、RBAC
+├── common/CacheCommons/     防击穿 MemoryCache
+├── common/LockCommons/      Redis 分布式锁&lt;/div&gt;
+AutoTestWeb/                 Vue 3 前端
+examples/                    DSL 模板示例
+</code></pre>
+<h2>文档索引</h2>
+<table>
+<thead>
+<tr>
+<th>文档</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="architecture.md">架构详解</a></td>
+<td>分层架构、每层职责、数据流</td>
+</tr>
+<tr>
+<td><a href="database.md">数据库设计</a></td>
+<td>表结构、迁移列表</td>
+</tr>
+<tr>
+<td><a href="usage-guide.md">使用指南</a></td>
+<td>API 参考、DSL 语法、CI/CD 集成</td>
+</tr>
+</tbody>
+</table><footer>AutoTest 文档 · 最后更新 2026-05-11</footer></body></html>

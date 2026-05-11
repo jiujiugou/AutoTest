@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>autotest</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoTest.Core\AutoTest.Core.csproj" />
+    <ProjectReference Include="..\AutoTest.Application\AutoTest.Application.csproj" />
+    <ProjectReference Include="..\AutoTest.Workflow\AutoTest.Workflow.csproj" />
+    <ProjectReference Include="..\AutoTest.Execution\AutoTest.Execution.csproj" />
+    <ProjectReference Include="..\AutoTest.Assertions\AutoTest.Assertions.csproj" />
+    <ProjectReference Include="..\AutoTest.Infrastructure\AutoTest.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="7.*" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.*" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,25 @@
+name: AutoTest Integration Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  autotest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build CLI
+        run: dotnet build src/AutoTest.Cli/AutoTest.Cli.csproj -c Release
+
+      - name: Run DSL smoke test
+        run: dotnet run --project src/AutoTest.Cli -- run ./tests/workflows/smoke.dsl.json --json
+        env:
+          AUTO_TEST_BASE_URL: ${{ vars.AUTO_TEST_BASE_URL || 'http://localhost:5033' }}

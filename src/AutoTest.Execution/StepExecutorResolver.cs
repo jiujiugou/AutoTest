@@ -2,6 +2,9 @@ using AutoTest.Core.Dsl;
 
 namespace AutoTest.Execution;
 
+/// <summary>
+/// 从 DI 容器收集所有 <see cref="IStepExecutor"/> 实现，按 Type 索引查找。
+/// </summary>
 internal class StepExecutorResolver : IStepExecutorResolver
 {
     private readonly Dictionary<string, IStepExecutor> _executors;

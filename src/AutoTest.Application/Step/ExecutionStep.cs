@@ -22,22 +22,8 @@ public class ExecutionStep : IPipelineStep
     /// <inheritdoc />
     public async Task InvokeAsync(PipelineContext context, Func<Task> next)
     {
-        if (context.Monitor.IsTemplate)
-        {
-            await next();
-            return;
-        }
-
-        try
-        {
-            var engine = _engineResolver.Resolve(context.Monitor.Target);
-            context.Result = await engine.ExecuteAsync(context.Monitor.Target);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "ExecutionStep failed");
-            throw;
-        }
+        var engine = _engineResolver.Resolve(context.Monitor.Target);
+        context.Result = await engine.ExecuteAsync(context.Monitor.Target);
 
         await next();
     }

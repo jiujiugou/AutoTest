@@ -343,7 +343,7 @@ public class MonitorService : IMonitorService
         return (stats, topErrors);
     }
 
-    public async Task<(bool Started, Guid ExecutionId, DateTime StartedAtUtc)> TryStartExecutionAsync(Guid monitorId, string? idempotencyKey, string lockedBy)
+    public async Task<(bool Started, Guid ExecutionId, DateTime StartedAtUtc)> TryStartExecutionAsync(Guid monitorId, string? idempotencyKey, string lockedBy, Guid? planRunId = null)
     {
         if (!string.IsNullOrWhiteSpace(idempotencyKey))
         {
@@ -371,7 +371,8 @@ public class MonitorService : IMonitorService
                     idempotencyKey,
                     lockedBy,
                     heartbeatAtUtc: startedAtUtc,
-                    tx);
+                    tx,
+                    planRunId);
 
                 if (!inserted)
                     throw new DuplicateExecutionException(idempotencyKey!);

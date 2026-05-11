@@ -53,6 +53,11 @@ public class ExecutionRecord : IAggregateRoot
     /// </summary>
     public string ResultJson { get; private set; }
 
+    /// <summary>
+    /// 关联的测试计划批次 ID（非计划内执行则为 null）。
+    /// </summary>
+    public Guid? PlanRunId { get; private set; }
+
     public ExecutionRecord()
     {
         ResultType = null!;
@@ -68,7 +73,8 @@ public class ExecutionRecord : IAggregateRoot
         bool isExecutionSuccess,
         string? errorMessage,
         string resultType,
-        string resultJson)
+        string resultJson,
+        Guid? planRunId = null)
     {
         Id = id;
         MonitorId = monitorId;
@@ -79,5 +85,6 @@ public class ExecutionRecord : IAggregateRoot
         ErrorMessage = errorMessage;
         ResultType = resultType;
         ResultJson = resultJson;
+        PlanRunId = planRunId;
     }
 }

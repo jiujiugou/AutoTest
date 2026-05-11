@@ -7,6 +7,9 @@ using AutoTest.Execution.Tcp;
 
 namespace AutoTest.Execution;
 
+/// <summary>
+/// TCP 步骤执行器：将 DSL input 反序列化为 <see cref="TcpTarget"/>，委托 <see cref="TcpExecutionEngine"/> 执行。
+/// </summary>
 internal class TcpStepExecutor : IStepExecutor
 {
     public string Type => "tcp";

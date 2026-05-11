@@ -1,0 +1,18 @@
+{
+  "steps": [
+    {
+      "name": "httpbin-get",
+      "type": "http",
+      "input": {
+        "url": "https://httpbin.org/get",
+        "method": "Get",
+        "timeout": 15
+      },
+      "assertions": [
+        { "field": "StatusCode", "operator": "Equal", "expected": "200" }
+      ],
+      "onFailure": "skip"
+    }
+  ],
+  "timeout": 30
+}
