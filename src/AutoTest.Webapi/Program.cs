@@ -311,4 +311,27 @@ app.MapHealthChecks("/health/ready", new HealthCheckOptions
     }
 });
 
+app.MapGet("/metrics", (AutoTest.Infrastructure.Metrics.MetricsCollector metrics) =>
+{
+    var snap = metrics.Snapshot();
+    return Results.Ok(new
+    {
+        execution = new
+        {
+            total = snap.ExecutionTotal,
+            success = snap.ExecutionSuccess,
+            fail = snap.ExecutionFail,
+            successRate = snap.ExecutionSuccessRate.ToString("P1"),
+            avgMs = snap.ExecutionAvgMs.ToString("F0")
+        },
+        aiAnalysis = new
+        {
+            total = snap.AiAnalysisTotal,
+            fail = snap.AiAnalysisFail,
+            avgMs = snap.AiAnalysisAvgMs.ToString("F0")
+        },
+        timestamp = snap.Timestamp
+    });
+});
+
 app.Run();

@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using AutoTest.AI;
 using AutoTest.Application;
 using AutoTest.Core.AI;
 using AutoTest.Core.Repositories;
+using AutoTest.Infrastructure.Metrics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -16,16 +18,22 @@ namespace AutoTest.Infrastructure.AI
         private readonly ILogger<AiWorker> _logger;
         private readonly AiWorkerOptions _opts;
         private readonly string _modelId;
+        private readonly AiCircuitBreaker _breaker;
+        private readonly MetricsCollector _metrics;
 
         public AiWorker(
             IServiceScopeFactory scopeFactory,
             IOptions<AiWorkerOptions> options,
             IOptions<AiOptions> aiOptions,
+            AiCircuitBreaker breaker,
+            MetricsCollector metrics,
             ILogger<AiWorker> logger)
         {
             _scopeFactory = scopeFactory;
             _opts = options.Value;
             _modelId = aiOptions.Value.ModelId;
+            _breaker = breaker;
+            _metrics = metrics;
             _logger = logger;
         }
 
@@ -114,32 +122,56 @@ namespace AutoTest.Infrastructure.AI
                 }
 
                 string? resultJson = null;
+                var aiCalled = false;
+                var aiSw = Stopwatch.StartNew();
 
-                // ✅ 重试（指数退避）
-                for (int i = 0; i < 3; i++)
+                // 熔断检查
+                if (_breaker.IsOpen)
                 {
-                    try
+                    _logger.LogWarning("AI 熔断中，跳过 Task {TaskId}，使用 fallback", task.Id);
+                }
+                else
+                {
+                    // ✅ 重试（指数退避）
+                    for (int i = 0; i < 3; i++)
                     {
-                        resultJson = await aiClient.AnalyzeAsync(fullPrompt, ct);
+                        try
+                        {
+                            aiCalled = true;
+                            resultJson = await aiClient.AnalyzeAsync(fullPrompt, ct);
 
-                        // ✅ 校验 JSON
-                        if (IsValidJson(resultJson))
-                            break;
+                            if (IsValidJson(resultJson))
+                                break;
 
-                        throw new Exception("Invalid JSON returned");
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogWarning(ex, "Retry {Retry} failed", i + 1);
-
-                        await Task.Delay((int)Math.Pow(2, i) * 1000, ct);
+                            resultJson = null;
+                            throw new Exception("Invalid JSON returned");
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogWarning(ex, "AI call retry {Retry} failed for task {TaskId}", i + 1, task.Id);
+                            await Task.Delay((int)Math.Pow(2, i) * 1000, ct);
+                        }
                     }
                 }
 
-                // ❌ 彻底失败 fallback
-                if (resultJson == null)
+                // 熔断记录：只记录实际发出的调用
+                if (aiCalled)
                 {
+                    if (resultJson != null)
+                        _breaker.RecordSuccess();
+                    else
+                        _breaker.RecordFailure();
+                }
+
+                if (resultJson == null)
                     resultJson = BuildFallbackJson();
+
+                aiSw.Stop();
+                if (aiCalled)
+                {
+                    _metrics.RecordAiAnalysis(aiSw.ElapsedMilliseconds);
+                    if (resultJson == null)
+                        _metrics.RecordAiAnalysisFailure();
                 }
 
                 var output = SafeDeserialize(resultJson);

@@ -18,4 +18,10 @@ public class AiWorkerOptions
     public int EsWindowSeconds { get; set; } = 30;
     public int EsTake { get; set; } = 120;
     public int MaxRetries { get; set; } = 5;
+
+    /// <summary>AI 熔断：连续失败次数阈值 (0 = 禁用)</summary>
+    public int CircuitBreakerThreshold { get; set; } = 3;
+
+    /// <summary>AI 熔断：断开后冷却时间（毫秒）</summary>
+    public int CircuitBreakerCooldownMs { get; set; } = 60_000;
 }

@@ -1,7 +1,10 @@
+using System.Diagnostics;
 using AutoTest.Application;
 using AutoTest.Core;
 using AutoTest.Core.Abstraction;
 using AutoTest.Core.Execution;
+using AutoTest.Infrastructure.Hubs;
+using AutoTest.Infrastructure.Metrics;
 using Hangfire;
 using LockCommons;
 using Microsoft.AspNetCore.SignalR;
@@ -11,23 +14,25 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-using AutoTest.Infrastructure.Hubs;
 
 namespace AutoTest.Infrastructure
 {
     internal class WorkflowJob
     {
-        private readonly RedisLockService _redisLockService;
+        private readonly IDistributedLock _distributedLock;
         private readonly IServiceProvider _serviceProvider;
         private readonly ILogger<WorkflowJob> _logger;
         private readonly IHubContext<MonitorHub> _hub;
+        private readonly MetricsCollector _metrics;
 
-        public WorkflowJob(IServiceProvider serviceProvider, ILogger<WorkflowJob> logger, RedisLockService redisLockService, IHubContext<MonitorHub> hub)
+        public WorkflowJob(IServiceProvider serviceProvider, ILogger<WorkflowJob> logger,
+            IDistributedLock distributedLock, IHubContext<MonitorHub> hub, MetricsCollector metrics)
         {
             _serviceProvider = serviceProvider;
             _logger = logger;
-            _redisLockService = redisLockService;
+            _distributedLock = distributedLock;
             _hub = hub;
+            _metrics = metrics;
         }
 
         public async Task RunAsync(Guid monitorId)
@@ -45,16 +50,18 @@ namespace AutoTest.Infrastructure
         {
             var redisKey = $"monitor-lock:{monitorId}";
 
-            await using var myLock = _redisLockService.CreateLock($"{redisKey}", TimeSpan.FromSeconds(10));
-            if (!await myLock.AcquireAsync())
+            var handle = await _distributedLock.AcquireAsync(redisKey, TimeSpan.FromSeconds(10));
+            if (handle == null)
             {
                 _logger.LogInformation("Monitor {Id} is already being processed by another instance.", monitorId);
                 return;
             }
+            await using var _ = handle;
+
             _logger.LogInformation("WorkflowJob started for monitor: {Id}", monitorId);
             try
             {
-               
+
                 using var scope = _serviceProvider.CreateScope();
                 var monitorRepository = scope.ServiceProvider.GetRequiredService<IMonitorRepository>();
                 var orchestrator = scope.ServiceProvider.GetRequiredService<IOrchestrator>();
@@ -113,12 +120,22 @@ namespace AutoTest.Infrastructure
                         }
                     }, heartbeatCts.Token);
 
+                    var execSw = Stopwatch.StartNew();
+                    var execSuccess = false;
                     try
                     {
                         await orchestrator.TryExecuteAsync(monitor, start.ExecutionId, start.StartedAtUtc, lockedBy);
+                        execSuccess = true;
+                    }
+                    catch
+                    {
+                        execSuccess = false;
+                        throw;
                     }
                     finally
                     {
+                        execSw.Stop();
+                        _metrics.RecordExecution(execSuccess, execSw.ElapsedMilliseconds);
                         heartbeatCts.Cancel();
                         try { await heartbeatTask; } catch { }
                     }
@@ -190,14 +207,6 @@ namespace AutoTest.Infrastructure
              }
             finally
             {
-                try
-                {
-                    await myLock.ReleaseAsync();
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "Failed to release lock for monitor: {Id}", monitorId);
-                }
                 _logger.LogInformation("WorkflowJob completed for monitor: {Id}", monitorId);
             }
         }

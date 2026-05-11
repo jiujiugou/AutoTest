@@ -5,6 +5,7 @@ using AutoTest.Execution.Http;
 using AutoTest.Execution.Python;
 using AutoTest.Execution.Tcp;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace AutoTest.Execution;
 
@@ -30,6 +31,12 @@ public static class ExecutionServiceCollectionExtensions
 
         services.AddScoped<IStepExecutorResolver, StepExecutorResolver>();
         services.AddScoped<IHttpClient, FlurlHttpClient>();
+
+        // Python 沙箱
+        services.AddSingleton<DockerPythonSandbox>(sp => new DockerPythonSandbox(
+            sp.GetRequiredService<PythonSandboxOptions>(),
+            sp.GetRequiredService<ILogger<DockerPythonSandbox>>()));
+
         return services;
     }
 }

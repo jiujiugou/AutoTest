@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace LockCommons;
 
@@ -6,9 +7,14 @@ public static class LockServiceCollectionExtensions
 {
     public static IServiceCollection AddRedisLock(this IServiceCollection services, string connectionString)
     {
-        services.AddSingleton(new RedisLockService(connectionString));
-        services.AddSingleton<IDistributedLock>(sp => new RedisDistributedLockAdapter(
-            sp.GetRequiredService<RedisLockService>()));
+        var redisService = new RedisLockService(connectionString);
+        services.AddSingleton(redisService);
+        services.AddSingleton<IDistributedLock>(sp =>
+        {
+            var redisAdapter = new RedisDistributedLockAdapter(redisService);
+            return new FallbackDistributedLock(redisAdapter,
+                sp.GetRequiredService<ILogger<FallbackDistributedLock>>());
+        });
         return services;
     }
 }

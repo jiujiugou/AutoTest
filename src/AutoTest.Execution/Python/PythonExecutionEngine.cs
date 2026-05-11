@@ -10,17 +10,19 @@ using System.Text;
 namespace AutoTest.Execution.Python
 {
     /// <summary>
-    /// Python 脚本执行引擎（跨平台支持 Windows / Linux / macOS）
+    /// Python 脚本执行引擎（支持 Docker 沙箱 / 直接进程两种模式）
     /// </summary>
     internal class PythonExecutionEngine : IExecutionEngine
     {
         private readonly ILogger<PythonExecutionEngine> _logger;
+        private readonly DockerPythonSandbox? _sandbox;
 
         private static readonly ConcurrentDictionary<string, SemaphoreSlim> _semaphores = new();
 
-        public PythonExecutionEngine(ILogger<PythonExecutionEngine> logger)
+        public PythonExecutionEngine(ILogger<PythonExecutionEngine> logger, DockerPythonSandbox? sandbox = null)
         {
             _logger = logger;
+            _sandbox = sandbox;
         }
 
         public bool CanExecute(MonitorTarget target) => target is PythonTarget;
@@ -92,6 +94,33 @@ namespace AutoTest.Execution.Python
                 scriptPath = tempScriptPath;
             }
 
+            // Docker 沙箱模式
+            if (_sandbox?.IsAvailable == true)
+            {
+                try
+                {
+                    var result = await _sandbox.RunAsync(pyTarget, scriptPath, pyTarget.TimeoutSeconds, ct);
+
+                    return BuildResultAndCleanup(tempScriptPath,
+                        new PythonExecutionResult(
+                            result.ExitCode,
+                            result.StdOut,
+                            result.StdErr,
+                            Array.Exists(pyTarget.SuccessExitCodes, c => c == result.ExitCode),
+                            result.ElapsedMs,
+                            result.TimedOut,
+                            result.ErrorMessage,
+                            BuildCommandLinePreview(pyTarget, scriptPath)
+                        ));
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Docker 沙箱执行失败，回退到直接进程执行");
+                    // Docker 挂了就回退进程模式，不丢任务
+                }
+            }
+
+            // 直接进程模式 (fallback)
             var startInfo = new ProcessStartInfo
             {
                 FileName = pyTarget.PythonExecutable,

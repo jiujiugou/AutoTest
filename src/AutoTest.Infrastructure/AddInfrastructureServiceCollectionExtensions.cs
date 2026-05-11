@@ -3,6 +3,7 @@ using AutoTest.Application;
 using AutoTest.Application.Builder;
 using AutoTest.Core.Abstraction;
 using AutoTest.Core.AI;
+using AutoTest.Core.Execution;
 using AutoTest.Core.Dsl;
 using AutoTest.Core.Repositories;
 using AutoTest.Infrastructure.AI;
@@ -79,8 +80,13 @@ public static class AddInfrastructureServiceCollectionExtensions
         services.AddScoped<IDashboardService, DashboardService>();
         services.Configure<AiOptions>(configuration.GetSection("AI"));
         services.Configure<AiWorkerOptions>(configuration.GetSection("AI:Worker"));
+
+        var sandboxOpts = configuration.GetSection("PythonSandbox").Get<PythonSandboxOptions>() ?? new();
+        services.AddSingleton(sandboxOpts);
         services.AddScoped<ILogService, LogService>();
         services.AddScoped<IAnalysisRepository, AnalysisRepository>();
+        services.AddSingleton<AiCircuitBreaker>();
+        services.AddSingleton<Metrics.MetricsCollector>();
         services.AddHostedService<AiWorker>();
         services.AddScoped<ITargetMap, HttpTargetMap>();
         services.AddScoped<ITargetMap, TcpTargetMap>();
