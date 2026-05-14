@@ -11,28 +11,19 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     private readonly IDbConnection _dbConnection;
     private IDbTransaction? _transaction;
 
-    /// <summary>
-    /// 当前活动事务。
-    /// </summary>
-    /// <exception cref="InvalidOperationException">当没有开启事务时抛出。</exception>
     public IDbTransaction Transaction =>
         _transaction ?? throw new InvalidOperationException("No active transaction");
 
-    /// <summary>
-    /// 初始化 <see cref="UnitOfWork"/> 并确保连接处于打开状态。
-    /// </summary>
-    /// <param name="dbConnection">数据库连接。</param>
-    public UnitOfWork(IDbConnection dbConnection)
+    public UnitOfWork(IDbConnectionFactory connectionFactory)
     {
-        _dbConnection = dbConnection;
-
-        if (_dbConnection.State != ConnectionState.Open)
-            _dbConnection.Open();
+        _dbConnection = connectionFactory.CreateConnection();
+        _dbConnection.Open();
     }
 
     /// <summary>
     /// 开启事务（如果尚未开启）。
     /// </summary>
+    [System.Diagnostics.DebuggerStepThrough]
     public Task BeginAsync()
     {
         if (_transaction != null)
@@ -45,6 +36,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     /// <summary>
     /// 提交事务；若提交失败则回滚并抛出异常。
     /// </summary>
+    [System.Diagnostics.DebuggerStepThrough]
     public Task CommitAsync()
     {
         try
@@ -64,9 +56,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// 回滚事务并清理事务对象。
-    /// </summary>
+    [System.Diagnostics.DebuggerStepThrough]
     public Task RollbackAsync()
     {
         try
@@ -84,7 +74,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     /// <summary>
     /// 在一个事务中执行指定操作：自动 Begin/Commit；发生异常时自动 Rollback。
     /// </summary>
-    /// <param name="action">事务内操作。</param>
+    [System.Diagnostics.DebuggerStepThrough]
     public async Task ExecuteAsync(Func<IDbTransaction, Task> action)
     {
         await BeginAsync();

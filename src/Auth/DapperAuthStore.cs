@@ -276,6 +276,12 @@ public sealed class DapperAuthStore : IAuthStore
         return rows > 0;
     }
 
+    public async Task UpdateLastLoginAsync(int userId, DateTime loginTime, CancellationToken cancellationToken)
+    {
+        const string sql = "UPDATE Users SET LastLoginAt = @LoginTime WHERE Id = @UserId";
+        await _db.ExecuteAsync(new CommandDefinition(sql, new { UserId = userId, LoginTime = loginTime }, cancellationToken: cancellationToken));
+    }
+
     /// <summary>
     /// 软删除用户（保留数据用于审计）
     /// </summary>

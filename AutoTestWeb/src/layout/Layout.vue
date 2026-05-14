@@ -36,6 +36,10 @@
           <el-icon><User /></el-icon>
           <template #title>权限管理</template>
         </el-menu-item>
+        <el-menu-item v-if="hasPerm('api.settings.manage')" index="/users">
+          <el-icon><UserFilled /></el-icon>
+          <template #title>用户管理</template>
+        </el-menu-item>
         <el-menu-item v-if="hasPerm('ui.menu.log')" index="/log">
           <el-icon><Document /></el-icon>
           <template #title>系统日志</template>
@@ -92,7 +96,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import {
   DataBoard, Monitor, Operation, User,
-  Document, Collection,
+  Document, Collection, UserFilled,
   Fold, Expand, ArrowDown
 } from '@element-plus/icons-vue'
 
@@ -122,7 +126,8 @@ const routeNameMap = {
 
   '/person': '个人中心',
 
-  '/RbacAdmin': '权限管理'
+  '/RbacAdmin': '权限管理',
+  '/users': '用户管理'
 }
 
 const currentRouteName = computed(() => routeNameMap[route.path] || '页面')

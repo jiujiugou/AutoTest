@@ -9,6 +9,7 @@ import Log from '../views/Log.vue'
 import Login from '../views/Login.vue'
 import Person from '../views/Person.vue'
 import RbacAdmin from '../views/RbacAdmin.vue'
+import Users from '../views/Users.vue'
 const routes = [
   { path: '/login', component: Login },
 
@@ -24,7 +25,8 @@ const routes = [
       { path: '/log', component: Log },
       { path: '/person', component: Person },
 
-      { path: '/RbacAdmin', component: RbacAdmin }
+      { path: '/RbacAdmin', component: RbacAdmin },
+      { path: '/users', component: Users }
     ]
   },
 

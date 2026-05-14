@@ -6,6 +6,7 @@
     <ProjectReference Include="..\..\src\AutoTest.Execution\AutoTest.Execution.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Assertions\AutoTest.Assertions.csproj" />
     <ProjectReference Include="..\..\src\AutoTest.Webapi\AutoTest.Webapi.csproj" />
+    <ProjectReference Include="..\..\src\common\CacheCommons\CacheCommons.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="8.9.0" />

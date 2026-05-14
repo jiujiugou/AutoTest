@@ -35,6 +35,11 @@ public interface IAuthStore
         bool isActive,
         CancellationToken cancellationToken);
     Task<bool> DeleteAsync(int id);
+
+    /// <summary>
+    /// 更新用户最后登录时间
+    /// </summary>
+    Task UpdateLastLoginAsync(int userId, DateTime loginTime, CancellationToken cancellationToken);
     // =====================================================
     //  用户角色管理（RBAC 第一层）
     // =====================================================

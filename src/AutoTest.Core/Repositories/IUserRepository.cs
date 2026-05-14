@@ -44,6 +44,14 @@ namespace AutoTest.Core.Repositories
         /// <returns>返回新用户ID</returns>
         Task<int> CreateAsync(User user);
 
-        
+        /// <summary>
+        /// 更新用户信息
+        /// </summary>
+        Task<bool> UpdateAsync(User user);
+
+        /// <summary>
+        /// 软删除用户（设置 IsActive = 0）
+        /// </summary>
+        Task<bool> DeleteAsync(int id);
     }
 }

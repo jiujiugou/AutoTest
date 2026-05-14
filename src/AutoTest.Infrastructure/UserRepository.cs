@@ -88,39 +88,33 @@ namespace Identity
             };
         }
 
-        /// <summary>
-        /// 创建用户（待实现）
-        /// </summary>
-        /// <param name="user">用户实体</param>
-        /// <returns>新用户ID</returns>
-        public Task<int> CreateAsync(User user)
+        public async Task<int> CreateAsync(User user)
         {
-            // TODO: INSERT INTO Users ...
-            throw new NotImplementedException();
+            var sql = """
+                INSERT INTO Users (Username, IsActive, PasswordHash, CreatedAt)
+                OUTPUT INSERTED.Id
+                VALUES (@Username, @IsActive, '', GETDATE());
+                """;
+            return await _conn.ExecuteScalarAsync<int>(sql, user);
         }
 
-        /// <summary>
-        /// 更新用户信息（待实现）
-        /// 可用于：用户名、密码、状态、角色绑定等
-        /// </summary>
-        /// <param name="user">用户实体</param>
-        /// <returns>是否更新成功</returns>
-        public Task<bool> UpdateAsync(User user)
+        public async Task<bool> UpdateAsync(User user)
         {
-            // TODO: UPDATE Users SET ...
-            throw new NotImplementedException();
+            var sql = """
+                UPDATE Users
+                SET Username = @Username, IsActive = @IsActive
+                WHERE Id = @Id;
+                """;
+            var rows = await _conn.ExecuteAsync(sql, user);
+            return rows > 0;
         }
 
-        /// <summary>
-        /// 删除用户（待实现）
-        /// 建议改为软删除（IsActive = 0）
-        /// </summary>
-        /// <param name="id">用户ID</param>
-        /// <returns>是否删除成功</returns>
-        public Task<bool> DeleteAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
-            // TODO: UPDATE Users SET IsActive = 0 WHERE Id = @Id
-            throw new NotImplementedException();
+            var rows = await _conn.ExecuteAsync(
+                "UPDATE Users SET IsActive = 0 WHERE Id = @Id",
+                new { Id = id });
+            return rows > 0;
         }
     }
 }

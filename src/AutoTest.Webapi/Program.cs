@@ -63,15 +63,14 @@ builder.Services.AddAutoTestApplication(); // 注册应用层服务
 builder.Services.AddAutoTestInfrastructure(builder.Configuration); // 注册基础设施服务
 builder.Services.AddHostedService<DatabaseWarmupHostedService>();
 
-builder.Services.AddScoped<IDbConnection>(_ =>
+var dbCsb = new SqlConnectionStringBuilder(builder.Configuration.GetConnectionString("DefaultConnection")!)
 {
-    var cs = builder.Configuration.GetConnectionString("DefaultConnection");
-    var csb = new SqlConnectionStringBuilder(cs)
-    {
-        MinPoolSize = 5
-    };
-    return new SqlConnection(csb.ConnectionString);
-});
+    MinPoolSize = 5,
+    MultipleActiveResultSets = true
+};
+builder.Services.AddSingleton<IDbConnectionFactory>(new DbConnectionFactory(dbCsb.ConnectionString));
+builder.Services.AddScoped<IDbConnection>(sp =>
+    sp.GetRequiredService<IDbConnectionFactory>().CreateConnection());
 
 //修改 1：修复跨域配置，支持 SignalR 的 Credentials 要求
 if (builder.Environment.IsDevelopment())
@@ -268,10 +267,11 @@ using (var scope = app.Services.CreateScope())
         }
     }
 }
-app.MapGet("/health", async (IDbConnection db) =>
+app.MapGet("/health", async (IDbConnectionFactory factory) =>
 {
     try
     {
+        using var db = factory.CreateConnection();
         await db.QueryAsync("SELECT 1");
         return Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow });
     }

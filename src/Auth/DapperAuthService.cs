@@ -67,6 +67,22 @@ public sealed class DapperAuthService : IAuthService
         var hash = _passwordHasher.Hash(password);
         await _store.CreateUserAsync(username, hash, "user", DateTime.UtcNow, cancellationToken);
     }
+
+    public async Task<int> CreateUserAsync(string username, string password, string role, CancellationToken cancellationToken)
+    {
+        var hash = _passwordHasher.Hash(password);
+        return await _store.CreateUserAsync(username, hash, role, DateTime.UtcNow, cancellationToken);
+    }
+
+    public async Task UpdateUserProfileAsync(int userId, string username, bool isActive, CancellationToken cancellationToken)
+    {
+        await _store.UpdateUserProfileAsync(userId, username, isActive, cancellationToken);
+    }
+
+    public async Task DeleteUserAsync(int userId, CancellationToken cancellationToken)
+    {
+        await _store.DeleteAsync(userId);
+    }
     /// <inheritdoc />
     public async Task<LoginResult> LoginAsync(string username, string password, CancellationToken cancellationToken)
     {
@@ -92,6 +108,8 @@ public sealed class DapperAuthService : IAuthService
 
         // Successful login — clear failed attempts
         _failedLogins.TryRemove(key, out _);
+
+        await _store.UpdateLastLoginAsync(user.Id, DateTime.UtcNow, cancellationToken);
 
         var permissions = await GetEffectivePermissionsAsync(user, cancellationToken);
         var accessToken = _tokenIssuer.GenerateAccessToken(user.Username, user.Role, permissions);

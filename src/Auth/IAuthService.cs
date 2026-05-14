@@ -15,9 +15,14 @@ public interface IAuthService
     Task BootstrapAdminAsync(string username, string password, CancellationToken cancellationToken);
     /// <summary>增加用户</summary>
     Task AddUserAsync(string username, string password, CancellationToken cancellationToken);
+    /// <summary>管理员创建用户（无用户数限制检查）</summary>
+    Task<int> CreateUserAsync(string username, string password, string role, CancellationToken cancellationToken);
     /// <summary>修改用户密码/// </summary>
-    Task UpdateUserPasswordAsync(int id,string password, CancellationToken cancellationToken);
+    Task UpdateUserPasswordAsync(int id, string password, CancellationToken cancellationToken);
     /// <summary>修改用户角色/// </summary>
     Task UpdateUserRoleAsync(int id, string roleName, CancellationToken cancellationToken);
-
+    /// <summary>修改用户基本信息</summary>
+    Task UpdateUserProfileAsync(int userId, string username, bool isActive, CancellationToken cancellationToken);
+    /// <summary>软删除用户</summary>
+    Task DeleteUserAsync(int userId, CancellationToken cancellationToken);
 }

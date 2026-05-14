@@ -40,7 +40,9 @@ public static class CliServiceCollectionExtensions
             ?? throw new InvalidOperationException("Missing connection string");
 
         // DB
-        services.AddScoped<IDbConnection>(_ => new SqlConnection(connectionString));
+        services.AddSingleton<IDbConnectionFactory>(new DbConnectionFactory(connectionString));
+        services.AddScoped<IDbConnection>(sp =>
+            sp.GetRequiredService<IDbConnectionFactory>().CreateConnection());
 
         // Unit of work
         services.AddScoped<IUnitOfWork, UnitOfWork>();
